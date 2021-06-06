@@ -18,5 +18,5 @@ pack:
     paths:
       - calendar-weather.zip
   when: on_success
-  # only:
-  #   - tags
+  only:
+    - tags
