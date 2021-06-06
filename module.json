@@ -17,7 +17,7 @@
   ],
   "url": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather",
   "manifest": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json",
-  "download": "https://gitlab.com/foundry-test/foundryvtt-calendar-weather/-/jobs/artifacts/3.1.2/raw/calendar-weather.zip?job=pack",
+  "download": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/jobs/artifacts/v3.1.2/raw/calendar-weather.zip?job=pack",
   "esmodules": [
     "init.mjs",
     "modules/registerSettings.mjs",
