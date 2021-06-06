@@ -2,9 +2,9 @@
 
 
 
-Calendar/Weather Version: 
-FoundryVTT Version: 
-About-Time version: 
+- Calendar/Weather Version: 
+- FoundryVTT Version: 
+- About-Time version: 
 
 ### Steps to reproduce the issue
 
