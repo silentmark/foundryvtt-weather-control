@@ -7,7 +7,7 @@ before_script:
 stages:
   - pack
 
-Pack Release:
+pack:
   stage: pack
   script:
     - zip -r calendar-weather.zip ./* -x './package/*' -x './releases/*'
