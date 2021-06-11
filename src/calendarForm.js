@@ -1,6 +1,6 @@
-import { _myCalendarSpec, DateTime } from "./dateTime.mjs";
-import { Month } from "./month.mjs";
-import { cwdtData } from "../init.mjs";
+import { _myCalendarSpec, DateTime } from "./dateTime.js";
+import { Month } from "./month.js";
+import { cwdtData } from "./index.js";
 
 export class CalendarForm extends FormApplication {
   data = {};

@@ -1,9 +1,9 @@
-import  { CalendarEvents } from "./calendarEvents.mjs";
-import { _myCalendarSpec, DateTime } from "./dateTime.mjs";
-import { Month } from "./month.mjs";
-import { WeatherTracker } from "./weatherTracker.mjs";
-import { CalendarForm } from "./calendarForm.mjs";
-import { cwdtData } from "../init.mjs";
+import  { CalendarEvents } from "./calendarEvents.js";
+import { _myCalendarSpec, DateTime } from "./dateTime.js";
+import { Month } from "./month.js";
+import { WeatherTracker } from "./weatherTracker.js";
+import { CalendarForm } from "./calendarForm.js";
+import { cwdtData } from "./index.js";
 
 
 export class Calendar extends Application {

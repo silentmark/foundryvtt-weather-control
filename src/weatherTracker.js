@@ -1,4 +1,4 @@
-import { cwdtData } from "../init.mjs";
+import { cwdtData } from "./index.js";
 export class WeatherTracker {
     humidity = 0;
     temp = 0;

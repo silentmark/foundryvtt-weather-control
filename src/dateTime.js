@@ -1,6 +1,6 @@
-import { WeatherTracker } from "./weatherTracker.mjs";
-import { Month } from "./month.mjs";
-import { cwdtData } from "../init.mjs";
+import { WeatherTracker } from "./weatherTracker.js";
+import { Month } from "./month.js";
+import { cwdtData } from "./index.js";
 
 export var _myCalendarSpec = {
     "leap_year_rule": (year) => 0,

@@ -1,7 +1,7 @@
-import { registerSettings } from "./modules/registerSettings.mjs";
-import { DateTime } from "./modules/dateTime.mjs";
-import { Calendar } from "./modules/calendar.mjs";
-import { WarningSystem } from "./modules/warningSystem.mjs";
+import { registerSettings } from "./registerSettings.js";
+import { DateTime } from "./dateTime.js";
+import { Calendar } from "./calendar.js";
+import { WarningSystem } from "./warningSystem.js";
 
 export var cwdtData = {
   dt: new DateTime()

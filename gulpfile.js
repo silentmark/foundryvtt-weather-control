@@ -19,7 +19,7 @@ const CSS = 'css/';
 
 var PACKAGE = JSON.parse(fs.readFileSync('package.json'));
 function reloadPackage(cb) { PACKAGE = JSON.parse(fs.readFileSync('package.json')); cb(); }
-function DEV_DIST() { return PACKAGE.devDir + PACKAGE.name + '/'; }
+function DEV_DIST() { return process.env.npm_config_devdir + '/data/Data/modules/' + PACKAGE.name + '/'; }
 
 String.prototype.replaceAll = function (pattern, replace) { return this.split(pattern).join(replace); }
 function pdel(patterns, options) { return () => { return del(patterns, options); }; }
@@ -54,7 +54,8 @@ exports.step_buildSourceMin = buildSource(false, true);
  */
 function buildManifest(output = null) {
 	const files = []; // Collector for all the file paths
-	return (cb) => gulp.src(PACKAGE.main) // collect the source files
+	console.log('LANG', LANG)
+	return (cb) => gulp.src('src/' + PACKAGE.main) // collect the source files
 		.pipe(rename({ extname: '.js' })) // rename their extensions to `.js`
 		.pipe(gulp.src(CSS + GLOB)) // grab all the CSS files
 		.on('data', file => files.push(file.path.replace(file.base, file.base.replace(file.cwd + '/', '')))) // Collect all the file paths
@@ -80,7 +81,7 @@ exports.step_buildManifest = buildManifest();
 function outputLanguages(output = null) { return () => gulp.src(LANG + GLOB).pipe(gulp.dest((output || DIST) + LANG)); }
 function outputTemplates(output = null) { return () => gulp.src(TEMPLATES + GLOB).pipe(gulp.dest((output || DIST) + TEMPLATES)); }
 function outputStylesCSS(output = null) { return () => gulp.src(CSS + GLOB).pipe(gulp.dest((output || DIST) + CSS)); }
-function outputMetaFiles(output = null) { return () => gulp.src(['LICENSE', 'README.md', 'CHANGELOG.md']).pipe(gulp.dest((output || DIST))); }
+function outputMetaFiles(output = null) { return () => gulp.src(['LICENSE.md', 'README.md']).pipe(gulp.dest((output || DIST))); }
 
 /**
  * Copy files to module named directory and then compress that folder into a zip

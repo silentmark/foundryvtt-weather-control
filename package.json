@@ -13,16 +13,19 @@
     "url": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/issues"
   },
   "homepage": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather#readme",
-  "devDir": "/path/to/FoundryVTT/Data/modules/",
-  "main": "src/index.ts",
+  "main": "index.js",
   "scripts": {
     "build": "npx gulp",
     "watch": "npx gulp watch",
     "clean": "npx gulp clean",
+    "test": "echo $npm_config_devdir",
+    "check-env": "node -e 'console.log(process.env)' | grep npm",
     "devbuild": "npx gulp dev",
     "devwatch": "npx gulp devWatch",
+    "devwatch2": "npx gulp devWatch",
     "devclean": "npx gulp devClean",
     "release": "npx gulp zip",
+    "start-docker": "docker run -v ${npm_config_devdir}:/foundry -p 30000:30000 fithwum/foundry_vtt",
     "tag": "git tag -d ${npm_package_name}_${npm_package_version} 2>/dev/null ; git tag ${npm_package_name}_${npm_package_version} && git push -f origin ${npm_package_name}_${npm_package_version}"
   },
   "devDependencies": {
