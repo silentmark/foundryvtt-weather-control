@@ -264,7 +264,7 @@ $(document).ready(() => {
       let link = document.createElement('link');
       link.setAttribute('rel', 'stylesheet')
       link.type = 'text/css'
-      link.href = '/modules/calendar-weather/css/wfrpcalendar.css'
+      link.href = '/modules/calendar-weather/css/calendar.css'
 
       document.head.appendChild(link);
     }

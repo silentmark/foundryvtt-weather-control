@@ -16,6 +16,7 @@ const SOURCE = 'src/';
 const LANG = 'lang/';
 const TEMPLATES = 'templates/';
 const CSS = 'css/';
+const SCSS = 'scss/';
 
 var PACKAGE = JSON.parse(fs.readFileSync('package.json'));
 function reloadPackage(cb) { PACKAGE = JSON.parse(fs.readFileSync('package.json')); cb(); }
@@ -54,7 +55,6 @@ exports.step_buildSourceMin = buildSource(false, true);
  */
 function buildManifest(output = null) {
 	const files = []; // Collector for all the file paths
-	console.log('LANG', LANG)
 	return (cb) => gulp.src('src/' + PACKAGE.main) // collect the source files
 		.pipe(rename({ extname: '.js' })) // rename their extensions to `.js`
 		.pipe(gulp.src(CSS + GLOB)) // grab all the CSS files
@@ -165,13 +165,30 @@ exports.watch = function () {
 	gulp.watch(CSS + GLOB, gulp.series(pdel(DIST + CSS), outputStylesCSS()));
 	gulp.watch(['LICENSE', 'README.md', 'CHANGELOG.md'], outputMetaFiles());
 }
+
+var sass = require('gulp-sass');
+sass.compiler = require('node-sass');
+function buildSass(keepSources, minifySources = false, output = null) {
+	return () => {
+		return gulp.src(SCSS + GLOB)
+			.pipe(sass().on('error', sass.logError))
+			.pipe(gulp.dest((output || DIST) + CSS));
+	}
+}
+
 /**
  * Sets up a file watch on the project to detect any file changes and automatically rebuild those components, and then copy them to the Development Environment.
  */
 exports.devWatch = function () {
 	const devDist = DEV_DIST();
 	exports.dev();
-	gulp.watch(SOURCE + GLOB, gulp.series(plog('deleting: ' + devDist + SOURCE + GLOB), pdel(devDist + SOURCE + GLOB, { force: true }), buildSource(true, false, devDist), plog('sources done.')));
+	gulp.watch(SCSS + GLOB, gulp.series(
+		buildSass(true, false, devDist)));
+	gulp.watch(SOURCE + GLOB, gulp.series(
+		plog('deleting: ' + devDist + SOURCE + GLOB),
+		pdel(devDist + SOURCE + GLOB, { force: true }),
+		buildSource(true, false, devDist),
+		plog('sources done.')));
 	gulp.watch([CSS + GLOB, 'module.json', 'package.json'], gulp.series(reloadPackage, buildManifest(devDist), plog('manifest done.')));
 	gulp.watch(LANG + GLOB, gulp.series(pdel(devDist + LANG + GLOB, { force: true }), outputLanguages(devDist), plog('langs done.')));
 	gulp.watch(TEMPLATES + GLOB, gulp.series(pdel(devDist + TEMPLATES + GLOB, { force: true }), outputTemplates(devDist), plog('templates done.')));

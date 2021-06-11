@@ -12,11 +12,11 @@
 }
 
 /* CALENDER DISPLAY */
-
 #calendar-time-container #calendar {
 	flex: 1 0 255px;
 	min-width: 255px;
 }
+
 
 .calendar--header {
 	background: rgba(68,68,68,1);
@@ -278,7 +278,7 @@
 	text-align: center;
 	white-space: nowrap;
 	color: rgba(0,0,0,.9);
-	cursor: pointer; 
+	cursor: pointer;
 	transition: background .3s ease;
 }
 
@@ -360,7 +360,7 @@
 }
 
 #calendar-weather--container header select:hover {
-	background: rgba(255,255,255,.2); 
+	background: rgba(255,255,255,.2);
 }
 
 #calendar-weather--container header select:active,
@@ -390,7 +390,7 @@
   align-items: center;
   /*border-left: 1px solid rgba(255,255,255,.4);*/
   background: rgba(0,0,0,.5);
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .calendar-weather--temp-display {
