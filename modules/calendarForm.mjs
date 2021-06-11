@@ -182,7 +182,13 @@ export class CalendarForm extends FormApplication {
       ).value;
     }
 
+    savedData.hours = newDT.hours;
+    savedData.minutes = newDT.minutes;
+    savedData.seconds = newDT.seconds;
+
     savedData.numDayOfTheWeek = Number(weekdayTarget);
+    game.Gametime.setTime({hours: savedData.hours, minutes: savedData.minutes, seconds: savedData.seconds});
+    
     savedData.setTimeDisp();
     savedData.genAbbrev();
     let returnData = {
