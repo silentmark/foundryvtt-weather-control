@@ -1,4 +1,5 @@
-#calendar-time-container {
+.wfrp {
+  #calendar-time-container {
     border: 2px solid #540e0ec2 !important;
     border-image-slice: 24 20 19 17 !important;
     border-image-width: 20px 20px 20px 20px !important;
@@ -6,56 +7,58 @@
     border-image-repeat: repeat repeat !important;
     border-image-source: url(/systems/wfrp4e/ui/players-border.png) !important;
     background: none;
-}
+  }
 
-#calendar {
+  #calendar {
     border: none !important;
     border-radius: 0px !important;
-}
+  }
 
-.calendar--header {
+  .calendar--header {
     background: #290a0ad9;
-}
+  }
 
-.calendar--time-controls li{
+  .calendar--time-controls li {
     background: #290a0ad9;
     color: #ffffffb0;
-}
+  }
 
-.calendar--time-controls li:hover:not(.disabled) {
+  .calendar--time-controls li:hover:not(.disabled) {
     background: #650000d9;
-}
+  }
 
-#calendar-time-container.showWeather #weather {
+  #calendar-time-container.showWeather #weather {
     background: rgba(0, 0, 0, 0.88);
     font-family: CaslonPro;
-}
+  }
 
-#calendar-weather--container header {
+  #calendar-weather--container header {
     background: #290a0ad9;
-}
+  }
 
-#calendar-weather--container header select{
+  #calendar-weather--container header select {
     font-family: CaslonPro;
-}
+  }
 
-.calendar-weather--content {
+  .calendar-weather--content {
     background: none;
-}
+  }
 
-#calendar--moon-list.hasMoon{
+  #calendar--moon-list.hasMoon {
     border-bottom: 2px groove #23221d;
-}
+  }
 
-#calendar--date-display{
+  #calendar--date-display {
     border-bottom: 2px groove #23221d;
-}
+  }
 
-#calendar-weather--container header select:hover{
+  #calendar-weather--container header select:hover {
     background: #650000d9;
-}
+  }
 
-#calendar--time-controls li.disabled {
+  #calendar--time-controls li.disabled {
     cursor: not-allowed;
     background: #290a0aba;
+  }
+
 }

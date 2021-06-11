@@ -258,15 +258,11 @@ $(document).ready(() => {
         c.render(true);
       });
     }
+  });
 
-    if(game.data.system.data.name == "wfrp4e"){
-      console.log('\n\n\\n\n\n\n\ncalendar-weather | Using WFRP4E Styling\n\n\n\n\n\n\n\n')
-      let link = document.createElement('link');
-      link.setAttribute('rel', 'stylesheet')
-      link.type = 'text/css'
-      link.href = '/modules/calendar-weather/css/calendar.css'
-
-      document.head.appendChild(link);
+  Hooks.on("renderCalendar", () => {
+    if (!document.getElementById('calendar-time-container').classList.contains('wfrp') && game.data.system.data.name == "wfrp4e") {
+      document.getElementById('calendar-time-container').classList.add('wfrp');
     }
   });
 

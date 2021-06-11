@@ -172,7 +172,8 @@ function buildSass(keepSources, minifySources = false, output = null) {
 	return () => {
 		return gulp.src(SCSS + GLOB)
 			.pipe(sass().on('error', sass.logError))
-			.pipe(gulp.dest((output || DIST) + CSS));
+			.pipe(gulp.dest((output || DIST) + CSS))
+			.pipe(gulp.dest(CSS));
 	}
 }
 
@@ -183,7 +184,8 @@ exports.devWatch = function () {
 	const devDist = DEV_DIST();
 	exports.dev();
 	gulp.watch(SCSS + GLOB, gulp.series(
-		buildSass(true, false, devDist)));
+		buildSass(true, false, devDist)),
+		plog('scss done.'));
 	gulp.watch(SOURCE + GLOB, gulp.series(
 		plog('deleting: ' + devDist + SOURCE + GLOB),
 		pdel(devDist + SOURCE + GLOB, { force: true }),
