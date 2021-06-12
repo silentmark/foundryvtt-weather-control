@@ -110,12 +110,12 @@
           <span class="calendar-season-text">Color:</span>
           <select class="calendar-season-color" title="{{localize 'cw.seasons.SeasonColor'}}"
             id="calendar-season-color-{{@index}}">
-            <option value="red" style="background-color: red;">{{localize 'cw.seasons.ColorRed'}}</option>
-            <option value="orange" style="background-color: orange;">{{localize 'cw.seasons.ColorOrange'}}</option>
-            <option value="yellow" style="background-color: yellow;">{{localize 'cw.seasons.ColorYellow'}}</option>
-            <option value="green" style="background-color: green;">{{localize 'cw.seasons.ColorGreen'}}</option>
-            <option value="blue" style="color:white; background-color: blue;">{{localize 'cw.seasons.ColorBlue'}}</option>
-            <option value="white" style="background-color: white;">{{localize 'cw.seasons.ColorWhite'}}</option>
+            <option value="red" style="background-color: red;">{{localize 'cw.seasons.color.red'}}</option>
+            <option value="orange" style="background-color: orange;">{{localize 'cw.seasons.color.orange'}}</option>
+            <option value="yellow" style="background-color: yellow;">{{localize 'cw.seasons.color.yellow'}}</option>
+            <option value="green" style="background-color: green;">{{localize 'cw.seasons.color.green'}}</option>
+            <option value="blue" style="color:white; background-color: blue;">{{localize 'cw.seasons.color.blue'}}</option>
+            <option value="white" style="background-color: white;">{{localize 'cw.seasons.color.white'}}</option>
           </select>
           <input class="calendar-season-rolltable" value="{{season.rolltable}}" type="text" placeholder="ex. @Rolltable[Weather]"
             title="{{localize 'cw.seasons.SeasonRolltable'}}" id="calendar-season-rolltable-{{@index}}">
@@ -127,15 +127,15 @@
       <i class="fas fa-plus"></i> {{localize 'cw.seasons.AddSeason'}}
     </button>
   </div>
-  <button class="calendar-collapsable" name="reEvents">+ {{localize 'ReoccuringEvents'}}</button>
+  <button class="calendar-collapsable" name="reEvents">+ {{localize 'cw.events.ReoccuringEvents'}}</button>
   <div class="calendar-collapsable-content">
-    <p>{{localize 'DateReoccuringEvent'}}</p>
+    <p>{{localize 'cw.events.DateReoccuringEvent'}}</p>
     <ol>
       {{#each reEvents as |reEvent|}}
       <li class="calendar-reEvent-item">
         <div class="calendar-reEvent-container">
-          <input class="calendar-reEvent-name" value="{{reEvent.name}}" type="text" placeholder="{{localize 'exChristmas'}}"
-            title="{{localize 'cw.seasons.EventName'}}" id="calendar-reEvent-{{@index}}">
+          <input class="calendar-reEvent-name" value="{{reEvent.name}}" type="text" placeholder="{{localize 'cw.events.NameExample'}}"
+            title="{{localize 'cw.events.EventName'}}" id="calendar-reEvent-{{@index}}">
           <div class="calendar-reEvent-month">
             <span> Date: </span>
             <select class="calendar-reEvent-month-value" title="{{localize 'EventStartMonth'}}" id="calendar-reEvent-{{@index}}"
@@ -155,39 +155,39 @@
             element.appendChild(frag);
           ">
               {{#each ../months as |month|}}
-              <option value="{{month.abbrev}}" title="{{localize 'EventMonthStart'}}" name="{{month.length}}">
+              <option value="{{month.abbrev}}" title="{{localize 'cw.events.StartMonth'}}" name="{{month.length}}">
                 {{month.abbrev}}</option>
               {{/each}}
             </select>
-            <select class="calendar-reEvent-day" title="{{localize 'EventDayStart'}}" id="calendar-reEvent-day-{{@index}}"></select>
+            <select class="calendar-reEvent-day" title="{{localize 'cw.events.StartDay'}}" id="calendar-reEvent-day-{{@index}}"></select>
           </div>
           <button class="calendar-reEvent-del" id="calendar-reEvent-del-{{@index}}" name="del-reEvent-{{@index}}"
-            title="{{localize 'DeleteREvent'}}">
+            title="{{localize 'cw.events.DeleteReoccuring'}}">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
-        <input title="{{localize 'EventJournalInfo'}}" class="calendar-reEvent-text" value="{{reEvent.text}}"
-          id="calendar-reEvent-text-{{@index}}" type="text" placeholder="{{localize 'EventJournalInfoEx'}}">
+        <input title="{{localize 'cw.events.JournalInfo'}}" class="calendar-reEvent-text" value="{{reEvent.text}}"
+          id="calendar-reEvent-text-{{@index}}" type="text" placeholder="{{localize 'cw.events.JournalInfoExample'}}">
       </li>
       {{/each}}
     </ol>
-    <button id="calendar-events-add-reEvent" name="add-reEvent" title="{{localize 'AddREvent'}}">
-      <i class="fas fa-plus"></i> {{localize 'AddREvent'}}
+    <button id="calendar-events-add-reEvent" name="add-reEvent" title="{{localize 'cw.events.AddReoccuring'}}">
+      <i class="fas fa-plus"></i> {{localize 'cw.events.AddReoccuring'}}
     </button>
   </div>
-  <button class="calendar-collapsable" name="oneTimeEvents">+ {{localize 'OneTimeEvents'}}</button>
+  <button class="calendar-collapsable" name="oneTimeEvents">+ {{localize 'cw.events.OneTimeEvents'}}</button>
   <div class="calendar-collapsable-content">
-    <p>{{localize 'OneTimeDescr'}}
+    <p>{{localize 'cw.events.OneTimeDescription'}}
     </p>
     <ol>
       {{#each events as |event|}}
       <li class="calendar-event-item">
         <div class="calendar-event-container">
-          <input class="calendar-event-name" value="{{event.name}}" type="text" placeholder="{{localize 'exChristmas'}}"
-            title="{{localize 'cw.seasons.EventName'}}" id="calendar-event-{{@index}}">
+          <input class="calendar-event-name" value="{{event.name}}" type="text" placeholder="{{localize 'cw.events.NameExample'}}"
+            title="{{localize 'cw.events.EventName'}}" id="calendar-event-{{@index}}">
           <div class="calendar-event-month">
             <span class="calendar-event-text"> Date: </span>
-            <select class="calendar-event-month-value" title="{{localize 'EventMonthStart'}}" id="calendar-event-{{@index}}"
+            <select class="calendar-event-month-value" title="{{localize 'cw.events.StartMonth'}}" id="calendar-event-{{@index}}"
               onchange="
             let id = {{@index}}
             var element = document.getElementById('calendar-event-day-' + id),
@@ -204,15 +204,15 @@
             element.appendChild(frag);
           ">
               {{#each ../months as |month|}}
-              <option value="{{month.abbrev}}" title="{{localize 'EventDayHelp'}}" name="{{month.length}}">
+              <option value="{{month.abbrev}}" title="{{localize 'cw.events.StartDayHelp'}}" name="{{month.length}}">
                 {{month.abbrev}}</option>
               {{/each}}
             </select>
-            <select class="calendar-event-day" title="{{localize 'EventDayStart'}}" id="calendar-event-day-{{@index}}"></select>
+            <select class="calendar-event-day" title="{{localize 'cw.events.StartDay'}}" id="calendar-event-day-{{@index}}"></select>
             <input title="Event start year" class="calendar-event-year" value="{{event.date.year}}"
               placeholder="ex. 1234" type="number">
           </div>
-          <input class="calendar-event-allDay" title="{{localize 'AllDayEvent'}}" type="checkbox"
+          <input class="calendar-event-allDay" title="{{localize 'cw.events.AllDay'}}" type="checkbox"
             id="calendar-event-allDay-{{@index}}" onclick="
             var hours = document.getElementById('calendar-event-hour-{{@index}}');
             var min = document.getElementById('calendar-event-minute-{{@index}}');
@@ -253,21 +253,21 @@
             </select>
           </div>
           <button class="calendar-event-del" id="calendar-event-del-{{@index}}" name="del-event-{{@index}}"
-            title="{{localize 'DeleteREvent'}}">
+            title="{{localize 'cw.events.DeleteReoccuring'}}">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
-        <input title="{{localize 'EventJournalInfo'}}" class="calendar-event-content" value="{{event.text}}"
-          id="calendar-event-text-{{@index}}" type="text" placeholder="{{localize 'EventJournalInfoEx'}}">
+        <input title="{{localize 'cw.events.JournalInfo'}}" class="calendar-event-content" value="{{event.text}}"
+          id="calendar-event-text-{{@index}}" type="text" placeholder="{{localize 'cw.events.JournalInfoExample'}}">
       </li>
       {{/each}}
     </ol>
-    <button id="calendar-events-add-event" name="add-event" title="{{localize 'AddOneTimeEvent'}}">
-      <i class="fas fa-plus"></i> {{localize 'AddOneTimeEvent'}}
+    <button id="calendar-events-add-event" name="add-event" title="{{localize 'cw.events.AddOneTime'}}">
+      <i class="fas fa-plus"></i> {{localize 'cw.events.AddOneTime'}}
     </button>
   </div>
-  <button id="calendar-events-submit" type="submit" name="submit" title="{{localize 'SaveEvent'}}">
-    <i class="far fa-save"></i> {{localize 'SaveEvent'}}
+  <button id="calendar-events-submit" type="submit" name="submit" title="{{localize 'cw.events.Save'}}">
+    <i class="far fa-save"></i> {{localize 'cw.events.Save'}}
   </button>
 </form>
 <style style="visibility: hidden;">
