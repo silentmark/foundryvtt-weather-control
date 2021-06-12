@@ -1,12 +1,16 @@
-# calendar-weather
-This repository is a fork from the [original project by DasSauerkraut on GitHub](https://github.com/DasSauerkraut/calendar-weather).
+# Calendar/Weather
+
+[![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json)](https://gitlab.com/jstebenne/foundryvtt-calendar-weather)
+[![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fcalendar-weather&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=calendar-weather)
+[![Foundry Hub Endorsements](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fcalendar-weather%2Fshield%2Fendorsements)](https://www.foundryvtt-hub.com/package/calendar-weather/)
+[![Forge Installs](https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fcalendar-weather%2Fshield%2Fcomments)](https://www.foundryvtt-hub.com/package/calendar-weather/)
 
 A customizable module that accurately tracks and displays dates and time.
 
 ## Links:
 
-* Manifest: https://raw.githubusercontent.com/DasSauerkraut/calendar-weather/master/module.json
-* Direct Link: https://github.com/DasSauerkraut/calendar-weather/raw/master/package/calendar-weather-v2.5.2.zip
+* Manifest: https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json
+* Releases: https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/releaseszip
 
 This module **REQUIRES** [about-time](https://gitlab.com/tposney/about-time) v0.1.18 or greater installed and loaded to function correctly.
 If you want to have weather effects, you must have [FXMaster](https://gitlab.com/mesfoliesludiques/foundryvtt-fxmaster) by U~Man installed and loaded.
@@ -30,3 +34,7 @@ If you want to have weather effects, you must have [FXMaster](https://gitlab.com
 
 ![control menu](https://i.imgur.com/1aCVPXG.png)
 ![weather menu](https://i.imgur.com/ZSRuAub.png)
+
+### Credits:
+
+Calendar/Weather is the result of the effort of many people. Please refer to [CREDITS.md](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/blob/master/CREDITS.md) for the full list.
