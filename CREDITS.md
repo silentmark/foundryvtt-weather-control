@@ -13,6 +13,7 @@ The current owner of the module.
 ### Professor Geeksworth
 
 - GitLab: [GitLab.com/geekswordman](https://gitlab.com/geekswordsman)
+- Discord: Geekswordsman#3085
 
 ## Used modules
 
