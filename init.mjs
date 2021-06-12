@@ -134,7 +134,7 @@ $(document).ready(() => {
 
   Hooks.on("renderSceneConfig", (app, html, data) => {
     //fix cyclical issues
-    if ( app.renderCalendarScene) return ; 
+    if ( app.renderCalendarScene) return ;
     app.renderCalendarScene = true;
 
     let loadedWeatherData = undefined;
@@ -149,7 +149,7 @@ $(document).ready(() => {
         }
         loadedWeatherData = false;
       }
-  
+
       if (app.object.data.flags["calendar-weather"].doNightCycle){
         loadedNightData = app.object.getFlag('calendar-weather', 'doNightCycle');
       } else {
@@ -157,29 +157,29 @@ $(document).ready(() => {
           app.object.setFlag('calendar-weather', 'doNightCycle', false);
         }
         loadedNightData = false;
-      }  
+      }
     } else {
       if (app.object.compendium == null) {
         app.object.setFlag('calendar-weather', 'showFX', false);
       }
       loadedWeatherData = false;
-      
+
       if (app.object.compendium == null) {
         app.object.setFlag('calendar-weather', 'doNightCycle', false);
       }
       loadedNightData = false;
     }
-    
+
     const fxHtml = `
     <div class="form-group">
-        <label>${game.i18n.localize('CWSETTING.WeatherLabel')}</label>
+        <label>${game.i18n.localize('cw.setting.WeatherLabel')}</label>
         <input id="calendar-weather-showFX" type="checkbox" name="calendarFXWeather" data-dtype="Boolean" ${loadedWeatherData ? 'checked' : ''}>
-        <p class="notes">${game.i18n.localize('CWSETTING.WeatherLabelHelp')}</p>
+        <p class="notes">${game.i18n.localize('cw.setting.WeatherLabelHelp')}</p>
     </div>
     <div class="form-group">
-        <label>${game.i18n.localize('CWSETTING.NightCycleLabel')}</label>
+        <label>${game.i18n.localize('cw.setting.NightCycleLabel')}</label>
         <input id="calendar-weather-doNightCycle" type="checkbox" name="calendarFXNight" data-dtype="Boolean" ${loadedNightData ? 'checked' : ''}>
-        <p class="notes">${game.i18n.localize('CWSETTING.NightCycleLabelHelp')}</p>
+        <p class="notes">${game.i18n.localize('cw.setting.NightCycleLabelHelp')}</p>
     </div>
     `
     const fxFind = html.find("select[name ='weather']");
@@ -213,7 +213,7 @@ $(document).ready(() => {
       let notes = controls.find(control => control.name == 'notes')
       notes.tools.splice( notes.tools.length-1, 0, {
           name: "toggleCalendar",
-          title: "CWMISC.toggleControl",
+          title: "cw.misc.toggleControl",
           icon: "far fa-calendar-alt",
           onClick: () => {
             CWCalendar.toggleCalendar(c);
@@ -242,7 +242,7 @@ $(document).ready(() => {
         }
       }
       cwdtData.dt.lastDays = newDays;
-  
+
       if (document.getElementById('calendar-time-container')) {
         c.updateDisplay();
         cwdtData.dt.weather.lightCycle();
@@ -265,7 +265,7 @@ $(document).ready(() => {
       link.setAttribute('rel', 'stylesheet')
       link.type = 'text/css'
       link.href = '/modules/calendar-weather/css/wfrpcalendar.css'
-  
+
       document.head.appendChild(link);
     }
   });
