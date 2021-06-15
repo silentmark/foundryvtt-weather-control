@@ -11,6 +11,7 @@ Reading and following these guidelines will help us make the contribution proces
   - [Code of Conduct](#code-of-conduct)
   - [Getting Started](#getting-started)
     - [Issues](#issues)
+    - [Commits](#commits)
     - [Pull Requests](#pull-requests)
   - [Code Quality](#code-quality)
 
@@ -30,6 +31,20 @@ Contributions are made to this repo via Issues and Merge Requests (MRs). A few g
 Issues should be used to report problems with the library, request a new feature, or to discuss potential changes before a PR is created. When you create a new Issue, a template will be loaded that will instruct you to select the appropriate template and guide you to fill out the required informations.
 
 If you find an Issue that addresses the problem you're having, please add your own reproduction information to the existing issue rather than creating a new one. Adding a [reaction](https://docs.gitlab.com/ee/user/award_emojis.html) can also help be indicating to our maintainers that a particular problem is affecting more than just the reporter.
+
+### Commits
+
+We ask that commits should be kept clean and to avoid commit messages that only make sense to you and that you follow good practices. Read this [blog post by Chris Beams](https://chris.beams.io/posts/git-commit/) and you'll be good to go!
+
+Here is a TLDR:
+
+- Separate subject from body with a blank line
+- Limit the subject line to 50 characters
+- Capitalize the subject line
+- Do not end the subject line with a period
+- Use the imperative mood in the subject line
+- Wrap the body at 72 characters
+- Use the body to explain what and why vs. how
 
 ### Pull Requests
 
