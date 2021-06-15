@@ -27,9 +27,14 @@
   "cw.events.AddOneTime": "Add a new one time event",
   "cw.events.AddReoccuring": "Add a new reoccuring event",
   "cw.events.AllDay": "All day event",
+  "cw.events.Color": "Color",
+  "cw.events.Date": "Date",
   "cw.events.DateReoccuringEvent": "Enter the date and description of reoccuring events such as holidays.",
+  "cw.events.Dawn": "Dawn",
   "cw.events.DeleteReoccuring": "Delete reoccuring event.",
+  "cw.events.Dusk": "Dusk",
   "cw.events.EventName": "Name of the event",
+  "cw.events.Humidity": "Humidity",
   "cw.events.JournalInfo": "Event text, supports @JournalEntry[]'s",
   "cw.events.JournalInfoExample": "ex. @JournalEntry[EntryName] is an event",
   "cw.events.NameExample": "ex. exChristmas",
@@ -40,6 +45,7 @@
   "cw.events.StartDay": "Event start day",
   "cw.events.StartDayHelp": "What day does the event start?",
   "cw.events.StartMonth": "Event start month:",
+  "cw.events.Temperature": "Temperature",
 
   "cw.export.copied": "Calendar data copied to clipboard!",
 

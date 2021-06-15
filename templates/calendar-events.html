@@ -48,21 +48,21 @@
         <div class="calendar-season-container">
           <input class="calendar-season-name" value="{{season.name}}" type="text" placeholder="ex. Autumn"
             title="{{localize 'cw.seasons.SeasonName'}}" id="calendar-season-{{@index}}">
-          <span class="calendar-season-text">Temperature:</span>
+          <span class="calendar-season-text">{{localize: 'cw.events.Temperature'}}:</span>
           <select class="calendar-season-temp" title="{{localize 'cw.seasons.HotterOrColder'}}"
             id="calendar-season-temp-{{@index}}">
             <option value="=">=</option>
             <option value="+">+</option>
             <option value="-">-</option>
           </select>
-          <span class="calendar-season-text">Humidity:</span>
+          <span class="calendar-season-text">{{localize: 'cw.events.Humidity'}}:</span>
           <select class="calendar-season-humidity" title="{{localize 'cw.seasons.DrierOrWetter'}}"
             id="calendar-season-humidity-{{@index}}">
             <option value="=">=</option>
             <option value="+">+</option>
             <option value="-">-</option>
           </select>
-          <span class="calendar-season-text">Date:</span>
+          <span class="calendar-season-text">{{localize: 'cw.events.Date'}}:</span>
           <div class="calendar-season-month">
             <select class="calendar-season-month-value" title="{{localize 'cw.seasons.SeasonMonthStart'}}"
               id="calendar-season-month-{{@index}}" onchange="
@@ -93,21 +93,21 @@
           </button>
         </div>
         <div class="calendar-season-light-container">
-          <span class="calendar-season-text">Dawn:</span>
+          <span class="calendar-season-text">{{localize: 'cw.events.Dawn'}}:</span>
           <input class="calendar-dawn" value="{{season.dawn}}" type="text" placeholder="6"
             title="{{localize 'cw.seasons.SeasonHourBright'}}" id="calendar-dawn-{{@index}}">
           <select id="calendar-dawn-ampm-{{@index}}" class="calendar-dawn-ampm">
-            <option value="AM">AM</option>
-            <option value="PM">PM</option>
+            <option value="AM">{{localize: 'cw.time.AM'}}</option>
+            <option value="PM">{{localize: 'cw.time.PM'}}</option>
           </select>
-          <span class="calendar-season-text">Dusk:</span>
+          <span class="calendar-season-text">{{localize: 'cw.events.Dusk'}}:</span>
           <input class="calendar-dusk" value="{{season.dusk}}" type="text" placeholder="6"
             title="{{localize 'cw.seasons.SeasonHourDark'}}" id="calendar-dusk-{{@index}}">
           <select id="calendar-dusk-ampm-{{@index}}" class="calendar-dusk-ampm">
-            <option value="PM">PM</option>
-            <option value="AM">AM</option>
+            <option value="AM">{{localize: 'cw.time.AM'}}</option>
+            <option value="PM">{{localize: 'cw.time.PM'}}</option>
           </select>
-          <span class="calendar-season-text">Color:</span>
+          <span class="calendar-season-text">{{localize: 'cw.events.Color'}}:</span>
           <select class="calendar-season-color" title="{{localize 'cw.seasons.SeasonColor'}}"
             id="calendar-season-color-{{@index}}">
             <option value="red" style="background-color: red;">{{localize 'cw.seasons.color.red'}}</option>
@@ -137,7 +137,7 @@
           <input class="calendar-reEvent-name" value="{{reEvent.name}}" type="text" placeholder="{{localize 'cw.events.NameExample'}}"
             title="{{localize 'cw.events.EventName'}}" id="calendar-reEvent-{{@index}}">
           <div class="calendar-reEvent-month">
-            <span> Date: </span>
+            <span>{{localize: 'cw.events.Date'}}:</span>
             <select class="calendar-reEvent-month-value" title="{{localize 'EventStartMonth'}}" id="calendar-reEvent-{{@index}}"
               onchange="
             let id = {{@index}}
@@ -186,7 +186,7 @@
           <input class="calendar-event-name" value="{{event.name}}" type="text" placeholder="{{localize 'cw.events.NameExample'}}"
             title="{{localize 'cw.events.EventName'}}" id="calendar-event-{{@index}}">
           <div class="calendar-event-month">
-            <span class="calendar-event-text"> Date: </span>
+            <span class="calendar-event-text">{{localize: 'cw.events.Date'}}:</span>
             <select class="calendar-event-month-value" title="{{localize 'cw.events.StartMonth'}}" id="calendar-event-{{@index}}"
               onchange="
             let id = {{@index}}
@@ -248,8 +248,8 @@
             <input class="calendar-event-time-sec" value="{{event.date.seconds}}" type="text" placeholder="00"
               id="calendar-event-second-{{@index}}" max="60">
             <select id="calendar-event-ampm-{{@index}}" class="calendar-event-ampm">
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
+              <option value="AM">{{localize: 'cw.time.AM'}}</option>
+              <option value="PM">{{localize: 'cw.time.PM'}}</option>
             </select>
           </div>
           <button class="calendar-event-del" id="calendar-event-del-{{@index}}" name="del-event-{{@index}}"
