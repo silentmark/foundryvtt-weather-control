@@ -39,8 +39,8 @@
   "cw.misc.Disregard": "Zignoruj tę wiadomość",
   "cw.misc.toggleControl": "Przełącz kalendarz",
 
-  "cw.moon.2Chat": "Wysłać zmianę fazy księżyca na czat?",
-  "cw.moon.2ChatHelp": "Jeśli zaznaczono, zmiany faz księżyca będą wysyłane na czat, widoczne wyłącznie dla GM.",
+  "cw.setting.2Chat": "Wysłać zmianę fazy księżyca na czat?",
+  "cw.setting.2ChatHelp": "Jeśli zaznaczono, zmiany faz księżyca będą wysyłane na czat, widoczne wyłącznie dla GM.",
   "cw.moon.Add" : "Dodaj Księżyc",
   "cw.moon.ChatTitle" : "Fazy Księżyca",
   "cw.moon.Crescent" : "Sierp",

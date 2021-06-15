@@ -1,6 +1,12 @@
 {
   "cw.calendar.EditCalendar": "Edit Calendar",
   "cw.calendar.Events": "Events",
+  "cw.calendar.Monday": "Monday",
+  "cw.calendar.Thursday": "Thursday",
+  "cw.calendar.Tuesday": "Tuesday",
+  "cw.calendar.Weather": "Weather",
+  "cw.calendar.Wednesday": "Wednesday",
+
   "cw.calendar.settings.AddMonth": "Add a new month",
   "cw.calendar.settings.AddNewDay": "Add a new day of the week",
   "cw.calendar.settings.CurrentDay": "Current Day: ",
@@ -17,7 +23,6 @@
   "cw.calendar.settings.Save": "Save Calendar",
   "cw.calendar.settings.Title": "Calendar Settings",
   "cw.calendar.settings.WeekdayExample": "ex. Tuesday",
-  "cw.calendar.Weather": "Weather",
 
   "cw.events.AddOneTime": "Add a new one time event",
   "cw.events.AddReoccuring": "Add a new reoccuring event",
@@ -47,8 +52,8 @@
   "cw.misc.Disregard": "Disregard this message",
   "cw.misc.toggleControl": "Toggle the Calendar",
 
-  "cw.moon.2Chat": "Output Moon Changes to Chat?",
-  "cw.moon.2ChatHelp": "If true, any moon phase changes will be output to chat, displayed only to GM level users.",
+  "cw.setting.2Chat": "Output Moon Changes to Chat?",
+  "cw.setting.2ChatHelp": "If true, any moon phase changes will be output to chat, displayed only to GM level users.",
   "cw.moon.Add" : "Add a Moon",
   "cw.moon.ChatTitle" : "Moon Phases",
   "cw.moon.Crescent" : "Crescent",

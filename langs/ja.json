@@ -47,8 +47,8 @@
   "cw.misc.Disregard": "このメッセージを無視する",
   "cw.misc.toggleControl": "カレンダーを切り替える",
 
-  "cw.moon.2Chat": "チャットに月の満ち欠け（朔望）を出力する",
-  "cw.moon.2ChatHelp": "有効にするとDMにのみ、チャットに月の満ち欠けが表示されます。",
+  "cw.setting.2Chat": "チャットに月の満ち欠け（朔望）を出力する",
+  "cw.setting.2ChatHelp": "有効にするとDMにのみ、チャットに月の満ち欠けが表示されます。",
   "cw.moon.Add": "月（衛星）を追加する",
   "cw.moon.ChatTitle": "朔望",
   "cw.moon.Crescent": "三日月 / 有明月",

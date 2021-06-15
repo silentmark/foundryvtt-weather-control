@@ -47,8 +47,8 @@
   "cw.misc.Disregard": "Ignorar este mensaje",
   "cw.misc.toggleControl": "Conmutar el calendario",
 
-  "cw.moon.2Chat": "¿Mandar los cambios lunares al chat?",
-  "cw.moon.2ChatHelp": "Si está activado, cualquier cambido de fase lunar será enviado al chat, solo se mostrará a los usuarios con permisos de DM",
+  "cw.setting.2Chat": "¿Mandar los cambios lunares al chat?",
+  "cw.setting.2ChatHelp": "Si está activado, cualquier cambido de fase lunar será enviado al chat, solo se mostrará a los usuarios con permisos de DM",
   "cw.moon.Add" : "Agregar una luna",
   "cw.moon.ChatTitle" : "Fases lunares",
   "cw.moon.Crescent" : "Creciente",

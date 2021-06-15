@@ -39,8 +39,8 @@
   "cw.misc.Disregard": "이 메시지를 무시",
   "cw.misc.toggleControl": "달력 토글",
 
-  "cw.moon.2Chat": "달의 변화를 채팅으로 출력합니까?",
-  "cw.moon.2ChatHelp": "참일 경우, 달의 위상 변화는 GM 레벨 유저에게만 표시되는 채팅으로 출력된다.",
+  "cw.setting.2Chat": "달의 변화를 채팅으로 출력합니까?",
+  "cw.setting.2ChatHelp": "참일 경우, 달의 위상 변화는 GM 레벨 유저에게만 표시되는 채팅으로 출력된다.",
   "cw.moon.Add" : "달 추가",
   "cw.moon.ChatTitle" : "달의 위상",
   "cw.moon.Crescent" : "초승달/그믐달",

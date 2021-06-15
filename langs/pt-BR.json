@@ -39,8 +39,8 @@
   "cw.misc.Disregard": "Ignore esta mensagem",
   "cw.misc.toggleControl": "Alternar o Calendário",
 
-  "cw.moon.2Chat": "Saída da mudança da lua para o bate-papo?",
-  "cw.moon.2ChatHelp": "Se verdadeiro, qualquer alteração na fase da lua será exibida no chat, exibida apenas para usuários no nível GM.",
+  "cw.setting.2Chat": "Saída da mudança da lua para o bate-papo?",
+  "cw.setting.2ChatHelp": "Se verdadeiro, qualquer alteração na fase da lua será exibida no chat, exibida apenas para usuários no nível GM.",
   "cw.moon.Add" : "Adicionar uma Lua",
   "cw.moon.ChatTitle" : "Fases da Lua",
   "cw.moon.Crescent" : "Crescente",

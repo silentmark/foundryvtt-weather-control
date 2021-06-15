@@ -40,8 +40,8 @@
   "cw.misc.AboutTimeMissingHelp": "Calendar/Weather nécessite le module AboutTime de Tim Posney pour fonctionner.",
   "cw.misc.Disregard": "Ne pas tenir compte de ce message",
 
-  "cw.moon.2Chat": "Afficher les changements de lune dans le Tchat ?",
-  "cw.moon.2ChatHelp": "Si coché, les changements de phase de la lune seront affichés dans le tchat, seulement pour les MJs.",
+  "cw.setting.2Chat": "Afficher les changements de lune dans le Tchat ?",
+  "cw.setting.2ChatHelp": "Si coché, les changements de phase de la lune seront affichés dans le tchat, seulement pour les MJs.",
   "cw.moon.Moon" : "Lunes",
 
   "cw.seasons.AddSeason": "Ajouter une saison",
