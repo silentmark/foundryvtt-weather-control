@@ -2,9 +2,9 @@
     <h1>{{localize 'cw.calendar.settings.Title'}}</h1>
     <div id="calendar-form-year">
         <label>{{localize 'cw.calendar.settings.CurrentDay'}}</label><input value="{{day}}" type="number" min="1" placeholder="14" id="calendar-form-cDay-input">
-        <label class="calendar-form-label">Year: </label><input type="number" min="1" value="{{year}}" placeholder="2020" id="calendar-form-year-input">
-        <label class="calendar-form-label">Era: </label><input value="{{era}}" type="text" placeholder="AD" id="calendar-form-era-input" maxlength="3">
-        <label class="calendar-form-label">Time: </label>
+        <label class="calendar-form-label">{{localize 'cw.calendar.settings.Year'}}: </label><input type="number" min="1" value="{{year}}" placeholder="2020" id="calendar-form-year-input">
+        <label class="calendar-form-label">{{localize 'cw.calendar.settings.Era'}}: </label><input value="{{era}}" type="text" placeholder="AD" id="calendar-form-era-input" maxlength="3">
+        <label class="calendar-form-label">{{localize 'cw.calendar.settings.Time'}}: </label>
         <input value="{{hours}}" type="text" placeholder="7" id="calendar-form-hour-input" max="24">:
         <input value="{{minutes}}" type="text" placeholder="15" id="calendar-form-minute-input" max="60">:
         <input value="{{seconds}}" type="text" placeholder="00" id="calendar-form-second-input" max="60">
@@ -13,16 +13,16 @@
             <option value="PM">{{localize 'cw.time.PM'}}</option>
         </select>
     </div>
-    <h2>Weekdays</h2>
+    <h2>{{localize 'cw.calendar.settings.weekdays..Weekdays'}}</h2>
     <div class="calendar-form-weekday-label-container">
         <span class="calendar-form-weekday-input-label">
-            Name
+            {{localize 'cw.calendar.settings.weekdays.Name'}}
         </span>
         <span class="calendar-form-weekday-radio-label">
-            Current Weekday
+            {{localize 'cw.calendar.settings.weekdays.CurrentWeekday'}}
         </span>
         <span class="calendar-form-weekday-del">
-            Delete
+            {{localize 'cw.calendar.settings.weekdays.Delete'}}
         </span>
     </div>
     <ol>
@@ -39,27 +39,27 @@
         {{/each}}
     </ol>
     <button id="calendar-form-add-weekday" name="add-weekday" title="{{localize 'cw.calendar.settings.AddNewDay'}}">
-        <i class="fas fa-plus"></i> Add Weekday
+        <i class="fas fa-plus"></i> {{localize 'cw.calendar.settings.AddWeekday'}}
     </button>
-    <h2>Months</h2>
+    <h2>{{localize 'cw.calendar.settings.months.Months'}}</h2>
     <div class="calendar-form-weekday-label-container">
         <span class="calendar-form-month-input-label">
-            Name
+            {{localize 'cw.calendar.settings.months.Name'}}
         </span>
         <span class="calendar-form-month-length-label">
-            Length
+            {{localize 'cw.calendar.settings.months.Length'}}
         </span>
         <span class="calendar-form-month-radio-label">
-            Current Month
+            {{localize 'cw.calendar.settings.months.CurrentMonth'}}
         </span>
         <span class="calendar-form-month-isNum-label">
-            Intercalary
+            {{localize 'cw.calendar.settings.months.Intercalary'}}
         </span>
         <span class="calendar-form-month-abbrev-label">
-            Abbreviation
+            {{localize 'cw.calendar.settings.months.Abbreviation'}}
         </span>
         <span class="calendar-form-month-del">
-            Delete
+            {{localize 'cw.calendar.settings.months.Delete'}}
         </span>
     </div>
     <ol>
