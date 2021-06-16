@@ -118,14 +118,14 @@
 			<header>
 				<span id="calendar-weather--temp">24.5°C</span>
 		    <select class="calendar-weather-climate" title="{{localize 'cw.weather.SelectClimate'}}" onChange="Hooks.callAll('calendarWeatherClimateSet', this.value);">
-		    	<option title="Temp: Neutral, Humidity: Neutral" value="temperate">{{localize 'cw.weather.climate.Temperate'}}</option>
-		      <option title="Temp: Cold, Humidity: Neutral" value="tempMountain">{{localize 'cw.weather.climate.TemperateMountain'}}</option>
-		      <option title="Temp: Very Hot, Humidity: Very Dry" value="desert">{{localize 'cw.weather.climate.Desert'}}</option>
-		      <option title="Temp: Very Cold, Humidity: Neutral" value="tundra">{{localize 'cw.weather.climate.Tundra'}}</option>
-		      <option title="Temp: Very Hot, Humidity: Wet" value="tropical">{{localize 'cw.weather.climate.Tropical'}}</option>
-		      <option title="Temp: Very Cold, Humidity: Dry" value="taiga">{{localize 'cw.weather.climate.Taiga'}}</option>
-		      <option title="Temp: Extremely Hot, Humidity: Volcanic" value="volcanic">{{localize 'cw.weather.climate.Volcanic'}}</option>
-		      <option title="Temp: Extremely Cold, Humidity: Neutral. Adjusts Night cycle to be more extreme depending on season's temperature." value="polar">{{localize 'cw.weather.climate.Polar'}}</option>
+		    	<option title="{{localize 'cw.weather.climate.description.Temperate'}}" value="temperate">{{localize 'cw.weather.climate.Temperate'}}</option>
+		      <option title="{{localize 'cw.weather.climate.description.TemperateMountain'}}" value="tempMountain">{{localize 'cw.weather.climate.TemperateMountain'}}</option>
+		      <option title="{{localize 'cw.weather.climate.description.Desert'}}" value="desert">{{localize 'cw.weather.climate.Desert'}}</option>
+		      <option title="{{localize 'cw.weather.climate.description.Tundra'}}" value="tundra">{{localize 'cw.weather.climate.Tundra'}}</option>
+		      <option title="{{localize 'cw.weather.climate.descripton.Tropical'}}" value="tropical">{{localize 'cw.weather.climate.Tropical'}}</option>
+		      <option title="{{localize 'cw.weather.climate.description.Taiga'}}" value="taiga">{{localize 'cw.weather.climate.Taiga'}}</option>
+		      <option title="{{localize 'cw.weather.climate.description.Volcanic'}}" value="volcanic">{{localize 'cw.weather.climate.Volcanic'}}</option>
+		      <option title="{{localize 'cw.weather.climate.description.Polar'}}" value="polar">{{localize 'cw.weather.climate.Polar'}}</option>
 		    </select>
 		    <div class="calendar-weather--refresh calendar-btn" id="calendar-weather-regenerate" title="{{localize 'cw.weather.RegenerateWeather'}}">
 					<i class="fas fa-redo"></i>
