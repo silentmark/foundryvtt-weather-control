@@ -141,10 +141,10 @@ export class Calendar extends Application {
       cwdtData.dt = new DateTime();
       let newMonth1 = new Month(game.i18n.localize("cw.calendar.settings.DefMonth"), 30, 30, true, "1");
       cwdtData.dt.addMonth(newMonth1);
-      cwdtData.dt.addWeekday(game.i18n.localize("Monday"));
-      cwdtData.dt.addWeekday(game.i18n.localize("Tuesday"));
-      cwdtData.dt.addWeekday(game.i18n.localize("Wednesday"));
-      cwdtData.dt.addWeekday(game.i18n.localize("Thursday"));
+      cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Monday"));
+      cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Tuesday"));
+      cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Wednesday"));
+      cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Thursday"));
       cwdtData.dt.setDayLength(24);
       cwdtData.dt.settings = [];
       cwdtData.dt.events = [];

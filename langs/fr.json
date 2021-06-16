@@ -40,8 +40,8 @@
   "cw.misc.AboutTimeMissingHelp": "Calendar/Weather nécessite le module AboutTime de Tim Posney pour fonctionner.",
   "cw.misc.Disregard": "Ne pas tenir compte de ce message",
 
-  "cw.moon.2Chat": "Afficher les changements de lune dans le Tchat ?",
-  "cw.moon.2ChatHelp": "Si coché, les changements de phase de la lune seront affichés dans le tchat, seulement pour les MJs.",
+  "cw.setting.2Chat": "Afficher les changements de lune dans le Tchat ?",
+  "cw.setting.2ChatHelp": "Si coché, les changements de phase de la lune seront affichés dans le tchat, seulement pour les MJs.",
   "cw.moon.Moon" : "Lunes",
 
   "cw.seasons.AddSeason": "Ajouter une saison",
@@ -62,14 +62,14 @@
   "cw.seasons.SeasonName": "Nom de la saison:",
   "cw.seasons.Title" : "Saisons",
 
-  "cw.setting.CalDispNonGm": "Afficher le calendrier pour les non-MJ",
-  "cw.setting.CalDispNonGmHelp": "Si désactivé, les clients non-MJs ne verront pas le calendrier.",
-  "cw.setting.Display24H": "Afficher les heures au format 24hr?",
-  "cw.setting.Display24HHelp": "Si activé, l'horloge utilisera un cycle de 25 heures.",
-  "cw.setting.NightCycleLabel": "Calendar/Weather - Cycle jour/nuit",
-  "cw.setting.NightCycleLabelHelp": "Quand activé, la scène basculera entre les cycles de jour et de nut. Si FXMaster est installé, les effets de météo seront aussi générés.",
-  "cw.setting.Weather2Chat": "Afficher la météo sur  le tchat?",
-  "cw.setting.Weather2ChatHelp": "Si activé, la météo sera envoyée sur le tchat, pour tout les MJs",
+  "cw.settings.CalDispNonGm": "Afficher le calendrier pour les non-MJ",
+  "cw.settings.CalDispNonGmHelp": "Si désactivé, les clients non-MJs ne verront pas le calendrier.",
+  "cw.settings.Display24H": "Afficher les heures au format 24hr?",
+  "cw.settings.Display24HHelp": "Si activé, l'horloge utilisera un cycle de 25 heures.",
+  "cw.settings.NightCycleLabel": "Calendar/Weather - Cycle jour/nuit",
+  "cw.settings.NightCycleLabelHelp": "Quand activé, la scène basculera entre les cycles de jour et de nut. Si FXMaster est installé, les effets de météo seront aussi générés.",
+  "cw.settings.Weather2Chat": "Afficher la météo sur  le tchat?",
+  "cw.settings.Weather2ChatHelp": "Si activé, la météo sera envoyée sur le tchat, pour tout les MJs",
 
   "cw.time.Advance15minutes": "Avancer de 15 minutes",
   "cw.time.Advance1hour": "Avancer d'1 heure",
