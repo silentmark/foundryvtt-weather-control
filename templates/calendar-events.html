@@ -1,5 +1,5 @@
 <form id="calendar-events-form" autocomplete="off" onsubmit="event.preventDefault();" class="calendar-events-container">
-  <h1>{{localize 'Events'}}</h1>
+  <h1>{{localize 'cw.calendar.Events'}}</h1>
   <button class="calendar-collapsable" name="moon">+ {{localize 'cw.moon.Title'}}</button>
   <div class="calendar-collapsable-content">
     <p>{{localize 'cw.moon.Intro'}}</p>
@@ -20,7 +20,7 @@
           <span class="calendar-moon-waxing-text">{{localize 'cw.moon.Waxing'}}</span>
           <input class="calendar-moon-waxing" type="checkbox" id="calendar-moon-waxing-{{@index}}">
           <button class="calendar-moon-del" id="calendar-moon-del-{{@index}}" name="del-moon-{{@index}}"
-            title="Delete Moon">
+            title="{{localize 'cw.moon.Delete'}}">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
@@ -46,7 +46,7 @@
       {{#each seasons as |season|}}
       <li class="calendar-season-listitem">
         <div class="calendar-season-container">
-          <input class="calendar-season-name" value="{{season.name}}" type="text" placeholder="ex. Autumn"
+          <input class="calendar-season-name" value="{{season.name}}" type="text" placeholder="{{localize 'cw.seasons.ExampleSeason'}}"
             title="{{localize 'cw.seasons.SeasonName'}}" id="calendar-season-{{@index}}">
           <span class="calendar-season-text">{{localize: 'cw.events.Temperature'}}:</span>
           <select class="calendar-season-temp" title="{{localize 'cw.seasons.HotterOrColder'}}"
@@ -88,7 +88,7 @@
             <select class="calendar-season-day" id="calendar-season-day-{{@index}}"></select>
           </div>
           <button class="calendar-season-del" id="calendar-season-del-{{@index}}" name="del-season-{{@index}}"
-            title="Delete Season">
+            title="{{localize 'cw.seasons.Delete'}}">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>

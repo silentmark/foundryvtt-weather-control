@@ -1,4 +1,5 @@
 {
+  "cw.calendar.ClickToToggle" : "Click to Toggle Date Format",
   "cw.calendar.EditCalendar": "Edit Calendar",
   "cw.calendar.Events": "Events",
   "cw.calendar.Monday": "Monday",
@@ -74,6 +75,7 @@
   "cw.setting.2Chat": "Output Moon Changes to Chat?",
   "cw.setting.2ChatHelp": "If true, any moon phase changes will be output to chat, displayed only to GM level users.",
   "cw.moon.Add" : "Add a Moon",
+  "cw.moon.Delete" : "Delete Moon",
   "cw.moon.ChatTitle" : "Moon Phases",
   "cw.moon.Crescent" : "Crescent",
   "cw.moon.FirstQuarter" : "First",
@@ -110,6 +112,8 @@
   "cw.moon.Waxing" : "Waxing: ",
 
   "cw.seasons.AddSeason": "Add a new season",
+  "cw.seasons.ExampleSeasons" : "ex. Autumn",
+  "cw.seasons.Delete" : "Delete Season",
   "cw.seasons.color.blue": "Blue",
   "cw.seasons.color.green": "Green",
   "cw.seasons.color.orange": "Orange",
