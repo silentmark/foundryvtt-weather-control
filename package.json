@@ -22,10 +22,10 @@
     "check-env": "node -e 'console.log(process.env)' | grep npm",
     "devbuild": "npx gulp dev",
     "devwatch": "npx gulp devWatch",
-    "devwatch2": "npx gulp devWatch",
     "devclean": "npx gulp devClean",
     "release": "npx gulp zip",
-    "start-docker": "docker run -v ${npm_config_devdir}:/foundry -p 30000:30000 fithwum/foundry_vtt",
+    "build-docker": "docker build -t foundryvtt-dev -f ./Dockerfile .",
+    "start-docker": "docker run -v ${npm_config_devdir}:/foundry -p 30000:30000 foundryvtt-dev",
     "tag": "git tag -d ${npm_package_name}_${npm_package_version} 2>/dev/null ; git tag ${npm_package_name}_${npm_package_version} && git push -f origin ${npm_package_name}_${npm_package_version}"
   },
   "devDependencies": {

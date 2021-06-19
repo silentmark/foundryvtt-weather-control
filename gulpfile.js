@@ -143,12 +143,13 @@ exports.dev = gulp.series(
 exports.zip = gulp.series(
 	pdel([DIST])
 	, gulp.parallel(
-		buildSource(false, false)
-		, buildManifest()
-		, outputLanguages()
-		, outputTemplates()
-		, outputStylesCSS()
-		, outputMetaFiles()
+		buildSource(false, false),
+		buildManifest(),
+		outputLanguages(),
+		outputTemplates(),
+		buildSass(),
+		outputStylesCSS(),
+		outputMetaFiles(),
 	)
 	, compressDistribution()
 	, pdel([DIST])
