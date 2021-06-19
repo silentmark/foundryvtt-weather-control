@@ -35,6 +35,12 @@ If you want to have weather effects, you must have [FXMaster](https://gitlab.com
 ![control menu](https://i.imgur.com/1aCVPXG.png)
 ![weather menu](https://i.imgur.com/ZSRuAub.png)
 
+### Development
+
+If you wish to work on the code, we've set up an easy way to install a development environment. Please refer to [this wiki page](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/wikis/Setting-up-the-development-environment) to learn how to build and run the development environment.
+
+You also need to take a look at [CONTRIBUTING.md](CONTRIBUTING.md) to know our contribution guidelines.
+
 ### Credits:
 
 Calendar/Weather is the result of the effort of many people. Please refer to [CREDITS.md](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/blob/master/CREDITS.md) for the full list.
