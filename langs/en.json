@@ -9,7 +9,7 @@
   "cw.calendar.Wednesday": "Wednesday",
 
   "cw.calendar.settings.AddMonth": "Add a new month",
-  "cw.calendar.settings.AddNewDay": "Add a new day of the week",
+  "cw.calendar.settings.AddWeekday": "Add a new day of the week",
   "cw.calendar.settings.CurrentDay": "Current Day: ",
   "cw.calendar.settings.DefMonth": "Month 1",
   "cw.calendar.settings.DeleteMonth": "Delete a month",
@@ -26,6 +26,7 @@
   "cw.calendar.settings.months.CurrentMonth": "Current Month",
   "cw.calendar.settings.months.Delete": "Delete",
   "cw.calendar.settings.months.Intercalary": "Intercalary",
+  "cw.calendar.settings.months.Length": "Length",
   "cw.calendar.settings.months.Months": "Months",
   "cw.calendar.settings.months.Name": "Name",
   "cw.calendar.settings.Save": "Save Calendar",

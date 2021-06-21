@@ -3,7 +3,7 @@
   "cw.calendar.Events": "이벤트",
   "cw.calendar.ReoccuringEvents": "이벤트 재발생",
   "cw.calendar.settings.AddMonth": "달 추가",
-  "cw.calendar.settings.AddNewDay": "새로운 요일 추가",
+  "cw.calendar.settings.AddWeekday": "새로운 요일 추가",
   "cw.calendar.settings.CurrentDay": "현재 날짜: ",
   "cw.calendar.settings.DefMonth": "1월",
   "cw.calendar.settings.DeleteMonth": "달 제거",

@@ -7,9 +7,9 @@
   "cw.calendar.Tuesday": "Martes",
   "cw.calendar.Weather": "Clima",
   "cw.calendar.Wednesday": "Miércoles",
-  
+
   "cw.calendar.settings.AddMonth": "Agregar nuevo mes",
-  "cw.calendar.settings.AddNewDay": "Agregar nuevo día de la semana",
+  "cw.calendar.settings.AddWeekday": "Agregar nuevo día de la semana",
   "cw.calendar.settings.CurrentDay": "Día actual:",
   "cw.calendar.settings.DefMonth": "Mes 1",
   "cw.calendar.settings.DeleteMonth": "Eliminar mes",
@@ -36,8 +36,8 @@
   "cw.calendar.settings.weekdays.Delete": "Borrar",
   "cw.calendar.settings.weekdays.Name": "Nombre",
   "cw.calendar.settings.weekdays.Weekdays": "Días de la semana",
-  "cw.calendar.settings.Year": "Año", 
-  
+  "cw.calendar.settings.Year": "Año",
+
   "cw.events.AddOneTime": "Agregar evento con fecha única",
   "cw.events.AddReoccuring": "Agregar nuevo evento periódico",
   "cw.events.AllDay": "Evento de día completo",
@@ -60,7 +60,7 @@
   "cw.events.StartDayHelp": "¿En qué mes da comienzo el evento?",
   "cw.events.StartMonth": "Mes en el que comienza el evento:",
   "cw.events.Temperature": "Temperatura",
-  
+
   "cw.export.copied": "¡Se han copiado los datos del calendario al portapapeles!",
 
   "cw.import.failure": "¡La importación ha fallado!",
@@ -218,5 +218,5 @@
   "cw.weather.tracker.normal.Scattered": "Nubes dispersas, pero casi despejado",
   "cw.weather.tracker.normal.SunAsh": "El sol está totalmente oscurecido por la ceniza, posibilidad de nubes de ceniza volcánica",
   "cw.weather.tracker.normal.TorrentialRain": "Lluvia torrencial",
-  "cw.weather.tracker.Today": "El clima de hoy:"  
+  "cw.weather.tracker.Today": "El clima de hoy:"
 }
