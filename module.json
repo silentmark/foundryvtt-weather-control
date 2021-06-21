@@ -2,9 +2,9 @@
   "name": "calendar-weather",
   "title": "Calendar/Weather",
   "description": "Adds a customizable calendar with events and weather.",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "minimumCoreVersion": "0.7.0",
-  "compatibleCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.7",
   "authors": [
     {
       "name": "Julien Stébennne",
@@ -23,7 +23,7 @@
   ],
   "url": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather",
   "manifest": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json",
-  "download": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/jobs/artifacts/v3.1.4/raw/calendar-weather.zip?job=pack",
+  "download": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/jobs/artifacts/v3.1.5/raw/calendar-weather.zip?job=pack",
   "esmodules": [
     "init.mjs",
     "modules/registerSettings.mjs",

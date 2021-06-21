@@ -3,7 +3,7 @@
   "cw.calendar.Events": "イベント",
   "cw.calendar.ReoccuringEvents": "繰り返しイベント",
   "cw.calendar.settings.AddMonth": "月を追加する",
-  "cw.calendar.settings.AddNewDay": "曜日を追加する",
+  "cw.calendar.settings.AddWeekday": "曜日を追加する",
   "cw.calendar.settings.CurrentDay": "現在の日：",
   "cw.calendar.settings.DefMonth": "月１",
   "cw.calendar.settings.DeleteMonth": "月を削除する",

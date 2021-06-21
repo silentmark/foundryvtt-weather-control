@@ -3,7 +3,7 @@
   "cw.calendar.Events": "Ereignisse",
   "cw.calendar.ReoccuringEvents": "Wiederkehrende Ereignisse",
   "cw.calendar.settings.AddMonth": "Monat hinzufügen",
-  "cw.calendar.settings.AddNewDay": "Wochentag hinzufügen",
+  "cw.calendar.settings.AddWeekday": "Wochentag hinzufügen",
   "cw.calendar.settings.CurrentDay": "Aktueller Tag: ",
   "cw.calendar.settings.DefMonth": "Monat 1",
   "cw.calendar.settings.DeleteMonth": "Monat löschen",
