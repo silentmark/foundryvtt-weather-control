@@ -30,6 +30,9 @@ export var _myCalendarSpec = {
 
   export class DateTime {
     is24 = false;
+    dayLength: any;
+    settings: any[];
+
     static updateDTC() { // update the calendar spec so that about-time will know the new calendar
       Gametime.DTC.createFromData(_myCalendarSpec);
     }
@@ -184,7 +187,7 @@ export var _myCalendarSpec = {
       this.setYear(y);
     }
 
-    get currentWeekDay() {
+    currentWeekDay = (): string => {
       return Gametime.weekDays[Gametime.DTNow().dow()];
     }
 

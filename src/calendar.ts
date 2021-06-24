@@ -1,10 +1,19 @@
 import  { CalendarEvents } from "./calendarEvents.js";
-import { _myCalendarSpec, DateTime } from "./dateTime.js";
+import { _myCalendarSpec, DateTime as CWDateTime } from "./dateTime.js";
 import { Month } from "./month.js";
 import { WeatherTracker } from "./weatherTracker.js";
 import { CalendarForm } from "./calendarForm.js";
 import { cwdtData } from "./index.js";
 
+// declare global {
+//   interface game extends Game{
+//     Gametime: Gametime;
+//   }
+// }
+
+//////////////////////////////////////////
+////// CODE NOT YET MIGRATED BELOW  //////
+//////////////////////////////////////////
 
 export class Calendar extends Application {
   public isLoading: boolean = false;
@@ -32,7 +41,7 @@ export class Calendar extends Application {
   }
 
   setPos(pos) {
-    return new Promise(resolve => {
+    return new Promise<void>(resolve => {
       function check() {
         let elmnt = document.getElementById("calendar-time-container");
         if (elmnt) {
@@ -42,7 +51,7 @@ export class Calendar extends Application {
           elmnt.style.top = (yPos) + "px";
           elmnt.style.left = (xPos) + "px";
           elmnt.style.position = 'fixed';
-          elmnt.style.zIndex = 100;
+          elmnt.style.zIndex = '100';
           resolve();
         } else {
           setTimeout(check, 30);
@@ -53,18 +62,19 @@ export class Calendar extends Application {
   }
 
   loadSettings() {
-    let data = game.settings.get('calendar-weather', 'dateTime');
+    let data = game.settings.get('calendar-weather', 'dateTime') as any;
     if(game.user.data.flags.calendarWeather){
-      let pos = game.user.data.flags.calendarWeather.calendarPos;
+      // FIXME: Not the right way to type this. There probably is a better way to get the flag value too.
+      let pos = (game.user.data.flags.calendarWeather as any).calendarPos;
       this.setPos(pos);
     }
-    this.showToPlayers = game.settings.get('calendar-weather', 'calendarDisplay');
-    cwdtData.dt.is24 = game.settings.get('calendar-weather', 'is24');
+    this.showToPlayers = game.settings.get('calendar-weather', 'calendarDisplay') as boolean;
+    cwdtData.dt.is24 = game.settings.get('calendar-weather', 'is24') as boolean;
     if (!data || !data.months) {
       if (data.default) {
         console.log("calendar-weather | rebuilding data", data.default);
         // recover previous data
-        cwdtData.dt = new DateTime();
+        cwdtData.dt = new CWDateTime();
         data.default.months = data.default.months.map((m, i) => {
           m.leapLength = m.length;
           if (!m.abbrev) m.abbrev = `${i+1}`;
@@ -73,16 +83,16 @@ export class Calendar extends Application {
         cwdtData.dt.months = data.default.months;
         cwdtData.dt.daysOfTheWeek = data.default.daysOfTheWeek;
         cwdtData.dt.setDayLength(data.default.dayLength);
-        DateTime.updateDTC(); // set the calendar spec for correct date time calculations
+        CWDateTime.updateDTC(); // set the calendar spec for correct date time calculations
         cwdtData.dt.era = data.default.era;
         cwdtData.dt.weather = cwdtData.dt.weather.load(data.default.weather);
         cwdtData.dt.seasons = data.default.seasons;
         cwdtData.dt.reEvents = data.default.reEvents;
         cwdtData.dt.events = data.default.events;
         cwdtData.dt.moons = data.default.moons;
-        let timeout = game.settings.get("about-time", "election-timeout");
+        let timeout = game.settings.get("about-time", "election-timeout") as number;
         setTimeout(function () {
-          if (game.Gametime.isMaster()) {
+          if (Gametime.isMaster()) {
             Gametime.setAbsolute({
               years: data.default.year,
               months: data.default.currentMonth,
@@ -92,16 +102,16 @@ export class Calendar extends Application {
               seconds: 0
             })
             let now = Gametime.DTNow();
-            cwdtData.dt.currentWeekday = cwdtData.dt.daysOfTheWeek[now.dow()];
+            cwdtData.dt.currentWeekDay = cwdtData.dt.daysOfTheWeek[now.dow()];
             cwdtData.dt.timeDisp = now.shortDate().time;
           }
         }, timeout * 1000 + 100);
 
       } else {
         this.populateData();
-        let timeout = game.settings.get("about-time", "election-timeout");
+        let timeout = game.settings.get("about-time", "election-timeout") as  number;
         setTimeout(() => {
-          if (game.Gametime.isMaster()) {
+          if (Gametime.isMaster()) {
             Gametime.setAbsolute({
               years: 2020,
               months: 0,
@@ -115,13 +125,13 @@ export class Calendar extends Application {
       }
     } else {
       let now = Gametime.DTNow();
-      if (!cwdtData.dt) cwdtData.dt = new DateTime();
+      if (!cwdtData.dt) cwdtData.dt = new CWDateTime();
       cwdtData.dt.months = data.months;
       cwdtData.dt.daysOfTheWeek = data.daysOfTheWeek;
       cwdtData.dt.setDayLength(data.dayLength);
       _myCalendarSpec.first_day = data.first_day;
-      DateTime.updateDTC(); // set the calendar spec for correct date time calculations
-      cwdtData.dt.currentWeekday = cwdtData.dt.daysOfTheWeek[now.dow()];
+      CWDateTime.updateDTC(); // set the calendar spec for correct date time calculations
+      cwdtData.dt.currentWeekDay = cwdtData.dt.daysOfTheWeek[now.dow()];
       cwdtData.dt.era = data.era;
       cwdtData.dt.dayLength = Gametime.DTC.hpd;
       cwdtData.dt.timeDisp = now.shortDate().time;
@@ -140,7 +150,7 @@ export class Calendar extends Application {
   }
 
   populateData() {
-    cwdtData.dt = new DateTime();
+    cwdtData.dt = new CWDateTime();
     let newMonth1 = new Month(game.i18n.localize("cw.calendar.settings.DefMonth"), 30, 30, true, "1");
     cwdtData.dt.addMonth(newMonth1);
     cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Monday"));
@@ -151,16 +161,15 @@ export class Calendar extends Application {
     cwdtData.dt.settings = [];
     cwdtData.dt.events = [];
     cwdtData.dt.reEvents = [];
-    cwdtData.dt.settings = [];
     cwdtData.dt.weather = new WeatherTracker();
-    DateTime.updateDTC();
+    CWDateTime.updateDTC();
     cwdtData.dt.setEra("AD");
   }
 
   settingsOpen(isOpen) {
     this.isOpen = isOpen;
     if (isOpen) {
-      game.Gametime.stopRunning();
+      Gametime.stopRunning();
       console.log("calendar-weather | Pausing real time clock.");
     }
     // else {
@@ -170,7 +179,7 @@ export class Calendar extends Application {
   }
 
   rebuild(obj) {
-    cwdtData.dt = new DateTime();
+    cwdtData.dt = new CWDateTime();
     if (obj.months.length != 0) {
       cwdtData.dt.months = obj.months;
     }
@@ -258,7 +267,7 @@ export class Calendar extends Application {
       renderTemplate(templatePath, cwdtData).then(html => {
         calendar.render(true);
       }).then(
-        calendar.setPos(game.user.data.flags.calendarWeather.calendarPos)
+        calendar.setPos((game.user.data as Data).flags.calendarWeather.calendarPos)
       );
     }
   }
@@ -312,7 +321,7 @@ export class Calendar extends Application {
   // }
 
 
-    game.Gametime._save(true);
+    Gametime._save(true);
   }
 
   toObject() {
@@ -324,7 +333,7 @@ export class Calendar extends Application {
       numDayOfTheWeek: cwdtData.dt.numDayOfTheWeek,
       first_day: _myCalendarSpec.first_day,
       currentMonth: cwdtData.dt.currentMonth,
-      currentWeekday: cwdtData.dt.currentWeekday,
+      currentWeekday: cwdtData.dt.currentWeekDay,
       dateWordy: cwdtData.dt.dateWordy,
       era: cwdtData.dt.era,
       dayLength: cwdtData.dt.dayLength,
@@ -370,7 +379,7 @@ export class Calendar extends Application {
         let now = Gametime.DTNow();
         let newDT = now.add({
           days: now.hours < 7 ? 0 : 1
-        }).setAbsolute({
+        } as DTMod).setAbsolute({
           hours: 7,
           minutes: 0,
           seconds: 0
@@ -387,7 +396,7 @@ export class Calendar extends Application {
         let now = Gametime.DTNow();
         let newDT = now.add({
           days: now.hours < 12 ? 0 : 1
-        }).setAbsolute({
+        } as DTMod).setAbsolute({
           hours: 12,
           minutes: 0,
           seconds: 0
@@ -404,7 +413,7 @@ export class Calendar extends Application {
         let now = Gametime.DTNow();
         let newDT = now.add({
           days: now.hours < 20 ? 0 : 1
-        }).setAbsolute({
+        } as DTMod).setAbsolute({
           hours: 20,
           minutes: 0,
           seconds: 0
@@ -420,7 +429,7 @@ export class Calendar extends Application {
         console.log("calendar-weather | Advancing to midnight.");
         let newDT = Gametime.DTNow().add({
           days: 1
-        }).setAbsolute({
+        } as DTMod).setAbsolute({
           hours: 0,
           minutes: 0,
           seconds: 0
@@ -436,13 +445,13 @@ export class Calendar extends Application {
         let unit = ev.target.dataset.unit;
         let step = parseInt(ev.target.dataset.step);
         if (unit == 's'){
-          game.Gametime.advanceClock(step);
+          Gametime.advanceClock(step);
         } else if (unit == 'min'){
-          game.Gametime.advanceTime({
+          Gametime.advanceTime({
             minutes: step
           });
         } else if (unit == 'h'){
-          game.Gametime.advanceTime({
+          Gametime.advanceTime({
             hours: step
           });
         }
@@ -454,10 +463,10 @@ export class Calendar extends Application {
       ev.preventDefault();
       ev = ev || window.event;
 
-      if (!this.isOpen && game.Gametime.isMaster()) {
+      if (!this.isOpen && Gametime.isMaster()) {
         if (Gametime.isRunning()) {
           console.log("calendar-weather | Stopping about-time pseudo clock.");
-          game.Gametime.stopRunning();
+          Gametime.stopRunning();
         } else {
           console.log("calendar-weather | Starting about-time pseudo clock.");
           Gametime.startRunning();
