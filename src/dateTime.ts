@@ -121,7 +121,7 @@ export var _myCalendarSpec = {
       DateTime.seasons = seasons;
     };
 
-    static get weather() {
+    static get weather(): WeatherTracker {
       return dateTimeStatics._weather ? dateTimeStatics._weather : new WeatherTracker();
     }
     static set weather(weather) {

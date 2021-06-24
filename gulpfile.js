@@ -113,14 +113,15 @@ exports.devClean = pdel([DEV_DIST()]);
  * Default Build operation
  */
 exports.default = gulp.series(
-	pdel([DIST])
-	, gulp.parallel(
-		buildSource(true, false)
-		, buildManifest()
-		, outputLanguages()
-		, outputTemplates()
-		, outputStylesCSS()
-		, outputMetaFiles()
+	pdel([DIST]),
+	gulp.parallel(
+		buildSource(true, false),
+		buildManifest(),
+		outputLanguages(),
+		outputTemplates(),
+		buildSass(),
+		outputStylesCSS(),
+		outputMetaFiles(),
 	)
 );
 /**
@@ -129,20 +130,21 @@ exports.default = gulp.series(
 exports.dev = gulp.series(
 	pdel([DEV_DIST() + GLOB], { force: true }),
 	gulp.parallel(
-		buildSource(true, false, DEV_DIST())
-		, buildManifest(DEV_DIST())
-		, outputLanguages(DEV_DIST())
-		, outputTemplates(DEV_DIST())
-		, outputStylesCSS(DEV_DIST())
-		, outputMetaFiles(DEV_DIST())
+		buildSource(true, false, DEV_DIST()),
+		buildManifest(DEV_DIST()),
+		outputLanguages(DEV_DIST()),
+		outputTemplates(DEV_DIST()),
+		buildSass(),
+		outputStylesCSS(DEV_DIST()),
+		outputMetaFiles(DEV_DIST()),
 	)
 );
 /**
  * Performs a default build and then zips the result into a bundle
  */
 exports.zip = gulp.series(
-	pdel([DIST])
-	, gulp.parallel(
+	pdel([DIST]),
+	gulp.parallel(
 		buildSource(false, false),
 		buildManifest(),
 		outputLanguages(),
