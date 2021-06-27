@@ -32,6 +32,9 @@ export var _myCalendarSpec = {
     is24 = false;
     dayLength: any;
     settings: any[];
+    hours: number;
+    minutes: number;
+    seconds: number;
 
     static updateDTC() { // update the calendar spec so that about-time will know the new calendar
       Gametime.DTC.createFromData(_myCalendarSpec);

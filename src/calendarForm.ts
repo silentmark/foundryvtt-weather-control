@@ -1,13 +1,18 @@
-import { _myCalendarSpec, DateTime } from "./dateTime.js";
+import { _myCalendarSpec, DateTime as CWDateTime } from "./dateTime.js";
 import { Month } from "./month.js";
 import { cwdtData } from "./index.js";
 
 export class CalendarForm extends FormApplication {
-  data = {};
+  protected _updateObject(event: Event, formData?: object): Promise<unknown> {
+    throw new Error('Method not implemented.');
+  }
+
+  data: any = {};
+
   constructor(newData) {
     super();
     newData = JSON.parse(newData);
-    let now = game.Gametime.DTNow();
+    let now = Gametime.DTNow();
 
     this.data = {
       months: newData.months,
@@ -16,7 +21,7 @@ export class CalendarForm extends FormApplication {
       day: now.days + 1,
       numDayOfTheWeek: now.dow(),
       currentMonth: now.months + 1,
-      currentWeekday: game.Gametime.DTC.weekDays[now.dow()],
+      currentWeekday: Gametime.DTC.weekDays[now.dow()],
       era: newData.era,
       hours: now.hours,
       minutes: now.minutes,
@@ -34,47 +39,47 @@ export class CalendarForm extends FormApplication {
   }
 
   saveData() {
-    let savedData = new DateTime();
+    let savedData = new CWDateTime();
 
     let year = parseInt(
-      document.getElementById("calendar-form-year-input").value
+      (document.getElementById("calendar-form-year-input") as HTMLInputElement).value
     );
     if (year < 0) {
       year = 1;
     }
 
 
-    savedData.era = document.getElementById("calendar-form-era-input").value;
+    savedData.era = (document.getElementById("calendar-form-era-input") as HTMLInputElement).value;
 
     let hours = parseInt(
-      document.getElementById("calendar-form-hour-input").value
+      (document.getElementById("calendar-form-hour-input") as HTMLInputElement).value
     );
     if (hours > 24 || hours < 0) {
       hours = 23;
     }
 
     if (
-      document.getElementById("calendar-form-ampm").value == "PM" &&
+      (document.getElementById("calendar-form-ampm") as HTMLInputElement).value == "PM" &&
       hours < 12
     ) {
       hours = hours + 12;
     }
     if (
-      document.getElementById("calendar-form-ampm").value == "AM" &&
+      (document.getElementById("calendar-form-ampm") as HTMLInputElement).value == "AM" &&
       hours == 12
     ) {
       hours = hours - 12;
     }
 
     let minutes = parseInt(
-      document.getElementById("calendar-form-minute-input").value
+      (document.getElementById("calendar-form-minute-input") as HTMLInputElement).value
     );
     if (minutes > 59 || minutes < 0) {
       minutes = 59;
     }
 
     let seconds = parseInt(
-      document.getElementById("calendar-form-second-input").value
+      (document.getElementById("calendar-form-second-input") as HTMLInputElement).value
     );
     if (seconds > 59 || seconds < 0) {
       seconds = 59;
@@ -82,16 +87,16 @@ export class CalendarForm extends FormApplication {
 
     let newMonthsName = document.getElementsByClassName(
       "calendar-form-month-input"
-    );
+    ) as HTMLCollectionOf<HTMLInputElement>;
     let newMonthsLength = document.getElementsByClassName(
       "calendar-form-month-length-input"
-    );
+    ) as HTMLCollectionOf<HTMLInputElement>;
     let newMonthsIsNum = document.getElementsByClassName(
       "calendar-form-month-isnum"
-    );
+    ) as HTMLCollectionOf<HTMLInputElement>;
     let newMonthsAbbrev = document.getElementsByClassName(
       "calendar-form-month-abbrev"
-    );
+    ) as HTMLCollectionOf<HTMLInputElement>;
 
     let newMonths = [];
     if (newMonthsName.length < 1) {
@@ -106,9 +111,9 @@ export class CalendarForm extends FormApplication {
       } else {
         tempMonth.name = newMonthsName[i].value;
       }
-      tempMonth.length = newMonthsLength[i].value;
+      tempMonth.length = Number(newMonthsLength[i].value);
       // change this for leapYears
-      tempMonth.leapLength = newMonthsLength[i].value;
+      tempMonth.leapLength = Number(newMonthsLength[i].value);
       tempMonth.isNumbered = !newMonthsIsNum[i].checked;
       if (newMonthsIsNum[i].checked) {
         if (newMonthsAbbrev[i].value) {
@@ -125,7 +130,7 @@ export class CalendarForm extends FormApplication {
     let weekDays = [];
     let newWeekdays = document.getElementsByClassName(
       "calendar-form-weekday-input"
-    );
+    ) as HTMLCollectionOf<HTMLInputElement>;
     for (var i = 0; i < newWeekdays.length; i++) {
       if (!newWeekdays[i].value) newWeekdays[i].value = "Weekday";
       weekDays.push(newWeekdays[i].value);
@@ -135,7 +140,7 @@ export class CalendarForm extends FormApplication {
 
     savedData.setDayLength(24);
 
-    DateTime.updateDTC();
+    CWDateTime.updateDTC();
 
     let monthTarget = 0;
     if (
@@ -145,14 +150,14 @@ export class CalendarForm extends FormApplication {
     ) {
       monthTarget = savedData.months.length - 1;
     } else {
-      monthTarget = document.querySelector(
+      monthTarget = Number((document.querySelector(
         'input[class="calendar-form-month-radio"]:checked'
-      ).value;
+      ) as HTMLInputElement).value);
     }
     monthTarget = Number(monthTarget);
 
     let day = parseInt(
-      document.getElementById("calendar-form-cDay-input").value
+      (document.getElementById("calendar-form-cDay-input") as HTMLInputElement).value
     );
     if (savedData.months[monthTarget].length < day) {
       day = savedData.months[monthTarget].length;
@@ -168,7 +173,7 @@ export class CalendarForm extends FormApplication {
       seconds: Number(seconds),
     };
 
-    const newDT = game.Gametime.DTf(timeSettings);
+    const newDT = Gametime.DTf(timeSettings);
     let weekdayTarget = 0;
     if (
       document.querySelector(
@@ -177,9 +182,9 @@ export class CalendarForm extends FormApplication {
     ) {
       weekdayTarget = savedData.daysOfTheWeek.length - 1;
     } else {
-      weekdayTarget = document.querySelector(
+      weekdayTarget = Number((document.querySelector(
         'input[class="calendar-form-weekday-radio"]:checked'
-      ).value;
+      ) as HTMLInputElement).value);
     }
 
     savedData.hours = newDT.hours;
@@ -187,7 +192,7 @@ export class CalendarForm extends FormApplication {
     savedData.seconds = newDT.seconds;
 
     savedData.numDayOfTheWeek = Number(weekdayTarget);
-    game.Gametime.setTime({hours: savedData.hours, minutes: savedData.minutes, seconds: savedData.seconds});
+    Gametime.setTime({hours: savedData.hours, minutes: savedData.minutes, seconds: savedData.seconds});
 
     savedData.setTimeDisp();
     savedData.genAbbrev();
@@ -199,13 +204,13 @@ export class CalendarForm extends FormApplication {
       numDayOfTheWeek: newDT.dow(),
       firstDay: _myCalendarSpec.first_day,
       currentMonth: newDT.months,
-      currentWeekday: game.Gametime.DTC.weekDays[newDT.dow()],
+      currentWeekday: Gametime.DTC.weekDays[newDT.dow()],
       dateWordy: savedData.dateWordy,
       era: savedData.era,
-      dayLength: game.Gametime.DTC.hpd,
+      dayLength: Gametime.DTC.hpd,
       timeDisp: savedData.timeDisp,
       dateNum: savedData.dateNum,
-      events: DateTime.events,
+      events: CWDateTime.events,
     };
 
     console.log(
@@ -265,10 +270,11 @@ export class CalendarForm extends FormApplication {
     });
     html.find(loadDefault).click((ev) => {
       ev.preventDefault();
-      let defaultCalendar = Object.keys(game.Gametime.calendars)[
-        game.settings.get("about-time", "calendar")
+      let defaultCalendar = Object.keys(Gametime.calendars)[
+        game.settings.get("about-time", "calendar") as any
       ];
       new Dialog({
+        default: '', // FIXME: Not sure this is right, but it is required by the type
         title: "Choose Calendar",
         content: `<p>${defaultCalendar}</p>`,
         buttons: {
@@ -276,10 +282,10 @@ export class CalendarForm extends FormApplication {
             icon: '<i class="fas fa-check"></i>',
             label: "Load",
             callback: async () => {
-              DateTime.updateFromDTC(defaultCalendar);
-              DateTime.updateDTC();
-              this.data.months = DateTime.months;
-              this.data.daysOfTheWeek = DateTime.daysOfTheWeek;
+              CWDateTime.updateFromDTC(defaultCalendar);
+              CWDateTime.updateDTC();
+              this.data.months = CWDateTime.months;
+              this.data.daysOfTheWeek = CWDateTime.daysOfTheWeek;
               await this.render(true);
               try {
                 await this.checkBoxes();
@@ -314,6 +320,7 @@ export class CalendarForm extends FormApplication {
     html.find(importBtn).click(ev => {
       ev.preventDefault();
       new Dialog({
+        default: '', // FIXME: Not sure this is right, but it is required by the type
         title: "Import Calendar",
         content: `<p>Paste calendar data into the following input field, then click "Upload Calendar Data"</p><input id="uploadedData" title="Data Here..."></input>`,
         buttons: {
@@ -321,18 +328,18 @@ export class CalendarForm extends FormApplication {
             icon: '<i class="fas fa-upload"></i>',
             label: "Import Calendar Data",
             callback: async () => {
-              let data = document.getElementById("uploadedData").value
+              let data = (document.getElementById("uploadedData") as HTMLInputElement).value as any
               try {
                 data = JSON.parse(data)
                 console.log(data)
                 let now = Gametime.DTNow();
-                if (!cwdtData.dt) cwdtData.dt = new DateTime();
+                if (!cwdtData.dt) cwdtData.dt = new CWDateTime();
                 cwdtData.dt.months = data.months;
                 cwdtData.dt.daysOfTheWeek = data.daysOfTheWeek;
                 cwdtData.dt.setDayLength(data.dayLength);
                 _myCalendarSpec.first_day = data.first_day;
-                DateTime.updateDTC(); // set the calendar spec for correct date time calculations
-                cwdtData.dt.currentWeekday = cwdtData.dt.daysOfTheWeek[now.dow()];
+                CWDateTime.updateDTC(); // set the calendar spec for correct date time calculations
+                cwdtData.dt.currentWeekDay = cwdtData.dt.daysOfTheWeek[now.dow()];
                 cwdtData.dt.era = data.era;
                 cwdtData.dt.dayLength = Gametime.DTC.hpd;
                 cwdtData.dt.timeDisp = now.shortDate().time;
@@ -367,12 +374,12 @@ export class CalendarForm extends FormApplication {
   }
 
   getData() {
-    let now = game.Gametime.DTNow();
+    let now = Gametime.DTNow();
     this.data.year = now.years;
     this.data.day = now.days + 1;
     this.data.numDayOfTheWeek = now.dow();
     this.data.currentMonth = now.months;
-    this.data.currentWeekday = game.Gametime.DTC.weekDays[now.dow()];
+    this.data.currentWeekday = Gametime.DTC.weekDays[now.dow()];
     this.data.hours = ((now.hours + 11) % 12) + 1;
     this.data.minutes = now.minutes;
     this.data.seconds = now.seconds;
@@ -380,7 +387,7 @@ export class CalendarForm extends FormApplication {
   }
 
   formLoaded() {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
       function check() {
         if (document.getElementById("calendar-form-submit")) {
           resolve();
@@ -396,19 +403,19 @@ export class CalendarForm extends FormApplication {
     await this.formLoaded();
     let weekdays = document.getElementsByClassName(
       "calendar-form-weekday-radio"
-    );
+    ) as HTMLCollectionOf<HTMLInputElement>;
     let monthsNum = document.getElementsByClassName(
       "calendar-form-month-isnum"
-    );
+    ) as HTMLCollectionOf<HTMLInputElement>;
     let monthsAbbrev = document.getElementsByClassName(
       "calendar-form-month-abbrev"
-    );
-    let months = document.getElementsByClassName("calendar-form-month-radio");
+    ) as HTMLCollectionOf<HTMLInputElement>;
+    let months = document.getElementsByClassName("calendar-form-month-radio") as HTMLCollectionOf<HTMLInputElement>;
     for (var i = 0, max = weekdays.length; i < max; i++) {
       weekdays[i].checked = i === this.data.numDayOfTheWeek;
     }
 
-    for (var i = 0, max = this.data.months.length; i < max; i++) {
+    for (var i = 0, max: number = this.data.months.length; i < max; i++) {
       if (monthsNum[i]) {
         monthsNum[i].checked = !this.data.months[i].isNumbered;
         if (monthsNum[i].checked) {
@@ -420,7 +427,7 @@ export class CalendarForm extends FormApplication {
     }
     months[this.data.currentMonth].checked = true;
 
-    if (game.Gametime.DTNow().hours >= 12) {
+    if (Gametime.DTNow().hours >= 12) {
       document.getElementById("calendar-form-ampm")[1].selected = "true";
     } else {
       document.getElementById("calendar-form-ampm")[0].selected = "true";
@@ -430,7 +437,7 @@ export class CalendarForm extends FormApplication {
   renderForm(newData) {
     let templatePath = "modules/calendar-weather/templates/calendar-form.html";
     this.data = JSON.parse(newData);
-    let now = game.Gametime.DTNow();
+    let now = Gametime.DTNow();
     this.data["hours"] = now.hours % 12 || 12;
     this.data["minutes"] = now.minutes;
     this.data["seconds"] = now.seconds;
@@ -438,7 +445,7 @@ export class CalendarForm extends FormApplication {
       .then((html) => {
         this.render(true);
       })
-      .then(this.checkBoxes());
+      .then(() => this.checkBoxes());
 
     Hooks.callAll("calendarSettingsOpen");
   }

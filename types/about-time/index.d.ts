@@ -2,16 +2,19 @@
 declare class Gametime {
   static weekDays: string[];
   static DTC: DTCalc;
+  static calendars: Object;
 
   static isMaster(): boolean;
   static isRunning(): boolean;
   static startRunning(): void;
   static stopRunning(): void;
   static DTNow(): DateTime;
-  static setAbsolute({years = 0, months = 0, days = 0,hours = 0, minutes = 0, seconds = 0}): DateTime
+  static DTf({years=DTCalc.clockStartYear, months=0, days=0, hours=0, minutes=0, seconds=0}={}): DateTime;
+  static setAbsolute({years = 0, months = 0, days = 0,hours = 0, minutes = 0, seconds = 0}): DateTime;
   static advanceClock(timeIncrement: number): void;
   static advanceTime(spec = {}): void;
   static _save(force?: boolean): void;
+  static setTime({hours=0, minutes=0, seconds=0}): void;
 }
 
 declare class DateTime extends DTMod {
