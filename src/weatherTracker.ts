@@ -1,6 +1,11 @@
 import {
   cwdtData
 } from "./index.js";
+
+declare const canvas: Canvas; // FIXME: I don't like doing this but I can't figure out where it really comes from
+declare const game: Game;
+declare const WFRP_Utility: any;
+
 export class WeatherTracker {
   humidity = 0;
   temp = 0;
@@ -28,8 +33,9 @@ export class WeatherTracker {
     min: 0
   };
 
+
   load(newData) {
-    this.outputToChat = game.settings.get('calendar-weather', 'weatherDisplay');
+    this.outputToChat = game.settings.get('calendar-weather', 'weatherDisplay') as boolean;
     if (!newData) return this;
     this.humidity = newData.humidity;
     this.temp = newData.temp;
@@ -188,14 +194,14 @@ export class WeatherTracker {
           // if no match search by name
           if (!entity) entity = game.tables.entities.find(m => m.name === macroMatch[1]);
           let tableRoll = entity.roll()
-          return `Roll: ${tableRoll.roll._result} <br> ${tableRoll.results[0].text}`
+          return `Roll: ${tableRoll.roll.result} <br> ${tableRoll.results[0].text}`
         }
       }
       return "Error: RollTable not found!";
     }
 
-    if (game.modules.get("fxmaster") ? .active) {
-      if (this.showFX || canvas.scene ? .getFlag('calendar-weather', 'showFX')) {
+    if (game.modules.get("fxmaster")?.active) {
+      if (this.showFX || canvas.scene?.getFlag('calendar-weather', 'showFX')) {
         fxAvailable = true;
         this.showFX = true;
       }
@@ -687,11 +693,11 @@ export class WeatherTracker {
     }
 
     this.lastTemp = this.temp;
-    this.cTemp = ((this.temp - 32) * 5 / 9).toFixed(1);
+    this.cTemp = Number(((this.temp - 32) * 5 / 9).toFixed(1));
 
     //Morrslieb weather events
     let morrTrigger = (this.rand(1, 400) == 1 || cwdtData.dt.months[Gametime.DTNow().months].name == "Hexenstag" || cwdtData.dt.months[Gametime.DTNow().months].name == "Geheimnistag")
-    if (morrTrigger && game.data.system.data.name == "wfrp4e" && Gametime.isMaster()) {
+    if (morrTrigger && (game.data as Data).system.data.name == "wfrp4e" && Gametime.isMaster()) {
       this.precipitation = game.i18n.localize("cw.weather.tracker.MorrsliebFull");
     } else {
       this.precipitation = this.genPrecip(roll);
@@ -702,7 +708,7 @@ export class WeatherTracker {
   }
 
   loadFX() {
-    if (game.modules.get("fxmaster") ? .active && Gametime.isMaster() && this.showFX && this.weatherFX)
+    if (game.modules.get("fxmaster")?.active && Gametime.isMaster() && this.showFX && this.weatherFX)
       Hooks.call("updateWeather", this.weatherFX);
   }
 
@@ -756,12 +762,12 @@ export class WeatherTracker {
     let dt = Gametime.DTNow();
     let newDarkness = 0;
     if (this.doNightCycle && Gametime.isMaster()) {
-      if (this.precipitation == game.i18n.localize("cw.weather.tracker.MorrsliebFull") && game.data.system.data.name == "wfrp4e" && Gametime.isMaster()) {
+      if (this.precipitation == game.i18n.localize("cw.weather.tracker.MorrsliebFull") && (game.data as Data).system.data.name == "wfrp4e" && Gametime.isMaster()) {
         if (!canvas.scene.getFlag("wfrp4e", "morrslieb")) {
           console.log("calendar-weather | Activating Morrslieb")
           WFRP_Utility.toggleMorrslieb()
         }
-      } else if (this.precipitation != game.i18n.localize("cw.weather.tracker.MorrsliebFull") && game.data.system.data.name == "wfrp4e" && Gametime.isMaster()) {
+      } else if (this.precipitation != game.i18n.localize("cw.weather.tracker.MorrsliebFull") && (game.data as Data).system.data.name == "wfrp4e" && Gametime.isMaster()) {
         if (canvas.scene.getFlag("wfrp4e", "morrslieb")) {
           console.log("calendar-weather | Deactivating Morrslieb")
           WFRP_Utility.toggleMorrslieb()
@@ -772,7 +778,7 @@ export class WeatherTracker {
       cwdtData.dt.moons.forEach((moon, index) => {
         if (moon.cyclePercent > 90)
           fullMoonMod = 0.15
-        if (document.getElementById(`calender-moon-symbol-${index}`).src.includes('totalLEclipse.png'))
+        if ((document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src.includes('totalLEclipse.png'))
           bloodMoon = true;
       });
       let dawn = this.dawn;
@@ -791,12 +797,12 @@ export class WeatherTracker {
         newDarkness = (1 - fullMoonMod) - (dt.minutes * 60 + dt.seconds) * 0.0002778;
         canvas.scene.update({
           darkness: newDarkness
-        })
+        }, {})
       }
 
       let eclipse = false;
       cwdtData.dt.moons.forEach((moon, index) => {
-        if (document.getElementById(`calender-moon-symbol-${index}`).src.includes('Eclipse'))
+        if ((document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src.includes('Eclipse'))
           eclipse = true;
       })
 
@@ -806,10 +812,10 @@ export class WeatherTracker {
         if (game.settings.get('calendar-weather', 'noGlobal') && !canvas.scene.data.globalLight && canvas.scene.data.flags.cwGlobalIllumination) {
           canvas.scene.update({
             globalLight: true
-          })
+          }, {})
         }
 
-        if (game.modules.get("fxmaster") ? .active && Gametime.isMaster() && this.showFX && canvas.scene.getFlag('fxmaster', 'filters') && canvas.scene.getFlag('fxmaster', 'filters').bloodMoon) {
+        if (game.modules.get("fxmaster")?.active && Gametime.isMaster() && this.showFX && canvas.scene.getFlag('fxmaster', 'filters') && (canvas.scene.getFlag('fxmaster', 'filters') as any).bloodMoon) {
           Hooks.call("switchFilter", {
             name: "bloodMoon",
             type: "color",
@@ -829,7 +835,7 @@ export class WeatherTracker {
       if (dt.hours == dusk) {
         newDarkness = (dt.minutes * 60 + dt.seconds) * 0.0002778;
 
-        if (game.modules.get("fxmaster") ? .active && Gametime.isMaster() && this.showFX && bloodMoon) {
+        if (game.modules.get("fxmaster")?.active && Gametime.isMaster() && this.showFX && bloodMoon) {
           Hooks.call("switchFilter", {
             name: "bloodMoon",
             type: "color",
@@ -843,7 +849,7 @@ export class WeatherTracker {
 
         canvas.scene.update({
           darkness: (newDarkness - fullMoonMod)
-        })
+        }, {})
       }
       if ((dt.hours >= dusk + 1 || dt.hours < dawn) && canvas.scene.data.darkness < 1 - fullMoonMod) {
         console.log("calendar-weather | It is now night.")
@@ -852,7 +858,7 @@ export class WeatherTracker {
           canvas.scene.update({
             'flags.cwGlobalIllumination': true,
             globalLight: false
-          })
+          }, {})
         }
 
         canvas.scene.update({

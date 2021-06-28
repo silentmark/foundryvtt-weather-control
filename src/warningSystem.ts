@@ -3,9 +3,9 @@ export class WarningSystem {
 
   static validateAboutTime() {
     if (game.data.version === "0.5.1") {
-      var aboutTime = game.modules.find(module => module.id === 'about-time' && module.active);
+      var aboutTime = (game.modules as any).find(module => module.id === 'about-time' && module.active);
     } else {
-      var aboutTime = game.modules.get("about-time") && game.modules.get("about-time").active;
+      var aboutTime = game.modules.get("about-time") && game.modules.get("about-time").active as any;
     }
     if (!aboutTime && game.user.isGM) {
       return WarningSystem.generateDialog();
