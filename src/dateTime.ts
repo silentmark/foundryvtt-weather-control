@@ -8,6 +8,8 @@ import {
   cwdtData
 } from "./index.js";
 
+declare const canvas: Canvas; // FIXME: I don't like doing this but I can't figure out where it really comes from
+
 export var _myCalendarSpec = {
   "leap_year_rule": (year) => 0,
   "clock_start_year": 0,
@@ -47,10 +49,10 @@ export class DateTime {
   }
 
   static updateFromDTC(calendarName) {
-    let calSpec = duplicate(game.Gametime.calendars[calendarName]);
+    let calSpec = duplicate(Gametime.calendars[calendarName]);
     if (calSpec) {
       _myCalendarSpec = calSpec;
-      _myCalendarSpec.leap_year_rule = game.Gametime.calendars[calendarName].leap_year_rule;
+      _myCalendarSpec.leap_year_rule = Gametime.calendars[calendarName].leap_year_rule;
       // Remove this when leap years are supported in this module
       _myCalendarSpec.leap_year_rule = (year) => 0;
       this.months = Object.keys(calSpec.month_len).map((k, i) => {
@@ -58,7 +60,7 @@ export class DateTime {
         return new Month(k, m.days[0], m.days[1], !m.intercalary, m.intercalary ? "XX" : `${i+1}`);
       })
       this.daysOfTheWeek = calSpec.weekdays;
-      game.Gametime.DTC.createFromData(_myCalendarSpec);
+      Gametime.DTC.createFromData(_myCalendarSpec);
     }
   }
 
@@ -150,7 +152,6 @@ export class DateTime {
     return dateTimeStatics._months;
   }
   static set months(months) {
-    _myCalendarSpec._month_len = {};
     months.forEach(m => _myCalendarSpec.month_len[m.name] = {
       "days": [Number(m.length), Number(m.leapLength)],
       "intercalary": !m.isNumbered
@@ -259,10 +260,10 @@ export class DateTime {
 
 
   get dateNum() {
-    return this._datenum;
+    return this._dateNum;
   }
   set dateNum(dateNum) {
-    this._datenum = dateNum;
+    this._dateNum = dateNum;
   };
 
   get weekday() {
@@ -299,7 +300,7 @@ export class DateTime {
     })
     let season = seasonArr.find(s => {
       let smn = abbrevs.indexOf(s.date.month);
-      return (smn === targetMonth && s.date.day < targetDay) || parseInt(smn + 1) > targetMonth;
+      return (smn === targetMonth && s.date.day < targetDay) || smn + 1 > targetMonth;
     });
     if (season && (abbrevs.indexOf(season.date.month) > targetMonth || (abbrevs.indexOf(season.date.month) === targetMonth && season.date.day > targetDay))) {
       season = seasonArr[seasonArr.indexOf(season) - 1];
@@ -307,7 +308,7 @@ export class DateTime {
       season = this.seasons[this.seasons.length - 1];
     }
 
-    return this.seasons.find(s => season ? .name === s.name);
+    return this.seasons.find(s => season.name === s.name);
   }
 
   checkMoons(moonSet = false) {
@@ -316,7 +317,7 @@ export class DateTime {
     let moonDisplayOutput = '';
     let moonInfo = [];
 
-    if (!this.moons.lastMoons) {
+    if (!(this.moons as any).lastMoons) { // Rant: Sure, go ahead, try to access an array like an object and bastardize the whole thing that you don't own.
       this.moons["lastMoons"] = {};
     }
 
@@ -324,7 +325,7 @@ export class DateTime {
 
       // Initialize the references to the current settings if they aren't set
       if (!Number.isFinite(moon.referenceTime)) {
-        moon.referenceTime = game.Gametime.DTNow().toSeconds();
+        moon.referenceTime = Gametime.DTNow().toSeconds();
       }
 
       if (!Number.isFinite(moon.referencePercent)) {
@@ -336,7 +337,7 @@ export class DateTime {
       }
 
       // Calculate the difference in days since the reference (with decimal fraction)
-      let daysSinceReference = (game.Gametime.DTNow().toSeconds() - moon.referenceTime) / game.Gametime.DTC.spd;
+      let daysSinceReference = (Gametime.DTNow().toSeconds() - moon.referenceTime) / Gametime.DTC.spd;
 
       // Determine where in the cycle the moon is in its cycle
       moon.cyclePercent = moon.referencePercent + ((daysSinceReference / (moon.cycleLength * 2)) % 1 * 200);
@@ -410,7 +411,7 @@ export class DateTime {
         moonDisplayOutput += `<img src="${moonSymbol}" id='calender-moon-symbol-${index}'>`;
       }
 
-      if (this.moons.lastMoons && this.moons.lastMoons[index] != moonSymbol) {
+      if ((this.moons as any).lastMoons && (this.moons as any).lastMoons[index] != moonSymbol) {
         updatedMoons += `<div class="calendar-weather-chat"> <img src="${moonSymbol}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${phasePrefix} ${moonPhase}${sanction == '' ? '' : `, ${sanction}`}</p></div></div>`;
         moonInfo.push({
           index: index,
@@ -422,7 +423,7 @@ export class DateTime {
         });
       }
 
-      this.moons.lastMoons[index] = moonSymbol;
+      (this.moons as any).lastMoons[index] = moonSymbol;
 
       //check solar eclipse
       let roll = Math.random() * 100
@@ -437,9 +438,9 @@ export class DateTime {
         });
         let solarEclipse = (moon, index, moonSymbol, moonPhase, phasePrefix) => {
           let chatOut = ``;
-          if (document.getElementById(`calender-moon-symbol-${index}`).src.includes('Eclipse')) {
+          if ((document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src.includes('Eclipse')) {
             chatOut = `<div class="calendar-weather-chat"> <img src="${moonSymbol}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.SEclipseEventEnd')}</p></div></div>`;
-            document.getElementById(`calender-moon-symbol-${index}`).src = moonSymbol;
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src = moonSymbol;
             document.getElementById(`calender-moon-symbol-${index}`).title = `${moon.name} | ${phasePrefix} ${moonPhase}`;
             if (this.weather.doNightCycle && Gametime.isMaster()) {
               canvas.scene.update({
@@ -450,8 +451,8 @@ export class DateTime {
             }
           } else {
             chatOut = `<div class="calendar-weather-chat"> <img src="${'./modules/calendar-weather/icons/sEclipse.svg'}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.SEclipseEvent')}</p></div></div>`;
-            document.getElementById(`calender-moon-symbol-${index}`).src = './modules/calendar-weather/icons/sEclipse.svg';
-            document.getElementById(`calender-moon-symbol-${index}`).title = `${moon.name} | ${game.i18n.localize('cw.moon.SEclipseEvent')}`;
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src = './modules/calendar-weather/icons/sEclipse.svg';
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('cw.moon.SEclipseEvent')}`;
             if (this.weather.doNightCycle && Gametime.isMaster()) {
               canvas.scene.update({
                 darkness: 1
@@ -459,9 +460,9 @@ export class DateTime {
                 animateDarkness: true
               });
             }
-            game.Gametime.doIn({
+            Gametime.doIn({
               minutes: 30
-            }, solarEclipse, moon, index, moonSymbol, moonPhase, phasePrefix);
+            } as DTMod, solarEclipse, moon, index, moonSymbol, moonPhase, phasePrefix);
           }
 
           ChatMessage.create({
@@ -473,7 +474,7 @@ export class DateTime {
           });
 
         }
-        game.Gametime.doAt(game.Gametime.DTNow().setAbsolute({
+        Gametime.doAt(Gametime.DTNow().setAbsolute({
           hours: 11,
           minutes: 45
         }), solarEclipse, moon, index, moonSymbol, moonPhase, phasePrefix);
@@ -483,11 +484,11 @@ export class DateTime {
           let chatOut = ``;
           if (moonPhase == game.i18n.localize('cw.moon.Full')) {
             chatOut = `<div class="calendar-weather-chat"> <img src="${'./modules/calendar-weather/icons/totalLEclipse.svg'}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.TotalLEclipse')}</p></div></div>`;
-            document.getElementById(`calender-moon-symbol-${index}`).src = './modules/calendar-weather/icons/totalLEclipse.svg';
-            document.getElementById(`calender-moon-symbol-${index}`).title = `${moon.name} | ${game.i18n.localize('cw.moon.TotalLEclipse')}`;
-          } else if (document.getElementById(`calender-moon-symbol-${index}`)) {
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src = './modules/calendar-weather/icons/totalLEclipse.svg';
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('cw.moon.TotalLEclipse')}`;
+          } else if ((document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement)) {
             chatOut = `<div class="calendar-weather-chat"> <img src="${moonSymbol}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.PartialLEclipse')}</p></div></div>`;
-            document.getElementById(`calender-moon-symbol-${index}`).title = `${moon.name} | ${game.i18n.localize('cw.moon.PartialLEclipse')}`;
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('cw.moon.PartialLEclipse')}`;
           }
           let messageLvl = ChatMessage.getWhisperRecipients("GM");
           ChatMessage.create({
@@ -511,8 +512,8 @@ export class DateTime {
     }
 
     moonInfo.forEach((moon) => {
-      document.getElementById(`calender-moon-symbol-${moon.index}`).src = moon.symbol;
-      document.getElementById(`calender-moon-symbol-${moon.index}`).title = `${moon.name} | ${moon.prefix} ${moon.phase}${moon.sanction == '' ? '' : `, ${moon.sanction}`}`;
+      (document.getElementById(`calender-moon-symbol-${moon.index}`) as HTMLImageElement).src = moon.symbol;
+      (document.getElementById(`calender-moon-symbol-${moon.index}`) as HTMLImageElement).title = `${moon.name} | ${moon.prefix} ${moon.phase}${moon.sanction == '' ? '' : `, ${moon.sanction}`}`;
     });
 
     if (updatedMoons && game.settings.get('calendar-weather', 'moonDisplay')) {
@@ -598,7 +599,7 @@ export class DateTime {
     this.events = this.events.filter(event => event.date.combined !== combinedDate);
 
     filtEvents.forEach((event) => {
-      let dt = game.Gametime.DTNow();
+      let dt = Gametime.DTNow();
       let timeOut = "";
       if (event.allDay) {
         dt = dt.setAbsolute({
@@ -619,12 +620,12 @@ export class DateTime {
       }
       let macro = this.getEntity(event.text, game.macros, macroRe);
       if (macro) {
-        game.Gametime.doAt(dt, macro.name);
+        Gametime.doAt(dt, macro.name);
       } else {
         let journal = this.getEntity(event.text, game.journal, journalRe);
         let infoOut = (journal != null) ? journal.data.content : event.text;
         let chatOut = "<b>" + event.name + "</b> - " + this.dateNum + timeOut + "<hr>" + infoOut;
-        game.Gametime.reminderAt(dt, chatOut, "Event:", "GM");
+        Gametime.reminderAt(dt, chatOut, "Event:", "GM");
       }
     });
   }
@@ -663,22 +664,26 @@ export class DateTime {
   }
 
   setTimeDisp() {
-    let dt = game.Gametime.DTNow();
+    let dt = Gametime.DTNow();
     let hours = dt.hours;
     let minutes = dt.minutes;
     let sec = dt.seconds;
     let AmOrPm = hours >= 12 ? 'PM' : 'AM';
+
+    let dispMinutes = '';
+    let dispSeconds = '';
+
     if (minutes < 10) {
-      minutes = "0" + minutes;
+      dispMinutes = "0" + minutes.toString();
     }
     if (sec < 10) {
-      sec = "0" + sec;
+      dispSeconds = "0" + sec;
     }
     if (this.is24) {
-      this.timeDisp = hours + ":" + minutes + ":" + sec;
+      this.timeDisp = hours + ":" + dispMinutes + ":" + dispSeconds;
     } else {
       hours = (hours % 12) || 12;
-      this.timeDisp = hours + ":" + minutes + ":" + sec + " " + AmOrPm;
+      this.timeDisp = hours + ":" + dispMinutes + ":" + dispSeconds + " " + AmOrPm;
     }
   }
 
@@ -706,6 +711,6 @@ export class DateTime {
   advanceMonth() {
     Gametime.setAbsolute(Gametime.DTNow().add({
       months: 1
-    }));
+    } as DTMod));
   }
 }

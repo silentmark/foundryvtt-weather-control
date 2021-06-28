@@ -15,6 +15,9 @@ declare class Gametime {
   static advanceTime(spec = {}): void;
   static _save(force?: boolean): void;
   static setTime({hours=0, minutes=0, seconds=0}): void;
+  static doIn(when: DTMod, handler: (...args) => any, ...args): number;
+  static doAt(when: DateTime, handler: (...args) => any, ...args): number;
+  static reminderAt(when: DateTime, ...args): number;
 }
 
 declare class DateTime extends DTMod {
@@ -36,6 +39,12 @@ declare class DateTime extends DTMod {
    * convert the date to a number of Seconds.
    */
   public toSeconds(): number;
+
+  /**
+   * Adjust the calendar so that the dow() of this will be dow
+   * @param dow the new dow for this.
+   */
+  public setCalDow(dow: number): void;
 }
 
 declare class DTMod {
@@ -79,5 +88,6 @@ declare class DTCalc {
   yearNames: string[];
   namedYears: {};
 
-  public saveUserCalendar(newCalendarSpec: any): void
+  public saveUserCalendar(newCalendarSpec: any): void;
+  public createFromData(calendarSpec?: any):void;
 }
