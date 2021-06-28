@@ -31,6 +31,11 @@ declare class DateTime extends DTMod {
    * Returns the number of days represented by a date. Returns the residual hours minutes seconds as well.
    */
   public toDays(): {days: number, time: DTMod};
+
+  /**
+   * convert the date to a number of Seconds.
+   */
+  public toSeconds(): number;
 }
 
 declare class DTMod {

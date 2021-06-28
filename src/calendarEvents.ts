@@ -7,7 +7,10 @@ export class CalendarEvents extends FormApplication {
     seasons: [],
     reEvents: [],
     events: [],
-    moons: []
+    moons: [],
+    months: [],
+    day: undefined,
+    year: undefined
   };
   openCollapsables = [];
   static get defaultOptions() {
@@ -28,12 +31,12 @@ export class CalendarEvents extends FormApplication {
       moons: []
     };
 
-    let moonName = document.getElementsByClassName("calendar-moon-name");
-    let moonCycleLength = document.getElementsByClassName("calendar-moon-length");
-    let moonPercent = document.getElementsByClassName("calendar-moon-percent");
-    let moonWaxing = document.getElementsByClassName("calendar-moon-waxing");
-    let moonLEclipse = document.getElementsByClassName("calendar-moon-leclipse");
-    let moonSEclipse = document.getElementsByClassName("calendar-moon-seclipse");
+    let moonName = document.getElementsByClassName("calendar-moon-name") as HTMLCollectionOf<HTMLInputElement>;
+    let moonCycleLength = document.getElementsByClassName("calendar-moon-length") as HTMLCollectionOf<HTMLInputElement>;
+    let moonPercent = document.getElementsByClassName("calendar-moon-percent") as HTMLCollectionOf<HTMLInputElement>;
+    let moonWaxing = document.getElementsByClassName("calendar-moon-waxing") as HTMLCollectionOf<HTMLInputElement>;
+    let moonLEclipse = document.getElementsByClassName("calendar-moon-leclipse") as HTMLCollectionOf<HTMLInputElement>;
+    let moonSEclipse = document.getElementsByClassName("calendar-moon-seclipse") as HTMLCollectionOf<HTMLInputElement>;
     let moon = {};
 
     // iterate through all moons
@@ -46,14 +49,14 @@ export class CalendarEvents extends FormApplication {
       }
 
       // length of lunar cycle
-      if (parseInt(moonCycleLength[i].value) < 1 || moonCycleLength[i].value == NaN) {
+      if (parseInt(moonCycleLength[i].value) < 1 || moonCycleLength[i].value as any == NaN) {
         moon['cycleLength'] = 1;
       } else {
         moon['cycleLength'] = parseFloat(moonCycleLength[i].value);
       }
 
       // lunar cycle progress in percent
-      if (parseFloat(moonPercent[i].value) < 0 || moonPercent[i].value == NaN) {
+      if (parseFloat(moonPercent[i].value) < 0 || moonPercent[i].value as any == NaN) {
         moon['cyclePercent'] = 0;
       } else if (parseFloat(moonPercent[i].value) > 100) {
         moon['cyclePercent'] = 100;
@@ -65,7 +68,7 @@ export class CalendarEvents extends FormApplication {
       moon['isWaxing'] = moonWaxing[i].checked;
 
       // lunar eclipse chance
-      if (parseFloat(moonLEclipse[i].value) < 0 || moonLEclipse[i].value == NaN) {
+      if (parseFloat(moonLEclipse[i].value) < 0 || moonLEclipse[i].value as any == NaN) {
         moon['lunarEclipseChance'] = 0;
       } else if (parseFloat(moonLEclipse[i].value) > 100) {
         moon['lunarEclipseChance'] = 100;
@@ -74,7 +77,7 @@ export class CalendarEvents extends FormApplication {
       }
 
       // solar eclipse chance
-      if (parseFloat(moonSEclipse[i].value) < 0 || moonSEclipse[i].value == NaN) {
+      if (parseFloat(moonSEclipse[i].value) < 0 || moonSEclipse[i].value as any == NaN) {
         moon['solarEclipseChance'] = 0;
       } else if (parseFloat(moonSEclipse[i].value) > 100) {
         moon['solarEclipseChance'] = 100;
@@ -82,7 +85,7 @@ export class CalendarEvents extends FormApplication {
         moon['solarEclipseChance'] = parseFloat(moonSEclipse[i].value);
       }
 
-      moon['referenceTime'] = game.Gametime.DTNow().toSeconds();
+      moon['referenceTime'] = Gametime.DTNow().toSeconds();
       moon['referencePercent'] = moonWaxing[i].checked ? moon['cyclePercent'] : 200 - moon['cyclePercent'];
 
       // push moon array data to moons array
@@ -92,17 +95,17 @@ export class CalendarEvents extends FormApplication {
       moon = {};
     }
 
-    let seasonName = document.getElementsByClassName("calendar-season-name");
-    let seasonMonth = document.getElementsByClassName("calendar-season-month-value");
-    let seasonDay = document.getElementsByClassName("calendar-season-day");
-    let seasonTemp = document.getElementsByClassName("calendar-season-temp");
-    let seasonHumid = document.getElementsByClassName("calendar-season-humidity");
-    let seasonColor = document.getElementsByClassName("calendar-season-color");
-    let seasonDawn = document.getElementsByClassName("calendar-dawn");
-    let seasonDusk = document.getElementsByClassName("calendar-dusk");
-    let seasonRolltable = document.getElementsByClassName("calendar-season-rolltable");
-    let dawnAmpm = document.getElementsByClassName("calendar-dawn-ampm");
-    let duskAmpm = document.getElementsByClassName("calendar-dusk-ampm");
+    let seasonName = document.getElementsByClassName("calendar-season-name") as HTMLCollectionOf<HTMLInputElement>;
+    let seasonMonth = document.getElementsByClassName("calendar-season-month-value") as HTMLCollectionOf<HTMLSelectElement>;
+    let seasonDay = document.getElementsByClassName("calendar-season-day") as HTMLCollectionOf<HTMLSelectElement>;
+    let seasonTemp = document.getElementsByClassName("calendar-season-temp") as HTMLCollectionOf<HTMLSelectElement>;
+    let seasonHumid = document.getElementsByClassName("calendar-season-humidity") as HTMLCollectionOf<HTMLSelectElement>;
+    let seasonColor = document.getElementsByClassName("calendar-season-color") as HTMLCollectionOf<HTMLSelectElement>;
+    let seasonDawn = document.getElementsByClassName("calendar-dawn") as HTMLCollectionOf<HTMLInputElement>;
+    let seasonDusk = document.getElementsByClassName("calendar-dusk") as HTMLCollectionOf<HTMLSelectElement>;
+    let seasonRolltable = document.getElementsByClassName("calendar-season-rolltable") as HTMLCollectionOf<HTMLInputElement>;
+    let dawnAmpm = document.getElementsByClassName("calendar-dawn-ampm") as HTMLCollectionOf<HTMLSelectElement>;
+    let duskAmpm = document.getElementsByClassName("calendar-dusk-ampm") as HTMLCollectionOf<HTMLSelectElement>;
     let event = {};
     let day = 0;
     let hours = 0;
@@ -115,7 +118,7 @@ export class CalendarEvents extends FormApplication {
 
       event['rolltable'] = seasonRolltable[i].value;
 
-      day = parseInt(seasonDay[i].selectedIndex) + 1
+      day = Number(seasonDay[i].selectedIndex) + 1
       event['date'] = {
         month: seasonMonth[i].options[seasonMonth[i].selectedIndex].value,
         day: day,
@@ -159,10 +162,10 @@ export class CalendarEvents extends FormApplication {
       event = {};
     }
 
-    let reEventName = document.getElementsByClassName("calendar-reEvent-name");
-    let reEventMonth = document.getElementsByClassName("calendar-reEvent-month-value");
-    let reEventDay = document.getElementsByClassName("calendar-reEvent-day");
-    let reEventContent = document.getElementsByClassName("calendar-reEvent-text");
+    let reEventName = document.getElementsByClassName("calendar-reEvent-name") as HTMLCollectionOf<HTMLInputElement>;
+    let reEventMonth = document.getElementsByClassName("calendar-reEvent-month-value") as HTMLCollectionOf<HTMLSelectElement>;
+    let reEventDay = document.getElementsByClassName("calendar-reEvent-day") as HTMLCollectionOf<HTMLSelectElement>;
+    let reEventContent = document.getElementsByClassName("calendar-reEvent-text") as HTMLCollectionOf<HTMLSelectElement>;
     event = {};
     day = 0;
     for (var i = 0, max = reEventName.length; i < max; i++) {
@@ -171,7 +174,7 @@ export class CalendarEvents extends FormApplication {
       } else {
         event['name'] = reEventName[i].value;
       }
-      day = parseInt(reEventDay[i].selectedIndex) + 1
+      day = Number(reEventDay[i].selectedIndex) + 1
       event['date'] = {
         month: reEventMonth[i].options[reEventMonth[i].selectedIndex].value,
         day: day,
@@ -182,16 +185,16 @@ export class CalendarEvents extends FormApplication {
       event = {};
     }
 
-    let eventName = document.getElementsByClassName("calendar-event-name");
-    let eventContent = document.getElementsByClassName("calendar-event-content");
-    let eventMonth = document.getElementsByClassName("calendar-event-month-value");
-    let eventDay = document.getElementsByClassName("calendar-event-day");
-    let eventYear = document.getElementsByClassName("calendar-event-year");
-    let eventHours = document.getElementsByClassName("calendar-event-time-hours");
-    let eventMin = document.getElementsByClassName("calendar-event-time-min");
-    let eventSec = document.getElementsByClassName("calendar-event-time-sec");
-    let ampm = document.getElementsByClassName("calendar-event-ampm");
-    let allDay = document.getElementsByClassName("calendar-event-allDay");
+    let eventName = document.getElementsByClassName("calendar-event-name") as HTMLCollectionOf<HTMLInputElement>;
+    let eventContent = document.getElementsByClassName("calendar-event-content") as HTMLCollectionOf<HTMLInputElement>;
+    let eventMonth = document.getElementsByClassName("calendar-event-month-value") as HTMLCollectionOf<HTMLSelectElement>;;
+    let eventDay = document.getElementsByClassName("calendar-event-day") as HTMLCollectionOf<HTMLSelectElement>;
+    let eventYear = document.getElementsByClassName("calendar-event-year") as HTMLCollectionOf<HTMLInputElement>;
+    let eventHours = document.getElementsByClassName("calendar-event-time-hours") as HTMLCollectionOf<HTMLInputElement>;
+    let eventMin = document.getElementsByClassName("calendar-event-time-min") as HTMLCollectionOf<HTMLInputElement>;
+    let eventSec = document.getElementsByClassName("calendar-event-time-sec") as HTMLCollectionOf<HTMLInputElement>;
+    let ampm = document.getElementsByClassName("calendar-event-ampm") as HTMLCollectionOf<HTMLSelectElement>;;
+    let allDay = document.getElementsByClassName("calendar-event-allDay") as HTMLCollectionOf<HTMLInputElement>;;
     event = {};
     day = 0;
 
@@ -204,9 +207,9 @@ export class CalendarEvents extends FormApplication {
       } else {
         event['name'] = eventName[i].value;
       }
-      day = parseInt(eventDay[i].selectedIndex) + 1
+      day = Number(eventDay[i].selectedIndex) + 1
 
-      hours = parseInt(eventHours[i].value)
+      hours = Number(eventHours[i].value)
       if (hours > 24 || hours < 0) {
         hours = 23;
       }
@@ -243,9 +246,9 @@ export class CalendarEvents extends FormApplication {
 
     //keep collapsables open
     this.openCollapsables = [];
-    let collapsables = document.getElementsByClassName("calendar-collapsable")
+    let collapsables = document.getElementsByClassName("calendar-collapsable") as HTMLCollectionOf<HTMLButtonElement>;
     console.log(collapsables)
-    for (let collapsable of collapsables) {
+    for (let collapsable of collapsables as unknown as HTMLButtonElement[]) { // This is very bad since we are setting the type before, but it will do for now.
       if (collapsable.classList.contains('active')) this.openCollapsables.push(collapsable.name)
     }
 
@@ -255,13 +258,13 @@ export class CalendarEvents extends FormApplication {
     return JSON.stringify(this.data);
   }
 
-  getData() {
+  getData(): any {
     return this.data;
   }
 
   async checkBoxes() {
-    let moonName = document.getElementsByClassName("calendar-moon-name")
-    let moonWaxing = document.getElementsByClassName("calendar-moon-waxing")
+    let moonName = document.getElementsByClassName("calendar-moon-name") as HTMLCollectionOf<HTMLInputElement>;
+    let moonWaxing = document.getElementsByClassName("calendar-moon-waxing") as HTMLCollectionOf<HTMLInputElement>;
     let moon = undefined
     for (let i = 0; i < moonWaxing.length; i++) {
       moon = this.data.moons.find(moon => moon.name == moonName[i].value);
@@ -269,16 +272,16 @@ export class CalendarEvents extends FormApplication {
         moonWaxing[i].checked = moon.isWaxing;
     }
 
-    let names = document.getElementsByClassName("calendar-season-name");
-    let days = document.getElementsByClassName("calendar-season-day");
-    let months = document.getElementsByClassName("calendar-season-month-value");
-    let temp = document.getElementsByClassName("calendar-season-temp");
-    let humidity = document.getElementsByClassName("calendar-season-humidity");
-    let color = document.getElementsByClassName("calendar-season-color");
-    let seasonDawn = document.getElementsByClassName("calendar-dawn")
-    let seasonDusk = document.getElementsByClassName("calendar-dusk")
-    let dawnAmpm = document.getElementsByClassName("calendar-dawn-ampm")
-    let duskAmpm = document.getElementsByClassName("calendar-dusk-ampm")
+    let names = document.getElementsByClassName("calendar-season-name") as HTMLCollectionOf<HTMLInputElement>;
+    let days = document.getElementsByClassName("calendar-season-day") as HTMLCollectionOf<HTMLInputElement>;
+    let months = document.getElementsByClassName("calendar-season-month-value") as HTMLCollectionOf<HTMLInputElement>;
+    let temp = document.getElementsByClassName("calendar-season-temp") as HTMLCollectionOf<HTMLSelectElement>;
+    let humidity = document.getElementsByClassName("calendar-season-humidity") as HTMLCollectionOf<HTMLSelectElement>;
+    let color = document.getElementsByClassName("calendar-season-color") as HTMLCollectionOf<HTMLSelectElement>;
+    let seasonDawn = document.getElementsByClassName("calendar-dawn") as HTMLCollectionOf<HTMLInputElement>;
+    let seasonDusk = document.getElementsByClassName("calendar-dusk") as HTMLCollectionOf<HTMLInputElement>;
+    let dawnAmpm = document.getElementsByClassName("calendar-dawn-ampm") as HTMLCollectionOf<HTMLSelectElement>;
+    let duskAmpm = document.getElementsByClassName("calendar-dusk-ampm") as HTMLCollectionOf<HTMLSelectElement>;
     //init vars
     let length = 0;
     let event = undefined
@@ -315,18 +318,18 @@ export class CalendarEvents extends FormApplication {
             }
           }
           if (event.dawn >= 12) {
-            dawnAmpm[i].getElementsByTagName('option')[1].selected = "true";
+            dawnAmpm[i].getElementsByTagName('option')[1].selected = true;
           } else {
-            dawnAmpm[i].getElementsByTagName('option')[0].selected = "true";
+            dawnAmpm[i].getElementsByTagName('option')[0].selected = true;
           }
-          seasonDawn[i].value = ((event.dawn + 11) % 12 + 1);
+          seasonDawn[i].value = ((event.dawn + 11) % 12 + 1).toString();
 
           if (event.dusk >= 12) {
-            duskAmpm[i].getElementsByTagName('option')[0].selected = "true";
+            duskAmpm[i].getElementsByTagName('option')[0].selected = true;
           } else {
-            duskAmpm[i].getElementsByTagName('option')[1].selected = "true";
+            duskAmpm[i].getElementsByTagName('option')[1].selected = true;
           }
-          seasonDusk[i].value = ((event.dusk + 11) % 12 + 1);
+          seasonDusk[i].value = ((event.dusk + 11) % 12 + 1).toString();
           //create a whole bunch of options corresponding to each day in the selected month.
           let frag = document.createDocumentFragment();
           let element = days[i];
@@ -337,12 +340,12 @@ export class CalendarEvents extends FormApplication {
           //create a dropdown option for the length of the selected month
           for (var k = 1, max = length + 1; k < max; k++) {
             var option = document.createElement('option');
-            option.value = k;
+            option.value = k.toString();
             //if the index is the same as the event's day, select it.
             if (k == event.date.day) {
               option.selected = true;
             }
-            option.appendChild(document.createTextNode(k));
+            option.appendChild(document.createTextNode(k.toString()));
             frag.appendChild(option);
           }
           //add generated days to the day dropdown.
@@ -351,9 +354,9 @@ export class CalendarEvents extends FormApplication {
       }
     }
 
-    names = document.getElementsByClassName("calendar-reEvent-name");
-    days = document.getElementsByClassName("calendar-reEvent-day");
-    months = document.getElementsByClassName("calendar-reEvent-month-value");
+    names = document.getElementsByClassName("calendar-reEvent-name") as HTMLCollectionOf<HTMLInputElement>;
+    days = document.getElementsByClassName("calendar-reEvent-day") as HTMLCollectionOf<HTMLInputElement>;
+    months = document.getElementsByClassName("calendar-reEvent-month-value") as HTMLCollectionOf<HTMLInputElement>;
     //init vars
     length = 0;
     event = undefined
@@ -384,12 +387,12 @@ export class CalendarEvents extends FormApplication {
           //create a dropdown option for the length of the selected month
           for (var k = 1, max = length + 1; k < max; k++) {
             var option = document.createElement('option');
-            option.value = k;
+            option.value = k.toString();
             //if the index is the same as the event's day, select it.
             if (k == event.date.day) {
               option.selected = true;
             }
-            option.appendChild(document.createTextNode(k));
+            option.appendChild(document.createTextNode(k.toString()));
             frag.appendChild(option);
           }
           //add generated days to the day dropdown.
@@ -398,12 +401,12 @@ export class CalendarEvents extends FormApplication {
       }
     }
 
-    names = document.getElementsByClassName("calendar-event-name");
-    days = document.getElementsByClassName("calendar-event-day");
-    months = document.getElementsByClassName("calendar-event-month-value");
-    let allDay = document.getElementsByClassName("calendar-event-allDay");
-    let ampm = document.getElementsByClassName("calendar-event-ampm");
-    let hours = document.getElementsByClassName("calendar-event-time-hours");
+    names = document.getElementsByClassName("calendar-event-name") as HTMLCollectionOf<HTMLInputElement>;
+    days = document.getElementsByClassName("calendar-event-day") as HTMLCollectionOf<HTMLInputElement>;
+    months = document.getElementsByClassName("calendar-event-month-value") as HTMLCollectionOf<HTMLInputElement>;
+    let allDay = document.getElementsByClassName("calendar-event-allDay") as HTMLCollectionOf<HTMLInputElement>;
+    let ampm = document.getElementsByClassName("calendar-event-ampm") as HTMLCollectionOf<HTMLSelectElement>;
+    let hours = document.getElementsByClassName("calendar-event-time-hours") as HTMLCollectionOf<HTMLInputElement>;
     //init vars
     length = 0;
     event = undefined
@@ -434,12 +437,12 @@ export class CalendarEvents extends FormApplication {
           //create a dropdown option for the length of the selected month
           for (var k = 1, max = length + 1; k < max; k++) {
             var option = document.createElement('option');
-            option.value = k;
+            option.value = k.toString();
             //if the index is the same as the event's day, select it.
             if (k == event.date.day) {
               option.selected = true;
             }
-            option.appendChild(document.createTextNode(k));
+            option.appendChild(document.createTextNode(k.toString()));
             frag.appendChild(option);
           }
           //add generated days to the day dropdown.
@@ -449,11 +452,11 @@ export class CalendarEvents extends FormApplication {
           allDay[i].checked = event.allDay;
 
           if (event.date.hours >= 12) {
-            ampm[i].getElementsByTagName('option')[1].selected = "true";
+            ampm[i].getElementsByTagName('option')[1].selected = true;
           } else {
-            ampm[i].getElementsByTagName('option')[0].selected = "true";
+            ampm[i].getElementsByTagName('option')[0].selected = true;
           }
-          hours[i].value = ((event.date.hours + 11) % 12 + 1);
+          hours[i].value = ((event.date.hours + 11) % 12 + 1).toString();
 
         }
       }
@@ -463,7 +466,7 @@ export class CalendarEvents extends FormApplication {
     console.log(this.openCollapsables)
     if (this.openCollapsables.length != 0) {
       let collapsables = document.getElementsByClassName("calendar-collapsable")
-      for (let collapsable of collapsables) {
+      for (let collapsable of collapsables as unknown as any[]) {
         if (this.openCollapsables.includes(collapsable.name)) {
           collapsable.classList.toggle('active');
           let content = collapsable.nextElementSibling;
@@ -532,7 +535,7 @@ export class CalendarEvents extends FormApplication {
     html.find(addEvent).click(ev => {
       ev.preventDefault();
       this.saveData();
-      let dt = game.Gametime.DTNow();
+      let dt = Gametime.DTNow();
       this.data.events.push({
         name: "",
         date: {
