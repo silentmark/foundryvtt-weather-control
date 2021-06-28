@@ -1,6 +1,7 @@
+// import { Gametime } from '../types/about-time/index';
 import {
   cwdtData
-} from "./index.js";
+} from "./calendar-weather";
 
 declare const canvas: Canvas; // FIXME: I don't like doing this but I can't figure out where it really comes from
 declare const game: Game;

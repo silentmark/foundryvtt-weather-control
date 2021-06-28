@@ -1,8 +1,8 @@
 {
   "name": "calendar-weather",
   "title": "Calendar/Weather",
-  "description": "{{description}}",
-  "version": "{{version}}",
+  "description": "A module for FoundryVTT that adds a calendar widget with weather, moons cycles, and a customizable calendar.",
+  "version": "4.0.0",
   "minimumCoreVersion": "0.7.0",
   "compatibleCoreVersion": "0.8.7",
   "authors": [
@@ -24,8 +24,8 @@
   "url": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather",
   "manifest": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json",
   "download": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/jobs/artifacts/v3.1.2/raw/calendar-weather.zip?job=pack",
-	"esmodules": "{{sources}}",
-	"styles": "{{css}}",
+	"esmodules": "calendar-weather.js",
+	"styles": "css/calendar.css",
   "packs": [],
   "languages": [
     {

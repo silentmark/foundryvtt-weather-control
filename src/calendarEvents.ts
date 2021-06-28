@@ -1,3 +1,5 @@
+// import { Gametime } from '../types/about-time';
+
 export class CalendarEvents extends FormApplication {
   protected _updateObject(event: Event, formData ? : object): Promise < unknown > {
     throw new Error('Method not implemented.');

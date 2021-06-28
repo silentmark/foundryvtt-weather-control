@@ -1,12 +1,13 @@
 import {
   WeatherTracker
-} from "./weatherTracker.js";
+} from "./weatherTracker";
 import {
   Month
-} from "./month.js";
-import {
-  cwdtData
-} from "./index.js";
+} from "./month";
+// import {
+//   cwdtData
+// } from "./calendar-weather";
+// import { DTMod, Gametime } from '../types/about-time/index.js';
 
 declare const canvas: Canvas; // FIXME: I don't like doing this but I can't figure out where it really comes from
 

@@ -1,9 +1,10 @@
-import { _myCalendarSpec, DateTime as CWDateTime } from "./dateTime.js";
-import { Month } from "./month.js";
-import { cwdtData } from "./index.js";
+import { _myCalendarSpec, DateTime as CWDateTime } from './dateTime';
+import { Month } from './month';
+import { cwdtData } from './calendar-weather';
+// import { Gametime } from '../types/about-time/index.js';
 
 export class CalendarForm extends FormApplication {
-  protected _updateObject(event: Event, formData?: object): Promise<unknown> {
+  protected _updateObject(): Promise<unknown> {
     throw new Error('Method not implemented.');
   }
 
@@ -31,10 +32,10 @@ export class CalendarForm extends FormApplication {
 
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.template = "modules/calendar-weather/templates/calendar-form.html";
+    options.template = 'modules/calendar-weather/templates/calendar-form.html';
     options.width = 600;
-    options.height = "auto";
-    options.title = "Calendar Weather Settings";
+    options.height = 'auto';
+    options.title = 'Calendar Weather Settings';
     return options;
   }
 
@@ -42,72 +43,72 @@ export class CalendarForm extends FormApplication {
     let savedData = new CWDateTime();
 
     let year = parseInt(
-      (document.getElementById("calendar-form-year-input") as HTMLInputElement).value
+      (document.getElementById('calendar-form-year-input') as HTMLInputElement).value
     );
     if (year < 0) {
       year = 1;
     }
 
 
-    savedData.era = (document.getElementById("calendar-form-era-input") as HTMLInputElement).value;
+    savedData.era = (document.getElementById('calendar-form-era-input') as HTMLInputElement).value;
 
     let hours = parseInt(
-      (document.getElementById("calendar-form-hour-input") as HTMLInputElement).value
+      (document.getElementById('calendar-form-hour-input') as HTMLInputElement).value
     );
     if (hours > 24 || hours < 0) {
       hours = 23;
     }
 
     if (
-      (document.getElementById("calendar-form-ampm") as HTMLInputElement).value == "PM" &&
+      (document.getElementById('calendar-form-ampm') as HTMLInputElement).value == 'PM' &&
       hours < 12
     ) {
       hours = hours + 12;
     }
     if (
-      (document.getElementById("calendar-form-ampm") as HTMLInputElement).value == "AM" &&
+      (document.getElementById('calendar-form-ampm') as HTMLInputElement).value == 'AM' &&
       hours == 12
     ) {
       hours = hours - 12;
     }
 
     let minutes = parseInt(
-      (document.getElementById("calendar-form-minute-input") as HTMLInputElement).value
+      (document.getElementById('calendar-form-minute-input') as HTMLInputElement).value
     );
     if (minutes > 59 || minutes < 0) {
       minutes = 59;
     }
 
     let seconds = parseInt(
-      (document.getElementById("calendar-form-second-input") as HTMLInputElement).value
+      (document.getElementById('calendar-form-second-input') as HTMLInputElement).value
     );
     if (seconds > 59 || seconds < 0) {
       seconds = 59;
     }
 
     let newMonthsName = document.getElementsByClassName(
-      "calendar-form-month-input"
+      'calendar-form-month-input'
     ) as HTMLCollectionOf<HTMLInputElement>;
     let newMonthsLength = document.getElementsByClassName(
-      "calendar-form-month-length-input"
+      'calendar-form-month-length-input'
     ) as HTMLCollectionOf<HTMLInputElement>;
     let newMonthsIsNum = document.getElementsByClassName(
-      "calendar-form-month-isnum"
+      'calendar-form-month-isnum'
     ) as HTMLCollectionOf<HTMLInputElement>;
     let newMonthsAbbrev = document.getElementsByClassName(
-      "calendar-form-month-abbrev"
+      'calendar-form-month-abbrev'
     ) as HTMLCollectionOf<HTMLInputElement>;
 
     let newMonths = [];
     if (newMonthsName.length < 1) {
-      savedData.addMonth(new Month("Month 1", 30, 30, true));
+      savedData.addMonth(new Month('Month 1', 30, 30, true));
     }
 
     for (var i = 0; i < newMonthsName.length; i++) {
-      let tempMonth = new Month("Month 1", 30, 30, true);
+      let tempMonth = new Month('Month 1', 30, 30, true);
 
-      if (newMonthsName[i].value == "") {
-        tempMonth.name = "New Month";
+      if (newMonthsName[i].value == '') {
+        tempMonth.name = 'New Month';
       } else {
         tempMonth.name = newMonthsName[i].value;
       }
@@ -119,7 +120,7 @@ export class CalendarForm extends FormApplication {
         if (newMonthsAbbrev[i].value) {
           tempMonth.abbrev = newMonthsAbbrev[i].value;
         } else {
-          console.log("calendar-weather| Generating month abbrev");
+          console.log('calendar-weather| Generating month abbrev');
           tempMonth.abbrev = tempMonth.name.substring(0, 2).toUpperCase();
         }
       } else tempMonth.abbrev = newMonthsAbbrev[i].value;
@@ -129,13 +130,13 @@ export class CalendarForm extends FormApplication {
 
     let weekDays = [];
     let newWeekdays = document.getElementsByClassName(
-      "calendar-form-weekday-input"
+      'calendar-form-weekday-input'
     ) as HTMLCollectionOf<HTMLInputElement>;
     for (var i = 0; i < newWeekdays.length; i++) {
-      if (!newWeekdays[i].value) newWeekdays[i].value = "Weekday";
+      if (!newWeekdays[i].value) newWeekdays[i].value = 'Weekday';
       weekDays.push(newWeekdays[i].value);
     }
-    if (weekDays.length < 1) weekDays = ["Weekday"];
+    if (weekDays.length < 1) weekDays = ['Weekday'];
     savedData.daysOfTheWeek = weekDays;
 
     savedData.setDayLength(24);
@@ -157,7 +158,7 @@ export class CalendarForm extends FormApplication {
     monthTarget = Number(monthTarget);
 
     let day = parseInt(
-      (document.getElementById("calendar-form-cDay-input") as HTMLInputElement).value
+      (document.getElementById('calendar-form-cDay-input') as HTMLInputElement).value
     );
     if (savedData.months[monthTarget].length < day) {
       day = savedData.months[monthTarget].length;
@@ -214,38 +215,38 @@ export class CalendarForm extends FormApplication {
     };
 
     console.log(
-      "calendar-weather | Building new calendar with the following object:",
+      'calendar-weather | Building new calendar with the following object:',
       returnData
     );
     return returnData;
   }
 
   activateListeners(html) {
-    const submit = "#calendar-form-submit";
-    const addWeekday = "#calendar-form-add-weekday";
-    const addMonth = "#calendar-form-add-month";
-    const delWeekday = "button[class='calendar-form-weekday-del']";
-    const delMonth = "button[class='calendar-form-month-del']";
-    const loadDefault = "#calendar-form-load-default";
-    const exportBtn = "#calendar-form-export";
-    const importBtn = "#calendar-form-import";
+    const submit = '#calendar-form-submit';
+    const addWeekday = '#calendar-form-add-weekday';
+    const addMonth = '#calendar-form-add-month';
+    const delWeekday = 'button[class=\'calendar-form-weekday-del\']';
+    const delMonth = 'button[class=\'calendar-form-month-del\']';
+    const loadDefault = '#calendar-form-load-default';
+    const exportBtn = '#calendar-form-export';
+    const importBtn = '#calendar-form-import';
 
     html.find(submit).click((ev) => {
       ev.preventDefault();
       this.close();
-      Hooks.callAll("calendarSettingsClose", JSON.stringify(this.saveData()));
+      Hooks.callAll('calendarSettingsClose', JSON.stringify(this.saveData()));
     });
     html.find(addWeekday).click((ev) => {
       ev.preventDefault();
       this.data = this.saveData();
-      this.data.daysOfTheWeek.push("");
+      this.data.daysOfTheWeek.push('');
       this.render(true);
       this.checkBoxes();
     });
     html.find(addMonth).click((ev) => {
       ev.preventDefault();
       this.data = this.saveData();
-      let newMonth = new Month("", 30, 30, true);
+      let newMonth = new Month('', 30, 30, true);
       this.data.months.push(newMonth);
       this.render(true);
       this.checkBoxes();
@@ -253,7 +254,7 @@ export class CalendarForm extends FormApplication {
     html.find(delWeekday).click((ev) => {
       ev.preventDefault();
       this.data = this.saveData();
-      const targetName = ev.currentTarget.name.split("-");
+      const targetName = ev.currentTarget.name.split('-');
       const index = targetName[targetName.length - 1];
       this.data.daysOfTheWeek.splice(index, 1);
       this.render(true);
@@ -262,7 +263,7 @@ export class CalendarForm extends FormApplication {
     html.find(delMonth).click((ev) => {
       ev.preventDefault();
       this.data = this.saveData();
-      const targetName = ev.currentTarget.name.split("-");
+      const targetName = ev.currentTarget.name.split('-');
       const index = targetName[targetName.length - 1];
       this.data.months.splice(index, 1);
       this.render(true);
@@ -271,16 +272,16 @@ export class CalendarForm extends FormApplication {
     html.find(loadDefault).click((ev) => {
       ev.preventDefault();
       let defaultCalendar = Object.keys(Gametime.calendars)[
-        game.settings.get("about-time", "calendar") as any
+        game.settings.get('about-time', 'calendar') as any
       ];
       new Dialog({
         default: '', // FIXME: Not sure this is right, but it is required by the type
-        title: "Choose Calendar",
+        title: 'Choose Calendar',
         content: `<p>${defaultCalendar}</p>`,
         buttons: {
           yes: {
             icon: '<i class="fas fa-check"></i>',
-            label: "Load",
+            label: 'Load',
             callback: async () => {
               CWDateTime.updateFromDTC(defaultCalendar);
               CWDateTime.updateDTC();
@@ -294,7 +295,7 @@ export class CalendarForm extends FormApplication {
           },
           no: {
             icon: '<i class="fas fa-times"></i>',
-            label: "Don't Load",
+            label: 'Don\'t Load',
           },
         },
       }).render(true);
@@ -302,7 +303,7 @@ export class CalendarForm extends FormApplication {
 
     html.find(exportBtn).click((ev) => {
       ev.preventDefault();
-      let calendarData = JSON.stringify(game.settings.get("calendar-weather", "dateTime"));
+      let calendarData = JSON.stringify(game.settings.get('calendar-weather', 'dateTime'));
       // console.log(calendarData)
       const el = document.createElement('textarea');
       el.value = calendarData;
@@ -314,21 +315,21 @@ export class CalendarForm extends FormApplication {
       document.execCommand('copy');
       document.body.removeChild(el);
       console.log('calendar-weather | Calendar data copied')
-      ui.notifications.info(game.i18n.localize("cw.export.copied"));
+      ui.notifications.info(game.i18n.localize('cw.export.copied'));
     })
 
     html.find(importBtn).click(ev => {
       ev.preventDefault();
       new Dialog({
         default: '', // FIXME: Not sure this is right, but it is required by the type
-        title: "Import Calendar",
-        content: `<p>Paste calendar data into the following input field, then click "Upload Calendar Data"</p><input id="uploadedData" title="Data Here..."></input>`,
+        title: 'Import Calendar',
+        content: '<p>Paste calendar data into the following input field, then click "Upload Calendar Data"</p><input id="uploadedData" title="Data Here..."></input>',
         buttons: {
           data: {
             icon: '<i class="fas fa-upload"></i>',
-            label: "Import Calendar Data",
+            label: 'Import Calendar Data',
             callback: async () => {
-              let data = (document.getElementById("uploadedData") as HTMLInputElement).value as any
+              let data = (document.getElementById('uploadedData') as HTMLInputElement).value as any
               try {
                 data = JSON.parse(data)
                 console.log(data)
@@ -350,25 +351,25 @@ export class CalendarForm extends FormApplication {
                 cwdtData.dt.moons = data.moons;
                 cwdtData.dt.genDateWordy();
                 this.close();
-                ui.notifications.info(game.i18n.localize("cw.import.success"));
+                ui.notifications.info(game.i18n.localize('cw.import.success'));
               } catch (err) {
-                ui.notifications.error(`${game.i18n.localize("cw.import.failure")} ${err}`);
+                ui.notifications.error(`${game.i18n.localize('cw.import.failure')} ${err}`);
               }
             }
           },
           close: {
             icon: '<i class="fas fa-times"></i>',
-            label: "Cancel",
+            label: 'Cancel',
           }
         }
       }).render(true)
     })
 
-    html.find("*").keydown((ev) => {
+    html.find('*').keydown((ev) => {
       if (ev.which == 13) {
         ev.preventDefault();
         this.close();
-        Hooks.callAll("calendarSettingsClose", JSON.stringify(this.saveData()));
+        Hooks.callAll('calendarSettingsClose', JSON.stringify(this.saveData()));
       }
     });
   }
@@ -389,7 +390,7 @@ export class CalendarForm extends FormApplication {
   formLoaded() {
     return new Promise<void>((resolve) => {
       function check() {
-        if (document.getElementById("calendar-form-submit")) {
+        if (document.getElementById('calendar-form-submit')) {
           resolve();
         } else {
           setTimeout(check, 30);
@@ -402,15 +403,15 @@ export class CalendarForm extends FormApplication {
   async checkBoxes() {
     await this.formLoaded();
     let weekdays = document.getElementsByClassName(
-      "calendar-form-weekday-radio"
+      'calendar-form-weekday-radio'
     ) as HTMLCollectionOf<HTMLInputElement>;
     let monthsNum = document.getElementsByClassName(
-      "calendar-form-month-isnum"
+      'calendar-form-month-isnum'
     ) as HTMLCollectionOf<HTMLInputElement>;
     let monthsAbbrev = document.getElementsByClassName(
-      "calendar-form-month-abbrev"
+      'calendar-form-month-abbrev'
     ) as HTMLCollectionOf<HTMLInputElement>;
-    let months = document.getElementsByClassName("calendar-form-month-radio") as HTMLCollectionOf<HTMLInputElement>;
+    let months = document.getElementsByClassName('calendar-form-month-radio') as HTMLCollectionOf<HTMLInputElement>;
     for (var i = 0, max = weekdays.length; i < max; i++) {
       weekdays[i].checked = i === this.data.numDayOfTheWeek;
     }
@@ -420,7 +421,7 @@ export class CalendarForm extends FormApplication {
         monthsNum[i].checked = !this.data.months[i].isNumbered;
         if (monthsNum[i].checked) {
           monthsAbbrev[i].disabled = false;
-          monthsAbbrev[i].style.cursor = "auto";
+          monthsAbbrev[i].style.cursor = 'auto';
           monthsAbbrev[i].value = this.data.months[i].abbrev;
         }
       }
@@ -428,25 +429,25 @@ export class CalendarForm extends FormApplication {
     months[this.data.currentMonth].checked = true;
 
     if (Gametime.DTNow().hours >= 12) {
-      document.getElementById("calendar-form-ampm")[1].selected = "true";
+      document.getElementById('calendar-form-ampm')[1].selected = 'true';
     } else {
-      document.getElementById("calendar-form-ampm")[0].selected = "true";
+      document.getElementById('calendar-form-ampm')[0].selected = 'true';
     }
   }
 
   renderForm(newData) {
-    let templatePath = "modules/calendar-weather/templates/calendar-form.html";
+    let templatePath = 'modules/calendar-weather/templates/calendar-form.html';
     this.data = JSON.parse(newData);
     let now = Gametime.DTNow();
-    this.data["hours"] = now.hours % 12 || 12;
-    this.data["minutes"] = now.minutes;
-    this.data["seconds"] = now.seconds;
+    this.data['hours'] = now.hours % 12 || 12;
+    this.data['minutes'] = now.minutes;
+    this.data['seconds'] = now.seconds;
     renderTemplate(templatePath, this.data)
       .then((html) => {
         this.render(true);
       })
       .then(() => this.checkBoxes());
 
-    Hooks.callAll("calendarSettingsOpen");
+    Hooks.callAll('calendarSettingsOpen');
   }
 }

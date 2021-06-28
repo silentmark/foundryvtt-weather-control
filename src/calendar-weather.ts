@@ -2,6 +2,7 @@ import { registerSettings } from "./registerSettings";
 import { DateTime as CWDateTime } from "./dateTime";
 import { Calendar } from "./calendar";
 import { WarningSystem } from "./warningSystem";
+// import { Gametime } from '../types/about-time';
 
 
 interface Operations {
@@ -152,7 +153,7 @@ $(document).ready(() => {
     }
   })
 
-  Hooks.on("renderSceneConfig", (app, html, data) => {
+  Hooks.on("renderSceneConfig", (app, html) => {
     //fix cyclical issues
     if ( app.renderCalendarScene) return ;
     app.renderCalendarScene = true;
@@ -274,7 +275,7 @@ $(document).ready(() => {
     })
     WarningSystem.validateAboutTime();
     if (calendar.getPlayerDisp() || game.user.isGM) {
-      renderTemplate(templatePath, cwdtData).then(html => {
+      renderTemplate(templatePath, cwdtData).then(() => {
         calendar.render(true);
       });
     }

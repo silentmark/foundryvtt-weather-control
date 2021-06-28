@@ -1,15 +1,12 @@
-import  { CalendarEvents } from "./calendarEvents.js";
-import { _myCalendarSpec, DateTime as CWDateTime } from "./dateTime.js";
-import { Month } from "./month.js";
-import { WeatherTracker } from "./weatherTracker.js";
-import { CalendarForm } from "./calendarForm.js";
-import { cwdtData } from "./index.js";
+import  { CalendarEvents } from "./calendarEvents";
+import { _myCalendarSpec, DateTime as CWDateTime } from "./dateTime";
+import { Month } from "./month";
+import { WeatherTracker } from "./weatherTracker";
+import { CalendarForm } from "./calendarForm";
+import { cwdtData } from "./calendar-weather";
+// import { DTMod, Gametime } from '../types/about-time/index';
 
-// declare global {
-//   interface game extends Game{
-//     Gametime: Gametime;
-//   }
-// }
+// declare var Gametime: any;
 
 //////////////////////////////////////////
 ////// CODE NOT YET MIGRATED BELOW  //////
@@ -264,7 +261,7 @@ export class Calendar extends Application {
       calendar.close();
     } else {
       calendar.toggled = true;
-      renderTemplate(templatePath, cwdtData).then(html => {
+      renderTemplate(templatePath, cwdtData).then(() => {
         calendar.render(true);
       }).then(
         calendar.setPos((game.user.data as Data).flags.calendarWeather.calendarPos)
@@ -348,7 +345,6 @@ export class Calendar extends Application {
   }
 
   activateListeners(html) {
-    const calendarContainer = '#calendar-time-container';
     const toggleDateFormat = '#calendar--date-display';
     const advanceToDawn = '#calendar-btn-dawn';
     const advanceToNoon = '#calendar-btn-noon';
