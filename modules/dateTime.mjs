@@ -55,6 +55,7 @@ export var _myCalendarSpec = {
     _era = "";
     timeDisp = "";
     _dateNum = "";
+    dayLength = 24;
 
     static get lastDays() {
       return dateTimeStatics._lastDays;
@@ -233,8 +234,8 @@ export var _myCalendarSpec = {
       if (isNaN(_myCalendarSpec.hours_per_day)) {
         console.warn("Error setting day length to", length);
         _myCalendarSpec.hours_per_day = 24;
-
       }
+      this.dayLength = length || 24;
     }
 
     set numDayOfTheWeek(dow) {
