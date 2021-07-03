@@ -325,7 +325,7 @@ export class Calendar extends Application {
         currentWeekday: cwdtData.dt.currentWeekday,
         dateWordy: cwdtData.dt.dateWordy,
         era: cwdtData.dt.era,
-        dayLength: cwdtData.dt.dayLength,
+        dayLength: cwdtData.dt.dayLength || 24,
         timeDisp: cwdtData.dt.timeDisp,
         dateNum: cwdtData.dt.dateNum,
         weather: cwdtData.dt.weather,
