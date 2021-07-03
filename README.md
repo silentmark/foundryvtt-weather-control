@@ -12,7 +12,7 @@ A customizable module that accurately tracks and displays dates and time.
 * Manifest: https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json
 * Releases: https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/releaseszip
 
-This module **REQUIRES** [about-time](https://gitlab.com/tposney/about-time) v1.0.2 or greater installed and loaded to function correctly.
+This module **REQUIRES** [about-time](https://foundryvtt.com/packages/about-time) v1.0.2 or greater AND [Simple Calendar](https://foundryvtt.com/packages/foundryvtt-simple-calendar) installed and loaded to function correctly.
 If you want to have weather effects, you must have [FXMaster](https://gitlab.com/mesfoliesludiques/foundryvtt-fxmaster) by U~Man installed and loaded.
 
 ## Features:
