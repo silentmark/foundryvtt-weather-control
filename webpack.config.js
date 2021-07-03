@@ -1,7 +1,7 @@
 /* eslint-disable */
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-// const ESLintPlugin = require("eslint-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
 const globImporter = require("node-sass-glob-importer");
 const path = require("path");
 const glob = require("glob");
@@ -36,7 +36,7 @@ module.exports = (env) => {
         },
         output: {
             filename: "calendar-weather.js",
-            path: getDevDirectory(),
+            path: path.resolve(__dirname, "dist"),
             publicPath: '',
         },
         devServer: {
@@ -104,9 +104,9 @@ module.exports = (env) => {
         },
         plugins: [
             new CleanWebpackPlugin(),
-            // new ESLintPlugin({
-            //     extensions: ["ts"],
-            // }),
+            new ESLintPlugin({
+                extensions: ["ts"],
+            }),
             new CopyPlugin({
                 patterns: [{
                     from: "static",

@@ -4,6 +4,8 @@ import { DateTime as CWDateTime } from './dateTime';
 import { Calendar } from './calendar';
 import { WarningSystem } from './warningSystem';
 // import { Gametime } from '../types/about-time';
+import '../styles/calendar.scss';
+import '../styles/wfrpcalendar.scss';
 
 
 interface Operations {
