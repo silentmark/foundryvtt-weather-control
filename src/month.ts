@@ -1,10 +1,10 @@
 export class Month {
-  name = "";
+  name = '';
   length = 0;
   leapLength = 0;
   isNumbered = true;
-  abbrev = "";
-  constructor(name = "", length = 0, leapLength = 0, isNumbered = true, abbrev = "") {
+  abbrev = '';
+  constructor(name = '', length = 0, leapLength = 0, isNumbered = true, abbrev = '') {
     this.name = name;
     this.length = Number(length);
     this.leapLength = Number(leapLength) || 1;
@@ -12,10 +12,10 @@ export class Month {
     this.abbrev = abbrev;
   }
 
-  setAbbrev(abbrev) {
-    this.abbrev = abbrev
-  };
-  getAbbrev() {
-    return this.abbrev
-  };
+  setAbbrev(abbrev: string): void {
+    this.abbrev = abbrev;
+  }
+  getAbbrev(): string {
+    return this.abbrev;
+  }
 }

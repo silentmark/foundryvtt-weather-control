@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export class WarningSystem {
-  constructor() {}
-
   static validateAboutTime() {
-    if (game.data.version === "0.5.1") {
-      var aboutTime = (game.modules as any).find(module => module.id === 'about-time' && module.active);
+    let aboutTime;
+    if (game.data.version === '0.5.1') {
+      aboutTime = (game.modules as any).find(module => module.id === 'about-time' && module.active);
     } else {
-      var aboutTime = game.modules.get("about-time") && game.modules.get("about-time").active as any;
+      aboutTime = game.modules.get('about-time') && game.modules.get('about-time').active as any;
     }
     if (!aboutTime && game.user.isGM) {
       return WarningSystem.generateDialog();
@@ -14,22 +15,22 @@ export class WarningSystem {
 
   static generateDialog() {
     new Dialog({
-      title: game.i18n.localize("cw.misc.AboutTimeMissing"),
-      content: game.i18n.localize("cw.misc.AboutTimeMissingHelp"),
+      title: game.i18n.localize('cw.misc.AboutTimeMissing'),
+      content: game.i18n.localize('cw.misc.AboutTimeMissingHelp'),
       buttons: {
         one: {
           icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize("cw.misc.AboutTimeGitlab"),
-          callback: () => window.open('https://gitlab.com/tposney/about-time/-/tree/master/src', '_blank', "fullscreen=no")
+          label: game.i18n.localize('cw.misc.AboutTimeGitlab'),
+          callback: () => window.open('https://gitlab.com/tposney/about-time/-/tree/master/src', '_blank', 'fullscreen=no')
         },
         two: {
           icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize("cw.misc.Disregard"),
-          callback: () => {}
+          label: game.i18n.localize('cw.misc.Disregard'),
+          callback: () => { return; }
         }
       },
-      default: "two",
-      close: () => {}
+      default: 'two',
+      close: () => { return; }
     }).render(true);
   }
 }

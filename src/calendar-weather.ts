@@ -1,7 +1,8 @@
-import { registerSettings } from "./registerSettings";
-import { DateTime as CWDateTime } from "./dateTime";
-import { Calendar } from "./calendar";
-import { WarningSystem } from "./warningSystem";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { registerSettings } from './registerSettings';
+import { DateTime as CWDateTime } from './dateTime';
+import { Calendar } from './calendar';
+import { WarningSystem } from './warningSystem';
 // import { Gametime } from '../types/about-time';
 
 
@@ -22,38 +23,38 @@ declare const canvas: Canvas; // FIXME: I don't like doing this but I can't figu
 ////// CODE NOT YET MIGRATED BELOW  //////
 //////////////////////////////////////////
 
-export var cwdtData = {
+export const cwdtData = {
   dt: new CWDateTime()
-}
+};
 
 
 $(document).ready(() => {
-  const templatePath = "modules/calendar-weather/templates/calendar.html";
+  const templatePath = 'modules/calendar-weather/templates/calendar.html';
 
 
-  let calendar = new Calendar();
+  const calendar = new Calendar();
   // Init settings so they can be wrote to later
   Hooks.on('init', () => {
     CONFIG.supportedLanguages['en'] = 'English';
     CONFIG.supportedLanguages['fr'] = 'French';
-    console.log("calendar-weather | Initializing Calendar/Weather")
-    registerSettings(calendar)
+    console.log('calendar-weather | Initializing Calendar/Weather');
+    registerSettings(calendar);
     calendar.isLoading = true;
   });
 
   Hooks.on('setup', () => {
-    let operations: Operations = {
+    const operations: Operations = {
       resetPos: Calendar.resetPos,
       toggleCalendar: Calendar.toggleCalendar,
-    }
+    };
     game.CWCalendar = operations;
     window.CWCalendar = operations;
-  })
+  });
 
   Hooks.on('renderCalendarEvents', () => {
     calendar.checkEventBoxes();
     calendar.settingsOpen(true);
-  })
+  });
 
   // close without save
   Hooks.on('closeCalendarEvents', () => {
@@ -61,20 +62,20 @@ $(document).ready(() => {
   });
 
   Hooks.on('calendarEventsClose', (newEvents) => {
-    console.log("calendar-settings | Saving events.")
+    console.log('calendar-settings | Saving events.');
     calendar.setEvents(newEvents);
     calendar.updateSettings();
     calendar.settingsOpen(false);
   });
 
   Hooks.on('calendarSettingsOpen', () => {
-    console.log("calendar-weather | Opening Calendar form.")
+    console.log('calendar-weather | Opening Calendar form.');
     calendar.settingsOpen(true);
   });
 
   Hooks.on('calendarSettingsClose', (updatedData) => {
-    console.log("calendar-weather | Closing Calendar form.");
-    console.log(updatedData)
+    console.log('calendar-weather | Closing Calendar form.');
+    console.log(updatedData);
     calendar.rebuild(JSON.parse(updatedData));
     cwdtData.dt.genDateWordy();
     calendar.updateDisplay();
@@ -83,31 +84,31 @@ $(document).ready(() => {
   });
 
   Hooks.on('closeCalendarForm', () => {
-    console.log("calendar-weather | Closing Calendar form");
+    console.log('calendar-weather | Closing Calendar form');
     calendar.settingsOpen(false);
   });
 
-  Hooks.on("renderWeatherForm", () => {
+  Hooks.on('renderWeatherForm', () => {
     // let offset = document.getElementById("calendar").offsetWidth + 225
     // document.getElementById("calendar-weather-container").style.left = offset + 'px'
     (document.getElementById('calendar-weather-climate') as HTMLOptionElement).value = cwdtData.dt.weather.climate;
     if (cwdtData.dt.weather.isC)
-      document.getElementById("calendar-weather-temp").innerHTML = cwdtData.dt.getWeatherObj().cTemp.toString();
-  })
+      document.getElementById('calendar-weather-temp').innerHTML = cwdtData.dt.getWeatherObj().cTemp.toString();
+  });
 
-  Hooks.on("calendarWeatherUpdateUnits", (newUnits) => {
+  Hooks.on('calendarWeatherUpdateUnits', (newUnits) => {
     cwdtData.dt.weather.isC = newUnits;
-    calendar.updateSettings()
-  })
+    calendar.updateSettings();
+  });
 
   Hooks.on('calendarWeatherClimateSet', (newClimate) => {
-    console.log("calendar-weather | Setting climate: " + newClimate)
+    console.log('calendar-weather | Setting climate: ' + newClimate);
     cwdtData.dt.weather.setClimate(newClimate);
     calendar.updateDisplay();
     calendar.updateSettings();
   });
 
-  Hooks.on("renderCalendar", () => {
+  Hooks.on('renderCalendar', () => {
     if(!game.user.isGM){
       document.getElementById('calendar-time-container').classList.add('calendar-weather-ltd');
     }
@@ -124,36 +125,36 @@ $(document).ready(() => {
       document.getElementById('calendar-time-running').classList.remove('isRunning');
       document.getElementById('clock-run-indicator').classList.remove('isRunning');
     }
-    let seasonIndicator = document.getElementById('season-indicator');
+    const seasonIndicator = document.getElementById('season-indicator');
     switch (cwdtData.dt.weather.seasonColor) {
-      case 'red':
-        seasonIndicator.style.color = "#B12E2E"
-        break;
-      case 'orange':
-        seasonIndicator.style.color = "#B1692E"
-        break;
-      case 'yellow':
-        seasonIndicator.style.color = "#B99946"
-        break;
-      case 'green':
-        seasonIndicator.style.color = "#258E25"
-        break;
-      case 'blue':
-        seasonIndicator.style.color = "#5b80a5"
-        break;
-      case 'white':
-        seasonIndicator.style.color = "#CCC"
-        break;
-      default:
-        // icon.style.color = "#000"
-        break
+    case 'red':
+      seasonIndicator.style.color = '#B12E2E';
+      break;
+    case 'orange':
+      seasonIndicator.style.color = '#B1692E';
+      break;
+    case 'yellow':
+      seasonIndicator.style.color = '#B99946';
+      break;
+    case 'green':
+      seasonIndicator.style.color = '#258E25';
+      break;
+    case 'blue':
+      seasonIndicator.style.color = '#5b80a5';
+      break;
+    case 'white':
+      seasonIndicator.style.color = '#CCC';
+      break;
+    default:
+      // icon.style.color = "#000"
+      break;
     }
     if ( game.data.paused && document.getElementById('calendar-time-container')) {
       document.getElementById('calendar-time-container').classList.add('clockPaused');
     }
-  })
+  });
 
-  Hooks.on("renderSceneConfig", (app, html) => {
+  Hooks.on('renderSceneConfig', (app, html) => {
     //fix cyclical issues
     if ( app.renderCalendarScene) return ;
     app.renderCalendarScene = true;
@@ -161,8 +162,8 @@ $(document).ready(() => {
     let loadedWeatherData = undefined;
     let loadedNightData = undefined;
 
-    if(app.object.data.flags["calendar-weather"]){
-      if (app.object.data.flags["calendar-weather"].showFX){
+    if(app.object.data.flags['calendar-weather']){
+      if (app.object.data.flags['calendar-weather'].showFX){
         loadedWeatherData = app.object.getFlag('calendar-weather', 'showFX');
       } else {
         if (app.object.compendium == null) {
@@ -171,7 +172,7 @@ $(document).ready(() => {
         loadedWeatherData = false;
       }
 
-      if (app.object.data.flags["calendar-weather"].doNightCycle){
+      if (app.object.data.flags['calendar-weather'].doNightCycle){
         loadedNightData = app.object.getFlag('calendar-weather', 'doNightCycle');
       } else {
         if (app.object.compendium == null) {
@@ -202,13 +203,13 @@ $(document).ready(() => {
         <input id="calendar-weather-doNightCycle" type="checkbox" name="calendarFXNight" data-dtype="Boolean" ${loadedNightData ? 'checked' : ''}>
         <p class="notes">${game.i18n.localize('cw.settings.NightCycleLabelHelp')}</p>
     </div>
-    `
-    const fxFind = html.find("select[name ='weather']");
-    const formGroup = fxFind.closest(".form-group");
+    `;
+    const fxFind = html.find('select[name =\'weather\']');
+    const formGroup = fxFind.closest('.form-group');
     formGroup.after(fxHtml);
   });
 
-  Hooks.on("canvasInit", async (canvas: Canvas) => {
+  Hooks.on('canvasInit', async (canvas: Canvas) => {
     cwdtData.dt.weather.showFX = canvas.scene.getFlag('calendar-weather', 'showFX') as boolean;
     cwdtData.dt.weather.doNightCycle = canvas.scene.getFlag('calendar-weather', 'doNightCycle') as boolean;
 
@@ -217,11 +218,11 @@ $(document).ready(() => {
     }
   });
 
-  Hooks.on("closeSceneConfig", (app, html) => {
+  Hooks.on('closeSceneConfig', (app, html) => {
     app.renderCalendarScene = false;
     if (app.object.compendium == null) {
-      app.object.setFlag('calendar-weather', 'showFX', html.find("input[name ='calendarFXWeather']").is(":checked"))
-      app.object.setFlag('calendar-weather', 'doNightCycle', html.find("input[name ='calendarFXNight']").is(":checked"))
+      app.object.setFlag('calendar-weather', 'showFX', html.find('input[name =\'calendarFXWeather\']').is(':checked'));
+      app.object.setFlag('calendar-weather', 'doNightCycle', html.find('input[name =\'calendarFXNight\']').is(':checked'));
     }
 
     cwdtData.dt.weather.showFX = canvas.scene.getFlag('calendar-weather', 'showFX') as boolean;
@@ -229,31 +230,31 @@ $(document).ready(() => {
     cwdtData.dt.weather.doNightCycle = canvas.scene.getFlag('calendar-weather', 'doNightCycle') as boolean;
   });
 
-  Hooks.on("getSceneControlButtons", (controls) => {
+  Hooks.on('getSceneControlButtons', (controls) => {
     if(game.user.isGM){
-      let notes = controls.find(control => control.name == 'notes')
+      const notes = controls.find(control => control.name == 'notes');
       notes.tools.splice( notes.tools.length-1, 0, {
-          name: "toggleCalendar",
-          title: "cw.misc.toggleControl",
-          icon: "far fa-calendar-alt",
-          onClick: () => {
-            window.CWCalendar.toggleCalendar(calendar);
-          },
-          button: true,
-        });
+        name: 'toggleCalendar',
+        title: 'cw.misc.toggleControl',
+        icon: 'far fa-calendar-alt',
+        onClick: () => {
+          window.CWCalendar.toggleCalendar(calendar);
+        },
+        button: true,
+      });
     }
-  })
+  });
 
   Hooks.on('ready', () => {
     calendar.loadSettings();
     // CONFIG.debug.hooks = true;
 
-    Hooks.on("updateWorldTime", () => {
-      let newDays = Gametime.DTNow().toDays().days;
+    Hooks.on('updateWorldTime', () => {
+      const newDays = Gametime.DTNow().toDays().days;
       if (cwdtData.dt.lastDays !== newDays) {
         cwdtData.dt.genDateWordy();
         if (Gametime.isMaster() && cwdtData.dt.lastDays) {
-          Hooks.callAll("CWCalendar.newDay", {
+          Hooks.callAll('CWCalendar.newDay', {
             date: Gametime.DTNow(),
           });
           cwdtData.dt.checkEvents();
@@ -268,11 +269,11 @@ $(document).ready(() => {
         calendar.updateDisplay();
         cwdtData.dt.weather.lightCycle();
       }
-    })
-    Hooks.on("about-time.clockRunningStatus", calendar.updateDisplay)
-    Hooks.on("about-time.pseudoclockMaster", () => {
-      cwdtData.dt.checkMoons(true);
-    })
+    });
+    Hooks.on('about-time.clockRunningStatus', calendar.updateDisplay);
+    Hooks.on('about-time.pseudoclockMaster', () => {
+      cwdtData.dt.checkMoons();
+    });
     WarningSystem.validateAboutTime();
     if (calendar.getPlayerDisp() || game.user.isGM) {
       renderTemplate(templatePath, cwdtData).then(() => {
@@ -281,13 +282,13 @@ $(document).ready(() => {
     }
   });
 
-  Hooks.on("renderCalendar", () => {
-    if (!document.getElementById('calendar-time-container').classList.contains('wfrp') && (game.data as Data).system.data.name == "wfrp4e") { // FIXME: Not the right way to type game.data
+  Hooks.on('renderCalendar', () => {
+    if (!document.getElementById('calendar-time-container').classList.contains('wfrp') && (game.data as Data).system.data.name == 'wfrp4e') { // FIXME: Not the right way to type game.data
       document.getElementById('calendar-time-container').classList.add('wfrp');
     }
   });
 
-  Hooks.on("pauseGame", (pause) => {
+  Hooks.on('pauseGame', (pause) => {
     console.log('Game Paused: ' + pause);
     if (document.getElementById('calendar-time-container')) {
       if (pause) {

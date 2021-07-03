@@ -1,9 +1,11 @@
-import  { CalendarEvents } from "./calendarEvents";
-import { _myCalendarSpec, DateTime as CWDateTime } from "./dateTime";
-import { Month } from "./month";
-import { WeatherTracker } from "./weatherTracker";
-import { CalendarForm } from "./calendarForm";
-import { cwdtData } from "./calendar-weather";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import  { CalendarEvents } from './calendarEvents';
+import { _myCalendarSpec, DateTime as CWDateTime } from './dateTime';
+import { Month } from './month';
+import { WeatherTracker } from './weatherTracker';
+import { CalendarForm } from './calendarForm';
+import { cwdtData } from './calendar-weather';
 // import { DTMod, Gametime } from '../types/about-time/index';
 
 // declare var Gametime: any;
@@ -13,7 +15,7 @@ import { cwdtData } from "./calendar-weather";
 //////////////////////////////////////////
 
 export class Calendar extends Application {
-  public isLoading: boolean = false;
+  public isLoading = false;
 
   isOpen = false;
   toggled = true;
@@ -23,7 +25,7 @@ export class Calendar extends Application {
   cwdtData = {};
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.template = "modules/calendar-weather/templates/calendar.html";
+    options.template = 'modules/calendar-weather/templates/calendar.html';
     options.popOut = false;
     options.resizable = false;
     return options;
@@ -40,13 +42,13 @@ export class Calendar extends Application {
   setPos(pos) {
     return new Promise<void>(resolve => {
       function check() {
-        let elmnt = document.getElementById("calendar-time-container");
+        const elmnt = document.getElementById('calendar-time-container');
         if (elmnt) {
           elmnt.style.bottom = null;
-          let xPos = (pos.left) > window.innerWidth ? window.innerWidth-200 : pos.left;
-          let yPos = (pos.top) > window.innerHeight-20 ? window.innerHeight-100 : pos.top;
-          elmnt.style.top = (yPos) + "px";
-          elmnt.style.left = (xPos) + "px";
+          const xPos = (pos.left) > window.innerWidth ? window.innerWidth-200 : pos.left;
+          const yPos = (pos.top) > window.innerHeight-20 ? window.innerHeight-100 : pos.top;
+          elmnt.style.top = (yPos) + 'px';
+          elmnt.style.left = (xPos) + 'px';
           elmnt.style.position = 'fixed';
           elmnt.style.zIndex = '100';
           resolve();
@@ -59,17 +61,17 @@ export class Calendar extends Application {
   }
 
   loadSettings() {
-    let data = game.settings.get('calendar-weather', 'dateTime') as any;
+    const data = game.settings.get('calendar-weather', 'dateTime') as any;
     if(game.user.data.flags.calendarWeather){
       // FIXME: Not the right way to type this. There probably is a better way to get the flag value too.
-      let pos = (game.user.data.flags.calendarWeather as any).calendarPos;
+      const pos = (game.user.data.flags.calendarWeather as any).calendarPos;
       this.setPos(pos);
     }
     this.showToPlayers = game.settings.get('calendar-weather', 'calendarDisplay') as boolean;
     cwdtData.dt.is24 = game.settings.get('calendar-weather', 'is24') as boolean;
     if (!data || !data.months) {
       if (data.default) {
-        console.log("calendar-weather | rebuilding data", data.default);
+        console.log('calendar-weather | rebuilding data', data.default);
         // recover previous data
         cwdtData.dt = new CWDateTime();
         data.default.months = data.default.months.map((m, i) => {
@@ -87,7 +89,7 @@ export class Calendar extends Application {
         cwdtData.dt.reEvents = data.default.reEvents;
         cwdtData.dt.events = data.default.events;
         cwdtData.dt.moons = data.default.moons;
-        let timeout = game.settings.get("about-time", "election-timeout") as number;
+        const timeout = game.settings.get('about-time', 'election-timeout') as number;
         setTimeout(function () {
           if (Gametime.isMaster()) {
             Gametime.setAbsolute({
@@ -97,8 +99,8 @@ export class Calendar extends Application {
               hours: 0,
               minutes: 0,
               seconds: 0
-            })
-            let now = Gametime.DTNow();
+            });
+            const now = Gametime.DTNow();
             cwdtData.dt.currentWeekDay = cwdtData.dt.daysOfTheWeek[now.dow()];
             cwdtData.dt.timeDisp = now.shortDate().time;
           }
@@ -106,7 +108,7 @@ export class Calendar extends Application {
 
       } else {
         this.populateData();
-        let timeout = game.settings.get("about-time", "election-timeout") as  number;
+        const timeout = game.settings.get('about-time', 'election-timeout') as  number;
         setTimeout(() => {
           if (Gametime.isMaster()) {
             Gametime.setAbsolute({
@@ -116,12 +118,12 @@ export class Calendar extends Application {
               hours: 0,
               minutes: 0,
               seconds: 0
-            })
+            });
           }
         }, timeout * 1000 + 100);
       }
     } else {
-      let now = Gametime.DTNow();
+      const now = Gametime.DTNow();
       if (!cwdtData.dt) cwdtData.dt = new CWDateTime();
       cwdtData.dt.months = data.months;
       cwdtData.dt.daysOfTheWeek = data.daysOfTheWeek;
@@ -148,26 +150,26 @@ export class Calendar extends Application {
 
   populateData() {
     cwdtData.dt = new CWDateTime();
-    let newMonth1 = new Month(game.i18n.localize("cw.calendar.settings.DefMonth"), 30, 30, true, "1");
+    const newMonth1 = new Month(game.i18n.localize('cw.calendar.settings.DefMonth'), 30, 30, true, '1');
     cwdtData.dt.addMonth(newMonth1);
-    cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Monday"));
-    cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Tuesday"));
-    cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Wednesday"));
-    cwdtData.dt.addWeekday(game.i18n.localize("cw.calendar.Thursday"));
+    cwdtData.dt.addWeekday(game.i18n.localize('cw.calendar.Monday'));
+    cwdtData.dt.addWeekday(game.i18n.localize('cw.calendar.Tuesday'));
+    cwdtData.dt.addWeekday(game.i18n.localize('cw.calendar.Wednesday'));
+    cwdtData.dt.addWeekday(game.i18n.localize('cw.calendar.Thursday'));
     cwdtData.dt.setDayLength(24);
     cwdtData.dt.settings = [];
     cwdtData.dt.events = [];
     cwdtData.dt.reEvents = [];
     cwdtData.dt.weather = new WeatherTracker();
     CWDateTime.updateDTC();
-    cwdtData.dt.setEra("AD");
+    cwdtData.dt.setEra('AD');
   }
 
   settingsOpen(isOpen) {
     this.isOpen = isOpen;
     if (isOpen) {
       Gametime.stopRunning();
-      console.log("calendar-weather | Pausing real time clock.");
+      console.log('calendar-weather | Pausing real time clock.');
     }
     // else {
     //   game.Gametime.startRunning();
@@ -183,13 +185,13 @@ export class Calendar extends Application {
     if (obj.daysOfTheWeek != []) {
       cwdtData.dt.daysOfTheWeek = obj.daysOfTheWeek;
     }
-    let now = Gametime.DTNow();
+    const now = Gametime.DTNow();
     if (obj.dayLength != 0) {
       cwdtData.dt.dayLength = obj.dayLength;
     }
-    let years = obj.year !== 0 ? obj.year : now.years;
-    let months = obj.currentMonth;
-    let days = obj.day;
+    const years = obj.year !== 0 ? obj.year : now.years;
+    const months = obj.currentMonth;
+    const days = obj.day;
     Gametime.setAbsolute(now.setAbsolute({
       years,
       months,
@@ -197,51 +199,51 @@ export class Calendar extends Application {
     }));
     cwdtData.dt.numDayOfTheWeek = obj.numDayOfTheWeek;
 
-    if (obj.dateWordy != "") {
+    if (obj.dateWordy != '') {
       cwdtData.dt.dateWordy = obj.dateWordy;
     } else cwdtData.dt.genDateWordy();
-    if (obj.era != "") {
+    if (obj.era != '') {
       cwdtData.dt.era = obj.era;
     }
-    if (obj.dateNum != "") {
+    if (obj.dateNum != '') {
       cwdtData.dt.dateNum = obj.dateNum;
     }
 
   }
 
   setEvents(newData) {
-    let data = JSON.parse(newData);
+    const data = JSON.parse(newData);
     cwdtData.dt.seasons = data.seasons;
     cwdtData.dt.reEvents = data.reEvents;
     cwdtData.dt.events = data.events;
     cwdtData.dt.moons = data.moons;
     cwdtData.dt.checkEvents();
-    cwdtData.dt.checkMoons(true);
+    cwdtData.dt.checkMoons();
   }
 
   updateSettings() {
     if (game.user.isGM) {
-      game.settings.set("calendar-weather", "dateTime", this.toObject());
+      game.settings.set('calendar-weather', 'dateTime', this.toObject());
       if (Gametime.DTC.saveUserCalendar && game.user.isGM) {
         Gametime.DTC.saveUserCalendar(_myCalendarSpec);
         // set about-time to use our calendar spec on startup
-        if (game.settings.get("about-time", "calendar") !== 0) game.settings.set("about-time", "calendar", 0);
+        if (game.settings.get('about-time', 'calendar') !== 0) game.settings.set('about-time', 'calendar', 0);
       }
       if (Gametime.isMaster()) Gametime._save(true);
     }
-    console.log('AFTER UPDATE', game.settings.get('calendar-weather', 'dateTime'))
+    console.log('AFTER UPDATE', game.settings.get('calendar-weather', 'dateTime'));
   }
 
   static resetPos(): Promise<void> {
-    let pos = {bottom: 8, left: 15}
+    const pos = {bottom: 8, left: 15};
     return new Promise(resolve => {
       function check() {
-        let elmnt = document.getElementById("calendar-time-container");
+        const elmnt = document.getElementById('calendar-time-container');
         if (elmnt) {
           console.log('calendar-weather | Resetting Calendar Position');
           elmnt.style.top = null;
-          elmnt.style.bottom = (pos.bottom) + "%";
-          elmnt.style.left = (pos.left) + "%";
+          elmnt.style.bottom = (pos.bottom) + '%';
+          elmnt.style.left = (pos.left) + '%';
           game.user.update({flags: {'calendar-weather':{ 'calendarPos': {top: elmnt.offsetTop, left: elmnt.offsetLeft}}}});
           elmnt.style.bottom = null;
           resolve();
@@ -250,12 +252,12 @@ export class Calendar extends Application {
         }
       }
       check();
-    })
+    });
   }
 
   static toggleCalendar(calendar){
     console.log('calendar-weather | Toggling calendar display.');
-    let templatePath = "modules/calendar-weather/templates/calendar.html";
+    const templatePath = 'modules/calendar-weather/templates/calendar.html';
     if (calendar.toggled) {
       calendar.toggled = false;
       calendar.close();
@@ -270,28 +272,28 @@ export class Calendar extends Application {
   }
 
   updateDisplay() {
-    let now = Gametime.DTNow();
+    const now = Gametime.DTNow();
 
-    document.getElementById("calendar-weekday").innerHTML = Gametime.DTC.weekDays[now.dow()];
+    document.getElementById('calendar-weekday').innerHTML = Gametime.DTC.weekDays[now.dow()];
 
-    document.getElementById("calendar-date").innerHTML = cwdtData.dt.dateWordy;
-    document.getElementById("calendar-date-num").innerHTML = cwdtData.dt.dateNum;
+    document.getElementById('calendar-date').innerHTML = cwdtData.dt.dateWordy;
+    document.getElementById('calendar-date-num').innerHTML = cwdtData.dt.dateNum;
     cwdtData.dt.setTimeDisp();
-    document.getElementById("calendar-time").innerHTML = cwdtData.dt.timeDisp;
+    document.getElementById('calendar-time').innerHTML = cwdtData.dt.timeDisp;
 
-    let temp = document.getElementById("calendar-weather--temp");
+    const temp = document.getElementById('calendar-weather--temp');
     if (temp && this) {
 
-      if (game.settings.get( "calendar-weather", "useCelcius")) {
-        temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + " °C";
+      if (game.settings.get( 'calendar-weather', 'useCelcius')) {
+        temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
       } else {
-        temp.innerHTML = cwdtData.dt.getWeatherObj().temp + " °F";
+        temp.innerHTML = cwdtData.dt.getWeatherObj().temp + ' °F';
       }
-      document.getElementById("calendar-weather-precip").innerHTML = cwdtData.dt.getWeatherObj().precipitation;
+      document.getElementById('calendar-weather-precip').innerHTML = cwdtData.dt.getWeatherObj().precipitation;
 
 
-      let offset = document.getElementById("calendar-time-container");
-      document.getElementById("calendar-weather--container").style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
+      const offset = document.getElementById('calendar-time-container');
+      document.getElementById('calendar-weather--container').style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
       // this.weatherForm.updateData(cwdtData.dt.getWeatherObj());
     }
     if (Gametime.isRunning()) {
@@ -306,16 +308,16 @@ export class Calendar extends Application {
       document.getElementById('clock-run-indicator').classList.remove('isRunning');
     }
 
-  //   let units = " °F";
-  //   if (this.data.isC) {
-  //     units = " °C";
-  //     document.getElementsByClassName("calendar-weather-temp")[0].innerHTML = this.data.cTemp;
-  //   } else {
-  //     document.getElementsByClassName("calendar-weather-temp")[0].innerHTML = this.data.temp;
-  //   }
-  //   document.getElementById("calendar-weather-units").innerHTML = units;
-  //   Hooks.callAll('calendarWeatherUpdateUnits', this.data.isC);
-  // }
+    //   let units = " °F";
+    //   if (this.data.isC) {
+    //     units = " °C";
+    //     document.getElementsByClassName("calendar-weather-temp")[0].innerHTML = this.data.cTemp;
+    //   } else {
+    //     document.getElementsByClassName("calendar-weather-temp")[0].innerHTML = this.data.temp;
+    //   }
+    //   document.getElementById("calendar-weather-units").innerHTML = units;
+    //   Hooks.callAll('calendarWeatherUpdateUnits', this.data.isC);
+    // }
 
 
     Gametime._save(true);
@@ -341,7 +343,7 @@ export class Calendar extends Application {
       reEvents: cwdtData.dt.reEvents,
       events: cwdtData.dt.events,
       moons: cwdtData.dt.moons
-    }
+    };
   }
 
   activateListeners(html) {
@@ -356,10 +358,10 @@ export class Calendar extends Application {
     const startStopClock = '#start-stop-clock';
     const events = '#calendar-events';
     const weather = '#calendar-weather';
-    const refreshWeather = "#calendar-weather-regenerate"
+    const refreshWeather = '#calendar-weather-regenerate';
     this.updateDisplay();
     cwdtData.dt.checkEvents();
-    let form = new CalendarForm(JSON.stringify(this.toObject()));
+    const form = new CalendarForm(JSON.stringify(this.toObject()));
 
     // toggle date format
     html.find(toggleDateFormat).click(ev =>{
@@ -371,9 +373,9 @@ export class Calendar extends Application {
     html.find(advanceToDawn).click(ev => {
       ev.preventDefault();
       if (!this.isOpen && game.user.isGM) {
-        console.log("calendar-weather | Advancing to dawn.");
-        let now = Gametime.DTNow();
-        let newDT = now.add({
+        console.log('calendar-weather | Advancing to dawn.');
+        const now = Gametime.DTNow();
+        const newDT = now.add({
           days: now.hours < 7 ? 0 : 1
         } as DTMod).setAbsolute({
           hours: 7,
@@ -388,9 +390,9 @@ export class Calendar extends Application {
     html.find(advanceToNoon).click(ev => {
       ev.preventDefault();
       if (!this.isOpen && game.user.isGM) {
-        console.log("calendar-weather | Advancing to midday.");
-        let now = Gametime.DTNow();
-        let newDT = now.add({
+        console.log('calendar-weather | Advancing to midday.');
+        const now = Gametime.DTNow();
+        const newDT = now.add({
           days: now.hours < 12 ? 0 : 1
         } as DTMod).setAbsolute({
           hours: 12,
@@ -405,9 +407,9 @@ export class Calendar extends Application {
     html.find(advanceToDusk).click(ev => {
       ev.preventDefault();
       if (!this.isOpen && game.user.isGM) {
-        console.log("calendar-weather | Advancing to dusk.");
-        let now = Gametime.DTNow();
-        let newDT = now.add({
+        console.log('calendar-weather | Advancing to dusk.');
+        const now = Gametime.DTNow();
+        const newDT = now.add({
           days: now.hours < 20 ? 0 : 1
         } as DTMod).setAbsolute({
           hours: 20,
@@ -422,8 +424,8 @@ export class Calendar extends Application {
     html.find(advanceToMidnight).click(ev => {
       ev.preventDefault();
       if (!this.isOpen && game.user.isGM) {
-        console.log("calendar-weather | Advancing to midnight.");
-        let newDT = Gametime.DTNow().add({
+        console.log('calendar-weather | Advancing to midnight.');
+        const newDT = Gametime.DTNow().add({
           days: 1
         } as DTMod).setAbsolute({
           hours: 0,
@@ -438,8 +440,8 @@ export class Calendar extends Application {
     html.find(advance).click(ev => {
       ev.preventDefault();
       if (!this.isOpen && game.user.isGM && !ev.target.classList.contains('disabled')) {
-        let unit = ev.target.dataset.unit;
-        let step = parseInt(ev.target.dataset.step);
+        const unit = ev.target.dataset.unit;
+        const step = parseInt(ev.target.dataset.step);
         if (unit == 's'){
           Gametime.advanceClock(step);
         } else if (unit == 'min'){
@@ -461,10 +463,10 @@ export class Calendar extends Application {
 
       if (!this.isOpen && Gametime.isMaster()) {
         if (Gametime.isRunning()) {
-          console.log("calendar-weather | Stopping about-time pseudo clock.");
+          console.log('calendar-weather | Stopping about-time pseudo clock.');
           Gametime.stopRunning();
         } else {
-          console.log("calendar-weather | Starting about-time pseudo clock.");
+          console.log('calendar-weather | Starting about-time pseudo clock.');
           Gametime.startRunning();
         }
         this.updateDisplay();
@@ -485,16 +487,17 @@ export class Calendar extends Application {
       ev.preventDefault();
       ev = ev || window.event;
       let isRightMB = false;
-      if ("which" in ev) { // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
+      if ('which' in ev) { // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
         isRightMB = ev.which == 3;
-      } else if ("button" in ev) { // IE, Opera
+      } else if ('button' in ev) { // IE, Opera
         isRightMB = ev.button == 2;
       }
 
       if (!isRightMB) {
-        dragElement(document.getElementById("calendar-time-container"));
+        dragElement(document.getElementById('calendar-time-container'));
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
+        // eslint-disable-next-line no-inner-declarations
         function dragElement(elmnt) {
           elmnt.onmousedown = dragMouseDown;
           function dragMouseDown(e) {
@@ -516,9 +519,9 @@ export class Calendar extends Application {
             pos3 = e.clientX;
             pos4 = e.clientY;
             // set the element's new position:
-            elmnt.style.bottom = null
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            elmnt.style.bottom = null;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
             elmnt.style.position = 'fixed';
             elmnt.style.zIndex = 100;
           }
@@ -529,12 +532,12 @@ export class Calendar extends Application {
             document.onmouseup = null;
             document.onmousemove = null;
             let xPos = (elmnt.offsetLeft - pos1) > window.innerWidth ? window.innerWidth-200 : (elmnt.offsetLeft - pos1);
-            let yPos = (elmnt.offsetTop - pos2) > window.innerHeight-20 ? window.innerHeight-100 : (elmnt.offsetTop - pos2)
+            let yPos = (elmnt.offsetTop - pos2) > window.innerHeight-20 ? window.innerHeight-100 : (elmnt.offsetTop - pos2);
             xPos = xPos < 0 ? 0 : xPos;
             yPos = yPos < 0 ? 0 : yPos;
             if(xPos != (elmnt.offsetLeft - pos1) || yPos != (elmnt.offsetTop - pos2)){
-              elmnt.style.top = (yPos) + "px";
-              elmnt.style.left = (xPos) + "px";
+              elmnt.style.top = (yPos) + 'px';
+              elmnt.style.left = (xPos) + 'px';
             }
             console.log(`calendar-weather | Setting calendar position to x: ${xPos}px, y: ${yPos}px`);
             game.user.update({flags: {'calendarWeather':{ 'calendarPos': {top: yPos, left: xPos}}}});
@@ -550,18 +553,18 @@ export class Calendar extends Application {
       if (game.user.isGM) {
         this.eventsForm.renderForm(JSON.stringify(this.toObject()));
       }
-    })
+    });
     html.find(weather).click(ev => {
       ev.preventDefault();
-      if (game.user.isGM || game.settings.get("calendar-weather", "playerSeeWeather")) {
+      if (game.user.isGM || game.settings.get('calendar-weather', 'playerSeeWeather')) {
         document.getElementById('calendar-time-container').classList.toggle('showWeather');
       }
-    })
+    });
     html.find(refreshWeather).click(ev => {
       ev.preventDefault();
       cwdtData.dt.weather.generate();
       this.updateDisplay();
       this.updateSettings();
-    })
+    });
   }
 }
