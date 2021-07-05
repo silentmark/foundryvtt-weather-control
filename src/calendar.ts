@@ -6,13 +6,6 @@ import { Month } from './month';
 import { WeatherTracker } from './weatherTracker';
 import { CalendarForm } from './calendarForm';
 import { cwdtData } from './calendar-weather';
-// import { DTMod, Gametime } from '../types/about-time/index';
-
-// declare var Gametime: any;
-
-//////////////////////////////////////////
-////// CODE NOT YET MIGRATED BELOW  //////
-//////////////////////////////////////////
 
 export class Calendar extends Application {
   public isLoading = false;

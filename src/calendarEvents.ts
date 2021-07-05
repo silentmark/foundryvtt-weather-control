@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-// import { Gametime } from '../types/about-time';
 
 export class CalendarEvents extends FormApplication {
   protected _updateObject(): Promise < unknown > {
@@ -271,7 +270,7 @@ export class CalendarEvents extends FormApplication {
     const moonWaxing = document.getElementsByClassName('calendar-moon-waxing') as HTMLCollectionOf<HTMLInputElement>;
     let moon = undefined;
     for (let i = 0; i < moonWaxing.length; i++) {
-      moon = this.data.moons.find(moon => moon.name == moonName[i].value);
+      moon = this.data.moons.find(currentMoon => currentMoon.name == moonName[i].value);
       if (moon)
         moonWaxing[i].checked = moon.isWaxing;
     }
@@ -287,7 +286,7 @@ export class CalendarEvents extends FormApplication {
     const dawnAmpm = document.getElementsByClassName('calendar-dawn-ampm') as HTMLCollectionOf<HTMLSelectElement>;
     const duskAmpm = document.getElementsByClassName('calendar-dusk-ampm') as HTMLCollectionOf<HTMLSelectElement>;
     //init vars
-    let length = 0;
+    let monthLength = 0;
     let event = undefined;
     let numElements = this.data.seasons.length;
 
@@ -318,7 +317,7 @@ export class CalendarEvents extends FormApplication {
             if (months[i].getElementsByTagName('option')[k].value == event.date.month) {
               months[i].getElementsByTagName('option')[k].selected = true;
               //also grabs the months length, while it's there.
-              length = parseInt(months[i].getElementsByTagName('option')[k].attributes['name'].value);
+              monthLength = parseInt(months[i].getElementsByTagName('option')[k].attributes['name'].value);
             }
           }
           if (event.dawn >= 12) {
@@ -342,7 +341,7 @@ export class CalendarEvents extends FormApplication {
             element.removeChild(element.firstChild);
           }
           //create a dropdown option for the length of the selected month
-          for (let k = 1, max = length + 1; k < max; k++) {
+          for (let k = 1, max = monthLength + 1; k < max; k++) {
             const option = document.createElement('option');
             option.value = k.toString();
             //if the index is the same as the event's day, select it.
@@ -362,7 +361,7 @@ export class CalendarEvents extends FormApplication {
     days = document.getElementsByClassName('calendar-reEvent-day') as HTMLCollectionOf<HTMLInputElement>;
     months = document.getElementsByClassName('calendar-reEvent-month-value') as HTMLCollectionOf<HTMLInputElement>;
     //init vars
-    length = 0;
+    monthLength = 0;
     event = undefined;
     numElements = this.data.reEvents.length;
 
@@ -378,7 +377,7 @@ export class CalendarEvents extends FormApplication {
             if (months[i].getElementsByTagName('option')[k].value == event.date.month) {
               months[i].getElementsByTagName('option')[k].selected = true;
               //also grabs the months length, while it's there.
-              length = parseInt(months[i].getElementsByTagName('option')[k].attributes['name'].value);
+              monthLength = parseInt(months[i].getElementsByTagName('option')[k].attributes['name'].value);
             }
           }
           //create a whole bunch of options corresponding to each day in the selected month.
@@ -389,7 +388,7 @@ export class CalendarEvents extends FormApplication {
             element.removeChild(element.firstChild);
           }
           //create a dropdown option for the length of the selected month
-          for (let k = 1, max = length + 1; k < max; k++) {
+          for (let k = 1, max = monthLength + 1; k < max; k++) {
             const option = document.createElement('option');
             option.value = k.toString();
             //if the index is the same as the event's day, select it.
@@ -412,7 +411,7 @@ export class CalendarEvents extends FormApplication {
     const ampm = document.getElementsByClassName('calendar-event-ampm') as HTMLCollectionOf<HTMLSelectElement>;
     const hours = document.getElementsByClassName('calendar-event-time-hours') as HTMLCollectionOf<HTMLInputElement>;
     //init vars
-    length = 0;
+    monthLength = 0;
     event = undefined;
     numElements = this.data.events.length;
 
@@ -428,7 +427,7 @@ export class CalendarEvents extends FormApplication {
             if (months[i].getElementsByTagName('option')[k].value == event.date.month) {
               months[i].getElementsByTagName('option')[k].selected = true;
               //also grabs the months length, while it's there.
-              length = parseInt(months[i].getElementsByTagName('option')[k].attributes['name'].value);
+              monthLength = parseInt(months[i].getElementsByTagName('option')[k].attributes['name'].value);
             }
           }
           //create a whole bunch of options corresponding to each day in the selected month.
@@ -439,7 +438,7 @@ export class CalendarEvents extends FormApplication {
             element.removeChild(element.firstChild);
           }
           //create a dropdown option for the length of the selected month
-          for (let k = 1, max = length + 1; k < max; k++) {
+          for (let k = 1, max = monthLength + 1; k < max; k++) {
             const option = document.createElement('option');
             option.value = k.toString();
             //if the index is the same as the event's day, select it.
@@ -619,8 +618,8 @@ export class CalendarEvents extends FormApplication {
       const data = JSON.parse(event.dataTransfer.getData('text'));
       if (collections[data.type]) {
         event.preventDefault();
-        const name = collections[data.type].collection.get(data.id).data.name;
-        html.value = `@${data.type}[${data.id}]{${name}}`;
+        const dropName = collections[data.type].collection.get(data.id).data.name;
+        html.value = `@${data.type}[${data.id}]{${dropName}}`;
       }
     } catch (err) {
       console.log(event.dataTransfer.getData('text'));
@@ -636,8 +635,8 @@ export class CalendarEvents extends FormApplication {
       const data = JSON.parse(event.dataTransfer.getData('text'));
       if (collections[data.type]) {
         event.preventDefault();
-        const name = collections[data.type].collection.get(data.id).data.name;
-        html.value = `@${data.type}[${data.id}]{${name}}`;
+        const rollName = collections[data.type].collection.get(data.id).data.name;
+        html.value = `@${data.type}[${data.id}]{${rollName}}`;
       }
     } catch (err) {
       console.log(event.dataTransfer.getData('text'));

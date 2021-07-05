@@ -14,11 +14,13 @@ interface Operations {
 }
 
 declare global {
+  // eslint-disable-next-line no-shadow
   interface Window {
     CWCalendar: Operations;
   }
 }
 
+// eslint-disable-next-line no-shadow
 declare const canvas: Canvas; // FIXME: I don't like doing this but I can't figure out where it really comes from
 
 //////////////////////////////////////////
@@ -211,9 +213,9 @@ $(document).ready(() => {
     formGroup.after(fxHtml);
   });
 
-  Hooks.on('canvasInit', async (canvas: Canvas) => {
-    cwdtData.dt.weather.showFX = canvas.scene.getFlag('calendar-weather', 'showFX') as boolean;
-    cwdtData.dt.weather.doNightCycle = canvas.scene.getFlag('calendar-weather', 'doNightCycle') as boolean;
+  Hooks.on('canvasInit', async (currentCanvas: Canvas) => {
+    cwdtData.dt.weather.showFX = currentCanvas.scene.getFlag('calendar-weather', 'showFX') as boolean;
+    cwdtData.dt.weather.doNightCycle = currentCanvas.scene.getFlag('calendar-weather', 'doNightCycle') as boolean;
 
     if (Gametime.isMaster()) {
       cwdtData.dt.weather.loadFX();

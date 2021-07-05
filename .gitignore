@@ -6,3 +6,4 @@ package/
 dist/
 css/
 !**/.gitkeep
+coverage/

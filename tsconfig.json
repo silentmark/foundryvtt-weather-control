@@ -7,7 +7,7 @@
 		"module": "esnext",
 		"lib": [ "es2015", "es2019", "dom" ],
 		"typeRoots": [ "node_modules/@types", "types" ],
-		"types": [ "@league-of-foundry-developers/foundry-vtt-types", "webpack-env", "jest" ],
+		"types": [ "@league-of-foundry-developers/foundry-vtt-types", "webpack-env", "jest", "node" ],
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"strict": true,
@@ -33,5 +33,5 @@
 		// "newLine": "lf",
 		// "skipLibCheck": true,
 	},
-  "exclude": [ "node_modules", "webpack.config.js", "foundry.js", "dist" ]
+  "exclude": [ "node_modules", "webpack.config.js", "foundry.js", "dist", "src/**/*.test.ts" ]
 }

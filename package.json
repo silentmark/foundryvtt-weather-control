@@ -13,12 +13,14 @@
     "url": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/issues"
   },
   "homepage": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather#readme",
-  "main": "index.ts",
+  "main": "main.ts",
   "scripts": {
     "build": "webpack",
     "build:production": "webpack --mode production --env mode=production",
     "start": "webpack serve --hot",
     "test": "jest",
+    "test:pipeline": "jest --collect-coverage",
+    "test:watch": "jest --watch",
     "build-docker": "docker build -t foundryvtt-dev -f ./Dockerfile .",
     "start-docker": "docker run -v ${npm_config_foundrydir}:/foundry -v $(pwd)/dist:/foundry/data/Data/modules/calendar-weather -p 30000:30000 foundryvtt-dev"
   },

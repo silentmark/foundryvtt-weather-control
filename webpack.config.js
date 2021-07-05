@@ -26,7 +26,7 @@ module.exports = (env) => {
     const isDevelopment = environment.mode === "development";
 
     const config = {
-        entry: "./src/calendar-weather.ts",
+        entry: "./src/main.ts",
         watch: environment.watch,
         devtool: "inline-source-map",
         stats: "minimal",
