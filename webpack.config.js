@@ -13,7 +13,7 @@ const allTemplates = () => {
         .join(", ");
 };
 
-function getDevDirectory() { return process.env.npm_config_devdir + '/data/Data/modules/calendar-weather/'; }
+function getDevDirectory() { return process.env.npm_config_devdir + '/data/Data/modules/weather/'; }
 
 
 module.exports = (env) => {
@@ -35,7 +35,7 @@ module.exports = (env) => {
             extensions: [".wasm", ".mjs", ".ts", ".js", ".json"],
         },
         output: {
-            filename: "calendar-weather.js",
+            filename: "weather.js",
             path: path.resolve(__dirname, "dist"),
             publicPath: '',
         },

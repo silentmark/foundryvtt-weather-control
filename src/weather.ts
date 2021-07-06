@@ -14,13 +14,13 @@ export default class Weather {
   }
 
   private registerSettings(): void {
-    this.gameRef.settings.register('calendar-weather', 'calendarPos', {
+    this.gameRef.settings.register('weather', 'calendarPos', {
       name: 'Calendar Position',
       scope: 'world',
       config: false,
       type: Object,
     });
-    this.gameRef.settings.register('calendar-weather', 'calendarDisplay', {
+    this.gameRef.settings.register('weather', 'calendarDisplay', {
       name: this.gameRef.i18n.localize('cw.settings.CalDispNonGm'),
       hint: this.gameRef.i18n.localize('cw.settings.CalDispNonGmHelp'),
       scope: 'world',
@@ -28,7 +28,7 @@ export default class Weather {
       default: true,
       type: Boolean,
     });
-    this.gameRef.settings.register('calendar-weather', 'weatherDisplay', {
+    this.gameRef.settings.register('weather', 'weatherDisplay', {
       name: this.gameRef.i18n.localize('cw.settings.Weather2Chat'),
       hint: this.gameRef.i18n.localize('cw.settings.Weather2ChatHelp'),
       scope: 'world',
@@ -36,7 +36,7 @@ export default class Weather {
       default: true,
       type: Boolean,
     });
-    this.gameRef.settings.register('calendar-weather', 'moonDisplay', {
+    this.gameRef.settings.register('weather', 'moonDisplay', {
       name: this.gameRef.i18n.localize('cw.setting.2Chat'),
       hint: this.gameRef.i18n.localize('cw.setting.2ChatHelp'),
       scope: 'world',
@@ -44,7 +44,7 @@ export default class Weather {
       default: true,
       type: Boolean,
     });
-    this.gameRef.settings.register('calendar-weather', 'is24', {
+    this.gameRef.settings.register('weather', 'is24', {
       name: this.gameRef.i18n.localize('cw.settings.Display24H'),
       hint: this.gameRef.i18n.localize('cw.settings.Display24HHelp'),
       scope: 'world',
@@ -52,7 +52,7 @@ export default class Weather {
       default: false,
       type: Boolean,
     });
-    this.gameRef.settings.register('calendar-weather', 'noGlobal', {
+    this.gameRef.settings.register('weather', 'noGlobal', {
       name: this.gameRef.i18n.localize('cw.settings.NoGlobal'),
       hint: this.gameRef.i18n.localize('cw.settings.NoGlobalHelp'),
       scope: 'world',
@@ -60,7 +60,7 @@ export default class Weather {
       default: true,
       type: Boolean,
     });
-    this.gameRef.settings.register('calendar-weather', 'useCelcius', {
+    this.gameRef.settings.register('weather', 'useCelcius', {
       name: this.gameRef.i18n.localize('cw.settings.useCelcius'),
       hint: this.gameRef.i18n.localize('cw.settings.useCelciusHelp'),
       scope: 'world',
@@ -68,7 +68,7 @@ export default class Weather {
       default: false,
       type: Boolean,
     });
-    this.gameRef.settings.register('calendar-weather', 'playerSeeWeather', {
+    this.gameRef.settings.register('weather', 'playerSeeWeather', {
       name: this.gameRef.i18n.localize('cw.settings.playerSeeWeather'),
       hint: this.gameRef.i18n.localize('cw.settings.playerSeeWeatherHelp'),
       scope: 'world',
@@ -76,7 +76,7 @@ export default class Weather {
       default: false,
       type: Boolean,
     });
-    this.gameRef.settings.register('calendar-weather', 'useSanctions', {
+    this.gameRef.settings.register('weather', 'useSanctions', {
       name: this.gameRef.i18n.localize('cw.settings.useSanctions'),
       hint: this.gameRef.i18n.localize('cw.settings.useSanctionsHelp'),
       scope: 'world',

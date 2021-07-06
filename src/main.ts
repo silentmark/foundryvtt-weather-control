@@ -10,11 +10,10 @@ let weather;
 * No need to spam the console more than it already is, we hide them between a flag.
 */
 Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag }: DevModeApi) => {
-  console.log('DEV MODE READY');
-  registerPackageDebugFlag('calendar-weather', 'level');
+  registerPackageDebugFlag('weather', 'level');
 
   try {
-    logger.registerLevelCheckCallback(() => game.modules.get('_dev-mode')?.api?.getPackageDebugValue('calendar-weather', 'level'));
+    logger.registerLevelCheckCallback(() => game.modules.get('_dev-mode')?.api?.getPackageDebugValue('weather', 'level'));
   // eslint-disable-next-line no-empty
   } catch (e) {}
 });
