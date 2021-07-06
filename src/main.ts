@@ -1,4 +1,6 @@
-import DevModeApi from './devMode/devModeApi';
+import DevModeApi from './libraries/devMode/devModeApi';
+import { DateTime } from './libraries/simple-calendar/dateTime';
+import { SimpleCalendarHooks } from './libraries/simple-calendar/hooks';
 import Log from './logger/logger';
 import Weather from './weather';
 
@@ -21,4 +23,8 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag
 Hooks.on('ready', () => {
   weather = new Weather(game, logger);
   weather.onReady();
+});
+
+Hooks.on(SimpleCalendarHooks.DateTimeChange, ({...data}: DateTime) => {
+  weather.onDateTimeChange(data);
 });
