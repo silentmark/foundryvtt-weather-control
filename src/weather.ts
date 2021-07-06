@@ -1,11 +1,12 @@
+import Log from './logger/logger';
+
 /**
  * The base class of the module.
  * Every FoundryVTT features must be injected in this so we can mcok them in tests.
  */
-export class Weather {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  constructor(private gameRef: Game) {
-
+export default class Weather {
+  constructor(private gameRef: Game, private logger: Log) {
+    this.logger.info('Init completed');
   }
 
   public onReady(): void {

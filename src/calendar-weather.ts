@@ -14,7 +14,6 @@ interface Operations {
 }
 
 declare global {
-  // eslint-disable-next-line no-shadow
   interface Window {
     CWCalendar: Operations;
   }

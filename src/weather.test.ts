@@ -1,13 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Weather } from './weather';
-
-// declare global {
-//   const game {
-//     settings: any,
-//   }
-// }
-
-// (window as any).game = {};
+import Log from './logger/logger';
+import Weather from './weather';
 
 const gameMock = {
   settings: {
@@ -17,19 +9,22 @@ const gameMock = {
     localize: jest.fn(),
   }
 } as any;
+jest.mock('./logger/logger.ts');
 
 describe('Weather', () => {
   let weather: Weather;
+  let log;
+
+  beforeEach(() => {
+    log = new Log();
+    weather = new Weather(gameMock, log);
+  });
 
   it('SHOULD test', () => {
-    weather = new Weather(gameMock);
-
     expect(weather).toBeTruthy();
   });
 
   it('SHOULD register settings when onReady is called', () => {
-    weather = new Weather(gameMock);
-
     weather.onReady();
 
     expect(gameMock.settings.register).toHaveBeenCalledTimes(9);
