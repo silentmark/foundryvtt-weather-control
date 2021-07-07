@@ -7,3 +7,5 @@ dist/
 css/
 !**/.gitkeep
 coverage/
+
+junit.xml

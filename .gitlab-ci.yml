@@ -5,7 +5,60 @@ before_script:
   - apt-get install -y zip
 
 stages:
+  - install
+  - test
+  - build
   - pack
+
+install:
+  stage: install
+  script:
+    - npm ci
+
+test:
+  stage: test
+  script:
+    - npm test:pipeline
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules/
+    policy: pull
+  needs:
+    - install
+
+test-coverage:
+  stage: test
+  script:
+    - npm run test:pipeline
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules/
+    policy: pull
+  needs:
+    - install
+  artifacts:
+      when: always
+      paths:
+        - rspec.xml
+      reports:
+        junit: rspec.xml
+
+build:
+  stage: build
+  script:
+    - npm run build:production
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules/
+    policy: pull
+  needs:
+    - install
+  artifacts:
+    paths:
+      - dist/
 
 pack:
   stage: pack
@@ -17,6 +70,10 @@ pack:
     expire_in: never
     paths:
       - calendar-weather.zip
+  dependencies:
+    - build
+  needs:
+    - build
   when: on_success
   only:
     - tags
