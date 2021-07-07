@@ -11,23 +11,17 @@ stages:
   - pack
 
 install:
+  image: node:16.4.1
   stage: install
   script:
     - npm ci
-
-test:
-  stage: test
-  script:
-    - npm test:pipeline
   cache:
     key: $CI_COMMIT_REF_SLUG
     paths:
       - node_modules/
-    policy: pull
-  needs:
-    - install
 
-test-coverage:
+test:
+  image: node:16.4.1
   stage: test
   script:
     - npm run test:pipeline
@@ -41,11 +35,12 @@ test-coverage:
   artifacts:
       when: always
       paths:
-        - rspec.xml
+        - junit.xml
       reports:
-        junit: rspec.xml
+        junit: junit.xml
 
 build:
+  image: node:16.4.1
   stage: build
   script:
     - npm run build:production
@@ -61,6 +56,7 @@ build:
       - dist/
 
 pack:
+  image: debian:stable-slim
   stage: pack
   script:
     - zip -r calendar-weather.zip ./* -x './package/*' -x './releases/*'
