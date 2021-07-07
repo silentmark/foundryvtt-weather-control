@@ -72,6 +72,7 @@
   "cw.misc.AboutTimeMissingHelp": "The Calendar/Weather mod requires AboutTime by Tim Posney in order to run properly.",
   "cw.misc.Disregard": "Disregard this message",
   "cw.misc.toggleControl": "Toggle the Calendar",
+  "cw.misc.OK": "OK",
 
   "cw.setting.2Chat": "Output Moon Changes to Chat?",
   "cw.setting.2ChatHelp": "If true, any moon phase changes will be output to chat, displayed only to GM level users.",
@@ -218,5 +219,11 @@
   "cw.weather.tracker.normal.Scattered": "Scattered clouds, but mostly clear today.",
   "cw.weather.tracker.normal.SunAsh": "The sun is completely obscured by ash, possible ashfall today",
   "cw.weather.tracker.normal.TorrentialRain": "Torrential rains today.",
-  "cw.weather.tracker.Today": "Today's Weather:"
+  "cw.weather.tracker.Today": "Today's Weather:",
+
+  "cw.notice.ThankYou": "Thank you for using Calendar/Weather!",
+  "cw.notice.317.Title": "Calendar/Weather is changing!",
+  "cw.notice.317.UpcomingChanges": "In the upcoming 4.0 release of Calendar/Weather, the focus of the module is being shifted away from being a calendar and weather module to instead focused purely on the weather aspects.  This change will mean that the current calendar UI will be getting changed as well, as this module will no longer manage the calendar.",
+  "cw.notice.317.Dependency": "You may have noticed that there is a new dependency - Simple Calender.  This fantastic module manages the calendar system far better than Calendar/Weather had, and rather than compete we agreed it would be better to work with each other and build a system that utilizes it.",
+  "cw.notice.317.Recommended": "If you are looking for a module to manage time tracking beyond Simple Calendar's system, then we recommend looking at SmallTime!  It present a beautifully done interface that is simplistic and easy to use."
 }
