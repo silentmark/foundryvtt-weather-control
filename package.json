@@ -19,7 +19,7 @@
     "build:production": "webpack --mode production --env mode=production",
     "start": "webpack serve --hot",
     "test": "jest",
-    "test:pipeline": "jest --collect-coverage",
+    "test:pipeline": "jest --ci --collect-coverage --reporters=default --reporters=jest-junit",
     "test:watch": "jest --watch",
     "build-docker": "docker build -t foundryvtt-dev -f ./Dockerfile .",
     "start-docker": "docker run -v ${npm_config_foundrydir}:/foundry -v $(pwd)/dist:/foundry/data/Data/modules/weather -p 30000:30000 foundryvtt-dev"
@@ -39,6 +39,7 @@
     "eslint-webpack-plugin": "^2.5.3",
     "glob": "^7.1.6",
     "jest": "^27.0.6",
+    "jest-junit": "^12.2.0",
     "marked": "^2.0.3",
     "node-sass": "^6.0.0",
     "node-sass-glob-importer": "^5.3.2",

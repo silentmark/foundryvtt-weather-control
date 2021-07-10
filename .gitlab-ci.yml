@@ -5,9 +5,58 @@ before_script:
   - apt-get install -y zip
 
 stages:
+  - install
+  - test
+  - build
   - pack
 
+install:
+  image: node:16.4.1
+  stage: install
+  script:
+    - npm ci
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules/
+
+test:
+  image: node:16.4.1
+  stage: test
+  script:
+    - npm run test:pipeline
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules/
+    policy: pull
+  needs:
+    - install
+  artifacts:
+      when: always
+      paths:
+        - junit.xml
+      reports:
+        junit: junit.xml
+
+build:
+  image: node:16.4.1
+  stage: build
+  script:
+    - npm run build:production
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    paths:
+      - node_modules/
+    policy: pull
+  needs:
+    - install
+  artifacts:
+    paths:
+      - dist/
+
 pack:
+  image: debian:stable-slim
   stage: pack
   script:
     - zip -r calendar-weather.zip ./* -x './package/*' -x './releases/*'
@@ -17,6 +66,10 @@ pack:
     expire_in: never
     paths:
       - calendar-weather.zip
+  dependencies:
+    - build
+  needs:
+    - build
   when: on_success
   only:
     - tags
