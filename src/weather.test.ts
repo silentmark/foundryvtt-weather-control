@@ -1,14 +1,8 @@
 import Log from './logger/logger';
 import Weather from './weather';
+import { gameMock } from './testUtils';
 
-const gameMock = {
-  settings: {
-    register: jest.fn(),
-  },
-  i18n: {
-    localize: jest.fn(),
-  }
-} as any;
+const game = gameMock();
 jest.mock('./logger/logger.ts');
 
 describe('Weather', () => {
@@ -17,16 +11,10 @@ describe('Weather', () => {
 
   beforeEach(() => {
     log = new Log();
-    weather = new Weather(gameMock, log);
+    weather = new Weather(game, log);
   });
 
   it('SHOULD test', () => {
     expect(weather).toBeTruthy();
-  });
-
-  it('SHOULD register settings when onReady is called', () => {
-    weather.onReady();
-
-    expect(gameMock.settings.register).toHaveBeenCalledTimes(9);
   });
 });
