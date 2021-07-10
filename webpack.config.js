@@ -66,7 +66,7 @@ module.exports = (env) => {
                 {
                     test: /\.ts$/,
                     use: [
-                        "ts-loader",
+                        "ts-loader?configFile=tsconfig.webpack.json",
                         "webpack-import-glob-loader",
                         "source-map-loader",
                         {

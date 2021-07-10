@@ -2,7 +2,7 @@
 	"compilerOptions": {
 		/* Visit https://aka.ms/tsconfig.json to read more about this file */
 		/* Basic Options */
-		// "incremental": true,      /* Enable incremental compilation */
+		"incremental": true,
 		"target": "es2018",
 		"module": "esnext",
 		"lib": [ "es2015", "es2019", "dom" ],
@@ -30,8 +30,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"esModuleInterop": true,
 
-		// "newLine": "lf",
-		// "skipLibCheck": true,
+		"newLine": "lf",
+		"skipLibCheck": true,
+		"resolveJsonModule": true,
 	},
-  "exclude": [ "node_modules", "webpack.config.js", "foundry.js", "dist", "src/**/*.test.ts" ]
+  "exclude": [ "node_modules", "webpack.config.js", "foundry.js", "dist" ]
 }
