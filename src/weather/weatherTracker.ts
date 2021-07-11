@@ -1,15 +1,17 @@
 import { WeatherData } from '../models/weatherData';
 import { ChatProxy } from '../proxies/chatProxy';
 import { Settings } from '../settings';
+import { PrecipitationsGenerator } from './precipitationsGenerator';
 
 /**
  * Manages all things related to  weather
  */
 export class WeatherTracker {
   private weatherData: WeatherData;
+  private precipitations: PrecipitationsGenerator;
 
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private settings: Settings) {
-    this.settings.getModuleName();
+    this.precipitations = new PrecipitationsGenerator(this.gameRef);
   }
 
   public loadWeatherData(weatherData: WeatherData) {
@@ -43,10 +45,10 @@ export class WeatherTracker {
 
     if (this.weatherData.temp > this.weatherData.tempRange.max) { // If current temperature is higher than the max
       // Increase the temperature by between 5 ⁰F and 10 ⁰F
-      this.weatherData.temp = this.rand(this.weatherData.temp + 5, this.weatherData.temp + 10);
+      this.weatherData.temp = this.rand(this.weatherData.temp - 10, this.weatherData.temp - 5);
     } else if (this.weatherData.temp < this.weatherData.tempRange.min) { // If current temperature is lower than minimum
       // Decrease the temperature by between 5 ⁰F and 10 ⁰F
-      this.weatherData.temp = this.rand(this.weatherData.temp - 10, this.weatherData.temp - 5);
+      this.weatherData.temp = this.rand(this.weatherData.temp + 5, this.weatherData.temp + 10);
     }
 
     // Save the last temperature
@@ -55,10 +57,14 @@ export class WeatherTracker {
     // Convert temperature to ⁰C
     this.weatherData.cTemp = Number(((this.weatherData.temp - 32) * 5 / 9).toFixed(1));
 
+    this.weatherData.precipitation = this.precipitations.generate(this.rand(1, 20), this.weatherData);
+
     // Output to chat if enabled
     if (this.settings.getOutputWeatherToChat()) {
       this.output();
     }
+
+    this.settings.setWeatherData(this.weatherData);
   }
 
   private setTemperatureRange() {

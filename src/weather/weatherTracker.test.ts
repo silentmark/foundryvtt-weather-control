@@ -23,8 +23,18 @@ describe('WeatherTracker', () => {
 
   it('SHOULD output to chat when the setting is enabled', () => {
     weatherTracker.loadWeatherData(defaultWeatherData);
-    settings.getOutputWeatherToChat.mockReturnValue('rick astley')
+    settings.getOutputWeatherToChat.mockReturnValue(true)
 
     weatherTracker.generate();
+
+    expect(chatProxy.create).toHaveBeenCalled();
+  });
+
+  it('SHOULD save weather data after generating', () => {
+    weatherTracker.loadWeatherData(defaultWeatherData);
+
+    weatherTracker.generate();
+
+    expect(settings.setWeatherData).toHaveBeenCalled();
   });
 });

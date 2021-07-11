@@ -1,15 +1,17 @@
+import { WeatherData } from './models/weatherData';
 
 enum SettingKeys {
-  dateTime = 'dateTime',
-  calendarPosition = 'calendarPos',
   calendarDisplay = 'calendarDisplay',
-  outputWeatherToChat = 'weatherDisplay',
-  moonDisplay = 'moonDisplay',
+  calendarPosition = 'calendarPos',
+  dateTime = 'dateTime',
   is24h = 'is24',
+  moonDisplay = 'moonDisplay',
   noGlobal = 'noGlobal',
-  useCelcius = 'useCelcius',
+  outputWeatherToChat = 'weatherDisplay',
   playerSeeWeather = 'playerSeeWeather',
+  useCelcius = 'useCelcius',
   useSanctions = 'useSanctions',
+  weatherData = 'weatherData',
 }
 
 export class Settings {
@@ -21,6 +23,14 @@ export class Settings {
 
   public getModuleName(): string {
     return this.packageJson.name;
+  }
+
+  public getWeatherData(): WeatherData {
+    return this.get(SettingKeys.weatherData);
+  }
+
+  public setWeatherData(value: WeatherData) {
+    this.set(SettingKeys.weatherData, value);
   }
 
   public getDateTime(): any {// TODO: Need to define an interface for this
@@ -71,6 +81,10 @@ export class Settings {
     return this.gameRef.settings.get(this.getModuleName(), settingKey);
   }
 
+  private set(settingKey: SettingKeys, value: any) {
+    this.gameRef.settings.set(this.getModuleName(), settingKey, value);
+  }
+
   private registerSettings(): void {
     this.register(SettingKeys.dateTime, {
       name: 'Date/Time Data',
@@ -81,6 +95,13 @@ export class Settings {
 
     this.register(SettingKeys.calendarPosition, {
       name: 'Calendar Position',
+      scope: 'world',
+      config: false,
+      type: Object,
+    });
+
+    this.register(SettingKeys.weatherData, {
+      name: 'Weather Data',
       scope: 'world',
       config: false,
       type: Object,

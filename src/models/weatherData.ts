@@ -20,22 +20,22 @@ export interface WeatherData {
 }
 
 export const defaultWeatherData: WeatherData = {
-  cTemp:  0,
-  climate: 'default',
+  cTemp:  null,
+  climate: null,
   climateTemp: 0,
   dawn: 5,
   dusk: 21,
   isC: false,
   isVolcanic: false,
-  lastTemp: 70,
+  lastTemp: 50,
   outputToChat: true,
-  precipitation: 'none',
-  season: 'none',
-  seasonColor: 'red',
+  precipitation: null,
+  season: null,
+  seasonColor: null,
   seasonRolltable: null,
   seasonTemp: 0,
   showFX: false,
-  temp: 70,
+  temp: 50,
   tempRange: { min: 30, max: 90 },
-  weatherFX: null
-}
+  weatherFX: null,
+};

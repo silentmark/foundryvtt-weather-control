@@ -3,6 +3,7 @@ import { Log } from './logger/logger';
 import { WeatherTracker } from './weather/weatherTracker';
 import { Settings } from './settings';
 import { ChatProxy } from './proxies/chatProxy';
+import { defaultWeatherData } from './models/weatherData';
 
 /**
  * The base class of the module.
@@ -19,7 +20,17 @@ export class Weather {
   }
 
   public onReady(): void {
-    this.weatherTracker.loadWeatherData(this.settings.getDateTime());
+    const weatherData = this.settings.getWeatherData();
+    const emptyWeatherData = '';
+
+    if ((weatherData as any) === emptyWeatherData) {
+      this.logger.info('Using saved weather data');
+      this.weatherTracker.loadWeatherData(this.settings.getWeatherData());
+    } else {
+      this.logger.info('No saved weather data - Using defaults');
+      this.weatherTracker.loadWeatherData(defaultWeatherData);
+      this.settings.setWeatherData(defaultWeatherData);
+    }
   }
 
   public onDateTimeChange(dateTimeData: DateTime) {
