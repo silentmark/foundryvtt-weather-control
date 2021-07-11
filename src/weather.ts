@@ -19,7 +19,7 @@ export class Weather {
   }
 
   public onReady(): void {
-    this.weatherTracker.loadWeatherData(this.gameRef.settings.get('calendar-weather', 'dateTime') as any);
+    this.weatherTracker.loadWeatherData(this.settings.getDateTime());
   }
 
   public onDateTimeChange(dateTimeData: DateTime) {

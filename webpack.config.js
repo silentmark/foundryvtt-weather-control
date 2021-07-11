@@ -37,7 +37,7 @@ module.exports = (env) => {
         output: {
             filename: "weather.js",
             path: path.resolve(__dirname, "dist"),
-            publicPath: '',
+            publicPath: '/static/',
         },
         devServer: {
             hot: true,

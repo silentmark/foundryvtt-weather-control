@@ -56,7 +56,7 @@ export class WeatherTracker {
     this.weatherData.cTemp = Number(((this.weatherData.temp - 32) * 5 / 9).toFixed(1));
 
     // Output to chat if enabled
-    if (this.weatherData.outputToChat) {
+    if (this.settings.getOutputWeatherToChat()) {
       this.output();
     }
   }
