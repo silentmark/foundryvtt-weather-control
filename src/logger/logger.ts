@@ -1,6 +1,6 @@
 import { LogLevel } from './logLevel';
 
-export default class Log {
+export class Log {
   private messagePrefix = 'Weather | ';
   private checkLevel: () => LogLevel = () => LogLevel.NONE;
 

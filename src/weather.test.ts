@@ -1,17 +1,19 @@
-import Log from './logger/logger';
-import Weather from './weather';
-import { gameMock } from './testUtils';
-
-const game = gameMock();
-jest.mock('./logger/logger.ts');
+import { Log } from './logger/logger';
+import { Weather } from './weather';
+import { gameMock, mockClass } from './testUtils';
+import { ChatProxy } from './proxies/chatProxy';
 
 describe('Weather', () => {
   let weather: Weather;
   let log;
+  let game;
+  let chatProxy;
 
   beforeEach(() => {
-    log = new Log();
-    weather = new Weather(game, log);
+    game = gameMock();
+    log = mockClass(Log);
+    chatProxy = mockClass(ChatProxy);
+    weather = new Weather(game, chatProxy, log);
   });
 
   it('SHOULD test', () => {

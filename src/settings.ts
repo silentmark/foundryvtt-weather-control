@@ -3,7 +3,7 @@ enum SettingKeys {
   dateTime = 'dateTime',
   calendarPosition = 'calendarPos',
   calendarDisplay = 'calendarDisplay',
-  weatherDisplay = 'weatherDisplay',
+  outputWeatherToChat = 'weatherDisplay',
   moonDisplay = 'moonDisplay',
   is24h = 'is24',
   noGlobal = 'noGlobal',
@@ -12,7 +12,7 @@ enum SettingKeys {
   useSanctions = 'useSanctions',
 }
 
-export default class Settings {
+export class Settings {
   private packageJson = require('../package.json');
 
   constructor(private gameRef: Game) {
@@ -35,8 +35,8 @@ export default class Settings {
     return this.get(SettingKeys.calendarDisplay);
   }
 
-  public getWeatherDisplay(): boolean {
-    return this.get(SettingKeys.weatherDisplay);
+  public getOutputWeatherToChat(): boolean {
+    return this.get(SettingKeys.outputWeatherToChat);
   }
 
   public getMoonDisplay(): boolean {
@@ -97,7 +97,7 @@ export default class Settings {
     });
 
     // TODO: This one might disappear. It currently is "Output weather to chat?"
-    this.register(SettingKeys.weatherDisplay, {
+    this.register(SettingKeys.outputWeatherToChat, {
       name: this.gameRef.i18n.localize('cw.settings.Weather2Chat'),
       hint: this.gameRef.i18n.localize('cw.settings.Weather2ChatHelp'),
       scope: 'world',

@@ -1,12 +1,12 @@
-import Settings from './settings';
+import { Settings } from './settings';
 import { gameMock } from './testUtils';
 
-const game = gameMock();
-
 describe('Settings', () => {
+  let game;
   let settings: Settings;
 
   beforeEach(() => {
+    game = gameMock();
     settings = new Settings(game);
     settings; // This is just so the linter does not think it is unused
   });

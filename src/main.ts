@@ -1,10 +1,12 @@
 import DevModeApi from './libraries/devMode/devModeApi';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { SimpleCalendarHooks } from './libraries/simple-calendar/hooks';
-import Log from './logger/logger';
-import Weather from './weather';
+import { Log } from './logger/logger';
+import { ChatProxy } from './proxies/chatProxy';
+import { Weather } from './weather';
 
 const logger = new Log();
+const chatProxy = new ChatProxy();
 let weather;
 
 /**
@@ -21,7 +23,7 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag
 });
 
 Hooks.on('ready', () => {
-  weather = new Weather(game, logger);
+  weather = new Weather(game, chatProxy, logger);
   weather.onReady();
 });
 

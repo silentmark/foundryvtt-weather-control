@@ -18,3 +18,24 @@ export interface WeatherData {
   tempRange: { min: number, max: number }; // Temperature range of the current season - TODO: Confirm if this is true
   weatherFX: Array<{ type: string, options: any}> // Currently active weather effects - TODO: Confirm if this is true
 }
+
+export const defaultWeatherData: WeatherData = {
+  cTemp:  0,
+  climate: 'default',
+  climateTemp: 0,
+  dawn: 5,
+  dusk: 21,
+  isC: false,
+  isVolcanic: false,
+  lastTemp: 70,
+  outputToChat: true,
+  precipitation: 'none',
+  season: 'none',
+  seasonColor: 'red',
+  seasonRolltable: null,
+  seasonTemp: 0,
+  showFX: false,
+  temp: 70,
+  tempRange: { min: 30, max: 90 },
+  weatherFX: null
+}
