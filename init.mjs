@@ -23,7 +23,9 @@ $(document).ready(() => {
   Hooks.on('setup', () => {
     let operations = {
       resetPos: Calendar.resetPos,
-      toggleCalendar: Calendar.toggleCalendar,
+      toggleCalendar: () => {
+        Calendar.toggleCalendar(c)
+      },
     }
     game.CWCalendar = operations;
     window.CWCalendar = operations;
