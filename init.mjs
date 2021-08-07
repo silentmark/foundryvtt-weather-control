@@ -282,7 +282,7 @@ $(document).ready(() => {
           buttons: {
             yes: {
               icon: "<i class='fas fa-check'></i>",
-              label: game.i18n.localize("cw.misc.OK"),
+              label: game.i18n.localize("cw.notice.Acknowledge"),
               callback: (html) => {
                 game.settings.set("calendar-weather", "noticeVersion", currentVersion);
               }
