@@ -76,4 +76,11 @@ export const registerSettings = function(calendar) {
     default: false,
     type: Boolean,
   });
+  game.settings.register('calendar-weather', 'noticeVersion', {
+    name: 'Notice Version',
+    config: false,
+    scope: 'world',
+    type: String,
+    default: ''
+  });
 }
