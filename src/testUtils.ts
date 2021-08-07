@@ -4,6 +4,7 @@ export function gameMock(): Game {
     settings: {
       register: jest.fn(),
       get: jest.fn(),
+      set: jest.fn(),
     },
     i18n: {
       localize: jest.fn(),

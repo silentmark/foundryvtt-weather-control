@@ -5,6 +5,8 @@ import { Log } from './logger/logger';
 import { ChatProxy } from './proxies/chatProxy';
 import { Weather } from './weather';
 
+import '../styles/calendar.scss';
+
 const logger = new Log();
 const chatProxy = new ChatProxy();
 let weather;

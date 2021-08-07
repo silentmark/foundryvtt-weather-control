@@ -4,6 +4,7 @@ import { WeatherTracker } from './weather/weatherTracker';
 import { Settings } from './settings';
 import { ChatProxy } from './proxies/chatProxy';
 import { defaultWeatherData, WeatherData } from './models/weatherData';
+import { WeatherApplication } from './weatherApplication';
 
 /**
  * The base class of the module.
@@ -12,10 +13,12 @@ import { defaultWeatherData, WeatherData } from './models/weatherData';
 export class Weather {
   private weatherTracker: WeatherTracker;
   private settings: Settings;
+  private weatherApplication: WeatherApplication;
 
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
     this.settings = new Settings(this.gameRef);
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
+    this.weatherApplication = new WeatherApplication();
     this.logger.info('Init completed');
   }
 
@@ -30,6 +33,8 @@ export class Weather {
       this.weatherTracker.loadWeatherData(defaultWeatherData);
       this.settings.setWeatherData(defaultWeatherData);
     }
+
+    this.renderCalendarDisplay();
   }
 
   public onDateTimeChange(dateTimeData: DateTime) {
@@ -56,5 +61,9 @@ export class Weather {
 
   private isWeatherDataValid(weatherData: WeatherData | ''): boolean {
     return this.settings.isSettingValueEmpty(weatherData);
+  }
+
+  private renderCalendarDisplay() {
+    this.weatherApplication.render(true);
   }
 }
