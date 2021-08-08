@@ -32,9 +32,7 @@ describe('WeatherTracker', () => {
 
   it('SHOULD save weather data after generating', () => {
     weatherTracker.loadWeatherData(defaultWeatherData);
-
     weatherTracker.generate();
-
     expect(settings.setWeatherData).toHaveBeenCalled();
   });
 });
