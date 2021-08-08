@@ -20,6 +20,9 @@ declare class Gametime {
   static reminderAt(when: DateTime, ...args): number;
 }
 
+/**
+ * @deprecated
+ */
 declare class DateTime extends DTMod {
   /**
    * Returns the Day Of the Week (dow) for a given DateTime (0=Monday or equivalent)

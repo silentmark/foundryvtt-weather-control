@@ -33,8 +33,25 @@ export class Weather {
   }
 
   public onDateTimeChange(dateTimeData: DateTime) {
-    this.logger.info('DateTime has changed', dateTimeData);
-    this.weatherTracker.generate();
+    this.logger.debug('DateTime has changed', dateTimeData);
+
+    if (this.dateHasChanged(dateTimeData)) {
+      this.weatherTracker.generate();
+    }
+
+    this.settings.setDateTime(dateTimeData);
+  }
+
+  private dateHasChanged(dateTime: DateTime): boolean {
+    const previous = this.settings.getDateTime();
+
+    if (dateTime.day.number !== previous?.day.number
+      || dateTime.month.number !== previous?.month.number
+      || dateTime.year.number !== previous?.year.number) {
+      return true;
+    }
+
+    return false;
   }
 
   private isWeatherDataValid(weatherData: WeatherData | ''): boolean {

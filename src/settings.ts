@@ -1,8 +1,10 @@
+import { DateTime } from './libraries/simple-calendar/dateTime';
 import { WeatherData } from './models/weatherData';
 
 enum SettingKeys {
   calendarDisplay = 'calendarDisplay',
   calendarPosition = 'calendarPos',
+  legacyDateTime = 'legacyDateTime',
   dateTime = 'dateTime',
   is24h = 'is24',
   moonDisplay = 'moonDisplay',
@@ -37,8 +39,20 @@ export class Settings {
     this.set(SettingKeys.weatherData, value);
   }
 
-  public getDateTime(): any {// TODO: Need to define an interface for this
+  /**
+   * @deprecated
+   * @returns CWDateTime data
+   */
+  public getLegacyDateTime(): any {
+    return this.get(SettingKeys.legacyDateTime);
+  }
+
+  public getDateTime(): DateTime {
     return this.get(SettingKeys.dateTime);
+  }
+
+  public setDateTime(value: DateTime) {
+    this.set(SettingKeys.dateTime, value);
   }
 
   public getCalendarPosition(): any { // TODO: Need to define an interface for this
@@ -90,6 +104,14 @@ export class Settings {
   }
 
   private registerSettings(): void {
+    // Deprecated
+    this.register(SettingKeys.legacyDateTime, {
+      name: 'Date/Time Data',
+      scope: 'world',
+      config: false,
+      type: Object,
+    });
+
     this.register(SettingKeys.dateTime, {
       name: 'Date/Time Data',
       scope: 'world',
