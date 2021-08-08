@@ -72,7 +72,7 @@ export class WeatherTrackerLegacy {
   }
 
   /**
-   * GEnerate extreme weather and return it's message to be displayed in the chat.
+   * Generate extreme weather and return its message to be displayed in the chat.
    * @returns
    */
   extremeWeather() {
@@ -107,7 +107,7 @@ export class WeatherTrackerLegacy {
   }
 
   /**
-   * Set the climate to a predefined choise
+   * Set the climate to a predefined choice
    * @param climate Climate to switch to.
    */
   setClimate(climate) {
