@@ -23,7 +23,7 @@ describe('WeatherTracker', () => {
 
   it('SHOULD output to chat when the setting is enabled', () => {
     weatherTracker.loadWeatherData(defaultWeatherData);
-    settings.getOutputWeatherToChat.mockReturnValue(true)
+    settings.getOutputWeatherToChat.mockReturnValue(true);
 
     weatherTracker.generate();
 

@@ -21,6 +21,10 @@ export class Settings {
     this.registerSettings();
   }
 
+  public isSettingValueEmpty(setting: any): boolean {
+    return setting !== '';
+  }
+
   public getModuleName(): string {
     return this.packageJson.name;
   }
