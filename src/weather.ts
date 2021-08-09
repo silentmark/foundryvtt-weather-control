@@ -18,7 +18,7 @@ export class Weather {
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
     this.settings = new Settings(this.gameRef);
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
-    this.weatherApplication = new WeatherApplication();
+    this.weatherApplication = new WeatherApplication(this.settings.getDateTime());
     this.logger.info('Init completed');
   }
 
@@ -33,18 +33,17 @@ export class Weather {
       this.weatherTracker.loadWeatherData(defaultWeatherData);
       this.settings.setWeatherData(defaultWeatherData);
     }
-
-    this.renderCalendarDisplay();
   }
 
-  public onDateTimeChange(dateTimeData: DateTime) {
-    this.logger.debug('DateTime has changed', dateTimeData);
+  public onDateTimeChange(dateTime: DateTime) {
+    this.logger.debug('DateTime has changed', dateTime);
 
-    if (this.dateHasChanged(dateTimeData)) {
+    if (this.dateHasChanged(dateTime)) {
       this.weatherTracker.generate();
     }
 
-    this.settings.setDateTime(dateTimeData);
+    this.updateWeatherDisplay(dateTime);
+    this.settings.setDateTime(dateTime);
   }
 
   private dateHasChanged(dateTime: DateTime): boolean {
@@ -63,7 +62,7 @@ export class Weather {
     return this.settings.isSettingValueEmpty(weatherData);
   }
 
-  private renderCalendarDisplay() {
-    this.weatherApplication.render(true);
+  private updateWeatherDisplay(dateTime: DateTime) {
+    this.weatherApplication.updateDisplay(dateTime);
   }
 }

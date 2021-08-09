@@ -1,5 +1,11 @@
+import { DateTime } from './libraries/simple-calendar/dateTime';
 
 export class WeatherApplication extends Application {
+  constructor(private dateTime: DateTime) {
+    super();
+    this.render(true);
+  }
+
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.template = 'modules/weather/templates/calendar.html';
@@ -10,11 +16,49 @@ export class WeatherApplication extends Application {
   }
 
   public activateListeners(html) {
+    this.updateDisplay(this.dateTime);
+
     const calendarMove = '#calendar--move-handle';
 
     html.find(calendarMove).mousedown(event => {
       this.handleDragMove(event);
     });
+  }
+
+  public updateDisplay(dateTime: DateTime) {
+    // document.getElementById('calendar-weekday').innerHTML = Gametime.DTC.weekDays[now.dow()];
+
+    // document.getElementById('calendar-date').innerHTML = cwdtData.dt.dateWordy;
+    document.getElementById('calendar-date-num').innerHTML = dateTime.day.number + '/' + dateTime.month.number + '/' + dateTime.year.number;
+    // cwdtData.dt.setTimeDisp();
+    document.getElementById('calendar-time').innerHTML = dateTime.time.hour + ':' + dateTime.time.minute + ':' + dateTime.time.second;
+
+    const temp = document.getElementById('calendar-weather--temp');
+    if (temp && this) {
+
+      // if (game.settings.get( 'calendar-weather', 'useCelcius')) {
+      //   temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
+      // } else {
+      //   temp.innerHTML = cwdtData.dt.getWeatherObj().temp + ' °F';
+      // }
+      // document.getElementById('calendar-weather-precip').innerHTML = cwdtData.dt.getWeatherObj().precipitation;
+
+
+      const offset = document.getElementById('calendar-time-container');
+      document.getElementById('calendar-weather--container').style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
+      // this.weatherForm.updateData(cwdtData.dt.getWeatherObj());
+    }
+    // if (Gametime.isRunning()) {
+    //   document.getElementById('calendar-btn-advance_01').classList.add('disabled');
+    //   document.getElementById('calendar-btn-advance_02').classList.add('disabled');
+    //   document.getElementById('calendar-time-running').classList.add('isRunning');
+    //   document.getElementById('clock-run-indicator').classList.add('isRunning');
+    // } else {
+    //   document.getElementById('calendar-btn-advance_01').classList.remove('disabled');
+    //   document.getElementById('calendar-btn-advance_02').classList.remove('disabled');
+    //   document.getElementById('calendar-time-running').classList.remove('isRunning');
+    //   document.getElementById('clock-run-indicator').classList.remove('isRunning');
+    // }
   }
 
   private handleDragMove(event) {
