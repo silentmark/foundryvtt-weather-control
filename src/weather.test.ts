@@ -19,13 +19,4 @@ describe('Weather', () => {
   it('SHOULD test', () => {
     expect(weather).toBeTruthy();
   });
-
-  it('SHOULD render the calendar display', () => {
-    const renderTemplateMock = jest.fn();
-    global.renderTemplate = renderTemplateMock;
-
-    weather.onReady();
-
-    expect(renderTemplateMock).toHaveBeenCalled();
-  });
 });
