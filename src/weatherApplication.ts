@@ -1,3 +1,4 @@
+import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 
 export class WeatherApplication extends Application {
@@ -20,6 +21,7 @@ export class WeatherApplication extends Application {
 
     const calendarMove = '#calendar--move-handle';
     // const dateFormatToggle = '#calendar--date-display'; // TODO: Uncomment this when Simple Calendar returns the name of the weekday
+    const startStopClock = '#start-stop-clock';
 
     html.find(calendarMove).on('mousedown', event => {
       this.handleDragMove(event);
@@ -29,6 +31,10 @@ export class WeatherApplication extends Application {
     // html.find(dateFormatToggle).on('mousedown', event => {
     //   this.toggleDateFormat(event);
     // });
+
+    html.find(startStopClock).on('mousedown', event => {
+      this.startStopClock(event);
+    });
   }
 
   public updateDisplay(dateTime: DateTime) {
@@ -52,19 +58,23 @@ export class WeatherApplication extends Application {
 
       const offset = document.getElementById('calendar-time-container');
       document.getElementById('calendar-weather--container').style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
-      // this.weatherForm.updateData(cwdtData.dt.getWeatherObj());
     }
-    // if (Gametime.isRunning()) {
-    //   document.getElementById('calendar-btn-advance_01').classList.add('disabled');
-    //   document.getElementById('calendar-btn-advance_02').classList.add('disabled');
-    //   document.getElementById('calendar-time-running').classList.add('isRunning');
-    //   document.getElementById('clock-run-indicator').classList.add('isRunning');
-    // } else {
-    //   document.getElementById('calendar-btn-advance_01').classList.remove('disabled');
-    //   document.getElementById('calendar-btn-advance_02').classList.remove('disabled');
-    //   document.getElementById('calendar-time-running').classList.remove('isRunning');
-    //   document.getElementById('clock-run-indicator').classList.remove('isRunning');
-    // }
+
+    this.updateClockStatus();
+  }
+
+  private updateClockStatus() {
+    if (SimpleCalendarApi.clockStatus().started) {
+      document.getElementById('calendar-btn-advance_01').classList.add('disabled');
+      document.getElementById('calendar-btn-advance_02').classList.add('disabled');
+      document.getElementById('calendar-time-running').classList.add('isRunning');
+      document.getElementById('clock-run-indicator').classList.add('isRunning');
+    } else {
+      document.getElementById('calendar-btn-advance_01').classList.remove('disabled');
+      document.getElementById('calendar-btn-advance_02').classList.remove('disabled');
+      document.getElementById('calendar-time-running').classList.remove('isRunning');
+      document.getElementById('clock-run-indicator').classList.remove('isRunning');
+    }
   }
 
   private handleDragMove(event) {
@@ -142,6 +152,23 @@ export class WeatherApplication extends Application {
   // private toggleDateFormat(event) {
   //   event.currentTarget.classList.toggle('altFormat');
   // }
+
+  private startStopClock(event) {
+    event.preventDefault();
+    event = event || window.event;
+
+    if (SimpleCalendarApi.isPrimaryGM()) {
+      if (SimpleCalendarApi.clockStatus().started) {
+        console.log('calendar-weather | Stopping about-time pseudo clock.');
+        SimpleCalendarApi.stopClock();
+      } else {
+        console.log('calendar-weather | Starting about-time pseudo clock.');
+        SimpleCalendarApi.startClock();
+      }
+    }
+
+    this.updateClockStatus();
+  }
 
   static resetPos(): Promise<void> {
     const pos = {bottom: 8, left: 15};
