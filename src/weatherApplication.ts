@@ -15,14 +15,20 @@ export class WeatherApplication extends Application {
     return options;
   }
 
-  public activateListeners(html) {
+  public activateListeners(html: JQuery) {
     this.updateDisplay(this.dateTime);
 
     const calendarMove = '#calendar--move-handle';
+    // const dateFormatToggle = '#calendar--date-display'; // TODO: Uncomment this when Simple Calendar returns the name of the weekday
 
-    html.find(calendarMove).mousedown(event => {
+    html.find(calendarMove).on('mousedown', event => {
       this.handleDragMove(event);
     });
+
+    // TODO: Uncomment this event when Simple Calendar returns the name of the weekday
+    // html.find(dateFormatToggle).on('mousedown', event => {
+    //   this.toggleDateFormat(event);
+    // });
   }
 
   public updateDisplay(dateTime: DateTime) {
@@ -64,12 +70,7 @@ export class WeatherApplication extends Application {
   private handleDragMove(event) {
     event.preventDefault();
     event = event || window.event;
-    let isRightMB = false;
-    if ('which' in event) { // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
-      isRightMB = event.which == 3;
-    } else if ('button' in event) { // IE, Opera
-      isRightMB = event.button == 2;
-    }
+    const isRightMB = this.isRightMouseButton(event);
 
     if (!isRightMB) {
       dragElement(document.getElementById('calendar-time-container'));
@@ -125,6 +126,22 @@ export class WeatherApplication extends Application {
       WeatherApplication.resetPos();
     }
   }
+
+  private isRightMouseButton(event): boolean {
+    let isRightMB = false;
+    if ('which' in event) { // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
+      isRightMB = event.which == 3;
+    } else if ('button' in event) { // IE, Opera
+      isRightMB = event.button == 2;
+    }
+
+    return isRightMB;
+  }
+
+  // TODO: Uncomment this event when Simple Calendar returns the name of the weekday
+  // private toggleDateFormat(event) {
+  //   event.currentTarget.classList.toggle('altFormat');
+  // }
 
   static resetPos(): Promise<void> {
     const pos = {bottom: 8, left: 15};

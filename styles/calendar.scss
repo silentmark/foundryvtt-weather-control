@@ -85,27 +85,37 @@
 
 #calendar--date-display {
 	border-bottom: 1px solid rgba(255,255,255,.4);
-}
 
-#calendar--date-display h2 {
-	font-size: 13px;
-	margin: 0;
-  padding: 4px 4px 2px 4px;
-	border: none;
-	text-align: center;
-	font-weight: 400;
-}
+	 h2 {
+		font-size: 13px;
+		margin: 0;
+		padding: 4px 4px 2px 4px;
+		border: none;
+		text-align: center;
+		font-weight: 400;
+	}
 
-#calendar--date-display #calendar-date-num {
-	display: none;
-}
+	 #calendar-date-num {
+		// display: none; // TODO: Uncomment this property and delete the one below when Simple Calendar returns the name of the weekday
+		display: inline;
+	}
 
-#calendar--date-display.altFormat #calendar-date-num {
-	display: inline;
-}
+	// TODO: Delete this rule when SImple Calendar returns the name of the weekday
+	#calendar-date-num {
+		display: inline;
+	}
 
-#calendar--date-display.altFormat #calendar-date {
-	display: none;
+	&.altFormat {
+		#calendar-date-num {
+			// display: inline; // TODO: Uncomment this property and delete the one below when Simple Calendar returns the name of the weekday
+			display: none;
+		}
+
+		#calendar-date {
+			// display: none; // TODO: Uncomment this property and delete the one below when Simple Calendar returns the name of the weekday
+			display: inline;
+		}
+	}
 }
 
 #calendar--moon,
