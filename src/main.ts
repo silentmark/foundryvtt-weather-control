@@ -9,7 +9,7 @@ import '../styles/calendar.scss';
 
 const logger = new Log();
 const chatProxy = new ChatProxy();
-let weather;
+let weather: Weather;
 
 /**
 * Register module in Developer Mode module (https://github.com/League-of-Foundry-Developers/foundryvtt-devMode)
@@ -31,4 +31,8 @@ Hooks.on('ready', () => {
 
 Hooks.on(SimpleCalendarHooks.DateTimeChange, ({...data}: DateTime) => {
   weather.onDateTimeChange(data);
+});
+
+Hooks.on(SimpleCalendarHooks.ClockStartStop, () => {
+  weather.onClockStartStop();
 });

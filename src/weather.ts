@@ -46,6 +46,10 @@ export class Weather {
     this.settings.setDateTime(dateTime);
   }
 
+  public onClockStartStop() {
+    this.weatherApplication.updateClockStatus();
+  }
+
   private dateHasChanged(dateTime: DateTime): boolean {
     const previous = this.settings.getDateTime();
 

@@ -63,7 +63,7 @@ export class WeatherApplication extends Application {
     this.updateClockStatus();
   }
 
-  private updateClockStatus() {
+  public updateClockStatus() {
     if (SimpleCalendarApi.clockStatus().started) {
       document.getElementById('calendar-btn-advance_01').classList.add('disabled');
       document.getElementById('calendar-btn-advance_02').classList.add('disabled');
