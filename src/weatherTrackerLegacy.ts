@@ -9,7 +9,7 @@ declare const canvas: Canvas; // FIXME: I don't like doing this but I can't figu
 declare const game: Game;
 declare const WFRP_Utility: any;
 
-export class WeatherTracker {
+export class WeatherTrackerLegacy {
   humidity = 0;
   temp = 0;
   lastTemp = 70;
@@ -61,10 +61,20 @@ export class WeatherTracker {
     return this;
   }
 
-  rand(min, max) {
+  /**
+   * Generate a random number between to boundaries
+   * @param min
+   * @param max
+   * @returns Random number
+   */
+  rand(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
+  /**
+   * Generate extreme weather and return its message to be displayed in the chat.
+   * @returns
+   */
   extremeWeather() {
     const roll = this.rand(1, 5);
     let event = '';
@@ -96,6 +106,10 @@ export class WeatherTracker {
     return game.i18n.localize('cw.weather.tracker.extreme.Extreme') + event;
   }
 
+  /**
+   * Set the climate to a predefined choice
+   * @param climate Climate to switch to.
+   */
   setClimate(climate) {
     this.isVolcanic = false;
     switch (climate) {
@@ -183,6 +197,12 @@ export class WeatherTracker {
     }
   }
 
+  /**
+   * Generate precipitation
+   * TODO: Better document this one
+   * @param roll
+   * @returns
+   */
   genPrecip(roll) {
     let fxAvailable = false;
     let weather = '';
@@ -649,6 +669,9 @@ export class WeatherTracker {
     return weather;
   }
 
+  /**
+   * Output a message to chat
+   */
   output() {
     let tempOut = '';
     if (game.settings.get('calendar-weather', 'useCelcius')) {
@@ -667,6 +690,11 @@ export class WeatherTracker {
     });
   }
 
+  /**
+   * This generates... something.
+   * TODO: Improve documentation here
+   * @param force
+   */
   generate(force = false) {
     let roll = this.rand(1, 6);
     roll = roll + this.humidity + this.climateHumidity + Math.floor(this.seasonHumidity);
@@ -711,11 +739,18 @@ export class WeatherTracker {
     }
   }
 
+  /**
+   * Update weather in FXMaster
+   */
   loadFX() {
     if (game.modules.get('fxmaster')?.active && Gametime.isMaster() && this.showFX && this.weatherFX)
       Hooks.call('updateWeather', this.weatherFX);
   }
 
+  /**
+   * Set the current season
+   * @param season
+   */
   setSeason(season) {
     this.season = season.name;
     if (season.temp == '-') {
@@ -762,6 +797,10 @@ export class WeatherTracker {
     this.seasonColor = season.color;
   }
 
+  /**
+   * Manages the light levels or something
+   * TODO: Improve documentation
+   */
   lightCycle() {
     const dt = Gametime.DTNow();
     let newDarkness = 0;

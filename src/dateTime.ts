@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import {
-  WeatherTracker
-} from './weatherTracker';
+  WeatherTrackerLegacy
+} from './weatherTrackerLegacy';
 import {
   Month
 } from './month';
@@ -27,7 +27,7 @@ export let _myCalendarSpec = {
 };
 
 class DateTimeStatics {
-  _weather = new WeatherTracker();
+  _weather = new WeatherTrackerLegacy();
   _seasons = [];
   _reEvents = [];
   _events = [];
@@ -138,11 +138,11 @@ export class DateTime {
     DateTime.seasons = seasons;
   }
 
-  static get weather(): WeatherTracker {
-    return dateTimeStatics._weather ? dateTimeStatics._weather : new WeatherTracker();
+  static get weather(): WeatherTrackerLegacy {
+    return dateTimeStatics._weather ? dateTimeStatics._weather : new WeatherTrackerLegacy();
   }
   static set weather(weather) {
-    dateTimeStatics._weather = weather || new WeatherTracker();
+    dateTimeStatics._weather = weather || new WeatherTrackerLegacy();
   }
   get weather() {
     return DateTime.weather;

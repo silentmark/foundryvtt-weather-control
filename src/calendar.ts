@@ -3,7 +3,7 @@
 import  { CalendarEvents } from './calendarEvents';
 import { _myCalendarSpec, DateTime as CWDateTime } from './dateTime';
 import { Month } from './month';
-import { WeatherTracker } from './weatherTracker';
+import { WeatherTrackerLegacy } from './weatherTrackerLegacy';
 import { CalendarForm } from './calendarForm';
 import { cwdtData } from './calendar-weather';
 
@@ -153,7 +153,7 @@ export class Calendar extends Application {
     cwdtData.dt.settings = [];
     cwdtData.dt.events = [];
     cwdtData.dt.reEvents = [];
-    cwdtData.dt.weather = new WeatherTracker();
+    cwdtData.dt.weather = new WeatherTrackerLegacy();
     CWDateTime.updateDTC();
     cwdtData.dt.setEra('AD');
   }

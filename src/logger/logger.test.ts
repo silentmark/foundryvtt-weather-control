@@ -1,4 +1,4 @@
-import Log from './logger';
+import { Log } from './logger';
 import { LogLevel } from './logLevel';
 
 const MESSAGE = 'This is a message to be logged';

@@ -37,7 +37,7 @@ module.exports = (env) => {
         output: {
             filename: "weather.js",
             path: path.resolve(__dirname, "dist"),
-            publicPath: '',
+            publicPath: '/static/',
         },
         devServer: {
             hot: true,
@@ -66,7 +66,7 @@ module.exports = (env) => {
                 {
                     test: /\.ts$/,
                     use: [
-                        "ts-loader",
+                        "ts-loader?configFile=tsconfig.webpack.json",
                         "webpack-import-glob-loader",
                         "source-map-loader",
                         {

@@ -1,32 +1,22 @@
-import Log from './logger/logger';
-import Weather from './weather';
-
-const gameMock = {
-  settings: {
-    register: jest.fn(),
-  },
-  i18n: {
-    localize: jest.fn(),
-  }
-} as any;
-jest.mock('./logger/logger.ts');
+import { Log } from './logger/logger';
+import { Weather } from './weather';
+import { gameMock, mockClass } from './testUtils';
+import { ChatProxy } from './proxies/chatProxy';
 
 describe('Weather', () => {
   let weather: Weather;
   let log;
+  let game;
+  let chatProxy;
 
   beforeEach(() => {
-    log = new Log();
-    weather = new Weather(gameMock, log);
+    game = gameMock();
+    log = mockClass(Log);
+    chatProxy = mockClass(ChatProxy);
+    weather = new Weather(game, chatProxy, log);
   });
 
   it('SHOULD test', () => {
     expect(weather).toBeTruthy();
-  });
-
-  it('SHOULD register settings when onReady is called', () => {
-    weather.onReady();
-
-    expect(gameMock.settings.register).toHaveBeenCalledTimes(9);
   });
 });
