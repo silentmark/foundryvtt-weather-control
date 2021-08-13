@@ -53,9 +53,9 @@ export class Weather {
   private dateHasChanged(dateTime: DateTime): boolean {
     const previous = this.settings.getDateTime();
 
-    if (dateTime.day.number !== previous?.day.number
-      || dateTime.month.number !== previous?.month.number
-      || dateTime.year.number !== previous?.year.number) {
+    if (dateTime.date.day !== previous?.date.day
+      || dateTime.date.month !== previous?.date.month
+      || dateTime.date.year !== previous?.date.year) {
       return true;
     }
 

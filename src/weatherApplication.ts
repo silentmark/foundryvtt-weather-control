@@ -41,9 +41,9 @@ export class WeatherApplication extends Application {
     // document.getElementById('calendar-weekday').innerHTML = Gametime.DTC.weekDays[now.dow()];
 
     // document.getElementById('calendar-date').innerHTML = cwdtData.dt.dateWordy;
-    document.getElementById('calendar-date-num').innerHTML = dateTime.day.number + '/' + dateTime.month.number + '/' + dateTime.year.number;
+    document.getElementById('calendar-date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
     // cwdtData.dt.setTimeDisp();
-    document.getElementById('calendar-time').innerHTML = dateTime.time.hour + ':' + dateTime.time.minute + ':' + dateTime.time.second;
+    document.getElementById('calendar-time').innerHTML = dateTime.date.hour + ':' + dateTime.date.minute + ':' + dateTime.date.second;
 
     const temp = document.getElementById('calendar-weather--temp');
     if (temp && this) {
