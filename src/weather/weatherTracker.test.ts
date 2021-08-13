@@ -22,6 +22,7 @@ describe('WeatherTracker', () => {
   });
 
   it('SHOULD output to chat when the setting is enabled', () => {
+    (chatProxy.getWhisperRecipients as jest.Mock).mockReturnValue([{_id: '0'}]);
     weatherTracker.loadWeatherData(defaultWeatherData);
     settings.getOutputWeatherToChat.mockReturnValue(true);
 

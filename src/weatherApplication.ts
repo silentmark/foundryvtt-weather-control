@@ -129,7 +129,7 @@ export class WeatherApplication extends Application {
             elmnt.style.left = (xPos) + 'px';
           }
           console.log(`calendar-weather | Setting calendar position to x: ${xPos}px, y: ${yPos}px`);
-          game.user.update({flags: {'calendarWeather':{ 'calendarPos': {top: yPos, left: xPos}}}});
+          this.gameRef.user.update({flags: {'calendarWeather':{ 'calendarPos': {top: yPos, left: xPos}}}});
         }
       }
     } else if(isRightMB){
@@ -180,7 +180,7 @@ export class WeatherApplication extends Application {
           elmnt.style.top = null;
           elmnt.style.bottom = (pos.bottom) + '%';
           elmnt.style.left = (pos.left) + '%';
-          game.user.update({flags: {'calendar-weather':{ 'calendarPos': {top: elmnt.offsetTop, left: elmnt.offsetLeft}}}});
+          this.gameRef.user.update({flags: {'calendar-weather':{ 'calendarPos': {top: elmnt.offsetTop, left: elmnt.offsetLeft}}}});
           elmnt.style.bottom = null;
           resolve();
         } else {

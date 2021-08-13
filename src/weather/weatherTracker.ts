@@ -90,7 +90,7 @@ export class WeatherTracker {
       speaker: {
         alias: this.gameRef.i18n.localize('cw.weather.tracker.Today'),
       },
-      whisper: messageLvl,
+      whisper: [messageLvl[0]._id],
       content: chatOut,
     });
   }

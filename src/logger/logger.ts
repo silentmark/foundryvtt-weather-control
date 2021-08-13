@@ -2,9 +2,9 @@ import { LogLevel } from './logLevel';
 
 export class Log {
   private messagePrefix = 'Weather | ';
-  private checkLevel: () => LogLevel = () => LogLevel.NONE;
+  private checkLevel: () => boolean | LogLevel = () => LogLevel.NONE;
 
-  public registerLevelCheckCallback(callback: () => LogLevel) {
+  public registerLevelCheckCallback(callback: () => boolean | LogLevel) {
     this.checkLevel = callback;
   }
 

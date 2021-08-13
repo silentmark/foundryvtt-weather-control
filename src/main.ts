@@ -1,4 +1,4 @@
-import DevModeApi from './libraries/devMode/devModeApi';
+import { DevModeApi } from './libraries/devMode/devModeApi';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { SimpleCalendarHooks } from './libraries/simple-calendar/hooks';
 import { Log } from './logger/logger';
@@ -6,10 +6,18 @@ import { ChatProxy } from './proxies/chatProxy';
 import { Weather } from './weather';
 
 import '../styles/calendar.scss';
+import { DevMode } from './libraries/devMode/devMode';
 
 const logger = new Log();
 const chatProxy = new ChatProxy();
 let weather: Weather;
+
+function getGame(): Game {
+  if(!(game instanceof Game)) {
+    throw new Error('game is not initialized yet!');
+  }
+  return game;
+}
 
 /**
 * Register module in Developer Mode module (https://github.com/League-of-Foundry-Developers/foundryvtt-devMode)
@@ -19,13 +27,13 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag
   registerPackageDebugFlag('weather', 'level');
 
   try {
-    logger.registerLevelCheckCallback(() => game.modules.get('_dev-mode')?.api?.getPackageDebugValue('weather', 'level'));
+    logger.registerLevelCheckCallback(() => (getGame().modules.get('_dev-mode') as unknown as DevMode)?.api?.getPackageDebugValue('weather', 'level'));
   // eslint-disable-next-line no-empty
   } catch (e) {}
 });
 
 Hooks.on('ready', () => {
-  weather = new Weather(game, chatProxy, logger);
+  weather = new Weather(getGame(), chatProxy, logger);
   weather.onReady();
 });
 
