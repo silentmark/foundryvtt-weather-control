@@ -20,17 +20,16 @@ export class WeatherApplication extends Application {
     this.updateDisplay(this.dateTime);
 
     const calendarMove = '#calendar--move-handle';
-    // const dateFormatToggle = '#calendar--date-display'; // TODO: Uncomment this when Simple Calendar returns the name of the weekday
+    const dateFormatToggle = '#calendar--date-display';
     const startStopClock = '#start-stop-clock';
 
     html.find(calendarMove).on('mousedown', event => {
       this.handleDragMove(event);
     });
 
-    // TODO: Uncomment this event when Simple Calendar returns the name of the weekday
-    // html.find(dateFormatToggle).on('mousedown', event => {
-    //   this.toggleDateFormat(event);
-    // });
+    html.find(dateFormatToggle).on('mousedown', event => {
+      this.toggleDateFormat(event);
+    });
 
     html.find(startStopClock).on('mousedown', event => {
       this.startStopClock(event);
@@ -38,11 +37,10 @@ export class WeatherApplication extends Application {
   }
 
   public updateDisplay(dateTime: DateTime) {
-    // document.getElementById('calendar-weekday').innerHTML = Gametime.DTC.weekDays[now.dow()];
+    document.getElementById('calendar-weekday').innerHTML = dateTime.date.display.weekday;
 
-    // document.getElementById('calendar-date').innerHTML = cwdtData.dt.dateWordy;
+    document.getElementById('calendar-date').innerHTML = this.getDateWordy(dateTime);
     document.getElementById('calendar-date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
-    // cwdtData.dt.setTimeDisp();
     document.getElementById('calendar-time').innerHTML = dateTime.date.hour + ':' + dateTime.date.minute + ':' + dateTime.date.second;
 
     const temp = document.getElementById('calendar-weather--temp');
@@ -61,6 +59,11 @@ export class WeatherApplication extends Application {
     }
 
     this.updateClockStatus();
+  }
+
+  private getDateWordy(dateTime: DateTime): string {
+    const display = dateTime.date.display;
+    return `${display.day}${display.daySuffix} of ${display.monthName}, ${display.yearPrefix} ${display.year} ${display.yearPostfix}`;
   }
 
   public updateClockStatus() {
@@ -148,10 +151,9 @@ export class WeatherApplication extends Application {
     return isRightMB;
   }
 
-  // TODO: Uncomment this event when Simple Calendar returns the name of the weekday
-  // private toggleDateFormat(event) {
-  //   event.currentTarget.classList.toggle('altFormat');
-  // }
+  private toggleDateFormat(event) {
+    event.currentTarget.classList.toggle('altFormat');
+  }
 
   private startStopClock(event) {
     event.preventDefault();

@@ -96,24 +96,16 @@
 	}
 
 	 #calendar-date-num {
-		// display: none; // TODO: Uncomment this property and delete the one below when Simple Calendar returns the name of the weekday
-		display: inline;
-	}
-
-	// TODO: Delete this rule when SImple Calendar returns the name of the weekday
-	#calendar-date-num {
-		display: inline;
+		display: none;
 	}
 
 	&.altFormat {
 		#calendar-date-num {
-			// display: inline; // TODO: Uncomment this property and delete the one below when Simple Calendar returns the name of the weekday
-			display: none;
+			display: inline;
 		}
 
 		#calendar-date {
-			// display: none; // TODO: Uncomment this property and delete the one below when Simple Calendar returns the name of the weekday
-			display: inline;
+			display: none;
 		}
 	}
 }
