@@ -18,7 +18,7 @@ export class Weather {
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
     this.settings = new Settings(this.gameRef);
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
-    this.weatherApplication = new WeatherApplication(this.settings.getDateTime());
+    this.weatherApplication = new WeatherApplication(this.gameRef, this.settings.getDateTime(), this.weatherTracker);
     this.logger.info('Init completed');
   }
 

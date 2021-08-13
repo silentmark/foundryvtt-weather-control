@@ -1,8 +1,9 @@
 import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
+import { WeatherTracker } from './weather/weatherTracker';
 
 export class WeatherApplication extends Application {
-  constructor(private dateTime: DateTime) {
+  constructor(private gameRef: Game, private dateTime: DateTime, private weatherTracker: WeatherTracker) {
     super();
     this.render(true);
   }
@@ -22,6 +23,8 @@ export class WeatherApplication extends Application {
     const calendarMove = '#calendar--move-handle';
     const dateFormatToggle = '#calendar--date-display';
     const startStopClock = '#start-stop-clock';
+    const weather = '#calendar-weather';
+    const refreshWeather = '#calendar-weather-regenerate';
 
     html.find(calendarMove).on('mousedown', event => {
       this.handleDragMove(event);
@@ -33,6 +36,19 @@ export class WeatherApplication extends Application {
 
     html.find(startStopClock).on('mousedown', event => {
       this.startStopClock(event);
+    });
+
+    html.find(weather).on('click', event => {
+      event.preventDefault();
+      if (this.gameRef.user.isGM || this.gameRef.settings.get('calendar-weather', 'playerSeeWeather')) { // TODO: Use the settings class instead
+        document.getElementById('calendar-time-container').classList.toggle('showWeather');
+      }
+    });
+
+    html.find(refreshWeather).on('click', event => {
+      event.preventDefault();
+      this.weatherTracker.generate();
+      // this.updateDisplay();  // TODO: Change this to only update the weather part of the window.
     });
   }
 

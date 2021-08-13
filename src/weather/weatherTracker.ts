@@ -18,7 +18,7 @@ export class WeatherTracker {
     this.weatherData = weatherData;
   }
 
-  public generate(climateChanged = false) {
+  public generate(climateChanged = false): WeatherData {
     let seasonTemperatureOffset = this.weatherData.seasonTemp || 0;
     const climateTemperatureOffset = this.weatherData.climateTemp || 0;
 
@@ -65,6 +65,7 @@ export class WeatherTracker {
     }
 
     this.settings.setWeatherData(this.weatherData);
+    return this.weatherData;
   }
 
   private setTemperatureRange() {
