@@ -1,6 +1,6 @@
 import { WeatherData } from '../models/weatherData';
+import { ModuleSettings } from '../module-settings';
 import { ChatProxy } from '../proxies/chatProxy';
-import { Settings } from '../settings';
 import { PrecipitationsGenerator } from './precipitationsGenerator';
 
 /**
@@ -10,7 +10,7 @@ export class WeatherTracker {
   private weatherData: WeatherData;
   private precipitations: PrecipitationsGenerator;
 
-  constructor(private gameRef: Game, private chatProxy: ChatProxy, private settings: Settings) {
+  constructor(private gameRef: Game, private chatProxy: ChatProxy, private settings: ModuleSettings) {
     this.precipitations = new PrecipitationsGenerator(this.gameRef);
   }
 

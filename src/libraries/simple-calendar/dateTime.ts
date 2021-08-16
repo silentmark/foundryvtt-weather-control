@@ -166,76 +166,76 @@ interface DateDisplay {
   yearPrefix: string,
 }
 
-interface Date {
+export class Date {
   /**
    * The information for the season of the date, properties include "name" for the seasons name and "color" for the color associated with the season.
    */
-  currentSeason: Season,
+  public currentSeason: Season;
 
   /**
    * The index of the day of the month represented in the timestamp.
    */
-  day: number,
+  public day: number;
 
   /**
    * The day of the week the day falls on.
    */
-  dayOfTheWeek: number,
+  public dayOfTheWeek: number;
 
   /**
    * The number of days that the months days are offset by.
    */
-  dayOffset: number,
+  public dayOffset: number;
 
   /**
    * All of the strings associated with displaying the date are put here.
    */
-  display: DateDisplay,
+  public display: DateDisplay;
 
   /**
    * The hour represented in the timestamp.
    */
-  hour: number,
+  public hour: number;
 
   /**
    * If this date falls on a leap year.
    */
-  isLeapYear: boolean,
+  public isLeapYear: boolean;
 
   /**
    * The minute represented in the timestamp.
    */
-  minute: number,
+  public minute: number;
 
   /**
   The index of the month represented in the timestamp.
   */
-  month: number,
+  public month: number;
 
   /**
    * The seconds represented in the timestamp.
    */
-  second: number,
+  public second: number;
 
   /**
    * If to show the weekday headings for the month.
    */
-  showWeekdayHeadings: boolean,
+  public showWeekdayHeadings: boolean;
 
   /**
    * A list of weekday names.
    */
-  weekdays: string[],
+  public weekdays: string[];
 
   /**
    * The year represented in the timestamp.
    */
-  year: number,
+  public year: number;
 
   /**
    * What is considered as year zero when doing timestamp calculations.
    */
-  yearZero: number,
+  public yearZero: number;
 }
 
 /**
@@ -248,10 +248,10 @@ interface Date {
  * - When the Change Date/Time API function is called.
  * - When the game world time has changed and Simple Calendar is configured to update when that changes.
  */
-export interface DateTime {
+export class DateTime {
   /**
    * This contains information about the current date of the calendar.
    */
-  date: Date;
-  moons: Moon;
+  public date: Date;
+  public moons: Moon;
 }

@@ -1,8 +1,8 @@
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
 import { defaultWeatherData, WeatherData } from './models/weatherData';
+import { ModuleSettings } from './module-settings';
 import { ChatProxy } from './proxies/chatProxy';
-import { Settings } from './settings';
 import { WeatherTracker } from './weather/weatherTracker';
 import { WeatherApplication } from './weatherApplication';
 
@@ -12,11 +12,11 @@ import { WeatherApplication } from './weatherApplication';
  */
 export class Weather {
   private weatherTracker: WeatherTracker;
-  private settings: Settings;
+  private settings: ModuleSettings;
   private weatherApplication: WeatherApplication;
 
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
-    this.settings = new Settings(this.gameRef);
+    this.settings = new ModuleSettings(this.gameRef);
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
     this.weatherApplication = new WeatherApplication(this.gameRef, this.settings.getDateTime(), this.weatherTracker);
     this.logger.info('Init completed');
@@ -51,11 +51,24 @@ export class Weather {
   }
 
   private dateHasChanged(dateTime: DateTime): boolean {
-    const previous = this.settings.getDateTime();
+    const previous = this.settings.getDateTime()?.date;
+    const date = dateTime.date;
 
-    if (dateTime.date.day !== previous?.date.day
-      || dateTime.date.month !== previous?.date.month
-      || dateTime.date.year !== previous?.date.year) {
+    if (this.isDateTimeValid(dateTime)) {
+      if (date.day !== previous.day
+        || date.month !== previous.month
+        || date.year !== previous.year) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private isDateTimeValid(dateTime: DateTime): boolean {
+    const date = dateTime.date;
+    if (date.second && date.minute && date.minute &&
+        date.day && date.month && date.year) {
       return true;
     }
 
@@ -63,7 +76,7 @@ export class Weather {
   }
 
   private isWeatherDataValid(weatherData: WeatherData | ''): boolean {
-    return this.settings.isSettingValueEmpty(weatherData);
+    return !this.settings.isSettingValueEmpty(weatherData);
   }
 
   private updateWeatherDisplay(dateTime: DateTime) {

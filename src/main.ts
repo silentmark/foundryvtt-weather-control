@@ -14,7 +14,7 @@ let weather: Weather;
 
 function getGame(): Game {
   if(!(game instanceof Game)) {
-    throw new Error('game is not initialized yet!');
+    throw new Error('Game is not initialized yet!');
   }
   return game;
 }
@@ -25,9 +25,10 @@ function getGame(): Game {
 */
 Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag }: DevModeApi) => {
   registerPackageDebugFlag('weather', 'level');
+  const devModeModule: DevMode = getGame().modules.get('_dev-mode') as unknown as DevMode;
 
   try {
-    logger.registerLevelCheckCallback(() => (getGame().modules.get('_dev-mode') as unknown as DevMode)?.api?.getPackageDebugValue('weather', 'level'));
+    logger.registerLevelCheckCallback(() => devModeModule?.api?.getPackageDebugValue('weather', 'level'));
   // eslint-disable-next-line no-empty
   } catch (e) {}
 });

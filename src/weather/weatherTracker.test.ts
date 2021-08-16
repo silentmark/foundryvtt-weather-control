@@ -1,6 +1,6 @@
 import { defaultWeatherData } from '../models/weatherData';
+import { ModuleSettings } from '../module-settings';
 import { ChatProxy } from '../proxies/chatProxy';
-import { Settings } from '../settings';
 import { gameMock, mockClass } from '../testUtils';
 import { WeatherTracker } from './weatherTracker';
 
@@ -12,7 +12,7 @@ describe('WeatherTracker', () => {
   let chatProxy;
 
   beforeEach(() => {
-    settings = mockClass(Settings);
+    settings = mockClass(ModuleSettings);
     chatProxy = mockClass(ChatProxy);
     weatherTracker = new WeatherTracker(game, chatProxy, settings);
   });
