@@ -84,14 +84,14 @@ export class WeatherTracker {
     } else {
       tempOut = this.weatherData.temp + ' °F';
     }
-    const messageLvl = this.chatProxy.getWhisperRecipients('GM');
+    const gmUser = this.chatProxy.getWhisperRecipients('GM')[0];
     const chatOut = '<b>' + tempOut + '</b> - ' + this.weatherData.precipitation;
 
     this.chatProxy.create({
       speaker: {
         alias: this.gameRef.i18n.localize('cw.weather.tracker.Today'),
       },
-      whisper: [messageLvl[0]._id],
+      whisper: [gmUser.id],
       content: chatOut,
     });
   }
