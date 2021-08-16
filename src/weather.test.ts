@@ -1,7 +1,7 @@
 import { Log } from './logger/logger';
-import { Weather } from './weather';
-import { gameMock, mockClass } from './testUtils';
 import { ChatProxy } from './proxies/chatProxy';
+import { gameMock, mockClass } from './testUtils';
+import { Weather } from './weather';
 
 describe('Weather', () => {
   let weather: Weather;

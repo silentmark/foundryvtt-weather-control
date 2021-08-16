@@ -1,9 +1,9 @@
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
-import { WeatherTracker } from './weather/weatherTracker';
-import { Settings } from './settings';
-import { ChatProxy } from './proxies/chatProxy';
 import { defaultWeatherData, WeatherData } from './models/weatherData';
+import { ChatProxy } from './proxies/chatProxy';
+import { Settings } from './settings';
+import { WeatherTracker } from './weather/weatherTracker';
 import { WeatherApplication } from './weatherApplication';
 
 /**

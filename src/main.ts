@@ -1,12 +1,12 @@
+import '../styles/calendar.scss';
+
+import { DevMode } from './libraries/devMode/devMode';
 import { DevModeApi } from './libraries/devMode/devModeApi';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { SimpleCalendarHooks } from './libraries/simple-calendar/hooks';
 import { Log } from './logger/logger';
 import { ChatProxy } from './proxies/chatProxy';
 import { Weather } from './weather';
-
-import '../styles/calendar.scss';
-import { DevMode } from './libraries/devMode/devMode';
 
 const logger = new Log();
 const chatProxy = new ChatProxy();
