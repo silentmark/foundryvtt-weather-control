@@ -1,5 +1,6 @@
 import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
+import { Log } from './logger/logger';
 import { ModuleSettings } from './module-settings';
 import { WeatherTracker } from './weather/weatherTracker';
 
@@ -8,7 +9,8 @@ export class WeatherApplication extends Application {
     private gameRef: Game,
     private settings: ModuleSettings,
     private currentDateTime: DateTime,
-    private weatherTracker: WeatherTracker) {
+    private weatherTracker: WeatherTracker,
+    private logger: Log) {
     super();
     this.render(true);
   }
@@ -160,8 +162,8 @@ export class WeatherApplication extends Application {
             elmnt.style.top = (yPos) + 'px';
             elmnt.style.left = (xPos) + 'px';
           }
-          console.log(`calendar-weather | Setting calendar position to x: ${xPos}px, y: ${yPos}px`);
-          this.gameRef.user.update({flags: {'calendarWeather':{ 'calendarPos': {top: yPos, left: xPos}}}});
+          this.logger.info(`Setting window position to x: ${xPos}px, y: ${yPos}px`);
+          this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: yPos, left: xPos}}}});
         }
       }
     } else if(isRightMB){
@@ -190,10 +192,10 @@ export class WeatherApplication extends Application {
 
     if (SimpleCalendarApi.isPrimaryGM()) {
       if (SimpleCalendarApi.clockStatus().started) {
-        console.log('calendar-weather | Stopping about-time pseudo clock.');
+        this.logger.debug('Stopping clock');
         SimpleCalendarApi.stopClock();
       } else {
-        console.log('calendar-weather | Starting about-time pseudo clock.');
+        this.logger.debug('Starting clock');
         SimpleCalendarApi.startClock();
       }
     }
@@ -205,13 +207,13 @@ export class WeatherApplication extends Application {
     const pos = {bottom: 8, left: 15};
     return new Promise(resolve => {
       function check() {
-        const elmnt = document.getElementById('calendar-time-container');
+        const elmnt = this.getElementById('calendar-time-container');
         if (elmnt) {
-          console.log('calendar-weather | Resetting Calendar Position');
+          this.logger.info('calendar-weather | Resetting Calendar Position');
           elmnt.style.top = null;
           elmnt.style.bottom = (pos.bottom) + '%';
           elmnt.style.left = (pos.left) + '%';
-          this.gameRef.user.update({flags: {'calendar-weather':{ 'calendarPos': {top: elmnt.offsetTop, left: elmnt.offsetLeft}}}});
+          this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: elmnt.offsetTop, left: elmnt.offsetLeft}}}});
           elmnt.style.bottom = null;
           resolve();
         } else {
