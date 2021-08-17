@@ -1,9 +1,14 @@
 import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
+import { ModuleSettings } from './module-settings';
 import { WeatherTracker } from './weather/weatherTracker';
 
 export class WeatherApplication extends Application {
-  constructor(private gameRef: Game, private dateTime: DateTime, private weatherTracker: WeatherTracker) {
+  constructor(
+    private gameRef: Game,
+    private settings: ModuleSettings,
+    private currentDateTime: DateTime,
+    private weatherTracker: WeatherTracker) {
     super();
     this.render(true);
   }
@@ -18,7 +23,7 @@ export class WeatherApplication extends Application {
   }
 
   public activateListeners(html: JQuery) {
-    this.updateDisplay(this.dateTime);
+    this.updateDisplay(this.currentDateTime);
 
     const calendarMove = '#calendar--move-handle';
     const dateFormatToggle = '#calendar--date-display';
@@ -40,7 +45,7 @@ export class WeatherApplication extends Application {
 
     html.find(weather).on('click', event => {
       event.preventDefault();
-      if (this.gameRef.user.isGM || this.gameRef.settings.get('calendar-weather', 'playerSeeWeather')) { // TODO: Use the settings class instead
+      if (this.gameRef.user.isGM || this.settings.getPlayerSeeWeather()) {
         document.getElementById('calendar-time-container').classList.toggle('showWeather');
       }
     });
@@ -71,7 +76,7 @@ export class WeatherApplication extends Application {
 
 
       const offset = document.getElementById('calendar-time-container');
-      document.getElementById('calendar-weather--container').style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
+      this.getElementById('calendar-weather--container').style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
     }
 
     this.updateClockStatus();
@@ -79,21 +84,29 @@ export class WeatherApplication extends Application {
 
   private getDateWordy(dateTime: DateTime): string {
     const display = dateTime.date.display;
-    return `${display.day}${display.daySuffix} of ${display.monthName}, ${display.yearPrefix} ${display.year} ${display.yearPostfix}`;
+    const day = `${display.day}${display.daySuffix}`;
+    const month = `${display.monthName}`;
+    const year = `${display.yearPrefix} ${display.year} ${display.yearPostfix}`;
+
+    return `${day} of ${month}, ${year}`;
   }
 
   public updateClockStatus() {
     if (SimpleCalendarApi.clockStatus().started) {
-      document.getElementById('calendar-btn-advance_01').classList.add('disabled');
-      document.getElementById('calendar-btn-advance_02').classList.add('disabled');
-      document.getElementById('calendar-time-running').classList.add('isRunning');
-      document.getElementById('clock-run-indicator').classList.add('isRunning');
+      this.getElementById('calendar-btn-advance_01').classList.add('disabled');
+      this.getElementById('calendar-btn-advance_02').classList.add('disabled');
+      this.getElementById('calendar-time-running').classList.add('isRunning');
+      this.getElementById('clock-run-indicator').classList.add('isRunning');
     } else {
-      document.getElementById('calendar-btn-advance_01').classList.remove('disabled');
-      document.getElementById('calendar-btn-advance_02').classList.remove('disabled');
-      document.getElementById('calendar-time-running').classList.remove('isRunning');
-      document.getElementById('clock-run-indicator').classList.remove('isRunning');
+      this.getElementById('calendar-btn-advance_01').classList.remove('disabled');
+      this.getElementById('calendar-btn-advance_02').classList.remove('disabled');
+      this.getElementById('calendar-time-running').classList.remove('isRunning');
+      this.getElementById('clock-run-indicator').classList.remove('isRunning');
     }
+  }
+
+  private getElementById(id: string): HTMLElement {
+    return document.getElementById(id);
   }
 
   private handleDragMove(event) {
