@@ -34,5 +34,5 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
 	},
-  "exclude": [ "node_modules", "webpack.config.js", "foundry.js", "dist" ]
+  "exclude": [ "node_modules", "webpack.config.js", "foundry.js", "dist", "src-legacy" ]
 }

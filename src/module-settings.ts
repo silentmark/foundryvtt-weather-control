@@ -16,7 +16,7 @@ enum SettingKeys {
   weatherData = 'weatherData',
 }
 
-export class Settings {
+export class ModuleSettings {
   private packageJson = require('../package.json');
 
   constructor(private gameRef: Game) {
@@ -24,7 +24,7 @@ export class Settings {
   }
 
   public isSettingValueEmpty(setting: any): boolean {
-    return setting !== '';
+    return setting === '';
   }
 
   public getModuleName(): string {

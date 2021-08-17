@@ -1,6 +1,6 @@
 import { WeatherData } from '../models/weatherData';
+import { ModuleSettings } from '../module-settings';
 import { ChatProxy } from '../proxies/chatProxy';
-import { Settings } from '../settings';
 import { PrecipitationsGenerator } from './precipitationsGenerator';
 
 /**
@@ -10,7 +10,7 @@ export class WeatherTracker {
   private weatherData: WeatherData;
   private precipitations: PrecipitationsGenerator;
 
-  constructor(private gameRef: Game, private chatProxy: ChatProxy, private settings: Settings) {
+  constructor(private gameRef: Game, private chatProxy: ChatProxy, private settings: ModuleSettings) {
     this.precipitations = new PrecipitationsGenerator(this.gameRef);
   }
 
@@ -18,7 +18,7 @@ export class WeatherTracker {
     this.weatherData = weatherData;
   }
 
-  public generate(climateChanged = false) {
+  public generate(climateChanged = false): WeatherData {
     let seasonTemperatureOffset = this.weatherData.seasonTemp || 0;
     const climateTemperatureOffset = this.weatherData.climateTemp || 0;
 
@@ -65,6 +65,7 @@ export class WeatherTracker {
     }
 
     this.settings.setWeatherData(this.weatherData);
+    return this.weatherData;
   }
 
   private setTemperatureRange() {
@@ -83,14 +84,14 @@ export class WeatherTracker {
     } else {
       tempOut = this.weatherData.temp + ' °F';
     }
-    const messageLvl = this.chatProxy.getWhisperRecipients('GM');
+    const gmUser = this.chatProxy.getWhisperRecipients('GM')[0];
     const chatOut = '<b>' + tempOut + '</b> - ' + this.weatherData.precipitation;
 
     this.chatProxy.create({
       speaker: {
         alias: this.gameRef.i18n.localize('cw.weather.tracker.Today'),
       },
-      whisper: messageLvl,
+      whisper: [gmUser.id],
       content: chatOut,
     });
   }

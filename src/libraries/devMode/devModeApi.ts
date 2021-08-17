@@ -1,6 +1,6 @@
 import { LogLevel } from '../../logger/logLevel';
 
-export default interface DevModeApi {
+export interface DevModeApi {
   registerPackageDebugFlag(packageName: string, kind?: 'boolean' | 'level', options?: {
       default?: boolean | LogLevel;
   }): Promise<boolean>;

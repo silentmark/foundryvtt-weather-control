@@ -1,9 +1,10 @@
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
-import { WeatherTracker } from './weather/weatherTracker';
-import { Settings } from './settings';
-import { ChatProxy } from './proxies/chatProxy';
 import { defaultWeatherData, WeatherData } from './models/weatherData';
+import { ModuleSettings } from './module-settings';
+import { ChatProxy } from './proxies/chatProxy';
+import { WeatherTracker } from './weather/weatherTracker';
+import { WeatherApplication } from './weatherApplication';
 
 /**
  * The base class of the module.
@@ -11,11 +12,13 @@ import { defaultWeatherData, WeatherData } from './models/weatherData';
  */
 export class Weather {
   private weatherTracker: WeatherTracker;
-  private settings: Settings;
+  private settings: ModuleSettings;
+  private weatherApplication: WeatherApplication;
 
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
-    this.settings = new Settings(this.gameRef);
+    this.settings = new ModuleSettings(this.gameRef);
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
+    this.weatherApplication = new WeatherApplication(this.gameRef, this.settings, this.settings.getDateTime(), this.weatherTracker, this.logger);
     this.logger.info('Init completed');
   }
 
@@ -32,22 +35,40 @@ export class Weather {
     }
   }
 
-  public onDateTimeChange(dateTimeData: DateTime) {
-    this.logger.debug('DateTime has changed', dateTimeData);
+  public onDateTimeChange(dateTime: DateTime) {
+    this.logger.debug('DateTime has changed', dateTime);
 
-    if (this.dateHasChanged(dateTimeData)) {
+    if (this.dateHasChanged(dateTime)) {
       this.weatherTracker.generate();
     }
 
-    this.settings.setDateTime(dateTimeData);
+    this.updateWeatherDisplay(dateTime);
+    this.settings.setDateTime(dateTime);
+  }
+
+  public onClockStartStop() {
+    this.weatherApplication.updateClockStatus();
   }
 
   private dateHasChanged(dateTime: DateTime): boolean {
-    const previous = this.settings.getDateTime();
+    const previous = this.settings.getDateTime()?.date;
+    const date = dateTime.date;
 
-    if (dateTime.day.number !== previous?.day.number
-      || dateTime.month.number !== previous?.month.number
-      || dateTime.year.number !== previous?.year.number) {
+    if (this.isDateTimeValid(dateTime)) {
+      if (date.day !== previous.day
+        || date.month !== previous.month
+        || date.year !== previous.year) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  private isDateTimeValid(dateTime: DateTime): boolean {
+    const date = dateTime.date;
+    if (date.second && date.minute && date.minute &&
+        date.day && date.month && date.year) {
       return true;
     }
 
@@ -55,6 +76,10 @@ export class Weather {
   }
 
   private isWeatherDataValid(weatherData: WeatherData | ''): boolean {
-    return this.settings.isSettingValueEmpty(weatherData);
+    return !this.settings.isSettingValueEmpty(weatherData);
+  }
+
+  private updateWeatherDisplay(dateTime: DateTime) {
+    this.weatherApplication.updateDisplay(dateTime);
   }
 }

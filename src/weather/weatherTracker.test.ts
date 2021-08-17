@@ -1,6 +1,6 @@
 import { defaultWeatherData } from '../models/weatherData';
+import { ModuleSettings } from '../module-settings';
 import { ChatProxy } from '../proxies/chatProxy';
-import { Settings } from '../settings';
 import { gameMock, mockClass } from '../testUtils';
 import { WeatherTracker } from './weatherTracker';
 
@@ -12,7 +12,7 @@ describe('WeatherTracker', () => {
   let chatProxy;
 
   beforeEach(() => {
-    settings = mockClass(Settings);
+    settings = mockClass(ModuleSettings);
     chatProxy = mockClass(ChatProxy);
     weatherTracker = new WeatherTracker(game, chatProxy, settings);
   });
@@ -22,6 +22,7 @@ describe('WeatherTracker', () => {
   });
 
   it('SHOULD output to chat when the setting is enabled', () => {
+    (chatProxy.getWhisperRecipients as jest.Mock).mockReturnValue([{_id: '0'}]);
     weatherTracker.loadWeatherData(defaultWeatherData);
     settings.getOutputWeatherToChat.mockReturnValue(true);
 

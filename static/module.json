@@ -26,7 +26,7 @@
   "manifest": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json",
   "download": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/jobs/artifacts/v4.0.0/raw/calendar-weather.zip?job=pack",
 	"esmodules": ["weather.js"],
-	"styles": "css/calendar.css",
+	"styles": "weather.css",
   "packs": [],
   "languages": [
     {
