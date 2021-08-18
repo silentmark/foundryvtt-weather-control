@@ -66,20 +66,21 @@ export class WeatherApplication extends Application {
     document.getElementById('calendar-date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
     document.getElementById('calendar-time').innerHTML = dateTime.date.hour + ':' + dateTime.date.minute + ':' + dateTime.date.second;
 
-    const temp = document.getElementById('calendar-weather--temp');
-    if (temp && this) {
+    document.getElementById('calendar-weather--temp').innerHTML = this.weatherTracker.getCurrentWeather().cTemp + ' °C';
+    // if (temp && this) {
 
-      // if (game.settings.get( 'calendar-weather', 'useCelcius')) {
-      //   temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
-      // } else {
-      //   temp.innerHTML = cwdtData.dt.getWeatherObj().temp + ' °F';
-      // }
-      // document.getElementById('calendar-weather-precip').innerHTML = cwdtData.dt.getWeatherObj().precipitation;
+    // if (game.settings.get( 'calendar-weather', 'useCelcius')) {
+    //   temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
+    // } else {
+    //   temp.innerHTML = cwdtData.dt.getWeatherObj().temp + ' °F';
+    // }
+
+    // document.getElementById('calendar-weather-precip').innerHTML = this.weatherTracker.dt.getWeatherObj().precipitation;
 
 
-      const offset = document.getElementById('calendar-time-container');
-      this.getElementById('calendar-weather--container').style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
-    }
+    // const offset = document.getElementById('calendar-time-container');
+    // this.getElementById('calendar-weather--container').style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
+    // }
 
     this.updateClockStatus();
   }
@@ -209,7 +210,7 @@ export class WeatherApplication extends Application {
       function check() {
         const elmnt = this.getElementById('calendar-time-container');
         if (elmnt) {
-          this.logger.info('calendar-weather | Resetting Calendar Position');
+          this.logger.info('Resetting Calendar Position');
           elmnt.style.top = null;
           elmnt.style.bottom = (pos.bottom) + '%';
           elmnt.style.left = (pos.left) + '%';

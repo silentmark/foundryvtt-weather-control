@@ -68,6 +68,10 @@ export class WeatherTracker {
     return this.weatherData;
   }
 
+  public getCurrentWeather(): WeatherData {
+    return this.weatherData;
+  }
+
   private setTemperatureRange() {
     if (this.weatherData.tempRange === undefined) {
       this.weatherData.tempRange = {
