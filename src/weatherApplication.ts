@@ -1,6 +1,7 @@
 import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
+import { WeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
 import { WeatherTracker } from './weather/weatherTracker';
 
@@ -25,7 +26,7 @@ export class WeatherApplication extends Application {
   }
 
   public activateListeners(html: JQuery) {
-    this.updateDisplay(this.currentDateTime);
+    this.updateDateTime(this.currentDateTime);
 
     const calendarMove = '#calendar--move-handle';
     const dateFormatToggle = '#calendar--date-display';
@@ -54,35 +55,29 @@ export class WeatherApplication extends Application {
 
     html.find(refreshWeather).on('click', event => {
       event.preventDefault();
-      this.weatherTracker.generate();
-      // this.updateDisplay();  // TODO: Change this to only update the weather part of the window.
+      this.updateWeather(this.weatherTracker.generate());
     });
   }
 
-  public updateDisplay(dateTime: DateTime) {
+  public updateDateTime(dateTime: DateTime) {
     document.getElementById('calendar-weekday').innerHTML = dateTime.date.display.weekday;
 
     document.getElementById('calendar-date').innerHTML = this.getDateWordy(dateTime);
     document.getElementById('calendar-date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
     document.getElementById('calendar-time').innerHTML = dateTime.date.hour + ':' + dateTime.date.minute + ':' + dateTime.date.second;
 
-    document.getElementById('calendar-weather--temp').innerHTML = this.weatherTracker.getCurrentWeather().cTemp + ' °C';
-    // if (temp && this) {
+    this.updateClockStatus();
+  }
+
+  public updateWeather(weatherData: WeatherData) {
+    document.getElementById('calendar-weather--temp').innerHTML = weatherData.cTemp + ' °C';
+    document.getElementById('calendar-weather-precip').innerHTML = weatherData.precipitation;
 
     // if (game.settings.get( 'calendar-weather', 'useCelcius')) {
     //   temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
     // } else {
     //   temp.innerHTML = cwdtData.dt.getWeatherObj().temp + ' °F';
     // }
-
-    // document.getElementById('calendar-weather-precip').innerHTML = this.weatherTracker.dt.getWeatherObj().precipitation;
-
-
-    // const offset = document.getElementById('calendar-time-container');
-    // this.getElementById('calendar-weather--container').style.left = (parseInt(offset.style.left.slice(0, -2)) + offset.offsetWidth) + 'px';
-    // }
-
-    this.updateClockStatus();
   }
 
   private getDateWordy(dateTime: DateTime): string {

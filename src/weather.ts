@@ -80,6 +80,7 @@ export class Weather {
   }
 
   private updateWeatherDisplay(dateTime: DateTime) {
-    this.weatherApplication.updateDisplay(dateTime);
+    this.weatherApplication.updateDateTime(dateTime);
+    this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
   }
 }
