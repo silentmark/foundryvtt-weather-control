@@ -1,9 +1,10 @@
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { WeatherData } from './models/weatherData';
+import { WindowPosition } from './models/windowPosition';
 
 enum SettingKeys {
   calendarDisplay = 'calendarDisplay',
-  calendarPosition = 'calendarPos',
+  windowPosition = 'windowPosition',
   legacyDateTime = 'legacyDateTime',
   dateTime = 'dateTime',
   is24h = 'is24',
@@ -55,8 +56,12 @@ export class ModuleSettings {
     this.set(SettingKeys.dateTime, value);
   }
 
-  public getCalendarPosition(): any { // TODO: Need to define an interface for this
-    return this.get(SettingKeys.calendarPosition);
+  public getCalendarPosition(): WindowPosition {
+    return this.get(SettingKeys.windowPosition);
+  }
+
+  public setCalendarPosition(position: WindowPosition) {
+    this.set(SettingKeys.windowPosition, position);
   }
 
   public getCalendarDisplay(): boolean {
@@ -119,9 +124,9 @@ export class ModuleSettings {
       type: Object,
     });
 
-    this.register(SettingKeys.calendarPosition, {
+    this.register(SettingKeys.windowPosition, {
       name: 'Calendar Position',
-      scope: 'world',
+      scope: 'client',
       config: false,
       type: Object,
     });
