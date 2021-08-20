@@ -1,10 +1,10 @@
+import { WeatherApplication } from './applications/weatherApplication';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
 import { defaultWeatherData, WeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
 import { ChatProxy } from './proxies/chatProxy';
 import { WeatherTracker } from './weather/weatherTracker';
-import { WeatherApplication } from './weatherApplication';
 
 /**
  * The base class of the module.

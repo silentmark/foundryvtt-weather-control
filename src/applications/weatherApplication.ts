@@ -1,9 +1,9 @@
-import { SimpleCalendarApi } from './libraries/simple-calendar/api';
-import { DateTime } from './libraries/simple-calendar/dateTime';
-import { Log } from './logger/logger';
-import { WeatherData } from './models/weatherData';
-import { ModuleSettings } from './module-settings';
-import { WeatherTracker } from './weather/weatherTracker';
+import { SimpleCalendarApi } from '../libraries/simple-calendar/api';
+import { DateTime } from '../libraries/simple-calendar/dateTime';
+import { Log } from '../logger/logger';
+import { WeatherData } from '../models/weatherData';
+import { ModuleSettings } from '../module-settings';
+import { WeatherTracker } from '../weather/weatherTracker';
 
 export class WeatherApplication extends Application {
   constructor(
@@ -159,6 +159,7 @@ export class WeatherApplication extends Application {
             elmnt.style.left = (xPos) + 'px';
           }
           this.logger.info(`Setting window position to x: ${xPos}px, y: ${yPos}px`);
+
           this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: yPos, left: xPos}}}});
         }
       }

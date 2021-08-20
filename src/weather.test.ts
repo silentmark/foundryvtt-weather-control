@@ -1,3 +1,4 @@
+import { WeatherApplication } from './applications/weatherApplication';
 import { Date, DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
 import { ModuleSettings } from './module-settings';
@@ -5,7 +6,6 @@ import { ChatProxy } from './proxies/chatProxy';
 import { gameMock, mockClass } from './testUtils';
 import { Weather } from './weather';
 import { WeatherTracker } from './weather/weatherTracker';
-import { WeatherApplication } from './weatherApplication';
 
 describe('Weather', () => {
   let weather: Weather;
