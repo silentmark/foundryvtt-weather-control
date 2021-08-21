@@ -1,4 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig.json');
+
 
 module.exports = {
   roots: [
@@ -13,5 +17,6 @@ module.exports = {
   },
   setupFiles: [
     './tests-setup/foundryClasses.js'
-  ]
+  ],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths , { prefix: '<rootDir>/' } )
 };

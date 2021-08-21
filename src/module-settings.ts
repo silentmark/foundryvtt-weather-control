@@ -1,3 +1,5 @@
+import moduleJson from '@module';
+
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { WeatherData } from './models/weatherData';
 import { WindowPosition } from './models/windowPosition';
@@ -18,8 +20,6 @@ enum SettingKeys {
 }
 
 export class ModuleSettings {
-  private packageJson = require('../package.json');
-
   constructor(private gameRef: Game) {
     this.registerSettings();
   }
@@ -29,7 +29,7 @@ export class ModuleSettings {
   }
 
   public getModuleName(): string {
-    return this.packageJson.name;
+    return moduleJson.name;
   }
 
   public getWeatherData(): WeatherData {

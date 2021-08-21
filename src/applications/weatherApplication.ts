@@ -1,3 +1,5 @@
+import moduleJson from '@module';
+
 import { SimpleCalendarApi } from '../libraries/simple-calendar/api';
 import { DateTime } from '../libraries/simple-calendar/dateTime';
 import { Log } from '../logger/logger';
@@ -33,8 +35,6 @@ export class WeatherApplication extends Application {
 
     const dateFormatToggle = '#calendar--date-display';
     const startStopClock = '#start-stop-clock';
-    const weather = '#calendar-weather';
-    const refreshWeather = '#calendar-weather-regenerate';
 
     this.initializeWindowInteractions(html);
 
@@ -46,12 +46,25 @@ export class WeatherApplication extends Application {
       this.startStopClock(event);
     });
 
+    this.listenToWindowMove(html);
+    this.listenToWeatherRefreshClick(html);
+
+    global[moduleJson.class].resetPosition = this.resetPosition();
+  }
+
+  private listenToWindowMove(html: JQuery) {
+    const weather = '#calendar-weather';
+
     html.find(weather).on('click', event => {
       event.preventDefault();
       if (this.gameRef.user.isGM || this.settings.getPlayerSeeWeather()) {
         document.getElementById('calendar-time-container').classList.toggle('showWeather');
       }
     });
+  }
+
+  private listenToWeatherRefreshClick(html: JQuery) {
+    const refreshWeather = '#calendar-weather-regenerate';
 
     html.find(refreshWeather).on('click', event => {
       event.preventDefault();
@@ -141,6 +154,26 @@ export class WeatherApplication extends Application {
       this.windowDragHandler.start(window, (windowPos: WindowPosition) => {
         this.settings.setWindowPosition(windowPos);
       });
+    });
+  }
+
+  public resetPosition(): Promise<void> {
+    const defaultPosition = { top: 100, left: 100 };
+    return new Promise(resolve => {
+      function check() {
+        const element = this.getElementById('calendar-time-container');
+        if (element) {
+          this.logger.info('Resetting Calendar Position');
+          element.style.top = defaultPosition.top;
+          element.style.left = defaultPosition.left;
+          this.settings.setWindowPosition({top: element.offsetTop, left: element.offsetLeft});
+          element.style.bottom = null;
+          resolve();
+        } else {
+          setTimeout(check, 30);
+        }
+      }
+      check();
     });
   }
 }
