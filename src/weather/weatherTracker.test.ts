@@ -36,4 +36,13 @@ describe('WeatherTracker', () => {
     weatherTracker.generate();
     expect(settings.setWeatherData).toHaveBeenCalled();
   });
+
+  it('SHOULD return the current weather information', () => {
+    weatherTracker.loadWeatherData(defaultWeatherData);
+    weatherTracker.generate();
+
+    const currentWeather = weatherTracker.getCurrentWeather();
+
+    expect(currentWeather).toBeTruthy();
+  });
 });
