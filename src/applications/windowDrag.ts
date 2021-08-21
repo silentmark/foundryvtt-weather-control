@@ -4,7 +4,6 @@ export class WindowDrag {
     this.mouseMove(moveEvent);
   }
 
-
   public start(parent: HTMLElement) {
     this.parent = parent;
 
@@ -15,8 +14,8 @@ export class WindowDrag {
   }
 
   private mouseMove(event: Partial<MouseEvent>) {
-    this.parent.style.top = event.clientY + (event.clientY - this.parent.offsetTop) + 'px';
-    this.parent.style.left = event.clientX + (event.clientX - this.parent.offsetLeft) + 'px';
+    this.parent.style.top = this.parent.offsetTop + event.movementY + 'px';
+    this.parent.style.left = this.parent.offsetLeft + event.movementX + 'px';
     this.parent.style.position = 'fixed';
     this.parent.style.zIndex = '100';
   }

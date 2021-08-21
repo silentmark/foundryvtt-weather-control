@@ -39,7 +39,8 @@ export class WeatherApplication extends Application {
 
     this.windowDragHandler = new WindowDrag();
     calendarMoveHandle.on('mousedown', () => {
-      this.windowDragHandler.start(calendarMoveHandle.parents('#calendar-time-container').get(0));
+      const window = calendarMoveHandle.parents('#calendar-time-container').get(0);
+      this.windowDragHandler.start(window);
     });
 
     html.find(dateFormatToggle).on('mousedown', event => {
@@ -110,103 +111,6 @@ export class WeatherApplication extends Application {
   private getElementById(id: string): HTMLElement {
     return document.getElementById(id);
   }
-
-  // private handleDragMove(event) {
-  //   event.preventDefault();
-
-  //   if (this.isRightMouseButton(event)) {
-  //     WeatherApplication.resetPos();
-  //   } else {
-  //     // this.startWindowDrag(this.getElementById('calendar-time-container'), event);
-  //   }
-  // }
-
-  // private startWindowDrag(element: HTMLElement, event: MouseEvent) {
-  //   // const elementBounding = element.getBoundingClientRect();
-  //   // const startPos: WindowPosition = {
-  //   //   top: elementBounding.y,
-  //   //   left: elementBounding.x,
-  //   // };
-
-  //   // element.onmousedown = () => {
-
-  //   // }
-
-  //   // element.onmousemove = () => {
-  //   //   this.windowDrag(element, event, startPos);
-  //   // };
-
-  //   // element.onmouseup = () => {
-  //   //   this.stopWindowDrag(element, event);
-  //   // };
-  //   // let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-  //   // element.onmousedown = dragMouseDown;
-  //   // function dragMouseDown(e) {
-  //   //   e = e || window.event;
-  //   //   e.preventDefault();
-  //   //   pos3 = e.clientX;
-  //   //   pos4 = e.clientY;
-
-  //   //   document.onmouseup = closeDragElement;
-  //   //   document.onmousemove = elementDrag;
-  //   // }
-  // }
-
-  // private windowDrag(element: HTMLElement, event: MouseEvent, startPosition: WindowPosition) {
-  //   // const elementBounding = element.getBoundingClientRect();
-  //   // const startPos: WindowPosition = {
-  //   //   top: elementBounding.y,
-  //   //   left: elementBounding.x,
-  //   // };
-
-  //   element.style.top = (event.clientY) + 'px';
-  //   element.style.left = (event.clientX) + 'px';
-  //   element.style.position = 'fixed';
-  //   element.style.zIndex = '100';
-
-
-  //   // calculate the new cursor position:
-  //   // pos1 = pos3 - e.clientX;
-  //   // pos2 = pos4 - e.clientY;
-  //   // pos3 = e.clientX;
-  //   // pos4 = e.clientY;
-  //   // // set the element's new position:
-  //   // element.style.bottom = null;
-  //   // element.style.top = (element.offsetTop - pos2) + 'px';
-  //   // element.style.left = (element.offsetLeft - pos1) + 'px';
-  //   // element.style.position = 'fixed';
-  //   // element.style.zIndex = 100;
-  // }
-
-  // private stopWindowDrag(element: HTMLElement, event: MouseEvent) {
-  //   // // stop moving when mouse button is released:
-  //   // element.onmousedown = null;
-  //   // document.onmouseup = null;
-  //   // document.onmousemove = null;
-  //   // let xPos = (element.offsetLeft - pos1) > window.innerWidth ? window.innerWidth-200 : (element.offsetLeft - pos1);
-  //   // let yPos = (element.offsetTop - pos2) > window.innerHeight-20 ? window.innerHeight-100 : (element.offsetTop - pos2);
-  //   // xPos = xPos < 0 ? 0 : xPos;
-  //   // yPos = yPos < 0 ? 0 : yPos;
-  //   // if(xPos != (element.offsetLeft - pos1) || yPos != (element.offsetTop - pos2)){
-  //   //   element.style.top = (yPos) + 'px';
-  //   //   element.style.left = (xPos) + 'px';
-  //   // }
-  //   // this.logger.info(`Setting window position to x: ${xPos}px, y: ${yPos}px`);
-
-  //   // this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: yPos, left: xPos}}}});
-  // }
-
-  // private isRightMouseButton(event): boolean {
-  //   let isRightMB = false;
-  //   if ('which' in event) { // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
-  //     isRightMB = event.which == 3;
-  //   } else if ('button' in event) { // IE, Opera
-  //     isRightMB = event.button == 2;
-  //   }
-
-  //   return isRightMB;
-  // }
 
   private toggleDateFormat(event) {
     event.currentTarget.classList.toggle('altFormat');
