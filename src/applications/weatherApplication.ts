@@ -4,8 +4,10 @@ import { Log } from '../logger/logger';
 import { WeatherData } from '../models/weatherData';
 import { ModuleSettings } from '../module-settings';
 import { WeatherTracker } from '../weather/weatherTracker';
+import { WindowDrag } from './windowDrag';
 
 export class WeatherApplication extends Application {
+  private windowDragHandler: WindowDrag;
   constructor(
     private gameRef: Game,
     private settings: ModuleSettings,
@@ -28,14 +30,16 @@ export class WeatherApplication extends Application {
   public activateListeners(html: JQuery) {
     this.updateDateTime(this.currentDateTime);
 
-    const calendarMove = '#calendar--move-handle';
     const dateFormatToggle = '#calendar--date-display';
     const startStopClock = '#start-stop-clock';
     const weather = '#calendar-weather';
     const refreshWeather = '#calendar-weather-regenerate';
 
-    html.find(calendarMove).on('mousedown', event => {
-      this.handleDragMove(event);
+    const calendarMoveHandle = html.find('#calendar--move-handle');
+
+    this.windowDragHandler = new WindowDrag();
+    calendarMoveHandle.on('mousedown', () => {
+      this.windowDragHandler.start(calendarMoveHandle.parents('#calendar-time-container').get(0));
     });
 
     html.find(dateFormatToggle).on('mousedown', event => {
@@ -107,77 +111,102 @@ export class WeatherApplication extends Application {
     return document.getElementById(id);
   }
 
-  private handleDragMove(event) {
-    event.preventDefault();
-    event = event || window.event;
-    const isRightMB = this.isRightMouseButton(event);
+  // private handleDragMove(event) {
+  //   event.preventDefault();
 
-    if (!isRightMB) {
-      dragElement(document.getElementById('calendar-time-container'));
-      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  //   if (this.isRightMouseButton(event)) {
+  //     WeatherApplication.resetPos();
+  //   } else {
+  //     // this.startWindowDrag(this.getElementById('calendar-time-container'), event);
+  //   }
+  // }
 
-      // eslint-disable-next-line no-inner-declarations
-      function dragElement(elmnt) {
-        elmnt.onmousedown = dragMouseDown;
-        function dragMouseDown(e) {
-          e = e || window.event;
-          e.preventDefault();
-          pos3 = e.clientX;
-          pos4 = e.clientY;
+  // private startWindowDrag(element: HTMLElement, event: MouseEvent) {
+  //   // const elementBounding = element.getBoundingClientRect();
+  //   // const startPos: WindowPosition = {
+  //   //   top: elementBounding.y,
+  //   //   left: elementBounding.x,
+  //   // };
 
-          document.onmouseup = closeDragElement;
-          document.onmousemove = elementDrag;
-        }
+  //   // element.onmousedown = () => {
 
-        function elementDrag(e) {
-          e = e || window.event;
-          e.preventDefault();
-          // calculate the new cursor position:
-          pos1 = pos3 - e.clientX;
-          pos2 = pos4 - e.clientY;
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          // set the element's new position:
-          elmnt.style.bottom = null;
-          elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
-          elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
-          elmnt.style.position = 'fixed';
-          elmnt.style.zIndex = 100;
-        }
+  //   // }
 
-        function closeDragElement() {
-          // stop moving when mouse button is released:
-          elmnt.onmousedown = null;
-          document.onmouseup = null;
-          document.onmousemove = null;
-          let xPos = (elmnt.offsetLeft - pos1) > window.innerWidth ? window.innerWidth-200 : (elmnt.offsetLeft - pos1);
-          let yPos = (elmnt.offsetTop - pos2) > window.innerHeight-20 ? window.innerHeight-100 : (elmnt.offsetTop - pos2);
-          xPos = xPos < 0 ? 0 : xPos;
-          yPos = yPos < 0 ? 0 : yPos;
-          if(xPos != (elmnt.offsetLeft - pos1) || yPos != (elmnt.offsetTop - pos2)){
-            elmnt.style.top = (yPos) + 'px';
-            elmnt.style.left = (xPos) + 'px';
-          }
-          this.logger.info(`Setting window position to x: ${xPos}px, y: ${yPos}px`);
+  //   // element.onmousemove = () => {
+  //   //   this.windowDrag(element, event, startPos);
+  //   // };
 
-          this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: yPos, left: xPos}}}});
-        }
-      }
-    } else if(isRightMB){
-      WeatherApplication.resetPos();
-    }
-  }
+  //   // element.onmouseup = () => {
+  //   //   this.stopWindowDrag(element, event);
+  //   // };
+  //   // let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
 
-  private isRightMouseButton(event): boolean {
-    let isRightMB = false;
-    if ('which' in event) { // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
-      isRightMB = event.which == 3;
-    } else if ('button' in event) { // IE, Opera
-      isRightMB = event.button == 2;
-    }
+  //   // element.onmousedown = dragMouseDown;
+  //   // function dragMouseDown(e) {
+  //   //   e = e || window.event;
+  //   //   e.preventDefault();
+  //   //   pos3 = e.clientX;
+  //   //   pos4 = e.clientY;
 
-    return isRightMB;
-  }
+  //   //   document.onmouseup = closeDragElement;
+  //   //   document.onmousemove = elementDrag;
+  //   // }
+  // }
+
+  // private windowDrag(element: HTMLElement, event: MouseEvent, startPosition: WindowPosition) {
+  //   // const elementBounding = element.getBoundingClientRect();
+  //   // const startPos: WindowPosition = {
+  //   //   top: elementBounding.y,
+  //   //   left: elementBounding.x,
+  //   // };
+
+  //   element.style.top = (event.clientY) + 'px';
+  //   element.style.left = (event.clientX) + 'px';
+  //   element.style.position = 'fixed';
+  //   element.style.zIndex = '100';
+
+
+  //   // calculate the new cursor position:
+  //   // pos1 = pos3 - e.clientX;
+  //   // pos2 = pos4 - e.clientY;
+  //   // pos3 = e.clientX;
+  //   // pos4 = e.clientY;
+  //   // // set the element's new position:
+  //   // element.style.bottom = null;
+  //   // element.style.top = (element.offsetTop - pos2) + 'px';
+  //   // element.style.left = (element.offsetLeft - pos1) + 'px';
+  //   // element.style.position = 'fixed';
+  //   // element.style.zIndex = 100;
+  // }
+
+  // private stopWindowDrag(element: HTMLElement, event: MouseEvent) {
+  //   // // stop moving when mouse button is released:
+  //   // element.onmousedown = null;
+  //   // document.onmouseup = null;
+  //   // document.onmousemove = null;
+  //   // let xPos = (element.offsetLeft - pos1) > window.innerWidth ? window.innerWidth-200 : (element.offsetLeft - pos1);
+  //   // let yPos = (element.offsetTop - pos2) > window.innerHeight-20 ? window.innerHeight-100 : (element.offsetTop - pos2);
+  //   // xPos = xPos < 0 ? 0 : xPos;
+  //   // yPos = yPos < 0 ? 0 : yPos;
+  //   // if(xPos != (element.offsetLeft - pos1) || yPos != (element.offsetTop - pos2)){
+  //   //   element.style.top = (yPos) + 'px';
+  //   //   element.style.left = (xPos) + 'px';
+  //   // }
+  //   // this.logger.info(`Setting window position to x: ${xPos}px, y: ${yPos}px`);
+
+  //   // this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: yPos, left: xPos}}}});
+  // }
+
+  // private isRightMouseButton(event): boolean {
+  //   let isRightMB = false;
+  //   if ('which' in event) { // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
+  //     isRightMB = event.which == 3;
+  //   } else if ('button' in event) { // IE, Opera
+  //     isRightMB = event.button == 2;
+  //   }
+
+  //   return isRightMB;
+  // }
 
   private toggleDateFormat(event) {
     event.currentTarget.classList.toggle('altFormat');
