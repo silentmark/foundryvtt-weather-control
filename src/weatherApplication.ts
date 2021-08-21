@@ -205,7 +205,7 @@ export class WeatherApplication extends Application {
       function check() {
         const elmnt = this.getElementById('calendar-time-container');
         if (elmnt) {
-          this.logger.info('Resetting Calendar Position');
+          this.logger.info('Resetting Window Position');
           elmnt.style.top = null;
           elmnt.style.bottom = (pos.bottom) + '%';
           elmnt.style.left = (pos.left) + '%';
