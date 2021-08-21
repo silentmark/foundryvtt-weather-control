@@ -2,6 +2,7 @@ import { SimpleCalendarApi } from '../libraries/simple-calendar/api';
 import { DateTime } from '../libraries/simple-calendar/dateTime';
 import { Log } from '../logger/logger';
 import { WeatherData } from '../models/weatherData';
+import { WindowPosition } from '../models/windowPosition';
 import { ModuleSettings } from '../module-settings';
 import { WeatherTracker } from '../weather/weatherTracker';
 import { WindowDrag } from './windowDrag';
@@ -35,13 +36,7 @@ export class WeatherApplication extends Application {
     const weather = '#calendar-weather';
     const refreshWeather = '#calendar-weather-regenerate';
 
-    const calendarMoveHandle = html.find('#calendar--move-handle');
-
-    this.windowDragHandler = new WindowDrag();
-    calendarMoveHandle.on('mousedown', () => {
-      const window = calendarMoveHandle.parents('#calendar-time-container').get(0);
-      this.windowDragHandler.start(window);
-    });
+    this.initializeWindowInteractions(html);
 
     html.find(dateFormatToggle).on('mousedown', event => {
       this.toggleDateFormat(event);
@@ -133,24 +128,19 @@ export class WeatherApplication extends Application {
     this.updateClockStatus();
   }
 
-  static resetPos(): Promise<void> {
-    const pos = {bottom: 8, left: 15};
-    return new Promise(resolve => {
-      function check() {
-        const elmnt = this.getElementById('calendar-time-container');
-        if (elmnt) {
-          this.logger.info('Resetting Window Position');
-          elmnt.style.top = null;
-          elmnt.style.bottom = (pos.bottom) + '%';
-          elmnt.style.left = (pos.left) + '%';
-          this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: elmnt.offsetTop, left: elmnt.offsetLeft}}}});
-          elmnt.style.bottom = null;
-          resolve();
-        } else {
-          setTimeout(check, 30);
-        }
-      }
-      check();
+  private initializeWindowInteractions(html: JQuery) {
+    const calendarMoveHandle = html.find('#calendar--move-handle');
+    const window = calendarMoveHandle.parents('#calendar-time-container').get(0);
+    const windowPosition = this.settings.getWindowPosition();
+
+    window.style.top = windowPosition.top + 'px';
+    window.style.left = windowPosition.left + 'px';
+
+    this.windowDragHandler = new WindowDrag();
+    calendarMoveHandle.on('mousedown', () => {
+      this.windowDragHandler.start(window, (windowPos: WindowPosition) => {
+        this.settings.setWindowPosition(windowPos);
+      });
     });
   }
 }

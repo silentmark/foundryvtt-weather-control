@@ -56,11 +56,11 @@ export class ModuleSettings {
     this.set(SettingKeys.dateTime, value);
   }
 
-  public getCalendarPosition(): WindowPosition {
+  public getWindowPosition(): WindowPosition {
     return this.get(SettingKeys.windowPosition);
   }
 
-  public setCalendarPosition(position: WindowPosition) {
+  public setWindowPosition(position: WindowPosition) {
     this.set(SettingKeys.windowPosition, position);
   }
 

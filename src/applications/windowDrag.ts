@@ -1,15 +1,21 @@
+import { WindowPosition } from '../models/windowPosition';
+
 export class WindowDrag {
   private parent: HTMLElement;
   private mouseMoveCallback = (moveEvent: Event) => {
     this.mouseMove(moveEvent);
   }
 
-  public start(parent: HTMLElement) {
+  public start(parent: HTMLElement, mouseUpCallback: (windowPos: WindowPosition) => void) {
     this.parent = parent;
 
     document.addEventListener('mousemove', this.mouseMoveCallback);
     document.addEventListener('mouseup', () => {
       document.removeEventListener('mousemove', this.mouseMoveCallback);
+      mouseUpCallback({
+        top: this.parent.offsetTop,
+        left: this.parent.offsetLeft,
+      });
     });
   }
 
