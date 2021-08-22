@@ -1,4 +1,4 @@
-# Calendar/Weather
+# Weather Control
 
 [![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json)](https://gitlab.com/jstebenne/foundryvtt-calendar-weather)
 [![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fcalendar-weather&colorB=4aa94a)](https://forge-vtt.com/bazaar#package=calendar-weather)
@@ -24,7 +24,7 @@ If you want to have weather effects, you must have [FXMaster](https://gitlab.com
 * Event tracking: Calendar/Weather can handle reoccuring yearly events, like holidays as well as one time events that occur once before being deleted. One time events can also be triggered at a specific time, rather than the event triggering at midnight. You can drag and drop journal entries into the text field for events. Furthermore, events can fire macros when they're triggered. The @@JournalEntry[] syntax will send the contents of the journal entry to chat, rather than just the link.
 * Weather System: Clicking the sun/cloud icon will pull up a small widget that allows you to change between Farenheit/Celcius, regenerate the days weather, and set the climate your party is currently in. Weather is generated every day at midnight. Each time weather is generated, a message will be displayed to chat, you can turn this off in the settings.
 * Day/Night Cycle: If the 'Calendar/Weather - Night Cycle and Weather Effects' setting is enabled, it will begin to grow dark at the specified dusk time for the season, and grow bright at the season's dawn time.
-* FXMaster Weather Integration: If you have U~man's FXmaster module installed, each time weather is generated, a corresponding effect will be applied to the current scene. This is enabled on a scene by scene basis by the 'Calendar/Weather - Night Cycle and Weather Effects' setting located in the scene config form.
+* FXMaster Weather Integration: If you have U~man's FXmaster module installed, each time weather is generated, a corresponding effect will be applied to the current scene. This is enabled on a scene by scene basis by the 'Weather Control - Night Cycle and Weather Effects' setting located in the scene config form.
 
 ### Demo:
 
@@ -43,4 +43,4 @@ You also need to take a look at [CONTRIBUTING.md](CONTRIBUTING.md) to know our c
 
 ### Credits:
 
-Calendar/Weather is the result of the effort of many people. Please refer to [CREDITS.md](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/blob/master/CREDITS.md) for the full list.
+Weather Control is the result of the effort of many people. Please refer to [CREDITS.md](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/blob/master/CREDITS.md) for the full list.

@@ -1,6 +1,6 @@
 {
-  "name": "calendar-weather",
-  "title": "Calendar/Weather",
+  "name": "weather-control",
+  "title": "Weather Control",
   "version": "4.0.0",
   "description": "A module for FoundryVTT that adds a calendar widget with weather, moons cycles, and a customizable calendar.",
   "repository": {

@@ -1,8 +1,8 @@
 {
-  "name": "weather",
-  "class": "Weather",
-  "title": "Weather",
-  "description": "A module for FoundryVTT that adds dynamic weather.",
+  "name": "weather-control",
+  "class": "WeatherControl",
+  "title": "Weather Control",
+  "description": "Add dynamic weather to your FoundryVTT world",
   "version": "4.0.0",
   "minimumCoreVersion": "0.7.0",
   "compatibleCoreVersion": "0.8.9",
@@ -26,8 +26,8 @@
   "url": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather",
   "manifest": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json",
   "download": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/jobs/artifacts/v4.0.0/raw/calendar-weather.zip?job=pack",
-	"esmodules": ["weather.js"],
-	"styles": "weather.css",
+	"esmodules": ["weather-control.js"],
+	"styles": "weather-control.css",
   "packs": [],
   "languages": [
     {

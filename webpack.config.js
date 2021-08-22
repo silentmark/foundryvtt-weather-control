@@ -41,7 +41,7 @@ module.exports = (env) => {
             extensions: [".wasm", ".mjs", ".ts", ".js", ".json"],
         },
         output: {
-            filename: "weather.js",
+            filename: "weather-control.js",
             path: path.resolve(__dirname, "dist"),
             publicPath: '/static/',
         },
@@ -103,7 +103,7 @@ module.exports = (env) => {
                 }],
             }),
             new MiniCssExtractPlugin({
-                filename: 'weather.css'
+                filename: 'weather-control.css'
             })
         ],
     };
