@@ -16,7 +16,7 @@
 					<i class="fas fa-circle" title="{{localize 'Season'}}"></i>
 				</div>
 				<div class="calendar--weather-toggle calendar-btn">
-					<i id=calendar-weather class="fas fa-cloud-sun" title="{{localize 'cw.calendar.Weather'}}"></i>
+					<i id=calendar-weather class="fas fa-cloud-sun" title="{{localize 'wctrl.calendar.Weather'}}"></i>
 				</div>
 			</div>
 		</header>
@@ -25,7 +25,7 @@
 		<div class="calendar--content">
 
 			<!-- date display -->
-			<section id="calendar--date-display" title="{{localize 'cw.calendar.ClickToToggle'}}">
+			<section id="calendar--date-display" title="{{localize 'wctrl.calendar.ClickToToggle'}}">
 				<h2>
 					<span id="calendar-date-num"></span>
 					<span id="calendar-date"></span>
@@ -39,7 +39,7 @@
 
 			<!-- clock display -->
 			<section class="calendar--clock">
-				<div id="start-stop-clock" class="clock--time-display"  title="{{localize 'cw.time.StartStopPseudo'}}">
+				<div id="start-stop-clock" class="clock--time-display"  title="{{localize 'wctrl.time.StartStopPseudo'}}">
 					<div id="clock-run-indicator" title="{{localize 'ClockRunning'}}">
 						<ul>
 							<li>
@@ -70,12 +70,12 @@
 		<!-- footer -->
 		<footer class="calendar--time-controls">
 			<ul>
-				<li id="calendar-btn-advance_01" class="advance-btn disabled" title="{{localize 'cw.time.Advance1second'}}" data-display="enabled" data-step="1" data-unit="s"></li>
-				<li id="calendar-btn-advance_02" class="advance-btn disabled" title="{{localize 'cw.time.Advance30seconds'}}" data-display="enabled" data-step="30" data-unit="s"></li>
-				<li class="advance-btn" title="{{localize 'cw.time.Advance1minute'}}" data-display="enabled" data-step="1" data-unit="min"></li>
-				<li class="advance-btn" title="{{localize 'cw.time.Advance5minutes'}}" data-display="enabled" data-step="5" data-unit="min"></li>
-				<li class="advance-btn" title="{{localize 'cw.time.Advance15minutes'}}" data-display="enabled" data-step="15" data-unit="min"></li>
-				<li class="advance-btn" title="{{localize 'cw.time.Advance1hour'}}" data-display="enabled" data-step="1" data-unit="h"></li>
+				<li id="calendar-btn-advance_01" class="advance-btn disabled" title="{{localize 'wctrl.time.Advance1second'}}" data-display="enabled" data-step="1" data-unit="s"></li>
+				<li id="calendar-btn-advance_02" class="advance-btn disabled" title="{{localize 'wctrl.time.Advance30seconds'}}" data-display="enabled" data-step="30" data-unit="s"></li>
+				<li class="advance-btn" title="{{localize 'wctrl.time.Advance1minute'}}" data-display="enabled" data-step="1" data-unit="min"></li>
+				<li class="advance-btn" title="{{localize 'wctrl.time.Advance5minutes'}}" data-display="enabled" data-step="5" data-unit="min"></li>
+				<li class="advance-btn" title="{{localize 'wctrl.time.Advance15minutes'}}" data-display="enabled" data-step="15" data-unit="min"></li>
+				<li class="advance-btn" title="{{localize 'wctrl.time.Advance1hour'}}" data-display="enabled" data-step="1" data-unit="h"></li>
 			</ul>
 		</footer>
 
@@ -91,17 +91,17 @@
 		<div id="calendar-weather--container">
 			<header>
 				<span id="calendar-weather--temp">24.5°C</span>
-		    <select class="calendar-weather-climate" title="{{localize 'cw.weather.SelectClimate'}}" onChange="Hooks.callAll('calendarWeatherClimateSet', this.value);">
-		    	<option title="{{localize 'cw.weather.climate.description.Temperate'}}" value="temperate">{{localize 'cw.weather.climate.Temperate'}}</option>
-		      <option title="{{localize 'cw.weather.climate.description.TemperateMountain'}}" value="tempMountain">{{localize 'cw.weather.climate.TemperateMountain'}}</option>
-		      <option title="{{localize 'cw.weather.climate.description.Desert'}}" value="desert">{{localize 'cw.weather.climate.Desert'}}</option>
-		      <option title="{{localize 'cw.weather.climate.description.Tundra'}}" value="tundra">{{localize 'cw.weather.climate.Tundra'}}</option>
-		      <option title="{{localize 'cw.weather.climate.descripton.Tropical'}}" value="tropical">{{localize 'cw.weather.climate.Tropical'}}</option>
-		      <option title="{{localize 'cw.weather.climate.description.Taiga'}}" value="taiga">{{localize 'cw.weather.climate.Taiga'}}</option>
-		      <option title="{{localize 'cw.weather.climate.description.Volcanic'}}" value="volcanic">{{localize 'cw.weather.climate.Volcanic'}}</option>
-		      <option title="{{localize 'cw.weather.climate.description.Polar'}}" value="polar">{{localize 'cw.weather.climate.Polar'}}</option>
+		    <select class="calendar-weather-climate" title="{{localize 'wctrl.weather.SelectClimate'}}" onChange="Hooks.callAll('calendarWeatherClimateSet', this.value);">
+		    	<option title="{{localize 'wctrl.weather.climate.description.Temperate'}}" value="temperate">{{localize 'wctrl.weather.climate.Temperate'}}</option>
+		      <option title="{{localize 'wctrl.weather.climate.description.TemperateMountain'}}" value="tempMountain">{{localize 'wctrl.weather.climate.TemperateMountain'}}</option>
+		      <option title="{{localize 'wctrl.weather.climate.description.Desert'}}" value="desert">{{localize 'wctrl.weather.climate.Desert'}}</option>
+		      <option title="{{localize 'wctrl.weather.climate.description.Tundra'}}" value="tundra">{{localize 'wctrl.weather.climate.Tundra'}}</option>
+		      <option title="{{localize 'wctrl.weather.climate.descripton.Tropical'}}" value="tropical">{{localize 'wctrl.weather.climate.Tropical'}}</option>
+		      <option title="{{localize 'wctrl.weather.climate.description.Taiga'}}" value="taiga">{{localize 'wctrl.weather.climate.Taiga'}}</option>
+		      <option title="{{localize 'wctrl.weather.climate.description.Volcanic'}}" value="volcanic">{{localize 'wctrl.weather.climate.Volcanic'}}</option>
+		      <option title="{{localize 'wctrl.weather.climate.description.Polar'}}" value="polar">{{localize 'wctrl.weather.climate.Polar'}}</option>
 		    </select>
-		    <div class="calendar-weather--refresh calendar-btn" id="calendar-weather-regenerate" title="{{localize 'cw.weather.RegenerateWeather'}}">
+		    <div class="calendar-weather--refresh calendar-btn" id="calendar-weather-regenerate" title="{{localize 'wctrl.weather.RegenerateWeather'}}">
 					<i class="fas fa-redo"></i>
 				</div>
 			</header>

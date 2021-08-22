@@ -15,17 +15,17 @@ export class WarningSystem {
 
   static generateDialog() {
     new Dialog({
-      title: game.i18n.localize('cw.misc.AboutTimeMissing'),
-      content: game.i18n.localize('cw.misc.AboutTimeMissingHelp'),
+      title: game.i18n.localize('wctrl.misc.AboutTimeMissing'),
+      content: game.i18n.localize('wctrl.misc.AboutTimeMissingHelp'),
       buttons: {
         one: {
           icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize('cw.misc.AboutTimeGitlab'),
+          label: game.i18n.localize('wctrl.misc.AboutTimeGitlab'),
           callback: () => window.open('https://gitlab.com/tposney/about-time/-/tree/master/src', '_blank', 'fullscreen=no')
         },
         two: {
           icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize('cw.misc.Disregard'),
+          label: game.i18n.localize('wctrl.misc.Disregard'),
           callback: () => { return; }
         }
       },

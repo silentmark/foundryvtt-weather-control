@@ -15,9 +15,9 @@ export class PrecipitationsGenerator {
 
     if (roll <= 3) {
       if (weatherData.isVolcanic) {
-        weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Ashen');
+        weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Ashen');
       } else {
-        weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Clear');
+        weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Clear');
       }
     } else if (roll <= 6) {
       if (weatherData.isVolcanic) {
@@ -32,7 +32,7 @@ export class PrecipitationsGenerator {
             apply_tint: true
           }
         });
-        weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Dark');
+        weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Dark');
       } else {
         effects.push({
           type: 'clouds',
@@ -45,11 +45,11 @@ export class PrecipitationsGenerator {
             apply_tint: true
           }
         });
-        weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Scattered');
+        weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Scattered');
       }
     } else if (roll == 7) {
       if (weatherData.isVolcanic) {
-        weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.SunAsh');
+        weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.SunAsh');
       } else {
         if (weatherData.temp < 25) {
           effects.push({
@@ -74,7 +74,7 @@ export class PrecipitationsGenerator {
               apply_tint: true
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Overcast');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Overcast');
         } else if (weatherData.temp < 32) {
           effects.push({
             type: 'clouds',
@@ -105,7 +105,7 @@ export class PrecipitationsGenerator {
               direction: '50',
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.OvercastLight');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.OvercastLight');
         } else {
           effects.push({
             type: 'clouds',
@@ -129,7 +129,7 @@ export class PrecipitationsGenerator {
               apply_tint: true
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.OvercastDrizzle');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.OvercastDrizzle');
         }
       }
     } else if (roll == 8) {
@@ -156,7 +156,7 @@ export class PrecipitationsGenerator {
             apply_tint: true
           }
         });
-        weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Ashfall');
+        weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Ashfall');
       } else {
         if (weatherData.temp < 25) {
           effects.push({
@@ -170,7 +170,7 @@ export class PrecipitationsGenerator {
               apply_tint: true
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.LightSnow');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.LightSnow');
         } else if (weatherData.temp < 32) {
           effects.push({
             type: 'snow',
@@ -194,7 +194,7 @@ export class PrecipitationsGenerator {
               apply_tint: true
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.LightRain');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.LightRain');
         } else {
           effects.push({
             type: 'rain',
@@ -207,7 +207,7 @@ export class PrecipitationsGenerator {
               apply_tint: true
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.ModerateRainW');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.ModerateRainW');
         }
       }
 
@@ -235,7 +235,7 @@ export class PrecipitationsGenerator {
             apply_tint: true
           }
         });
-        weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.FireyRain');
+        weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.FireyRain');
       } else {
         if (weatherData.temp < 25) {
           effects.push({
@@ -244,7 +244,7 @@ export class PrecipitationsGenerator {
               density: '72',
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.LargeSnow');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.LargeSnow');
         } else if (weatherData.temp < 32) {
           effects.push({
             type: 'snow',
@@ -268,7 +268,7 @@ export class PrecipitationsGenerator {
               apply_tint: true
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.LargeFreezingRain');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.LargeFreezingRain');
         } else {
           effects.push({
             type: 'rain',
@@ -281,7 +281,7 @@ export class PrecipitationsGenerator {
               apply_tint: true
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.HeavyRain');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.HeavyRain');
         }
       }
 
@@ -334,7 +334,7 @@ export class PrecipitationsGenerator {
               apply_tint: true
             }
           });
-          weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Earthquake');
+          weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Earthquake');
         } else {
           if (weatherData.temp < 25) {
             effects.push({
@@ -357,7 +357,7 @@ export class PrecipitationsGenerator {
                 direction: '50',
               }
             });
-            weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Blizzard');
+            weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Blizzard');
           } else if (weatherData.temp < 32) {
             effects.push({
               type: 'snow',
@@ -390,7 +390,7 @@ export class PrecipitationsGenerator {
                 direction: '50',
               }
             });
-            weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.Icestorm');
+            weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.Icestorm');
           } else {
             effects.push({
               type: 'rain',
@@ -423,7 +423,7 @@ export class PrecipitationsGenerator {
                 direction: '50',
               }
             });
-            weather = this.gameRef.i18n.localize('cw.weather.tracker.normal.TorrentialRain');
+            weather = this.gameRef.i18n.localize('wctrl.weather.tracker.normal.TorrentialRain');
           }
         }
 
@@ -441,30 +441,30 @@ export class PrecipitationsGenerator {
     const roll = this.rand(1, 5);
     let event = '';
     if (weatherData.isVolcanic) {
-      return this.gameRef.i18n.localize('cw.weather.tracker.extreme.VolcanoEruption');
+      return this.gameRef.i18n.localize('wctrl.weather.tracker.extreme.VolcanoEruption');
     }
     switch (roll) {
     case 1:
-      event = this.gameRef.i18n.localize('cw.weather.tracker.extreme.Tornado');
+      event = this.gameRef.i18n.localize('wctrl.weather.tracker.extreme.Tornado');
       break;
     case 2:
-      event = this.gameRef.i18n.localize('cw.weather.tracker.extreme.Hurricane');
+      event = this.gameRef.i18n.localize('wctrl.weather.tracker.extreme.Hurricane');
       break;
     case 3:
-      event = this.gameRef.i18n.localize('cw.weather.tracker.extreme.Drought');
+      event = this.gameRef.i18n.localize('wctrl.weather.tracker.extreme.Drought');
       break;
     case 4:
-      event = this.gameRef.i18n.localize('cw.weather.tracker.extreme.BaseballHail');
+      event = this.gameRef.i18n.localize('wctrl.weather.tracker.extreme.BaseballHail');
       break;
     case 5:
       if (weatherData.temp <= 32) {
-        event = this.gameRef.i18n.localize('cw.weather.tracker.extreme.Blizzard');
+        event = this.gameRef.i18n.localize('wctrl.weather.tracker.extreme.Blizzard');
       } else {
-        event = this.gameRef.i18n.localize('cw.weather.tracker.extreme.Monsoon');
+        event = this.gameRef.i18n.localize('wctrl.weather.tracker.extreme.Monsoon');
       }
       break;
     }
-    return this.gameRef.i18n.localize('cw.weather.tracker.extreme.Extreme') + event;
+    return this.gameRef.i18n.localize('wctrl.weather.tracker.extreme.Extreme') + event;
   }
 
   /**

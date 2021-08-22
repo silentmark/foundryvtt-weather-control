@@ -93,7 +93,7 @@ export class WeatherTracker {
 
     this.chatProxy.create({
       speaker: {
-        alias: this.gameRef.i18n.localize('cw.weather.tracker.Today'),
+        alias: this.gameRef.i18n.localize('wctrl.weather.tracker.Today'),
       },
       whisper: [gmUser.id],
       content: chatOut,

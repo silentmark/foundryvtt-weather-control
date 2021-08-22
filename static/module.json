@@ -2,7 +2,7 @@
   "name": "weather-control",
   "class": "WeatherControl",
   "title": "Weather Control",
-  "description": "Add dynamic weather to your FoundryVTT world",
+  "description": "Add dynamic weather to your FoundryVTT world.",
   "version": "4.0.0",
   "minimumCoreVersion": "0.7.0",
   "compatibleCoreVersion": "0.8.9",

@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import  { CalendarEvents } from './calendarEvents';
+import { cwdtData } from './calendar-weather';
+import { CalendarEvents } from './calendarEvents';
+import { CalendarForm } from './calendarForm';
 import { _myCalendarSpec, DateTime as CWDateTime } from './dateTime';
 import { Month } from './month';
 import { WeatherTrackerLegacy } from './weatherTrackerLegacy';
-import { CalendarForm } from './calendarForm';
-import { cwdtData } from './calendar-weather';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 export class Calendar extends Application {
   public isLoading = false;
 
@@ -143,12 +143,12 @@ export class Calendar extends Application {
 
   populateData() {
     cwdtData.dt = new CWDateTime();
-    const newMonth1 = new Month(game.i18n.localize('cw.calendar.settings.DefMonth'), 30, 30, true, '1');
+    const newMonth1 = new Month(game.i18n.localize('wctrl.calendar.settings.DefMonth'), 30, 30, true, '1');
     cwdtData.dt.addMonth(newMonth1);
-    cwdtData.dt.addWeekday(game.i18n.localize('cw.calendar.Monday'));
-    cwdtData.dt.addWeekday(game.i18n.localize('cw.calendar.Tuesday'));
-    cwdtData.dt.addWeekday(game.i18n.localize('cw.calendar.Wednesday'));
-    cwdtData.dt.addWeekday(game.i18n.localize('cw.calendar.Thursday'));
+    cwdtData.dt.addWeekday(game.i18n.localize('wctrl.calendar.Monday'));
+    cwdtData.dt.addWeekday(game.i18n.localize('wctrl.calendar.Tuesday'));
+    cwdtData.dt.addWeekday(game.i18n.localize('wctrl.calendar.Wednesday'));
+    cwdtData.dt.addWeekday(game.i18n.localize('wctrl.calendar.Thursday'));
     cwdtData.dt.setDayLength(24);
     cwdtData.dt.settings = [];
     cwdtData.dt.events = [];
