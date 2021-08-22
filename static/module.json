@@ -1,5 +1,6 @@
 {
   "name": "weather",
+  "class": "Weather",
   "title": "Weather",
   "description": "A module for FoundryVTT that adds dynamic weather.",
   "version": "4.0.0",

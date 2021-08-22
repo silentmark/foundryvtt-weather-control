@@ -1,11 +1,16 @@
-import { SimpleCalendarApi } from './libraries/simple-calendar/api';
-import { DateTime } from './libraries/simple-calendar/dateTime';
-import { Log } from './logger/logger';
-import { WeatherData } from './models/weatherData';
-import { ModuleSettings } from './module-settings';
-import { WeatherTracker } from './weather/weatherTracker';
+import moduleJson from '@module';
+
+import { SimpleCalendarApi } from '../libraries/simple-calendar/api';
+import { DateTime } from '../libraries/simple-calendar/dateTime';
+import { Log } from '../logger/logger';
+import { WeatherData } from '../models/weatherData';
+import { WindowPosition } from '../models/windowPosition';
+import { ModuleSettings } from '../module-settings';
+import { WeatherTracker } from '../weather/weatherTracker';
+import { WindowDrag } from './windowDrag';
 
 export class WeatherApplication extends Application {
+  private windowDragHandler: WindowDrag;
   constructor(
     private gameRef: Game,
     private settings: ModuleSettings,
@@ -28,15 +33,10 @@ export class WeatherApplication extends Application {
   public activateListeners(html: JQuery) {
     this.updateDateTime(this.currentDateTime);
 
-    const calendarMove = '#calendar--move-handle';
     const dateFormatToggle = '#calendar--date-display';
     const startStopClock = '#start-stop-clock';
-    const weather = '#calendar-weather';
-    const refreshWeather = '#calendar-weather-regenerate';
 
-    html.find(calendarMove).on('mousedown', event => {
-      this.handleDragMove(event);
-    });
+    this.initializeWindowInteractions(html);
 
     html.find(dateFormatToggle).on('mousedown', event => {
       this.toggleDateFormat(event);
@@ -46,12 +46,25 @@ export class WeatherApplication extends Application {
       this.startStopClock(event);
     });
 
+    this.listenToWindowMove(html);
+    this.listenToWeatherRefreshClick(html);
+
+    global[moduleJson.class].resetPosition = this.resetPosition();
+  }
+
+  private listenToWindowMove(html: JQuery) {
+    const weather = '#calendar-weather';
+
     html.find(weather).on('click', event => {
       event.preventDefault();
       if (this.gameRef.user.isGM || this.settings.getPlayerSeeWeather()) {
         document.getElementById('calendar-time-container').classList.toggle('showWeather');
       }
     });
+  }
+
+  private listenToWeatherRefreshClick(html: JQuery) {
+    const refreshWeather = '#calendar-weather-regenerate';
 
     html.find(refreshWeather).on('click', event => {
       event.preventDefault();
@@ -107,77 +120,6 @@ export class WeatherApplication extends Application {
     return document.getElementById(id);
   }
 
-  private handleDragMove(event) {
-    event.preventDefault();
-    event = event || window.event;
-    const isRightMB = this.isRightMouseButton(event);
-
-    if (!isRightMB) {
-      dragElement(document.getElementById('calendar-time-container'));
-      let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
-      // eslint-disable-next-line no-inner-declarations
-      function dragElement(elmnt) {
-        elmnt.onmousedown = dragMouseDown;
-        function dragMouseDown(e) {
-          e = e || window.event;
-          e.preventDefault();
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-
-          document.onmouseup = closeDragElement;
-          document.onmousemove = elementDrag;
-        }
-
-        function elementDrag(e) {
-          e = e || window.event;
-          e.preventDefault();
-          // calculate the new cursor position:
-          pos1 = pos3 - e.clientX;
-          pos2 = pos4 - e.clientY;
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          // set the element's new position:
-          elmnt.style.bottom = null;
-          elmnt.style.top = (elmnt.offsetTop - pos2) + 'px';
-          elmnt.style.left = (elmnt.offsetLeft - pos1) + 'px';
-          elmnt.style.position = 'fixed';
-          elmnt.style.zIndex = 100;
-        }
-
-        function closeDragElement() {
-          // stop moving when mouse button is released:
-          elmnt.onmousedown = null;
-          document.onmouseup = null;
-          document.onmousemove = null;
-          let xPos = (elmnt.offsetLeft - pos1) > window.innerWidth ? window.innerWidth-200 : (elmnt.offsetLeft - pos1);
-          let yPos = (elmnt.offsetTop - pos2) > window.innerHeight-20 ? window.innerHeight-100 : (elmnt.offsetTop - pos2);
-          xPos = xPos < 0 ? 0 : xPos;
-          yPos = yPos < 0 ? 0 : yPos;
-          if(xPos != (elmnt.offsetLeft - pos1) || yPos != (elmnt.offsetTop - pos2)){
-            elmnt.style.top = (yPos) + 'px';
-            elmnt.style.left = (xPos) + 'px';
-          }
-          this.logger.info(`Setting window position to x: ${xPos}px, y: ${yPos}px`);
-          this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: yPos, left: xPos}}}});
-        }
-      }
-    } else if(isRightMB){
-      WeatherApplication.resetPos();
-    }
-  }
-
-  private isRightMouseButton(event): boolean {
-    let isRightMB = false;
-    if ('which' in event) { // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
-      isRightMB = event.which == 3;
-    } else if ('button' in event) { // IE, Opera
-      isRightMB = event.button == 2;
-    }
-
-    return isRightMB;
-  }
-
   private toggleDateFormat(event) {
     event.currentTarget.classList.toggle('altFormat');
   }
@@ -199,18 +141,33 @@ export class WeatherApplication extends Application {
     this.updateClockStatus();
   }
 
-  static resetPos(): Promise<void> {
-    const pos = {bottom: 8, left: 15};
+  private initializeWindowInteractions(html: JQuery) {
+    const calendarMoveHandle = html.find('#calendar--move-handle');
+    const window = calendarMoveHandle.parents('#calendar-time-container').get(0);
+    const windowPosition = this.settings.getWindowPosition();
+
+    window.style.top = windowPosition.top + 'px';
+    window.style.left = windowPosition.left + 'px';
+
+    this.windowDragHandler = new WindowDrag();
+    calendarMoveHandle.on('mousedown', () => {
+      this.windowDragHandler.start(window, (windowPos: WindowPosition) => {
+        this.settings.setWindowPosition(windowPos);
+      });
+    });
+  }
+
+  public resetPosition(): Promise<void> {
+    const defaultPosition = { top: 100, left: 100 };
     return new Promise(resolve => {
       function check() {
-        const elmnt = this.getElementById('calendar-time-container');
-        if (elmnt) {
-          this.logger.info('Resetting Window Position');
-          elmnt.style.top = null;
-          elmnt.style.bottom = (pos.bottom) + '%';
-          elmnt.style.left = (pos.left) + '%';
-          this.gameRef.user.update({flags: {'weather':{ 'windowPos': {top: elmnt.offsetTop, left: elmnt.offsetLeft}}}});
-          elmnt.style.bottom = null;
+        const element = this.getElementById('calendar-time-container');
+        if (element) {
+          this.logger.info('Resetting Calendar Position');
+          element.style.top = defaultPosition.top;
+          element.style.left = defaultPosition.left;
+          this.settings.setWindowPosition({top: element.offsetTop, left: element.offsetLeft});
+          element.style.bottom = null;
           resolve();
         } else {
           setTimeout(check, 30);

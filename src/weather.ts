@@ -1,10 +1,10 @@
+import { WeatherApplication } from './applications/weatherApplication';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
 import { defaultWeatherData, WeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
 import { ChatProxy } from './proxies/chatProxy';
 import { WeatherTracker } from './weather/weatherTracker';
-import { WeatherApplication } from './weatherApplication';
 
 /**
  * The base class of the module.
@@ -18,7 +18,11 @@ export class Weather {
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
     this.settings = new ModuleSettings(this.gameRef);
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
-    this.weatherApplication = new WeatherApplication(this.gameRef, this.settings, this.settings.getDateTime(), this.weatherTracker, this.logger);
+    this.weatherApplication = new WeatherApplication(
+      this.gameRef,
+      this.settings,
+      this.settings.getDateTime(),
+      this.weatherTracker, this.logger);
     this.logger.info('Init completed');
   }
 
@@ -48,6 +52,10 @@ export class Weather {
 
   public onClockStartStop() {
     this.weatherApplication.updateClockStatus();
+  }
+
+  public resetWindowPosition() {
+    this.weatherApplication.resetPosition();
   }
 
   private dateHasChanged(dateTime: DateTime): boolean {

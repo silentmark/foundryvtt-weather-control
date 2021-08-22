@@ -34,6 +34,10 @@ module.exports = (env) => {
         stats: "minimal",
         mode: environment.mode,
         resolve: {
+            alias: {
+              "@package": path.resolve(__dirname, './package.json'),
+              "@module": path.resolve(__dirname, './static/module.json'),
+            },
             extensions: [".wasm", ".mjs", ".ts", ".js", ".json"],
         },
         output: {
