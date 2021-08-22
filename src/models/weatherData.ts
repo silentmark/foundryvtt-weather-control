@@ -1,4 +1,8 @@
+import { DateTime } from 'src/libraries/simple-calendar/dateTime';
+
 export interface WeatherData {
+  dateTime: DateTime; // DateTime provided by Simple Calendar
+
   cTemp: number; // Temperature in celcius
   climate: string; // Current climate - TODO: Should be an enum
   climateTemp: number; // Temperature modifier of the current climate
@@ -20,6 +24,7 @@ export interface WeatherData {
 }
 
 export const defaultWeatherData: WeatherData = {
+  dateTime: null,
   cTemp:  null,
   climate: null,
   climateTemp: 0,

@@ -14,7 +14,6 @@ export class WeatherApplication extends Application {
   constructor(
     private gameRef: Game,
     private settings: ModuleSettings,
-    private currentDateTime: DateTime,
     private weatherTracker: WeatherTracker,
     private logger: Log) {
     super();
@@ -23,7 +22,7 @@ export class WeatherApplication extends Application {
 
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.template = 'modules/weather/templates/calendar.html';
+    options.template = `modules/${moduleJson.name}/templates/calendar.html`;
     options.popOut = false;
     options.resizable = false;
 
@@ -31,7 +30,7 @@ export class WeatherApplication extends Application {
   }
 
   public activateListeners(html: JQuery) {
-    this.updateDateTime(this.currentDateTime);
+    this.updateDateTime(this.settings.getWeatherData().dateTime);
 
     const dateFormatToggle = '#calendar--date-display';
     const startStopClock = '#start-stop-clock';

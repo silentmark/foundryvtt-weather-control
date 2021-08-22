@@ -15,7 +15,7 @@ const allTemplates = () => {
         .join(", ");
 };
 
-function getDevDirectory() { return process.env.npm_config_devdir + '/data/Data/modules/weather/'; }
+function getDevDirectory() { return process.env.npm_config_devdir + '/data/Data/modules/weather-control/'; }
 
 
 module.exports = (env) => {

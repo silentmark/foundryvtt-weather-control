@@ -1,7 +1,7 @@
 import { WeatherApplication } from './applications/weatherApplication';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
-import { defaultWeatherData, WeatherData } from './models/weatherData';
+import { WeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
 import { ChatProxy } from './proxies/chatProxy';
 import { WeatherTracker } from './weather/weatherTracker';
@@ -21,21 +21,21 @@ export class Weather {
     this.weatherApplication = new WeatherApplication(
       this.gameRef,
       this.settings,
-      this.settings.getDateTime(),
       this.weatherTracker, this.logger);
     this.logger.info('Init completed');
   }
 
-  public onReady(): void {
+  public async onReady(): Promise<void> {
     const weatherData = this.settings.getWeatherData();
+    console.log('got weather data', weatherData, this.isWeatherDataValid(weatherData));
 
     if (this.isWeatherDataValid(weatherData)) {
       this.logger.info('Using saved weather data');
       this.weatherTracker.loadWeatherData(this.settings.getWeatherData());
     } else {
-      this.logger.info('No saved weather data - Using defaults');
-      this.weatherTracker.loadWeatherData(defaultWeatherData);
-      this.settings.setWeatherData(defaultWeatherData);
+      this.logger.info('No saved weather data - Generating weather');
+      const newWeather = this.weatherTracker.generate();
+      await this.settings.setWeatherData(newWeather);
     }
   }
 
@@ -43,11 +43,10 @@ export class Weather {
     this.logger.debug('DateTime has changed', dateTime);
 
     if (this.dateHasChanged(dateTime)) {
-      this.weatherTracker.generate();
+      this.settings.setWeatherData(this.weatherTracker.generate());
     }
 
     this.updateWeatherDisplay(dateTime);
-    this.settings.setDateTime(dateTime);
   }
 
   public onClockStartStop() {
@@ -59,7 +58,7 @@ export class Weather {
   }
 
   private dateHasChanged(dateTime: DateTime): boolean {
-    const previous = this.settings.getDateTime()?.date;
+    const previous = this.settings.getWeatherData().dateTime?.date;
     const date = dateTime.date;
 
     if (this.isDateTimeValid(dateTime)) {
