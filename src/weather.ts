@@ -1,4 +1,5 @@
 import { WeatherApplication } from './applications/weatherApplication';
+import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
 import { WeatherData } from './models/weatherData';
@@ -18,25 +19,35 @@ export class Weather {
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
     this.settings = new ModuleSettings(this.gameRef);
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
-    this.weatherApplication = new WeatherApplication(
-      this.gameRef,
-      this.settings,
-      this.weatherTracker, this.logger);
+
     this.logger.info('Init completed');
   }
 
-  public async onReady(): Promise<void> {
+  public onReady() {
     const weatherData = this.settings.getWeatherData();
-    console.log('got weather data', weatherData, this.isWeatherDataValid(weatherData));
 
     if (this.isWeatherDataValid(weatherData)) {
       this.logger.info('Using saved weather data');
-      this.weatherTracker.loadWeatherData(this.settings.getWeatherData());
+      this.weatherTracker.loadWeatherData(weatherData);
     } else {
       this.logger.info('No saved weather data - Generating weather');
-      const newWeather = this.weatherTracker.generate();
-      await this.settings.setWeatherData(newWeather);
+
+      const baseWeatherData = new WeatherData();
+      baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
+
+      this.weatherTracker.loadWeatherData(baseWeatherData);
+      this.weatherTracker.generate();
     }
+
+    this.weatherApplication = new WeatherApplication(
+      this.gameRef,
+      this.settings,
+      this.weatherTracker,
+      this.logger,
+      () => {
+        this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
+        this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+      });
   }
 
   public onDateTimeChange(dateTime: DateTime) {

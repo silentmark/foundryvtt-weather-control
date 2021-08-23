@@ -11,11 +11,13 @@ import { WindowDrag } from './windowDrag';
 
 export class WeatherApplication extends Application {
   private windowDragHandler: WindowDrag;
+
   constructor(
     private gameRef: Game,
     private settings: ModuleSettings,
     private weatherTracker: WeatherTracker,
-    private logger: Log) {
+    private logger: Log,
+    private renderCompleteCallback: () => void) {
     super();
     this.render(true);
   }
@@ -30,7 +32,7 @@ export class WeatherApplication extends Application {
   }
 
   public activateListeners(html: JQuery) {
-    this.updateDateTime(this.settings.getWeatherData().dateTime);
+    this.renderCompleteCallback();
 
     const dateFormatToggle = '#calendar--date-display';
     const startStopClock = '#start-stop-clock';

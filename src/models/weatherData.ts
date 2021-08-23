@@ -1,26 +1,26 @@
-import { DateTime } from 'src/libraries/simple-calendar/dateTime';
+import { DateTime } from '../libraries/simple-calendar/dateTime';
 
-export interface WeatherData {
-  dateTime: DateTime; // DateTime provided by Simple Calendar
+export class WeatherData {
+  public dateTime: DateTime = new DateTime(); // DateTime provided by Simple Calendar
 
-  cTemp: number; // Temperature in celcius
-  climate: string; // Current climate - TODO: Should be an enum
-  climateTemp: number; // Temperature modifier of the current climate
-  dawn: number; // Hour of dawn begins - FIXME: This might instead come from Simple Calendar
-  dusk: number; // Hour of dusk begins - FIXME: This might instead come from Simple Calendar
-  isC: boolean; // Is temparature displayed as celcius - TODO: Move to settings
-  isVolcanic: boolean; // TODO: TBD
-  lastTemp: number; // Last temperature in farenheit
-  outputToChat: boolean; // Should output weather to chat - TODO: Move to settings
-  precipitation: string; // Description of current weather
-  season: string; // Name of current season
-  seasonColor: string; // Name of current season's color - TODO: Should ben an enum
-  seasonRolltable: string; // TODO: TBD
-  seasonTemp: number; // Temperature modifier of the current season
-  showFX: boolean; // Show weather effect with FXMaster - TODO: Move to settings
-  temp: number; // Current temperature in farenheit
-  tempRange: { min: number, max: number }; // Temperature range of the current season - TODO: Confirm if this is true
-  weatherFX: Array<{ type: string, options: any}> // Currently active weather effects - TODO: Confirm if this is true
+  public cTemp: number; // Temperature in celcius
+  public climate: string; // Current climate - TODO: Should be an enum
+  public climateTemp: number; // Temperature modifier of the current climate
+  public dawn: number; // Hour of dawn begins - FIXME: This might instead come from Simple Calendar
+  public dusk: number; // Hour of dusk begins - FIXME: This might instead come from Simple Calendar
+  public isC: boolean; // Is temparature displayed as celcius - TODO: Move to settings
+  public isVolcanic: boolean; // TODO: TBD
+  public lastTemp: number; // Last temperature in farenheit
+  public outputToChat: boolean; // Should output weather to chat - TODO: Move to settings
+  public precipitation: string; // Description of current weather
+  public season: string; // Name of current season
+  public seasonColor: string; // Name of current season's color - TODO: Should ben an enum
+  public seasonRolltable: string; // TODO: TBD
+  public seasonTemp: number; // Temperature modifier of the current season
+  public showFX: boolean; // Show weather effect with FXMaster - TODO: Move to settings
+  public temp: number; // Current temperature in farenheit
+  public tempRange: { min: number, max: number }; // Temperature range of the current season - TODO: Confirm if this is true
+  public weatherFX: Array<{ type: string, options: any}> // Currently active weather effects - TODO: Confirm if this is true
 }
 
 export const defaultWeatherData: WeatherData = {
