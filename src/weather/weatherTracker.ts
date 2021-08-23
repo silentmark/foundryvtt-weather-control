@@ -32,7 +32,7 @@ export class WeatherTracker {
 
     if (climateChanged) { // If climate has been changed
       this.weatherData.temp =
-        this.randAroundValue(this.weatherData.lastTemp, 5) // Generate a new temperature from the previous, with a variance of 5
+        this.randAroundValue(this.weatherData.lastTemp || this.rand(0, 20), 5) // Generate a new temperature from the previous, with a variance of 5
         + timeOfYearOffset // Add the season and climate offset
         + (this.rand(1, 20) === 20 ? 20 : 0); // On a nat 20, add 20 F to cause extreme temperature
     } else if (this.rand(1, 3) === 3) { // In one against 3 cases

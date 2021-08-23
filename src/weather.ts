@@ -36,7 +36,7 @@ export class Weather {
       baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
 
       this.weatherTracker.loadWeatherData(baseWeatherData);
-      this.weatherTracker.generate();
+      this.weatherTracker.generate(true);
     }
 
     this.weatherApplication = new WeatherApplication(
@@ -53,8 +53,9 @@ export class Weather {
   public onDateTimeChange(dateTime: DateTime) {
     this.logger.debug('DateTime has changed', dateTime);
 
-    if (this.dateHasChanged(dateTime)) {
-      this.settings.setWeatherData(this.weatherTracker.generate());
+    if (this.hasDateChanged(dateTime)) {
+      const newWeather = this.weatherTracker.generate();
+      this.settings.setWeatherData(newWeather);
     }
 
     this.updateWeatherDisplay(dateTime);
@@ -68,7 +69,7 @@ export class Weather {
     this.weatherApplication.resetPosition();
   }
 
-  private dateHasChanged(dateTime: DateTime): boolean {
+  private hasDateChanged(dateTime: DateTime): boolean {
     const previous = this.settings.getWeatherData().dateTime?.date;
     const date = dateTime.date;
 
