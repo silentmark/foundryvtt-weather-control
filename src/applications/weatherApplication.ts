@@ -11,19 +11,20 @@ import { WindowDrag } from './windowDrag';
 
 export class WeatherApplication extends Application {
   private windowDragHandler: WindowDrag;
+
   constructor(
     private gameRef: Game,
     private settings: ModuleSettings,
-    private currentDateTime: DateTime,
     private weatherTracker: WeatherTracker,
-    private logger: Log) {
+    private logger: Log,
+    private renderCompleteCallback: () => void) {
     super();
     this.render(true);
   }
 
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.template = 'modules/weather/templates/calendar.html';
+    options.template = `modules/${moduleJson.name}/templates/calendar.html`;
     options.popOut = false;
     options.resizable = false;
 
@@ -31,7 +32,7 @@ export class WeatherApplication extends Application {
   }
 
   public activateListeners(html: JQuery) {
-    this.updateDateTime(this.currentDateTime);
+    this.renderCompleteCallback();
 
     const dateFormatToggle = '#calendar--date-display';
     const startStopClock = '#start-stop-clock';
@@ -49,7 +50,8 @@ export class WeatherApplication extends Application {
     this.listenToWindowMove(html);
     this.listenToWeatherRefreshClick(html);
 
-    global[moduleJson.class].resetPosition = this.resetPosition();
+    global[moduleJson.class] = {};
+    global[moduleJson.class].resetPosition = () => this.resetPosition();
   }
 
   private listenToWindowMove(html: JQuery) {
@@ -157,23 +159,15 @@ export class WeatherApplication extends Application {
     });
   }
 
-  public resetPosition(): Promise<void> {
+  public resetPosition() {
     const defaultPosition = { top: 100, left: 100 };
-    return new Promise(resolve => {
-      function check() {
-        const element = this.getElementById('calendar-time-container');
-        if (element) {
-          this.logger.info('Resetting Calendar Position');
-          element.style.top = defaultPosition.top;
-          element.style.left = defaultPosition.left;
-          this.settings.setWindowPosition({top: element.offsetTop, left: element.offsetLeft});
-          element.style.bottom = null;
-          resolve();
-        } else {
-          setTimeout(check, 30);
-        }
-      }
-      check();
-    });
+    const element = this.getElementById('calendar-time-container');
+    if (element) {
+      this.logger.info('Resetting Window Position');
+      element.style.top = defaultPosition.top + 'px';
+      element.style.left = defaultPosition.left + 'px';
+      this.settings.setWindowPosition({top: element.offsetTop, left: element.offsetLeft});
+      element.style.bottom = null;
+    }
   }
 }

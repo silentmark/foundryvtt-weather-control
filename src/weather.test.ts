@@ -22,8 +22,7 @@ describe('Weather', () => {
 
   it('SHOULD call the weatherTracker when weather need to be generated', () => {
     givenAWeatherApplicationMock();
-    const settings = getModuleSettings();
-    settings.getDateTime = jest.fn().mockReturnValue(givenADateTime());
+    givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
     weatherTracker.generate = jest.fn();
 
@@ -34,8 +33,7 @@ describe('Weather', () => {
 
   it('SHOULD NOT call weatherTracker when the date does not change', () => {
     givenAWeatherApplicationMock();
-    const settings = getModuleSettings();
-    settings.getDateTime = jest.fn().mockReturnValue(givenADateTime());
+    givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
     weatherTracker.generate = jest.fn();
 
@@ -46,8 +44,7 @@ describe('Weather', () => {
 
   it('SHOULD NOT call weatherTracker when the new date object is partially undefined', () => {
     givenAWeatherApplicationMock();
-    const settings = getModuleSettings();
-    settings.getDateTime = jest.fn().mockReturnValue(givenADateTime());
+    givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
     weatherTracker.generate = jest.fn();
     const invalidDateObject = givenADifferentDateTime();
@@ -62,8 +59,7 @@ describe('Weather', () => {
     givenAWeatherApplicationMock();
     const invalidDateObject = givenADateTime();
     delete invalidDateObject.date.day;
-    const settings = getModuleSettings();
-    settings.getDateTime = jest.fn().mockReturnValue(invalidDateObject);
+    givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
     weatherTracker.generate = jest.fn();
 
@@ -72,8 +68,11 @@ describe('Weather', () => {
     expect(weatherTracker.generate).toHaveBeenCalled();
   });
 
-  function getModuleSettings(): ModuleSettings {
-    return weather['settings'];
+  function givenModuleSettingsWithDateTime(): ModuleSettings {
+    const settings = weather['settings'];
+    settings.getWeatherData = jest.fn().mockReturnValue({ dateTime: givenADateTime() });
+
+    return settings;
   }
 
   function getWeatherTracker(): WeatherTracker {

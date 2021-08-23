@@ -1,11 +1,8 @@
+import { Month } from './month';
+import { WeatherTrackerLegacy } from './weatherTrackerLegacy';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import {
-  WeatherTrackerLegacy
-} from './weatherTrackerLegacy';
-import {
-  Month
-} from './month';
 // import {
 //   cwdtData
 // } from "./calendar-weather";
@@ -363,36 +360,36 @@ export class DateTime {
       let sanction = '';
 
       if (moon.isWaxing) {
-        phasePrefix = game.i18n.localize('cw.moon.IsWaxing');
+        phasePrefix = game.i18n.localize('wctrl.moon.IsWaxing');
         moonSymbolPrefix = 'waxing';
       } else {
-        phasePrefix = game.i18n.localize('cw.moon.Waning');
+        phasePrefix = game.i18n.localize('wctrl.moon.Waning');
         moonSymbolPrefix = 'waning';
       }
 
       if (moon.cyclePercent <= 7) {
         // New moon 7%
         moonSymbolPrefix = 'new';
-        moonPhase = game.i18n.localize('cw.moon.New');
+        moonPhase = game.i18n.localize('wctrl.moon.New');
         phasePrefix = '';
       } else if (moon.cyclePercent <= 43) {
         // Crescent 36%
         moonSymbolSuffix = 'Crescent';
-        moonPhase = game.i18n.localize('cw.moon.Crescent');
+        moonPhase = game.i18n.localize('wctrl.moon.Crescent');
       } else if (moon.cyclePercent <= 57) {
         // Half 14%
         moonSymbolSuffix = 'Quarter';
         moonSymbolPrefix = moon.isWaxing ? 'first' : 'third';
-        phasePrefix = game.i18n.localize(moon.isWaxing ? 'cw.moon.FirstQuarter' : 'cw.moon.ThirdQuarter');
-        moonPhase = game.i18n.localize('cw.moon.Quarter');
+        phasePrefix = game.i18n.localize(moon.isWaxing ? 'wctrl.moon.FirstQuarter' : 'wctrl.moon.ThirdQuarter');
+        moonPhase = game.i18n.localize('wctrl.moon.Quarter');
       } else if (moon.cyclePercent <= 93) {
         // Gibbous 36%
         moonSymbolSuffix = 'Gibbous';
-        moonPhase = game.i18n.localize('cw.moon.Gibbous');
+        moonPhase = game.i18n.localize('wctrl.moon.Gibbous');
       } else {
         // Full 7%
         moonSymbolPrefix = 'full';
-        moonPhase = game.i18n.localize('cw.moon.Full');
+        moonPhase = game.i18n.localize('wctrl.moon.Full');
         phasePrefix = '';
       }
 
@@ -400,10 +397,10 @@ export class DateTime {
       if (game.settings.get('calendar-weather', 'useSanctions')) {
         if (moon.cyclePercent <= 25) {
           // Low Sanction
-          sanction = game.i18n.localize('cw.moon.LowSanction');
+          sanction = game.i18n.localize('wctrl.moon.LowSanction');
         } else if (moon.cyclePercent >= 75) {
           // High Sanction
-          sanction = game.i18n.localize('cw.moon.HighSanction');
+          sanction = game.i18n.localize('wctrl.moon.HighSanction');
         }
       }
 
@@ -431,7 +428,7 @@ export class DateTime {
       //check solar eclipse
       const roll = Math.random() * 100;
       if (roll < moon.solarEclipseChance) {
-        const chatOut = `<div class="calendar-weather-chat"> <img src="${'./modules/calendar-weather/icons/sEclipse.svg'}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.SEclipseEventIncoming')}</p></div></div>`;
+        const chatOut = `<div class="calendar-weather-chat"> <img src="${'./modules/calendar-weather/icons/sEclipse.svg'}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('wctrl.moon.SEclipseEventIncoming')}</p></div></div>`;
         ChatMessage.create({
           speaker: {
             alias: moon.name,
@@ -442,7 +439,7 @@ export class DateTime {
         const solarEclipse = (moon, index, moonSymbol, moonPhase, phasePrefix) => {
           let chatOut = '';
           if ((document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src.includes('Eclipse')) {
-            chatOut = `<div class="calendar-weather-chat"> <img src="${moonSymbol}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.SEclipseEventEnd')}</p></div></div>`;
+            chatOut = `<div class="calendar-weather-chat"> <img src="${moonSymbol}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('wctrl.moon.SEclipseEventEnd')}</p></div></div>`;
             (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src = moonSymbol;
             document.getElementById(`calender-moon-symbol-${index}`).title = `${moon.name} | ${phasePrefix} ${moonPhase}`;
             if (this.weather.doNightCycle && Gametime.isMaster()) {
@@ -453,9 +450,9 @@ export class DateTime {
               });
             }
           } else {
-            chatOut = `<div class="calendar-weather-chat"> <img src="${'./modules/calendar-weather/icons/sEclipse.svg'}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.SEclipseEvent')}</p></div></div>`;
+            chatOut = `<div class="calendar-weather-chat"> <img src="${'./modules/calendar-weather/icons/sEclipse.svg'}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('wctrl.moon.SEclipseEvent')}</p></div></div>`;
             (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src = './modules/calendar-weather/icons/sEclipse.svg';
-            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('cw.moon.SEclipseEvent')}`;
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('wctrl.moon.SEclipseEvent')}`;
             if (this.weather.doNightCycle && Gametime.isMaster()) {
               canvas.scene.update({
                 darkness: 1
@@ -485,13 +482,13 @@ export class DateTime {
         const roll = Math.random() * 100;
         if (roll < moon.lunarEclipseChance) {
           let chatOut = '';
-          if (moonPhase == game.i18n.localize('cw.moon.Full')) {
-            chatOut = `<div class="calendar-weather-chat"> <img src="${'./modules/calendar-weather/icons/totalLEclipse.svg'}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.TotalLEclipse')}</p></div></div>`;
+          if (moonPhase == game.i18n.localize('wctrl.moon.Full')) {
+            chatOut = `<div class="calendar-weather-chat"> <img src="${'./modules/calendar-weather/icons/totalLEclipse.svg'}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('wctrl.moon.TotalLEclipse')}</p></div></div>`;
             (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).src = './modules/calendar-weather/icons/totalLEclipse.svg';
-            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('cw.moon.TotalLEclipse')}`;
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('wctrl.moon.TotalLEclipse')}`;
           } else if ((document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement)) {
-            chatOut = `<div class="calendar-weather-chat"> <img src="${moonSymbol}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('cw.moon.PartialLEclipse')}</p></div></div>`;
-            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('cw.moon.PartialLEclipse')}`;
+            chatOut = `<div class="calendar-weather-chat"> <img src="${moonSymbol}"> <div class="calendar-weather-chat--description"> <h4>${moon.name}</h4> <p>${game.i18n.localize('wctrl.moon.PartialLEclipse')}</p></div></div>`;
+            (document.getElementById(`calender-moon-symbol-${index}`) as HTMLImageElement).title = `${moon.name} | ${game.i18n.localize('wctrl.moon.PartialLEclipse')}`;
           }
           const messageLvl = ChatMessage.getWhisperRecipients('GM');
           ChatMessage.create({
@@ -523,7 +520,7 @@ export class DateTime {
       const messageLvl = ChatMessage.getWhisperRecipients('GM');
       ChatMessage.create({
         speaker: {
-          alias: game.i18n.localize('cw.moon.ChatTitle'),
+          alias: game.i18n.localize('wctrl.moon.ChatTitle'),
         },
         whisper: messageLvl,
         content: updatedMoons,
@@ -697,13 +694,13 @@ export class DateTime {
     const days = now.days + 1;
     let dayAppendage = '';
     if (days % 10 == 1 && days != 11) {
-      dayAppendage = game.i18n.localize('cw.time.First');
+      dayAppendage = game.i18n.localize('wctrl.time.First');
     } else if (days % 10 == 2 && days != 12) {
-      dayAppendage = game.i18n.localize('cw.time.Second');
+      dayAppendage = game.i18n.localize('wctrl.time.Second');
     } else if (days % 10 == 3 && days != 13) {
-      dayAppendage = game.i18n.localize('cw.time.Third');
+      dayAppendage = game.i18n.localize('wctrl.time.Third');
     } else {
-      dayAppendage = game.i18n.localize('cw.time.Fourth');
+      dayAppendage = game.i18n.localize('wctrl.time.Fourth');
     }
     this.dateWordy = days + dayAppendage + ' of ' +
       this.months[now.months].name + ', ' + now.years + ' ' + this.era;

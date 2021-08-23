@@ -1,3 +1,5 @@
+import { Date } from './dateTime';
+
 declare global {
   interface Window { SimpleCalendar: any; }
 }
@@ -21,5 +23,13 @@ export class SimpleCalendarApi {
 
   static stopClock(): boolean {
     return this.SimpleCalendar.stopClock();
+  }
+
+  static timestamp(): number {
+    return this.SimpleCalendar.timestamp();
+  }
+
+  static timestampToDate(timestamp: number): Date {
+    return this.SimpleCalendar.timestampToDate(timestamp);
   }
 }

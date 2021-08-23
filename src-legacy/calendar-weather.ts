@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { registerSettings } from './registerSettings';
-import { DateTime as CWDateTime } from './dateTime';
-import { Calendar } from './calendar';
-import { WarningSystem } from './warningSystem';
-// import { Gametime } from '../types/about-time';
 import '../styles/calendar.scss';
 import '../styles/wfrpcalendar.scss';
 
+import { Calendar } from './calendar';
+import { DateTime as CWDateTime } from './dateTime';
+import { registerSettings } from './registerSettings';
+import { WarningSystem } from './warningSystem';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// import { Gametime } from '../types/about-time';
 
 interface Operations {
   resetPos: any;
@@ -197,14 +198,14 @@ $(document).ready(() => {
 
     const fxHtml = `
     <div class="form-group">
-        <label>${game.i18n.localize('cw.settings.WeatherLabel')}</label>
+        <label>${game.i18n.localize('wctrl.settings.WeatherLabel')}</label>
         <input id="calendar-weather-showFX" type="checkbox" name="calendarFXWeather" data-dtype="Boolean" ${loadedWeatherData ? 'checked' : ''}>
-        <p class="notes">${game.i18n.localize('cw.settings.WeatherLabelHelp')}</p>
+        <p class="notes">${game.i18n.localize('wctrl.settings.WeatherLabelHelp')}</p>
     </div>
     <div class="form-group">
-        <label>${game.i18n.localize('cw.settings.NightCycleLabel')}</label>
+        <label>${game.i18n.localize('wctrl.settings.NightCycleLabel')}</label>
         <input id="calendar-weather-doNightCycle" type="checkbox" name="calendarFXNight" data-dtype="Boolean" ${loadedNightData ? 'checked' : ''}>
-        <p class="notes">${game.i18n.localize('cw.settings.NightCycleLabelHelp')}</p>
+        <p class="notes">${game.i18n.localize('wctrl.settings.NightCycleLabelHelp')}</p>
     </div>
     `;
     const fxFind = html.find('select[name =\'weather\']');
@@ -238,7 +239,7 @@ $(document).ready(() => {
       const notes = controls.find(control => control.name == 'notes');
       notes.tools.splice( notes.tools.length-1, 0, {
         name: 'toggleCalendar',
-        title: 'cw.misc.toggleControl',
+        title: 'wctrl.misc.toggleControl',
         icon: 'far fa-calendar-alt',
         onClick: () => {
           window.CWCalendar.toggleCalendar(calendar);

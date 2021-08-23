@@ -1,7 +1,9 @@
+import moduleJson from '@module';
+
 import { LogLevel } from './logLevel';
 
 export class Log {
-  private messagePrefix = 'Weather | ';
+  private messagePrefix = moduleJson.title + ' | ';
   private checkLevel: () => boolean | LogLevel = () => LogLevel.NONE;
 
   public registerLevelCheckCallback(callback: () => boolean | LogLevel) {

@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import { cwdtData } from './calendar-weather';
 import { _myCalendarSpec, DateTime as CWDateTime } from './dateTime';
 import { Month } from './month';
-import { cwdtData } from './calendar-weather';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 // import { Gametime } from '../types/about-time/index.js';
 
 export class CalendarForm extends FormApplication {
@@ -317,7 +318,7 @@ export class CalendarForm extends FormApplication {
       document.execCommand('copy');
       document.body.removeChild(el);
       console.log('calendar-weather | Calendar data copied');
-      ui.notifications.info(game.i18n.localize('cw.export.copied'));
+      ui.notifications.info(game.i18n.localize('wctrl.export.copied'));
     });
 
     html.find(importBtn).click(ev => {
@@ -353,9 +354,9 @@ export class CalendarForm extends FormApplication {
                 cwdtData.dt.moons = data.moons;
                 cwdtData.dt.genDateWordy();
                 this.close();
-                ui.notifications.info(game.i18n.localize('cw.import.success'));
+                ui.notifications.info(game.i18n.localize('wctrl.import.success'));
               } catch (err) {
-                ui.notifications.error(`${game.i18n.localize('cw.import.failure')} ${err}`);
+                ui.notifications.error(`${game.i18n.localize('wctrl.import.failure')} ${err}`);
               }
             }
           },

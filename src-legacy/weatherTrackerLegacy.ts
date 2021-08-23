@@ -1,10 +1,8 @@
+import { cwdtData } from './calendar-weather';
+
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { Gametime } from '../types/about-time/index';
-import {
-  cwdtData
-} from './calendar-weather';
-
 declare const canvas: Canvas; // FIXME: I don't like doing this but I can't figure out where it really comes from
 declare const game: Game;
 declare const WFRP_Utility: any;
@@ -79,31 +77,31 @@ export class WeatherTrackerLegacy {
     const roll = this.rand(1, 5);
     let event = '';
     if (this.isVolcanic) {
-      return game.i18n.localize('cw.weather.tracker.extreme.VolcanoEruption');
+      return game.i18n.localize('wctrl.weather.tracker.extreme.VolcanoEruption');
     }
     switch (roll) {
     case 1:
-      event = game.i18n.localize('cw.weather.tracker.extreme.Tornado');
+      event = game.i18n.localize('wctrl.weather.tracker.extreme.Tornado');
       break;
     case 2:
-      event = game.i18n.localize('cw.weather.tracker.extreme.Hurricane');
+      event = game.i18n.localize('wctrl.weather.tracker.extreme.Hurricane');
       break;
     case 3:
-      event = game.i18n.localize('cw.weather.tracker.extreme.Drought');
+      event = game.i18n.localize('wctrl.weather.tracker.extreme.Drought');
       this.humidity = -5;
       break;
     case 4:
-      event = game.i18n.localize('cw.weather.tracker.extreme.BaseballHail');
+      event = game.i18n.localize('wctrl.weather.tracker.extreme.BaseballHail');
       break;
     case 5:
       if (this.temp <= 32) {
-        event = game.i18n.localize('cw.weather.tracker.extreme.Blizzard');
+        event = game.i18n.localize('wctrl.weather.tracker.extreme.Blizzard');
       } else {
-        event = game.i18n.localize('cw.weather.tracker.extreme.Monsoon');
+        event = game.i18n.localize('wctrl.weather.tracker.extreme.Monsoon');
       }
       break;
     }
-    return game.i18n.localize('cw.weather.tracker.extreme.Extreme') + event;
+    return game.i18n.localize('wctrl.weather.tracker.extreme.Extreme') + event;
   }
 
   /**
@@ -235,9 +233,9 @@ export class WeatherTrackerLegacy {
     }
     if (roll <= 3) {
       if (this.isVolcanic) {
-        weather = game.i18n.localize('cw.weather.tracker.normal.Ashen');
+        weather = game.i18n.localize('wctrl.weather.tracker.normal.Ashen');
       } else {
-        weather = game.i18n.localize('cw.weather.tracker.normal.Clear');
+        weather = game.i18n.localize('wctrl.weather.tracker.normal.Clear');
       }
     } else if (roll <= 6) {
       this.humidity += 1;
@@ -253,7 +251,7 @@ export class WeatherTrackerLegacy {
             apply_tint: true
           }
         });
-        weather = game.i18n.localize('cw.weather.tracker.normal.Dark');
+        weather = game.i18n.localize('wctrl.weather.tracker.normal.Dark');
       } else {
         effects.push({
           type: 'clouds',
@@ -266,11 +264,11 @@ export class WeatherTrackerLegacy {
             apply_tint: true
           }
         });
-        weather = game.i18n.localize('cw.weather.tracker.normal.Scattered');
+        weather = game.i18n.localize('wctrl.weather.tracker.normal.Scattered');
       }
     } else if (roll == 7) {
       if (this.isVolcanic) {
-        weather = game.i18n.localize('cw.weather.tracker.normal.SunAsh');
+        weather = game.i18n.localize('wctrl.weather.tracker.normal.SunAsh');
       } else {
         if (this.temp < 25) {
           effects.push({
@@ -295,7 +293,7 @@ export class WeatherTrackerLegacy {
               apply_tint: true
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.Overcast');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.Overcast');
         } else if (this.temp < 32) {
           effects.push({
             type: 'clouds',
@@ -326,7 +324,7 @@ export class WeatherTrackerLegacy {
               direction: '50',
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.OvercastLight');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.OvercastLight');
         } else {
           effects.push({
             type: 'clouds',
@@ -350,7 +348,7 @@ export class WeatherTrackerLegacy {
               apply_tint: true
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.OvercastDrizzle');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.OvercastDrizzle');
         }
       }
     } else if (roll == 8) {
@@ -381,7 +379,7 @@ export class WeatherTrackerLegacy {
             apply_tint: true
           }
         });
-        weather = game.i18n.localize('cw.weather.tracker.normal.Ashfall');
+        weather = game.i18n.localize('wctrl.weather.tracker.normal.Ashfall');
       } else {
         if (this.temp < 25) {
           effects.push({
@@ -395,7 +393,7 @@ export class WeatherTrackerLegacy {
               apply_tint: true
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.LightSnow');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.LightSnow');
         } else if (this.temp < 32) {
           effects.push({
             type: 'snow',
@@ -419,7 +417,7 @@ export class WeatherTrackerLegacy {
               apply_tint: true
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.LightRain');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.LightRain');
         } else {
           effects.push({
             type: 'rain',
@@ -432,7 +430,7 @@ export class WeatherTrackerLegacy {
               apply_tint: true
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.ModerateRainW');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.ModerateRainW');
         }
       }
 
@@ -464,7 +462,7 @@ export class WeatherTrackerLegacy {
             apply_tint: true
           }
         });
-        weather = game.i18n.localize('cw.weather.tracker.normal.FireyRain');
+        weather = game.i18n.localize('wctrl.weather.tracker.normal.FireyRain');
       } else {
         if (this.temp < 25) {
           effects.push({
@@ -473,7 +471,7 @@ export class WeatherTrackerLegacy {
               density: '72',
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.LargeSnow');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.LargeSnow');
         } else if (this.temp < 32) {
           effects.push({
             type: 'snow',
@@ -497,7 +495,7 @@ export class WeatherTrackerLegacy {
               apply_tint: true
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.LargeFreezingRain');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.LargeFreezingRain');
         } else {
           effects.push({
             type: 'rain',
@@ -510,7 +508,7 @@ export class WeatherTrackerLegacy {
               apply_tint: true
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.HeavyRain');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.HeavyRain');
         }
       }
 
@@ -567,7 +565,7 @@ export class WeatherTrackerLegacy {
               apply_tint: true
             }
           });
-          weather = game.i18n.localize('cw.weather.tracker.normal.Earthquake');
+          weather = game.i18n.localize('wctrl.weather.tracker.normal.Earthquake');
         } else {
           if (this.temp < 25) {
             effects.push({
@@ -590,7 +588,7 @@ export class WeatherTrackerLegacy {
                 direction: '50',
               }
             });
-            weather = game.i18n.localize('cw.weather.tracker.normal.Blizzard');
+            weather = game.i18n.localize('wctrl.weather.tracker.normal.Blizzard');
           } else if (this.temp < 32) {
             effects.push({
               type: 'snow',
@@ -623,7 +621,7 @@ export class WeatherTrackerLegacy {
                 direction: '50',
               }
             });
-            weather = game.i18n.localize('cw.weather.tracker.normal.Icestorm');
+            weather = game.i18n.localize('wctrl.weather.tracker.normal.Icestorm');
           } else {
             effects.push({
               type: 'rain',
@@ -656,7 +654,7 @@ export class WeatherTrackerLegacy {
                 direction: '50',
               }
             });
-            weather = game.i18n.localize('cw.weather.tracker.normal.TorrentialRain');
+            weather = game.i18n.localize('wctrl.weather.tracker.normal.TorrentialRain');
           }
         }
 
@@ -683,7 +681,7 @@ export class WeatherTrackerLegacy {
     const chatOut = '<b>' + tempOut + '</b> - ' + this.precipitation;
     ChatMessage.create({
       speaker: {
-        alias: game.i18n.localize('cw.weather.tracker.Today'),
+        alias: game.i18n.localize('wctrl.weather.tracker.Today'),
       },
       whisper: messageLvl,
       content: chatOut,
@@ -730,7 +728,7 @@ export class WeatherTrackerLegacy {
     //Morrslieb weather events
     const morrTrigger = (this.rand(1, 400) == 1 || cwdtData.dt.months[Gametime.DTNow().months].name == 'Hexenstag' || cwdtData.dt.months[Gametime.DTNow().months].name == 'Geheimnistag');
     if (morrTrigger && (game.data as Data).system.data.name == 'wfrp4e' && Gametime.isMaster()) {
-      this.precipitation = game.i18n.localize('cw.weather.tracker.MorrsliebFull');
+      this.precipitation = game.i18n.localize('wctrl.weather.tracker.MorrsliebFull');
     } else {
       this.precipitation = this.genPrecip(roll);
     }
@@ -805,12 +803,12 @@ export class WeatherTrackerLegacy {
     const dt = Gametime.DTNow();
     let newDarkness = 0;
     if (this.doNightCycle && Gametime.isMaster()) {
-      if (this.precipitation == game.i18n.localize('cw.weather.tracker.MorrsliebFull') && (game.data as Data).system.data.name == 'wfrp4e' && Gametime.isMaster()) {
+      if (this.precipitation == game.i18n.localize('wctrl.weather.tracker.MorrsliebFull') && (game.data as Data).system.data.name == 'wfrp4e' && Gametime.isMaster()) {
         if (!canvas.scene.getFlag('wfrp4e', 'morrslieb')) {
           console.log('calendar-weather | Activating Morrslieb');
           WFRP_Utility.toggleMorrslieb();
         }
-      } else if (this.precipitation != game.i18n.localize('cw.weather.tracker.MorrsliebFull') && (game.data as Data).system.data.name == 'wfrp4e' && Gametime.isMaster()) {
+      } else if (this.precipitation != game.i18n.localize('wctrl.weather.tracker.MorrsliebFull') && (game.data as Data).system.data.name == 'wfrp4e' && Gametime.isMaster()) {
         if (canvas.scene.getFlag('wfrp4e', 'morrslieb')) {
           console.log('calendar-weather | Deactivating Morrslieb');
           WFRP_Utility.toggleMorrslieb();

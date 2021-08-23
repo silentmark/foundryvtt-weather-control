@@ -1,7 +1,8 @@
 import { WeatherApplication } from './applications/weatherApplication';
+import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
-import { defaultWeatherData, WeatherData } from './models/weatherData';
+import { WeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
 import { ChatProxy } from './proxies/chatProxy';
 import { WeatherTracker } from './weather/weatherTracker';
@@ -18,36 +19,46 @@ export class Weather {
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
     this.settings = new ModuleSettings(this.gameRef);
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
-    this.weatherApplication = new WeatherApplication(
-      this.gameRef,
-      this.settings,
-      this.settings.getDateTime(),
-      this.weatherTracker, this.logger);
+
     this.logger.info('Init completed');
   }
 
-  public onReady(): void {
+  public onReady() {
     const weatherData = this.settings.getWeatherData();
 
     if (this.isWeatherDataValid(weatherData)) {
       this.logger.info('Using saved weather data');
-      this.weatherTracker.loadWeatherData(this.settings.getWeatherData());
+      this.weatherTracker.loadWeatherData(weatherData);
     } else {
-      this.logger.info('No saved weather data - Using defaults');
-      this.weatherTracker.loadWeatherData(defaultWeatherData);
-      this.settings.setWeatherData(defaultWeatherData);
+      this.logger.info('No saved weather data - Generating weather');
+
+      const baseWeatherData = new WeatherData();
+      baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
+
+      this.weatherTracker.loadWeatherData(baseWeatherData);
+      this.weatherTracker.generate(true);
     }
+
+    this.weatherApplication = new WeatherApplication(
+      this.gameRef,
+      this.settings,
+      this.weatherTracker,
+      this.logger,
+      () => {
+        this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
+        this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+      });
   }
 
   public onDateTimeChange(dateTime: DateTime) {
     this.logger.debug('DateTime has changed', dateTime);
 
-    if (this.dateHasChanged(dateTime)) {
-      this.weatherTracker.generate();
+    if (this.hasDateChanged(dateTime)) {
+      const newWeather = this.weatherTracker.generate();
+      this.settings.setWeatherData(newWeather);
     }
 
     this.updateWeatherDisplay(dateTime);
-    this.settings.setDateTime(dateTime);
   }
 
   public onClockStartStop() {
@@ -58,8 +69,8 @@ export class Weather {
     this.weatherApplication.resetPosition();
   }
 
-  private dateHasChanged(dateTime: DateTime): boolean {
-    const previous = this.settings.getDateTime()?.date;
+  private hasDateChanged(dateTime: DateTime): boolean {
+    const previous = this.settings.getWeatherData().dateTime?.date;
     const date = dateTime.date;
 
     if (this.isDateTimeValid(dateTime)) {
