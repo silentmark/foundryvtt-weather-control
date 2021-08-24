@@ -1,20 +1,4 @@
 {
-  "wctrl.events.AddOneTime": "単発イベントを追加する",
-  "wctrl.events.AddReoccuring": "新しい繰り返しイベントを追加する",
-  "wctrl.events.AllDay": "全日イベント",
-  "wctrl.events.DateReoccuringEvent": "祝日などの繰り返されるイベント入力してください。",
-  "wctrl.events.DeleteReoccuring": "繰り返しイベントを削除する",
-  "wctrl.events.EventName": "イベントの名称",
-  "wctrl.events.JournalInfo": "イベントの詳細。@JournalEntry[]が使用可能です。",
-  "wctrl.events.JournalInfoExample": "例：今日は@JournalEntry[ハンドアウト名]の日です。",
-  "wctrl.events.NameExample": "例：クリスマス",
-  "wctrl.events.OneTimeDescription": "暗殺決行日などの1回だけ表示されるイベントの開始日を入力します。このイベントは表示後に削除されます。",
-  "wctrl.events.OneTimeEvents": "単発イベント",
-  "wctrl.events.Save": "イベント状態を保存する",
-  "wctrl.events.StartDay": "イベント開始日",
-  "wctrl.events.StartDayHelp": "このイベントは何日に開始しますか？",
-  "wctrl.events.StartMonth": "イベント開始月",
-
   "wctrl.export.copied": "カレンダーをクリップボードにコピーしました！",
 
   "wctrl.import.failure": "インポートに失敗しました。",
