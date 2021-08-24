@@ -83,11 +83,11 @@ export class WeatherTracker {
 
   private output() {
     let tempOut = '';
-    if (this.settings.getUseCelcius()) {
-      tempOut = this.weatherData.cTemp + ' °C';
-    } else {
-      tempOut = this.weatherData.temp + ' °F';
-    }
+    // if (this.settings.getUseCelcius()) {
+    tempOut = this.weatherData.cTemp + ' °C';
+    // } else {
+    //   tempOut = this.weatherData.temp + ' °F';
+    // }
     const gmUser = this.chatProxy.getWhisperRecipients('GM')[0];
     const chatOut = '<b>' + tempOut + '</b> - ' + this.weatherData.precipitation;
 
