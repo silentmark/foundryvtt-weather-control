@@ -8,13 +8,10 @@ enum SettingKeys {
   windowPosition = 'windowPosition',
   legacyDateTime = 'legacyDateTime',
   dateTime = 'dateTime',
-  is24h = 'is24',
-  moonDisplay = 'moonDisplay',
   noGlobal = 'noGlobal',
   outputWeatherToChat = 'weatherDisplay',
   playerSeeWeather = 'playerSeeWeather',
   useCelcius = 'useCelcius',
-  useSanctions = 'useSanctions',
   weatherData = 'weatherData',
 }
 
@@ -55,14 +52,6 @@ export class ModuleSettings {
     return this.get(SettingKeys.outputWeatherToChat);
   }
 
-  public getMoonDisplay(): boolean {
-    return this.get(SettingKeys.moonDisplay);
-  }
-
-  public getIs24H(): boolean {
-    return this.get(SettingKeys.is24h);
-  }
-
   public getNoGlobal(): boolean {
     return this.get(SettingKeys.noGlobal);
   }
@@ -73,10 +62,6 @@ export class ModuleSettings {
 
   public getPlayerSeeWeather(): boolean {
     return this.get(SettingKeys.playerSeeWeather);
-  }
-
-  public getUseSanctions(): boolean {
-    return this.get(SettingKeys.useSanctions);
   }
 
   private register(settingKey: string, settingConfig: ClientSettings.PartialSetting) {
@@ -92,14 +77,6 @@ export class ModuleSettings {
   }
 
   private registerSettings(): void {
-    // Deprecated
-    this.register(SettingKeys.legacyDateTime, {
-      name: 'Date/Time Data',
-      scope: 'world',
-      config: false,
-      type: Object,
-    });
-
     this.register(SettingKeys.windowPosition, {
       name: 'Calendar Position',
       scope: 'client',
@@ -124,33 +101,12 @@ export class ModuleSettings {
       type: Boolean,
     });
 
-    // TODO: This one might disappear. It currently is "Output weather to chat?"
     this.register(SettingKeys.outputWeatherToChat, {
       name: this.gameRef.i18n.localize('wctrl.settings.Weather2Chat'),
       hint: this.gameRef.i18n.localize('wctrl.settings.Weather2ChatHelp'),
       scope: 'world',
       config: true,
       default: true,
-      type: Boolean,
-    });
-
-    // TODO: This is going away
-    this.register(SettingKeys.moonDisplay, {
-      name: this.gameRef.i18n.localize('wctrl.setting.2Chat'),
-      hint: this.gameRef.i18n.localize('wctrl.setting.2ChatHelp'),
-      scope: 'world',
-      config: true,
-      default: true,
-      type: Boolean,
-    });
-
-    // TODO: This is going away
-    this.register(SettingKeys.is24h, {
-      name: this.gameRef.i18n.localize('wctrl.settings.Display24H'),
-      hint: this.gameRef.i18n.localize('wctrl.settings.Display24HHelp'),
-      scope: 'world',
-      config: true,
-      default: false,
       type: Boolean,
     });
 
@@ -165,7 +121,7 @@ export class ModuleSettings {
       type: Boolean,
     });
 
-    // TODO: This one will stay. It is called "Use Celcius"
+    // TODO: "Use Celcius"
     this.register(SettingKeys.useCelcius, {
       name: this.gameRef.i18n.localize('wctrl.settings.useCelcius'),
       hint: this.gameRef.i18n.localize('wctrl.settings.useCelciusHelp'),
@@ -175,20 +131,10 @@ export class ModuleSettings {
       type: Boolean,
     });
 
-    // TODO: Called "Can Players see the Weather". Not yet sure what it does, switching it does not change anything.
+    // TODO: "Can Players see the Weather"
     this.register(SettingKeys.playerSeeWeather, {
       name: this.gameRef.i18n.localize('wctrl.settings.playerSeeWeather'),
       hint: this.gameRef.i18n.localize('wctrl.settings.playerSeeWeatherHelp'),
-      scope: 'world',
-      config: true,
-      default: false,
-      type: Boolean,
-    });
-
-    // TODO: This one will go away. We don't support moons anymore.
-    this.register(SettingKeys.useSanctions, {
-      name: this.gameRef.i18n.localize('wctrl.settings.useSanctions'),
-      hint: this.gameRef.i18n.localize('wctrl.settings.useSanctionsHelp'),
       scope: 'world',
       config: true,
       default: false,
