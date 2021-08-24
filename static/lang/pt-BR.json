@@ -96,8 +96,6 @@
 
   "wctrl.settings.CalDispNonGm": "Exibição de calendário para não-GM",
   "wctrl.settings.CalDispNonGmHelp": "Quando marcado, os clientes sem permissões no nível GM poderão ver o calendário",
-  "wctrl.settings.Display24H": "Tempo de exibição como 24 horas?",
-  "wctrl.settings.Display24HHelp": "Quando marcado, um relógio de 24 horas será usado para a exibição da hora.",
   "wctrl.settings.NightCycleLabel": "Ciclo Noturno na Cena",
   "wctrl.settings.NightCycleLabelHelp": "Quando marcada, a cena passará por um ciclo noturno, escurecendo durante a noite e ficando mais brilhante durante o dia.",
   "wctrl.settings.NoGlobal": "Desativar iluminação global à noite",
@@ -106,8 +104,6 @@
   "wctrl.settings.playerSeeWeatherHelp": "Quando habilitado, jogadores podem alternar o clima.",
   "wctrl.settings.useCelcius": "Usar Celcius",
   "wctrl.settings.useCelciusHelp": "Usar Celcius para exibir a temperatura.",
-  "wctrl.settings.Weather2Chat": "Enviar previsão do tempo para o bate-papo?",
-  "wctrl.settings.Weather2ChatHelp": "Quando marcado, o tempo será transmitido para o bate-papo, exibido apenas para usuários no nível GM.",
   "wctrl.settings.WeatherLabel": "Efeitos climáticos da cena",
   "wctrl.settings.WeatherLabelHelp": "Quando marcado, se o módulo FXMaster estiver instalado, ele gerará efeitos climáticos, como chuva e nuvens.",
 

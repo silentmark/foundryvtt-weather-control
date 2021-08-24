@@ -12,6 +12,6 @@ describe('Settings', () => {
   });
 
   it('SHOULD register all settings on construction', () => {
-    expect(game.settings.register).toHaveBeenCalledTimes(11);
+    expect(game.settings.register).toHaveBeenCalledTimes(7);
   });
 });

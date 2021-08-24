@@ -96,8 +96,6 @@
 
   "wctrl.settings.CalDispNonGm": "Wyświetlaj kalendarz dla graczy nie-MG",
   "wctrl.settings.CalDispNonGmHelp": "Gdy zaznaczony, gracze bez uprawnień MG mogą zobaczyc kalendarz",
-  "wctrl.settings.Display24H": "Wyświetlaj czas jako 24h?",
-  "wctrl.settings.Display24HHelp": "Gdy zaznaczony, 24 godzinny zegar będzie używany do wyświetlania czasu.",
   "wctrl.settings.NightCycleLabel": "Cykl nocny sceny",
   "wctrl.settings.NightCycleLabelHelp": "Gdy zaznaczony, Scena będzie podążać cyklem dnia i nocy, przygszając światło w nocy i rozjaśniając w ciągu dnia.",
   "wctrl.settings.NoGlobal": "Wyłącz Globalne Oświetlenie w nocy",
@@ -106,8 +104,6 @@
   "wctrl.settings.playerSeeWeatherHelp": "Gdy zaznaczony, gracze mogą wyświetlicz panel pogody.",
   "wctrl.settings.useCelcius": "Używaj Celcjuszy",
   "wctrl.settings.useCelciusHelp": "Używaj punktów Celcjusza do wyświetlania temperatury.",
-  "wctrl.settings.Weather2Chat": "Wyświetlaj pogode na czacie?",
-  "wctrl.settings.Weather2ChatHelp": "Gdy zaznaczony, pogoda będzie wyświetlana na czacie, widoczna wyłącznie dla MG.",
   "wctrl.settings.WeatherLabel": "Efekty pogodowe podczas sceny.",
   "wctrl.settings.WeatherLabelHelp": "Gdy zaznaczony oraz moduł FXMaster jest aktywny, będą generowane efekty pogodowe podczas Sceny takie jak deszcz czy chmury.",
 

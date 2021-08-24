@@ -64,12 +64,8 @@
 
   "wctrl.settings.CalDispNonGm": "Afficher le calendrier pour les non-MJ",
   "wctrl.settings.CalDispNonGmHelp": "Si désactivé, les clients non-MJs ne verront pas le calendrier.",
-  "wctrl.settings.Display24H": "Afficher les heures au format 24hr?",
-  "wctrl.settings.Display24HHelp": "Si activé, l'horloge utilisera un cycle de 25 heures.",
   "wctrl.settings.NightCycleLabel": "Calendar/Weather - Cycle jour/nuit",
   "wctrl.settings.NightCycleLabelHelp": "Quand activé, la scène basculera entre les cycles de jour et de nut. Si FXMaster est installé, les effets de météo seront aussi générés.",
-  "wctrl.settings.Weather2Chat": "Afficher la météo sur  le tchat?",
-  "wctrl.settings.Weather2ChatHelp": "Si activé, la météo sera envoyée sur le tchat, pour tout les MJs",
 
   "wctrl.time.Advance15minutes": "Avancer de 15 minutes",
   "wctrl.time.Advance1hour": "Avancer d'1 heure",
