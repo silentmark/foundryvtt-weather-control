@@ -6,7 +6,6 @@
 
   "wctrl.setting.2Chat": "Afficher les changements de lune dans le Tchat ?",
   "wctrl.setting.2ChatHelp": "Si coché, les changements de phase de la lune seront affichés dans le tchat, seulement pour les MJs.",
-  "wctrl.moon.Moon" : "Lunes",
 
   "wctrl.seasons.AddSeason": "Ajouter une saison",
   "wctrl.seasons.color.blue": "Bleu",
