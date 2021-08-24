@@ -8,11 +8,6 @@
   "wctrl.calendar.Weather": "Weather",
   "wctrl.calendar.Wednesday": "Wednesday",
 
-  "wctrl.export.copied": "Calendar data copied to clipboard!",
-
-  "wctrl.import.failure": "Import Failed!",
-  "wctrl.import.success": "Calendar data successfully imported!",
-
   "wctrl.misc.AboutTimeGitlab": "Open the Gitlab page now",
   "wctrl.misc.AboutTimeMissing": "About Time is not found",
   "wctrl.misc.AboutTimeMissingHelp": "The Calendar/Weather mod requires AboutTime by Tim Posney in order to run properly.",

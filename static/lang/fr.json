@@ -4,9 +4,6 @@
   "wctrl.misc.AboutTimeMissingHelp": "Calendar/Weather nécessite le module AboutTime de Tim Posney pour fonctionner.",
   "wctrl.misc.Disregard": "Ne pas tenir compte de ce message",
 
-  "wctrl.setting.2Chat": "Afficher les changements de lune dans le Tchat ?",
-  "wctrl.setting.2ChatHelp": "Si coché, les changements de phase de la lune seront affichés dans le tchat, seulement pour les MJs.",
-
   "wctrl.seasons.AddSeason": "Ajouter une saison",
   "wctrl.seasons.color.blue": "Bleu",
   "wctrl.seasons.color.green": "Vert",

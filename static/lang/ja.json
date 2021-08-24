@@ -1,9 +1,4 @@
 {
-  "wctrl.export.copied": "カレンダーをクリップボードにコピーしました！",
-
-  "wctrl.import.failure": "インポートに失敗しました。",
-  "wctrl.import.success": "カレンダーのインポートに成功しました！",
-
   "wctrl.misc.AboutTimeGitlab": "Gitlabからインストールする",
   "wctrl.misc.AboutTimeMissing": "About Timeモジュールが見つかりませんでした",
   "wctrl.misc.AboutTimeMissingHelp": "Calendar/Weatherを正しく動作させるには、Tim Posney氏のAbout Timeモジュールの導入が必要です。",

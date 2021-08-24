@@ -8,19 +8,11 @@
   "wctrl.calendar.Weather": "Clima",
   "wctrl.calendar.Wednesday": "Miércoles",
 
-  "wctrl.export.copied": "¡Se han copiado los datos del calendario al portapapeles!",
-
-  "wctrl.import.failure": "¡La importación ha fallado!",
-  "wctrl.import.success": "¡Se han importado correctamente los datos del calendario!",
-
   "wctrl.misc.AboutTimeGitlab": "Abrir página de Gitlab",
   "wctrl.misc.AboutTimeMissing": "About Time no encontrado",
   "wctrl.misc.AboutTimeMissingHelp": "El plugin Calendar/Weather requiere AboutTimeThe de Tim Posney para funcionar correctamente",
   "wctrl.misc.Disregard": "Ignorar este mensaje",
   "wctrl.misc.toggleControl": "Conmutar el calendario",
-
-  "wctrl.setting.2Chat": "¿Mandar cambio lunar al chat?",
-  "wctrl.setting.2ChatHelp": "Si está activado, cualquier cambio de fase lunar será enviado al chat, solo se mostrará a los usuarios con permisos de DM",
 
   "wctrl.seasons.AddSeason": "Agregar una nueva estación",
   "wctrl.seasons.Delete" : "Borrar estación",
