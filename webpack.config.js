@@ -53,7 +53,7 @@ module.exports = (env) => {
                     context: (pathname) => {
                         return !pathname.match("^/sockjs");
                     },
-                    target: "http://localhost:${npm_config_port}",
+                    target: "http://localhost:${npm_config_foundryport}",
                     ws: true,
                 },
             ],
