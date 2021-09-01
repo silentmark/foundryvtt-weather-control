@@ -17,7 +17,7 @@ RUN apk update && apk add --no-cache ca-certificates libstdc++ su-exec bash-comp
 VOLUME /foundry
 
 # TCP Port
-EXPOSE ${npm_config_foundryport}
+EXPOSE 30000
 
 ADD scripts/install-script.sh /scripts/install-script.sh
 
