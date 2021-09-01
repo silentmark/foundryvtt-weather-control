@@ -50,6 +50,7 @@ export class WeatherApplication extends Application {
 
     this.listenToWindowMove(html);
     this.listenToWeatherRefreshClick(html);
+    this.setClimate(html);
     this.listenToClimateChange(html);
 
     global[moduleJson.class] = {};
@@ -74,6 +75,12 @@ export class WeatherApplication extends Application {
       event.preventDefault();
       this.updateWeather(this.weatherTracker.generate());
     });
+  }
+
+  private setClimate(html: JQuery) {
+    const climateSelection = '#calendar-weather-climate';
+
+    html.find(climateSelection).val(this.settings.getWeatherData().climate);
   }
 
   private listenToClimateChange(html: JQuery) {
