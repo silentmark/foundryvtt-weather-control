@@ -49,6 +49,7 @@ export class WeatherApplication extends Application {
 
     this.listenToWindowMove(html);
     this.listenToWeatherRefreshClick(html);
+    this.listenToClimateChange(html);
 
     global[moduleJson.class] = {};
     global[moduleJson.class].resetPosition = () => this.resetPosition();
@@ -71,6 +72,15 @@ export class WeatherApplication extends Application {
     html.find(refreshWeather).on('click', event => {
       event.preventDefault();
       this.updateWeather(this.weatherTracker.generate());
+    });
+  }
+
+  private listenToClimateChange(html: JQuery) {
+    const climateSelection = '#calendar-weather-climate';
+
+    html.find(climateSelection).on('change', (event) => {
+      const target = event.originalEvent.target as HTMLSelectElement;
+      console.log('changed for', target.value);
     });
   }
 
