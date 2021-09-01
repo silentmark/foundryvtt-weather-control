@@ -1,10 +1,21 @@
 import { DateTime } from '../libraries/simple-calendar/dateTime';
 
+export enum Climates {
+  temperate = 'temperate',
+  temperateMountain = 'temperateMountain',
+  desert = 'desert',
+  tundra = 'tundra',
+  tropical = 'tropical',
+  taiga = 'taiga',
+  volcanic = 'volcanic',
+  polar = 'polar',
+}
+
 export class WeatherData {
   public dateTime: DateTime = new DateTime(); // DateTime provided by Simple Calendar
 
   public cTemp: number; // Temperature in celcius
-  public climate: string; // Current climate - TODO: Should be an enum
+  public climate: Climates; // Current climate - TODO: Should be an enum
   public climateTemp: number; // Temperature modifier of the current climate
   public dawn: number; // Hour of dawn begins - FIXME: This might instead come from Simple Calendar
   public dusk: number; // Hour of dusk begins - FIXME: This might instead come from Simple Calendar

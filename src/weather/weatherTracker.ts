@@ -1,4 +1,4 @@
-import { WeatherData } from '../models/weatherData';
+import { Climates, WeatherData } from '../models/weatherData';
 import { ModuleSettings } from '../module-settings';
 import { ChatProxy } from '../proxies/chatProxy';
 import { PrecipitationsGenerator } from './precipitationsGenerator';
@@ -18,7 +18,7 @@ export class WeatherTracker {
     this.weatherData = weatherData;
   }
 
-  public generate(climateChanged = false): WeatherData {
+  public generate(newClimate?: Climates): WeatherData {
     let seasonTemperatureOffset = this.weatherData.seasonTemp || 0;
     const climateTemperatureOffset = this.weatherData.climateTemp || 0;
 
@@ -30,7 +30,8 @@ export class WeatherTracker {
 
     const timeOfYearOffset = seasonTemperatureOffset + climateTemperatureOffset;
 
-    if (climateChanged) { // If climate has been changed
+    if (newClimate) { // If climate has been changed
+      this.weatherData.climate = newClimate;
       this.weatherData.temp =
         this.randAroundValue(this.weatherData.lastTemp || this.rand(0, 20), 5) // Generate a new temperature from the previous, with a variance of 5
         + timeOfYearOffset // Add the season and climate offset

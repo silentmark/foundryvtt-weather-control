@@ -3,7 +3,7 @@ import moduleJson from '@module';
 import { SimpleCalendarApi } from '../libraries/simple-calendar/api';
 import { DateTime } from '../libraries/simple-calendar/dateTime';
 import { Log } from '../logger/logger';
-import { WeatherData } from '../models/weatherData';
+import { Climates, WeatherData } from '../models/weatherData';
 import { WindowPosition } from '../models/windowPosition';
 import { ModuleSettings } from '../module-settings';
 import { WeatherTracker } from '../weather/weatherTracker';
@@ -27,6 +27,7 @@ export class WeatherApplication extends Application {
     options.template = `modules/${moduleJson.name}/templates/calendar.html`;
     options.popOut = false;
     options.resizable = false;
+    (options as any).data = 'hello world';
 
     return options;
   }
@@ -80,7 +81,7 @@ export class WeatherApplication extends Application {
 
     html.find(climateSelection).on('change', (event) => {
       const target = event.originalEvent.target as HTMLSelectElement;
-      console.log('changed for', target.value);
+      this.weatherTracker.generate(target.value as Climates);
     });
   }
 

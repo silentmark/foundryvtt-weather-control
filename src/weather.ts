@@ -2,7 +2,7 @@ import { WeatherApplication } from './applications/weatherApplication';
 import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
-import { WeatherData } from './models/weatherData';
+import { Climates, WeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
 import { ChatProxy } from './proxies/chatProxy';
 import { WeatherTracker } from './weather/weatherTracker';
@@ -36,7 +36,7 @@ export class Weather {
       baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
 
       this.weatherTracker.loadWeatherData(baseWeatherData);
-      this.weatherTracker.generate(true);
+      this.weatherTracker.generate(Climates.temperate);
     }
 
     this.weatherApplication = new WeatherApplication(
