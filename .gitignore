@@ -9,3 +9,4 @@ css/
 coverage/
 
 junit.xml
+.npmrc
