@@ -88,7 +88,8 @@ export class WeatherApplication extends Application {
 
     html.find(climateSelection).on('change', (event) => {
       const target = event.originalEvent.target as HTMLSelectElement;
-      this.weatherTracker.generate(target.value as Climates);
+      const weatherData = this.weatherTracker.generate(target.value as Climates);
+      this.updateWeather(weatherData);
     });
   }
 
