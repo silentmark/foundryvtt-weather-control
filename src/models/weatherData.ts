@@ -1,4 +1,5 @@
 import { DateTime } from '../libraries/simple-calendar/dateTime';
+import { Climate } from './climate';
 
 export enum Climates {
   temperate = 'temperate',
@@ -15,8 +16,7 @@ export class WeatherData {
   public dateTime: DateTime = new DateTime(); // DateTime provided by Simple Calendar
 
   public cTemp: number; // Temperature in celcius
-  public climate: Climates; // Current climate - TODO: Should be an enum
-  public climateTemp: number; // Temperature modifier of the current climate
+  public climate: Climate; // Current climate - TODO: Should be an enum
   public dawn: number; // Hour of dawn begins - FIXME: This might instead come from Simple Calendar
   public dusk: number; // Hour of dusk begins - FIXME: This might instead come from Simple Calendar
   public isC: boolean; // Is temparature displayed as celcius - TODO: Move to settings
@@ -38,7 +38,6 @@ export const defaultWeatherData: WeatherData = {
   dateTime: null,
   cTemp:  null,
   climate: null,
-  climateTemp: 0,
   dawn: 5,
   dusk: 21,
   isC: false,

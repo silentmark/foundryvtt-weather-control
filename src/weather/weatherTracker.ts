@@ -1,3 +1,4 @@
+import { Climate } from '../models/climate';
 import { Climates, WeatherData } from '../models/weatherData';
 import { ModuleSettings } from '../module-settings';
 import { ChatProxy } from '../proxies/chatProxy';
@@ -19,29 +20,33 @@ export class WeatherTracker {
   }
 
   public generate(newClimate?: Climates): WeatherData {
+    if (!this.weatherData.climate) {
+      this.weatherData.climate = this.getClimateData(Climates.temperate);
+    }
+
     let seasonTemperatureOffset = this.weatherData.seasonTemp || 0;
-    const climateTemperatureOffset = this.weatherData.climateTemp || 0;
 
     this.setTemperatureRange();
 
-    if (this.weatherData.climate == 'tropical') {
+    if (this.weatherData.climate.name === Climates.tropical) {
       seasonTemperatureOffset = this.weatherData.seasonTemp * 0.5;
     }
 
-    const timeOfYearOffset = seasonTemperatureOffset + climateTemperatureOffset;
 
     if (newClimate) { // If climate has been changed
-      this.weatherData.climate = newClimate;
+      this.weatherData.climate = this.getClimateData(newClimate);
+      const timeOfYearOffset = seasonTemperatureOffset + this.weatherData.climate.baseTemperature;
       this.weatherData.temp =
         this.randAroundValue(this.weatherData.lastTemp || this.rand(0, 20), 5) // Generate a new temperature from the previous, with a variance of 5
         + timeOfYearOffset // Add the season and climate offset
         + (this.rand(1, 20) === 20 ? 20 : 0); // On a nat 20, add 20 F to cause extreme temperature
     } else if (this.rand(1, 3) === 3) { // In one against 3 cases
+      const timeOfYearOffset = seasonTemperatureOffset + this.weatherData.climate.baseTemperature;
       this.weatherData.temp = this.rand(40, 70) + timeOfYearOffset; // Generate a temperature between cold and room temp
     } else {
       this.weatherData.temp =
       this.randAroundValue(this.weatherData.lastTemp, 5) // Generate a new temperature from the previous, with a variance of 5
-      + Math.floor(climateTemperatureOffset / 20 + seasonTemperatureOffset / 20); // Add the biggest offset between climate and  season. Will usually be 1, otherwise 2, maximum of 5
+      + Math.floor(this.weatherData.climate.baseTemperature / 20 + seasonTemperatureOffset / 20); // Add the biggest offset between climate and  season. Will usually be 1, otherwise 2, maximum of 5
     }
 
     if (this.weatherData.temp > this.weatherData.tempRange.max) { // If current temperature is higher than the max
@@ -119,5 +124,81 @@ export class WeatherTracker {
    */
   private randAroundValue(middleValue: number, maxDifference: number) {
     return this.rand(middleValue - maxDifference, middleValue + maxDifference);
+  }
+
+  private getClimateData(climateName: Climates): Climate {
+    const climate = new Climate();
+    climate.isVolcanic = false;
+    climate.name = climateName;
+
+    switch (climateName) {
+    case Climates.temperate:
+      climate.humidity = 0;
+      climate.baseTemperature = 0;
+      climate.temperatureRange = {
+        max: 100,
+        min: -5
+      };
+      break;
+    case Climates.temperateMountain:
+      climate.humidity = 0;
+      climate.baseTemperature = -10;
+      climate.temperatureRange = {
+        max: 75,
+        min: -40
+      };
+      break;
+    case Climates.desert:
+      climate.humidity = -4;
+      climate.baseTemperature = 20;
+      climate.temperatureRange = {
+        max: 134,
+        min: 50
+      };
+      break;
+    case Climates.tundra:
+      climate.humidity = 0;
+      climate.baseTemperature = -20;
+      climate.temperatureRange = {
+        max: 30,
+        min: -60
+      };
+      break;
+    case Climates.tropical:
+      climate.humidity = 1;
+      climate.baseTemperature = 20;
+      climate.temperatureRange = {
+        max: 100,
+        min: 60
+      };
+      break;
+    case Climates.taiga:
+      climate.humidity = -1;
+      climate.baseTemperature = -20;
+      climate.temperatureRange = {
+        max: 70,
+        min: -65
+      };
+      break;
+    case Climates.volcanic:
+      climate.humidity = 0;
+      climate.baseTemperature = 40;
+      climate.isVolcanic = true;
+      climate.temperatureRange = {
+        max: 170,
+        min: 70
+      };
+      break;
+    case Climates.polar:
+      climate.humidity = 0;
+      climate.baseTemperature = -50;
+      climate.temperatureRange = {
+        max: 10,
+        min: -170
+      };
+      break;
+    }
+
+    return climate;
   }
 }

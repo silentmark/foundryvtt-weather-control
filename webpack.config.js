@@ -2,7 +2,6 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
-const globImporter = require("node-sass-glob-importer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const path = require("path");
@@ -14,9 +13,6 @@ const allTemplates = () => {
         .map((file) => `"modules/template/templates/${file}"`)
         .join(", ");
 };
-
-function getDevDirectory() { return process.env.npm_config_devdir + '/data/Data/modules/weather-control/'; }
-
 
 module.exports = (env) => {
     const defaults = {

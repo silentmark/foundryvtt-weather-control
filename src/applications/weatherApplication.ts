@@ -80,7 +80,7 @@ export class WeatherApplication extends Application {
   private setClimate(html: JQuery) {
     const climateSelection = '#calendar-weather-climate';
 
-    html.find(climateSelection).val(this.settings.getWeatherData().climate);
+    html.find(climateSelection).val(this.settings.getWeatherData().climate?.name || Climates.temperate);
   }
 
   private listenToClimateChange(html: JQuery) {
