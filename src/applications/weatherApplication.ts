@@ -3,7 +3,7 @@ import moduleJson from '@module';
 import { SimpleCalendarApi } from '../libraries/simple-calendar/api';
 import { DateTime } from '../libraries/simple-calendar/dateTime';
 import { Log } from '../logger/logger';
-import { WeatherData } from '../models/weatherData';
+import { Climates, WeatherData } from '../models/weatherData';
 import { WindowPosition } from '../models/windowPosition';
 import { ModuleSettings } from '../module-settings';
 import { WeatherTracker } from '../weather/weatherTracker';
@@ -49,6 +49,8 @@ export class WeatherApplication extends Application {
 
     this.listenToWindowMove(html);
     this.listenToWeatherRefreshClick(html);
+    this.setClimate(html);
+    this.listenToClimateChange(html);
 
     global[moduleJson.class] = {};
     global[moduleJson.class].resetPosition = () => this.resetPosition();
@@ -71,6 +73,22 @@ export class WeatherApplication extends Application {
     html.find(refreshWeather).on('click', event => {
       event.preventDefault();
       this.updateWeather(this.weatherTracker.generate());
+    });
+  }
+
+  private setClimate(html: JQuery) {
+    const climateSelection = '#calendar-weather-climate';
+
+    html.find(climateSelection).val(this.settings.getWeatherData().climate?.name || Climates.temperate);
+  }
+
+  private listenToClimateChange(html: JQuery) {
+    const climateSelection = '#calendar-weather-climate';
+
+    html.find(climateSelection).on('change', (event) => {
+      const target = event.originalEvent.target as HTMLSelectElement;
+      const weatherData = this.weatherTracker.generate(target.value as Climates);
+      this.updateWeather(weatherData);
     });
   }
 

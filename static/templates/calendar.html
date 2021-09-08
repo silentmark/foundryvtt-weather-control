@@ -8,7 +8,7 @@
 
 			<!-- day name -->
 			<h1 id="calendar--move-handle">
-				<span id="calendar-weekday">Calendar/Weather</span>
+				<span id="calendar-weekday">Weather Control</span>
 			</h1>
 
 			<div class="header-navigation">
@@ -91,9 +91,9 @@
 		<div id="calendar-weather--container">
 			<header>
 				<span id="calendar-weather--temp">24.5°C</span>
-		    <select class="calendar-weather-climate" title="{{localize 'wctrl.weather.SelectClimate'}}" onChange="Hooks.callAll('calendarWeatherClimateSet', this.value);">
-		    	<option title="{{localize 'wctrl.weather.climate.description.Temperate'}}" value="temperate">{{localize 'wctrl.weather.climate.Temperate'}}</option>
-		      <option title="{{localize 'wctrl.weather.climate.description.TemperateMountain'}}" value="tempMountain">{{localize 'wctrl.weather.climate.TemperateMountain'}}</option>
+		    <select id="calendar-weather-climate" title="{{localize 'wctrl.weather.SelectClimate'}}">
+		    	<option title="{{localize 'wctrl.weather.climate.description.Temperate'}}" value="{{temperate}}">{{localize 'wctrl.weather.climate.Temperate'}}</option>
+		      <option title="{{localize 'wctrl.weather.climate.description.TemperateMountain'}}" value="temperateMountain">{{localize 'wctrl.weather.climate.TemperateMountain'}}</option>
 		      <option title="{{localize 'wctrl.weather.climate.description.Desert'}}" value="desert">{{localize 'wctrl.weather.climate.Desert'}}</option>
 		      <option title="{{localize 'wctrl.weather.climate.description.Tundra'}}" value="tundra">{{localize 'wctrl.weather.climate.Tundra'}}</option>
 		      <option title="{{localize 'wctrl.weather.climate.descripton.Tropical'}}" value="tropical">{{localize 'wctrl.weather.climate.Tropical'}}</option>
