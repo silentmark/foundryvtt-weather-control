@@ -97,9 +97,18 @@ export class WeatherApplication extends Application {
 
     document.getElementById('calendar-date').innerHTML = this.getDateWordy(dateTime);
     document.getElementById('calendar-date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
-    document.getElementById('calendar-time').innerHTML = dateTime.date.hour + ':' + dateTime.date.minute + ':' + dateTime.date.second;
+    document.getElementById('calendar-time').innerHTML = this.buildTimeString(dateTime);
 
     this.updateClockStatus();
+  }
+
+  private buildTimeString(dateTime: DateTime): string {
+    const date = dateTime.date;
+    const hours = String(date.hour).padStart(2, '0');
+    const minutes = String(date.minute).padStart(2, '0');
+    const seconds = String(date.second).padStart(2, '0');
+
+    return `${hours}:${minutes}:${seconds}`;
   }
 
   public updateWeather(weatherData: WeatherData) {
