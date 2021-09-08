@@ -27,7 +27,6 @@ export class WeatherApplication extends Application {
     options.template = `modules/${moduleJson.name}/templates/calendar.html`;
     options.popOut = false;
     options.resizable = false;
-    (options as any).data = 'hello world';
 
     return options;
   }
