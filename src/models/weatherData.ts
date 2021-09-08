@@ -24,10 +24,6 @@ export class WeatherData {
   public lastTemp: number; // Last temperature in farenheit
   public outputToChat: boolean; // Should output weather to chat - TODO: Move to settings
   public precipitation: string; // Description of current weather
-  public season: string; // Name of current season
-  public seasonColor: string; // Name of current season's color - TODO: Should ben an enum
-  public seasonRolltable: string; // TODO: TBD
-  public seasonTemp: number; // Temperature modifier of the current season
   public showFX: boolean; // Show weather effect with FXMaster - TODO: Move to settings
   public temp: number; // Current temperature in farenheit
   public tempRange: { min: number, max: number }; // Temperature range of the current season - TODO: Confirm if this is true
@@ -45,10 +41,6 @@ export const defaultWeatherData: WeatherData = {
   lastTemp: 50,
   outputToChat: true,
   precipitation: null,
-  season: null,
-  seasonColor: null,
-  seasonRolltable: null,
-  seasonTemp: 0,
   showFX: false,
   temp: 50,
   tempRange: { min: 30, max: 90 },

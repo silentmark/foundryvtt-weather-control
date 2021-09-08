@@ -24,37 +24,28 @@ export class WeatherTracker {
       this.weatherData.climate = this.getClimateData(Climates.temperate);
     }
 
-    let seasonTemperatureOffset = this.weatherData.seasonTemp || 0;
-
     this.setTemperatureRange();
-
-    if (this.weatherData.climate.name === Climates.tropical) {
-      seasonTemperatureOffset = this.weatherData.seasonTemp * 0.5;
-    }
-
 
     if (newClimate) { // If climate has been changed
       this.weatherData.climate = this.getClimateData(newClimate);
-      const timeOfYearOffset = seasonTemperatureOffset + this.weatherData.climate.baseTemperature;
       this.weatherData.temp =
         this.randAroundValue(this.weatherData.lastTemp || this.rand(0, 20), 5) // Generate a new temperature from the previous, with a variance of 5
-        + timeOfYearOffset // Add the season and climate offset
+        + this.weatherData.climate.baseTemperature // Add the climate offset
         + (this.rand(1, 20) === 20 ? 20 : 0); // On a nat 20, add 20 F to cause extreme temperature
     } else if (this.rand(1, 3) === 3) { // In one against 3 cases
-      const timeOfYearOffset = seasonTemperatureOffset + this.weatherData.climate.baseTemperature;
-      this.weatherData.temp = this.rand(40, 70) + timeOfYearOffset; // Generate a temperature between cold and room temp
+      this.weatherData.temp = this.rand(40, 70) + this.weatherData.climate.baseTemperature; // Generate a temperature between cold and room temp
     } else {
       this.weatherData.temp =
-      this.randAroundValue(this.weatherData.lastTemp, 5) // Generate a new temperature from the previous, with a variance of 5
-      + Math.floor(this.weatherData.climate.baseTemperature / 20 + seasonTemperatureOffset / 20); // Add the biggest offset between climate and  season. Will usually be 1, otherwise 2, maximum of 5
+        this.randAroundValue(this.weatherData.lastTemp, 5) // Generate a new temperature from the previous, with a variance of 5
+        + Math.floor(this.weatherData.climate.baseTemperature / 20); // Add the biggest offset between climate and  season. Will usually be 1, otherwise 2, maximum of 5
     }
 
-    if (this.weatherData.temp > this.weatherData.tempRange.max) { // If current temperature is higher than the max
+    if (this.weatherData.lastTemp > this.weatherData.tempRange.max) { // If current temperature is higher than the max
       // Increase the temperature by between 5 ⁰F and 10 ⁰F
-      this.weatherData.temp = this.rand(this.weatherData.temp - 10, this.weatherData.temp - 5);
-    } else if (this.weatherData.temp < this.weatherData.tempRange.min) { // If current temperature is lower than minimum
+      this.weatherData.temp = this.rand(this.weatherData.lastTemp - 10, this.weatherData.lastTemp - 5);
+    } else if (this.weatherData.lastTemp < this.weatherData.tempRange.min) { // If current temperature is lower than minimum
       // Decrease the temperature by between 5 ⁰F and 10 ⁰F
-      this.weatherData.temp = this.rand(this.weatherData.temp + 5, this.weatherData.temp + 10);
+      this.weatherData.temp = this.rand(this.weatherData.lastTemp + 5, this.weatherData.lastTemp + 10);
     }
 
     // Save the last temperature
