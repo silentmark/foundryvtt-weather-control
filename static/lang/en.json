@@ -45,6 +45,8 @@
   "wctrl.settings.playerSeeWeatherHelp": "When checked, players can toggle the weather form.",
   "wctrl.settings.useCelcius": "Use Celcius",
   "wctrl.settings.useCelciusHelp": "Use Celcius for temperature display.",
+  "wctrl.settings.Weather2Chat": "Output weather to chat?",
+  "wctrl.settings.Weather2ChatHelp": "When checked, the weather will be output to chat, displayed only to GM level users.",
   "wctrl.settings.WeatherLabel": "Scene Weather Effects",
   "wctrl.settings.WeatherLabelHelp": "When checked, if the FXMaster module is installed, it will generate weather effects such as rain and clouds.",
 

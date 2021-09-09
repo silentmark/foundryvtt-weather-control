@@ -34,6 +34,8 @@
   "wctrl.settings.playerSeeWeatherHelp": "Gdy zaznaczony, gracze mogą wyświetlicz panel pogody.",
   "wctrl.settings.useCelcius": "Używaj Celcjuszy",
   "wctrl.settings.useCelciusHelp": "Używaj punktów Celcjusza do wyświetlania temperatury.",
+  "wctrl.settings.Weather2Chat": "Wyświetlaj pogode na czacie?",
+  "wctrl.settings.Weather2ChatHelp": "Gdy zaznaczony, pogoda będzie wyświetlana na czacie, widoczna wyłącznie dla MG.",
   "wctrl.settings.WeatherLabel": "Efekty pogodowe podczas sceny.",
   "wctrl.settings.WeatherLabelHelp": "Gdy zaznaczony oraz moduł FXMaster jest aktywny, będą generowane efekty pogodowe podczas Sceny takie jak deszcz czy chmury.",
 

@@ -110,6 +110,14 @@ export class ModuleSettings {
       type: Boolean,
     });
 
+    this.register(SettingKeys.moonDisplay, {
+      name: this.gameRef.i18n.localize('wctrl.setting.2Chat'),
+      hint: this.gameRef.i18n.localize('wctrl.setting.2ChatHelp'),
+      scope: 'world',
+      config: true,
+      default: true,
+      type: Boolean,
+    });
     // TODO: Currently is "Disable Global Illumination at Night". We might want to continue modifying world light level.
     // Simple Calendar or Small Time probably already does this, we could hook on it.
     this.register(SettingKeys.noGlobal, {

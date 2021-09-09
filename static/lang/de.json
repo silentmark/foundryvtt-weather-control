@@ -27,6 +27,8 @@
   "wctrl.settings.CalDispNonGmHelp": "Wenn ausgewählt, können auch Spieler ohne SL-Rechte den Kalender sehen.",
   "wctrl.settings.NightCycleLabel": "Kalender/Wetter - Tag-/Nachtwechsel in Szenen",
   "wctrl.settings.NightCycleLabelHelp": "Wenn ausgewählt durchläuft die Szene einen dynamischen Tag-/Nachtwechsel und wird dunkler in der Nacht und heller bei Tag.",
+  "wctrl.settings.Weather2Chat": "Aktuelles Wetter in den Chat schreiben?",
+  "wctrl.settings.Weather2ChatHelp": "Wenn ausgewählt wird das aktuelle Wetter in den Chat geschrieben, sichtbar nur für Teilnehmer mit SL-Rechten.",
   "wctrl.settings.WeatherLabel": "Kalender/Wetter - Wettereffekte für die Szene",
   "wctrl.settings.WeatherLabelHelp": "Wenn ausgewählt werden dynamische Effekte wie Wolken oder Regen in der Szene einegfügt, sofern das FXMaster Modul installiert ist.",
 

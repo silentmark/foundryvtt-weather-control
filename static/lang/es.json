@@ -45,6 +45,8 @@
   "wctrl.settings.playerSeeWeatherHelp": "Cuando se marque, los jugadores podrán activar/desactivar el tiempo",
   "wctrl.settings.useCelcius": "Usar Celcius",
   "wctrl.settings.useCelciusHelp": "Usar grados Celcius para la temperatura",
+  "wctrl.settings.Weather2Chat": "¿Enviar el clima al chat?",
+  "wctrl.settings.Weather2ChatHelp": "Cuando esté activo, el clima se mostrará en el chat a los usuarios que sean DM",
   "wctrl.settings.WeatherLabel": "Efectos de clima en la escena",
   "wctrl.settings.WeatherLabelHelp": "Cuando esté activo, si el plugin FXMaster está instalado, se generarán efectos de clima como lluvia o nubes",
 

@@ -34,6 +34,8 @@
   "wctrl.settings.playerSeeWeatherHelp": "Quando habilitado, jogadores podem alternar o clima.",
   "wctrl.settings.useCelcius": "Usar Celcius",
   "wctrl.settings.useCelciusHelp": "Usar Celcius para exibir a temperatura.",
+  "wctrl.settings.Weather2Chat": "Enviar previsão do tempo para o bate-papo?",
+  "wctrl.settings.Weather2ChatHelp": "Quando marcado, o tempo será transmitido para o bate-papo, exibido apenas para usuários no nível GM.",
   "wctrl.settings.WeatherLabel": "Efeitos climáticos da cena",
   "wctrl.settings.WeatherLabelHelp": "Quando marcado, se o módulo FXMaster estiver instalado, ele gerará efeitos climáticos, como chuva e nuvens.",
 
