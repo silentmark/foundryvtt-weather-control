@@ -54,12 +54,14 @@ export class Weather {
 
   public onDateTimeChange(dateTime: DateTime) {
     this.logger.debug('DateTime has changed', dateTime);
+    let weather = this.mergePreviousDateTimeWithNewOne(dateTime);
 
     if (this.hasDateChanged(dateTime)) {
-      const newWeather = this.weatherTracker.generate();
-      this.settings.setWeatherData(newWeather);
+      weather = this.weatherTracker.generate();
+      this.logger.info('Generated new weather');
     }
 
+    this.settings.setWeatherData(weather);
     this.updateWeatherDisplay(dateTime);
   }
 
@@ -69,6 +71,10 @@ export class Weather {
 
   public resetWindowPosition() {
     this.weatherApplication.resetPosition();
+  }
+
+  private mergePreviousDateTimeWithNewOne(dateTime: DateTime): WeatherData {
+    return Object.assign({}, this.settings.getWeatherData(), {dateTime});
   }
 
   private hasDateChanged(dateTime: DateTime): boolean {

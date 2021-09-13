@@ -51,9 +51,56 @@ export class WeatherApplication extends Application {
     this.listenToWeatherRefreshClick(html);
     this.setClimate(html);
     this.listenToClimateChange(html);
+    this.listenToTimeSkipButtons(html);
 
     global[moduleJson.class] = {};
     global[moduleJson.class].resetPosition = () => this.resetPosition();
+  }
+
+  public updateWeather(weatherData: WeatherData) {
+    document.getElementById('calendar-weather--temp').innerHTML = weatherData.cTemp + ' °C';
+    document.getElementById('calendar-weather-precip').innerHTML = weatherData.precipitation;
+
+    // if (game.settings.get( 'calendar-weather', 'useCelcius')) {
+    //   temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
+    // } else {
+    //   temp.innerHTML = cwdtData.dt.getWeatherObj().temp + ' °F';
+    // }
+  }
+  public updateClockStatus() {
+    if (SimpleCalendarApi.clockStatus().started) {
+      this.getElementById('calendar-btn-advance_01').classList.add('disabled');
+      this.getElementById('calendar-btn-advance_02').classList.add('disabled');
+      this.getElementById('calendar-time-running').classList.add('isRunning');
+      this.getElementById('clock-run-indicator').classList.add('isRunning');
+    } else {
+      this.getElementById('calendar-btn-advance_01').classList.remove('disabled');
+      this.getElementById('calendar-btn-advance_02').classList.remove('disabled');
+      this.getElementById('calendar-time-running').classList.remove('isRunning');
+      this.getElementById('clock-run-indicator').classList.remove('isRunning');
+    }
+  }
+
+  public updateDateTime(dateTime: DateTime) {
+    document.getElementById('calendar-weekday').innerHTML = dateTime.date.display.weekday;
+
+    document.getElementById('calendar-date').innerHTML = this.getDateWordy(dateTime);
+    document.getElementById('calendar-date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
+    document.getElementById('calendar-time').innerHTML = this.buildTimeString(dateTime);
+
+    this.updateClockStatus();
+  }
+
+  public resetPosition() {
+    const defaultPosition = { top: 100, left: 100 };
+    const element = this.getElementById('calendar-time-container');
+    if (element) {
+      this.logger.info('Resetting Window Position');
+      element.style.top = defaultPosition.top + 'px';
+      element.style.left = defaultPosition.left + 'px';
+      this.settings.setWindowPosition({top: element.offsetTop, left: element.offsetLeft});
+      element.style.bottom = null;
+    }
   }
 
   private listenToWindowMove(html: JQuery) {
@@ -96,16 +143,6 @@ export class WeatherApplication extends Application {
     });
   }
 
-  public updateDateTime(dateTime: DateTime) {
-    document.getElementById('calendar-weekday').innerHTML = dateTime.date.display.weekday;
-
-    document.getElementById('calendar-date').innerHTML = this.getDateWordy(dateTime);
-    document.getElementById('calendar-date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
-    document.getElementById('calendar-time').innerHTML = this.buildTimeString(dateTime);
-
-    this.updateClockStatus();
-  }
-
   private buildTimeString(dateTime: DateTime): string {
     const date = dateTime.date;
     const hours = String(date.hour).padStart(2, '0');
@@ -115,17 +152,6 @@ export class WeatherApplication extends Application {
     return `${hours}:${minutes}:${seconds}`;
   }
 
-  public updateWeather(weatherData: WeatherData) {
-    document.getElementById('calendar-weather--temp').innerHTML = weatherData.cTemp + ' °C';
-    document.getElementById('calendar-weather-precip').innerHTML = weatherData.precipitation;
-
-    // if (game.settings.get( 'calendar-weather', 'useCelcius')) {
-    //   temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
-    // } else {
-    //   temp.innerHTML = cwdtData.dt.getWeatherObj().temp + ' °F';
-    // }
-  }
-
   private getDateWordy(dateTime: DateTime): string {
     const display = dateTime.date.display;
     const day = `${display.day}${display.daySuffix}`;
@@ -133,20 +159,6 @@ export class WeatherApplication extends Application {
     const year = `${display.yearPrefix} ${display.year} ${display.yearPostfix}`;
 
     return `${day} of ${month}, ${year}`;
-  }
-
-  public updateClockStatus() {
-    if (SimpleCalendarApi.clockStatus().started) {
-      this.getElementById('calendar-btn-advance_01').classList.add('disabled');
-      this.getElementById('calendar-btn-advance_02').classList.add('disabled');
-      this.getElementById('calendar-time-running').classList.add('isRunning');
-      this.getElementById('clock-run-indicator').classList.add('isRunning');
-    } else {
-      this.getElementById('calendar-btn-advance_01').classList.remove('disabled');
-      this.getElementById('calendar-btn-advance_02').classList.remove('disabled');
-      this.getElementById('calendar-time-running').classList.remove('isRunning');
-      this.getElementById('clock-run-indicator').classList.remove('isRunning');
-    }
   }
 
   private getElementById(id: string): HTMLElement {
@@ -190,15 +202,13 @@ export class WeatherApplication extends Application {
     });
   }
 
-  public resetPosition() {
-    const defaultPosition = { top: 100, left: 100 };
-    const element = this.getElementById('calendar-time-container');
-    if (element) {
-      this.logger.info('Resetting Window Position');
-      element.style.top = defaultPosition.top + 'px';
-      element.style.left = defaultPosition.left + 'px';
-      this.settings.setWindowPosition({top: element.offsetTop, left: element.offsetLeft});
-      element.style.bottom = null;
-    }
+  private listenToTimeSkipButtons(html: JQuery) {
+    const advanceButtons = html.find('.advance-btn');
+    advanceButtons.on('click', button => {
+      const increment = button.target.getAttribute('data-increment');
+      const unit = button.target.getAttribute('data-unit');
+
+      SimpleCalendarApi.changeDate({ [unit]: Number(increment) });
+    });
   }
 }

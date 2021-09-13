@@ -258,10 +258,6 @@
   }
 }
 
-.calendar--time-controls {
-  /*padding: 0 1px 1px 1px;*/
-}
-
 .calendar--time-controls ul {
   list-style: none;
   margin: 0;
@@ -292,7 +288,7 @@
 }
 
 .calendar--time-controls li::before {
-  content: attr(data-step)' 'attr(data-unit);
+  content: attr(data-increment)' 'attr(data-unit-label);
 }
 
 .calendar--time-controls li.disabled {
