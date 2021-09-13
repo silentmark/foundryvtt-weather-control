@@ -59,6 +59,10 @@ export class WeatherApplication extends Application {
   private listenToWindowMove(html: JQuery) {
     const weather = '#calendar-weather';
 
+    if (!this.gameRef.user.isGM && !this.settings.getPlayerSeeWeather()) {
+      document.getElementById('calendar--weather-toggle').style.display = 'none';
+    }
+
     html.find(weather).on('click', event => {
       event.preventDefault();
       if (this.gameRef.user.isGM || this.settings.getPlayerSeeWeather()) {

@@ -24,8 +24,8 @@
   "wctrl.seasons.SeasonRolltable" : "옵션: @Rolltable[]을 입력 시 고급 날씨 생성이 비활성화되고 테이블을 통해 날씨가 생성된다.",
   "wctrl.seasons.Title" : "계절",
 
-  "wctrl.settings.CalDispNonGm": "비 GM 유저에게 달력 표시",
-  "wctrl.settings.CalDispNonGmHelp": "선택 해제할 경우 GM 권한이 없는 클라이언트는 달력을 볼 수 없음.",
+  "wctrl.settings.DisplayWindowNonGM": "비 GM 유저에게 달력 표시",
+  "wctrl.settings.DisplayWindowNonGMHelp": "선택 해제할 경우 GM 권한이 없는 클라이언트는 달력을 볼 수 없음.",
   "wctrl.settings.NightCycleLabel": "씬 주야 사이클",
   "wctrl.settings.NightCycleLabelHelp": "체크시 주야 사이클로 인해 밤에 어두워지고 낮에 밝아진다.",
   "wctrl.settings.NoGlobal": "달력/날씨 - 밤의 전체 조명을 비활성화한다.",
@@ -34,6 +34,8 @@
   "wctrl.settings.playerSeeWeatherHelp": "체크시 플레이어들이 날씨를 전환할 수 있다.",
   "wctrl.settings.useCelcius": "섭씨 사용",
   "wctrl.settings.useCelciusHelp": "기온 표시에 섭씨를 사용한다.",
+  "wctrl.settings.Weather2Chat": "날씨를 채팅 메시지로 출력합니까?",
+  "wctrl.settings.Weather2ChatHelp": "선택할 경우 날씨가 채팅 메시지로 출력된다. GM 권한을 가진 유저에게만 표시된다.",
   "wctrl.settings.WeatherLabel": "씬 날씨 효과",
   "wctrl.settings.WeatherLabelHelp": "FXMaster 모듈 설치가 확인 되었을 경우 비와 구름과 같은 날씨 효과가 생성된다.",
 

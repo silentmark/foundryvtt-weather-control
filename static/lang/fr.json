@@ -22,8 +22,8 @@
   "wctrl.seasons.SeasonName": "Nom de la saison:",
   "wctrl.seasons.Title" : "Saisons",
 
-  "wctrl.settings.CalDispNonGm": "Afficher le calendrier pour les non-MJ",
-  "wctrl.settings.CalDispNonGmHelp": "Si désactivé, les clients non-MJs ne verront pas le calendrier.",
+  "wctrl.settings.DisplayWindowNonGM": "Afficher le calendrier pour les non-MJ",
+  "wctrl.settings.DisplayWindowNonGMHelp": "Si désactivé, les clients non-MJs ne verront pas le calendrier.",
   "wctrl.settings.NightCycleLabel": "Calendar/Weather - Cycle jour/nuit",
   "wctrl.settings.NightCycleLabelHelp": "Quand activé, la scène basculera entre les cycles de jour et de nut. Si FXMaster est installé, les effets de météo seront aussi générés.",
 
