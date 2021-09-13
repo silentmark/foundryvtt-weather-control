@@ -4,6 +4,15 @@ declare global {
   interface Window { SimpleCalendar: any; }
 }
 
+export interface Interval {
+  year?: number;
+  month?: number;
+  day?: number;
+  hour?: number;
+  minute?: number;
+  second?: number;
+}
+
 export class SimpleCalendarApi {
   private static get SimpleCalendar() {
     return window.SimpleCalendar.api;
@@ -31,5 +40,9 @@ export class SimpleCalendarApi {
 
   static timestampToDate(timestamp: number): Date {
     return this.SimpleCalendar.timestampToDate(timestamp);
+  }
+
+  static changeDate(interval: Interval): boolean {
+    return this.SimpleCalendar.changeDate(interval);
   }
 }
