@@ -68,6 +68,37 @@ describe('Weather', () => {
     expect(weatherTracker.generate).toHaveBeenCalled();
   });
 
+  describe('weather application', () => {
+    it('SHOULD be instantiated if the user is the GM', () => {
+      givenModuleSettingsWithDateTime();
+      game.user = { isGM: true };
+
+      weather.onReady();
+
+      expect(weather['weatherApplication']).toBeDefined();
+    });
+
+    it('SHOULD be instantiated if the setting is turned on AND the user is not a GM', () => {
+      const settings = givenModuleSettingsWithDateTime();
+      settings.getCalendarDisplay = jest.fn().mockReturnValue(true);
+      game.user = { isGM: false };
+
+      weather.onReady();
+
+      expect(weather['weatherApplication']).toBeDefined();
+    });
+
+    it('SHOULD NOT be intantiated if the setting is turned off and the user is a player', () => {
+      const settings = givenModuleSettingsWithDateTime();
+      settings.getCalendarDisplay = jest.fn().mockReturnValue(false);
+      game.user = { isGM: false };
+
+      weather.onReady();
+
+      expect(weather['weatherApplication']).toBeUndefined();
+    });
+  });
+
   function givenModuleSettingsWithDateTime(): ModuleSettings {
     const settings = weather['settings'];
     settings.getWeatherData = jest.fn().mockReturnValue({ dateTime: givenADateTime() });

@@ -9,8 +9,8 @@ enum SettingKeys {
   legacyDateTime = 'legacyDateTime',
   dateTime = 'dateTime',
   noGlobal = 'noGlobal',
-  outputWeatherToChat = 'weatherDisplay',
-  playerSeeWeather = 'playerSeeWeather',
+  outputWeatherToChat = 'outputWeatherChat',
+  playerSeeWeatherInfo = 'playerSeeWeatherInfo',
   useCelcius = 'useCelcius',
   weatherData = 'weatherData',
 }
@@ -52,16 +52,16 @@ export class ModuleSettings {
     return this.get(SettingKeys.outputWeatherToChat);
   }
 
-  public getNoGlobal(): boolean {
-    return this.get(SettingKeys.noGlobal);
-  }
+  // public getNoGlobal(): boolean {
+  //   return this.get(SettingKeys.noGlobal);
+  // }
 
-  public getUseCelcius(): boolean {
-    return this.get(SettingKeys.useCelcius);
-  }
+  // public getUseCelcius(): boolean {
+  //   return this.get(SettingKeys.useCelcius);
+  // }
 
   public getPlayerSeeWeather(): boolean {
-    return this.get(SettingKeys.playerSeeWeather);
+    return this.get(SettingKeys.playerSeeWeatherInfo);
   }
 
   private register(settingKey: string, settingConfig: ClientSettings.PartialSetting) {
@@ -91,10 +91,9 @@ export class ModuleSettings {
       type: Object,
     });
 
-    // TODO: This one could become a setting called "Display weather in chat for GM only or all players"
     this.register(SettingKeys.calendarDisplay, {
-      name: this.gameRef.i18n.localize('wctrl.settings.CalDispNonGm'),
-      hint: this.gameRef.i18n.localize('wctrl.settings.CalDispNonGmHelp'),
+      name: this.gameRef.i18n.localize('wctrl.settings.DisplayWindowNonGM'),
+      hint: this.gameRef.i18n.localize('wctrl.settings.DisplayWindowNonGMHelp'),
       scope: 'world',
       config: true,
       default: true,
@@ -102,45 +101,36 @@ export class ModuleSettings {
     });
 
     this.register(SettingKeys.outputWeatherToChat, {
-      name: this.gameRef.i18n.localize('wctrl.settings.Weather2Chat'),
-      hint: this.gameRef.i18n.localize('wctrl.settings.Weather2ChatHelp'),
+      name: this.gameRef.i18n.localize('wctrl.settings.OutputWeatherToChat'),
+      hint: this.gameRef.i18n.localize('wctrl.settings.OutputWeatherToChatHelp'),
       scope: 'world',
       config: true,
       default: true,
       type: Boolean,
     });
 
-    this.register(SettingKeys.moonDisplay, {
-      name: this.gameRef.i18n.localize('wctrl.setting.2Chat'),
-      hint: this.gameRef.i18n.localize('wctrl.setting.2ChatHelp'),
-      scope: 'world',
-      config: true,
-      default: true,
-      type: Boolean,
-    });
     // TODO: Currently is "Disable Global Illumination at Night". We might want to continue modifying world light level.
     // Simple Calendar or Small Time probably already does this, we could hook on it.
-    this.register(SettingKeys.noGlobal, {
-      name: this.gameRef.i18n.localize('wctrl.settings.NoGlobal'),
-      hint: this.gameRef.i18n.localize('wctrl.settings.NoGlobalHelp'),
-      scope: 'world',
-      config: true,
-      default: true,
-      type: Boolean,
-    });
+    // this.register(SettingKeys.noGlobal, {
+    //   name: this.gameRef.i18n.localize('wctrl.settings.NoGlobal'),
+    //   hint: this.gameRef.i18n.localize('wctrl.settings.NoGlobalHelp'),
+    //   scope: 'world',
+    //   config: true,
+    //   default: true,
+    //   type: Boolean,
+    // });
 
     // TODO: "Use Celcius"
-    this.register(SettingKeys.useCelcius, {
-      name: this.gameRef.i18n.localize('wctrl.settings.useCelcius'),
-      hint: this.gameRef.i18n.localize('wctrl.settings.useCelciusHelp'),
-      scope: 'world',
-      config: true,
-      default: false,
-      type: Boolean,
-    });
+    // this.register(SettingKeys.useCelcius, {
+    //   name: this.gameRef.i18n.localize('wctrl.settings.useCelcius'),
+    //   hint: this.gameRef.i18n.localize('wctrl.settings.useCelciusHelp'),
+    //   scope: 'world',
+    //   config: true,
+    //   default: false,
+    //   type: Boolean,
+    // });
 
-    // TODO: "Can Players see the Weather"
-    this.register(SettingKeys.playerSeeWeather, {
+    this.register(SettingKeys.playerSeeWeatherInfo, {
       name: this.gameRef.i18n.localize('wctrl.settings.playerSeeWeather'),
       hint: this.gameRef.i18n.localize('wctrl.settings.playerSeeWeatherHelp'),
       scope: 'world',

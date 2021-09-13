@@ -24,8 +24,8 @@
   "wctrl.seasons.SeasonRolltable" : "OPCJONALNIE: Podanie @RollTable[] wyłączy zaawansowane generowanie pogody i zamiast tego pogoda będzie losowana z tabeli.",
   "wctrl.seasons.Title" : "Pory Roku",
 
-  "wctrl.settings.CalDispNonGm": "Wyświetlaj kalendarz dla graczy nie-MG",
-  "wctrl.settings.CalDispNonGmHelp": "Gdy zaznaczony, gracze bez uprawnień MG mogą zobaczyc kalendarz",
+  "wctrl.settings.DisplayWindowNonGM": "Wyświetlaj kalendarz dla graczy nie-MG",
+  "wctrl.settings.DisplayWindowNonGMHelp": "Gdy zaznaczony, gracze bez uprawnień MG mogą zobaczyc kalendarz",
   "wctrl.settings.NightCycleLabel": "Cykl nocny sceny",
   "wctrl.settings.NightCycleLabelHelp": "Gdy zaznaczony, Scena będzie podążać cyklem dnia i nocy, przygszając światło w nocy i rozjaśniając w ciągu dnia.",
   "wctrl.settings.NoGlobal": "Wyłącz Globalne Oświetlenie w nocy",

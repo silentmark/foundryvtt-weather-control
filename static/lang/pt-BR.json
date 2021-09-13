@@ -24,8 +24,8 @@
   "wctrl.seasons.SeasonRolltable" : "OPCIONAL: digitar uma @RollTable[] desativará a geração avançada de clima e, em vez disso, o clima será gerado por meio da tabela.",
   "wctrl.seasons.Title" : "Estações",
 
-  "wctrl.settings.CalDispNonGm": "Exibição de calendário para não-GM",
-  "wctrl.settings.CalDispNonGmHelp": "Quando marcado, os clientes sem permissões no nível GM poderão ver o calendário",
+  "wctrl.settings.DisplayWindowNonGM": "Exibição de calendário para não-GM",
+  "wctrl.settings.DisplayWindowNonGMHelp": "Quando marcado, os clientes sem permissões no nível GM poderão ver o calendário",
   "wctrl.settings.NightCycleLabel": "Ciclo Noturno na Cena",
   "wctrl.settings.NightCycleLabelHelp": "Quando marcada, a cena passará por um ciclo noturno, escurecendo durante a noite e ficando mais brilhante durante o dia.",
   "wctrl.settings.NoGlobal": "Desativar iluminação global à noite",

@@ -39,15 +39,17 @@ export class Weather {
       this.weatherTracker.generate(Climates.temperate);
     }
 
-    this.weatherApplication = new WeatherApplication(
-      this.gameRef,
-      this.settings,
-      this.weatherTracker,
-      this.logger,
-      () => {
-        this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
-        this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
-      });
+    if (this.gameRef.user.isGM || this.settings.getCalendarDisplay()) {
+      this.weatherApplication = new WeatherApplication(
+        this.gameRef,
+        this.settings,
+        this.weatherTracker,
+        this.logger,
+        () => {
+          this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
+          this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+        });
+    }
   }
 
   public onDateTimeChange(dateTime: DateTime) {
