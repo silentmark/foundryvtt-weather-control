@@ -4,6 +4,7 @@ import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
 import { Climates, WeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
+import { Notices } from './notices/notices';
 import { ChatProxy } from './proxies/chatProxy';
 import { WeatherTracker } from './weather/weatherTracker';
 
@@ -15,6 +16,7 @@ export class Weather {
   private weatherTracker: WeatherTracker;
   private settings: ModuleSettings;
   private weatherApplication: WeatherApplication;
+  private notices: Notices;
 
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
     this.settings = new ModuleSettings(this.gameRef);
@@ -24,6 +26,8 @@ export class Weather {
   }
 
   public onReady() {
+
+    this.initializeNotices();
     this.initializeWeatherData();
     this.initializeWeatherApplication();
   }
@@ -47,6 +51,11 @@ export class Weather {
 
   public resetWindowPosition() {
     this.weatherApplication.resetPosition();
+  }
+
+  private initializeNotices() {
+    this.notices = new Notices(this.gameRef, this.settings);
+    this.notices.checkForNotices();
   }
 
   private initializeWeatherData() {

@@ -13,6 +13,7 @@ enum SettingKeys {
   playerSeeWeatherInfo = 'playerSeeWeatherInfo',
   useCelcius = 'useCelcius',
   weatherData = 'weatherData',
+  noticeVersion = 'noticeVersion',
 }
 
 export class ModuleSettings {
@@ -26,6 +27,14 @@ export class ModuleSettings {
 
   public getModuleName(): string {
     return moduleJson.name;
+  }
+
+  public getVersion(): string {
+    return moduleJson.version;
+  }
+
+  public getVersionsWithNotices(): Array<string> {
+    return moduleJson.versionsWithNotices;
   }
 
   public getWeatherData(): WeatherData {
@@ -64,6 +73,17 @@ export class ModuleSettings {
     return this.get(SettingKeys.playerSeeWeatherInfo);
   }
 
+  public getListOfReadNoticesVersions(): Array<string> {
+    return this.get(SettingKeys.noticeVersion);
+  }
+
+  public addVersionToReadNotices(version: string) {
+    const list = this.getListOfReadNoticesVersions();
+    list.push(version);
+
+    this.set(SettingKeys.noticeVersion, list);
+  }
+
   private register(settingKey: string, settingConfig: ClientSettings.PartialSetting) {
     this.gameRef.settings.register(this.getModuleName(), settingKey, settingConfig);
   }
@@ -89,6 +109,14 @@ export class ModuleSettings {
       scope: 'world',
       config: false,
       type: Object,
+    });
+
+    this.register(SettingKeys.noticeVersion, {
+      name: 'Version of the last notice displayed',
+      scope: 'world',
+      config: false,
+      type: Array,
+      default: [],
     });
 
     this.register(SettingKeys.calendarDisplay, {
