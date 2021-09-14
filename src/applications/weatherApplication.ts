@@ -34,7 +34,7 @@ export class WeatherApplication extends Application {
   public activateListeners(html: JQuery) {
     this.renderCompleteCallback();
 
-    const dateFormatToggle = '#calendar--date-display';
+    const dateFormatToggle = '#date-display';
     const startStopClock = '#start-stop-clock';
 
     this.initializeWindowInteractions(html);
@@ -58,8 +58,8 @@ export class WeatherApplication extends Application {
   }
 
   public updateWeather(weatherData: WeatherData) {
-    document.getElementById('calendar-weather--temp').innerHTML = weatherData.cTemp + ' °C';
-    document.getElementById('calendar-weather-precip').innerHTML = weatherData.precipitation;
+    document.getElementById('current-temperature').innerHTML = weatherData.cTemp + ' °C';
+    document.getElementById('precipitation').innerHTML = weatherData.precipitation;
 
     // if (game.settings.get( 'calendar-weather', 'useCelcius')) {
     //   temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
@@ -69,23 +69,23 @@ export class WeatherApplication extends Application {
   }
   public updateClockStatus() {
     if (SimpleCalendarApi.clockStatus().started) {
-      this.getElementById('calendar-btn-advance_01').classList.add('disabled');
-      this.getElementById('calendar-btn-advance_02').classList.add('disabled');
-      this.getElementById('calendar-time-running').classList.add('isRunning');
+      this.getElementById('btn-advance_01').classList.add('disabled');
+      this.getElementById('btn-advance_02').classList.add('disabled');
+      this.getElementById('time-running').classList.add('isRunning');
       this.getElementById('clock-run-indicator').classList.add('isRunning');
     } else {
-      this.getElementById('calendar-btn-advance_01').classList.remove('disabled');
-      this.getElementById('calendar-btn-advance_02').classList.remove('disabled');
-      this.getElementById('calendar-time-running').classList.remove('isRunning');
+      this.getElementById('btn-advance_01').classList.remove('disabled');
+      this.getElementById('btn-advance_02').classList.remove('disabled');
+      this.getElementById('time-running').classList.remove('isRunning');
       this.getElementById('clock-run-indicator').classList.remove('isRunning');
     }
   }
 
   public updateDateTime(dateTime: DateTime) {
-    document.getElementById('calendar-weekday').innerHTML = dateTime.date.display.weekday;
+    document.getElementById('weekday').innerHTML = dateTime.date.display.weekday;
 
-    document.getElementById('calendar-date').innerHTML = this.getDateWordy(dateTime);
-    document.getElementById('calendar-date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
+    document.getElementById('date').innerHTML = this.getDateWordy(dateTime);
+    document.getElementById('date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
     document.getElementById('calendar-time').innerHTML = this.buildTimeString(dateTime);
 
     this.updateClockStatus();
@@ -93,7 +93,7 @@ export class WeatherApplication extends Application {
 
   public resetPosition() {
     const defaultPosition = { top: 100, left: 100 };
-    const element = this.getElementById('calendar-time-container');
+    const element = this.getElementById('weather-control-container');
     if (element) {
       this.logger.info('Resetting Window Position');
       element.style.top = defaultPosition.top + 'px';
@@ -104,22 +104,22 @@ export class WeatherApplication extends Application {
   }
 
   private listenToWindowMove(html: JQuery) {
-    const weather = '#calendar-weather';
+    const weather = '.weather-toggle';
 
     if (!this.gameRef.user.isGM && !this.settings.getPlayerSeeWeather()) {
-      document.getElementById('calendar--weather-toggle').style.display = 'none';
+      document.getElementById('weather-toggle').style.display = 'none';
     }
 
     html.find(weather).on('click', event => {
       event.preventDefault();
       if (this.gameRef.user.isGM || this.settings.getPlayerSeeWeather()) {
-        document.getElementById('calendar-time-container').classList.toggle('showWeather');
+        document.getElementById('weather-control-container').classList.toggle('showWeather');
       }
     });
   }
 
   private listenToWeatherRefreshClick(html: JQuery) {
-    const refreshWeather = '#calendar-weather-regenerate';
+    const refreshWeather = '#weather-regenerate';
 
     html.find(refreshWeather).on('click', event => {
       event.preventDefault();
@@ -128,13 +128,13 @@ export class WeatherApplication extends Application {
   }
 
   private setClimate(html: JQuery) {
-    const climateSelection = '#calendar-weather-climate';
+    const climateSelection = '#climate-selection';
     const climateName = this.settings.getWeatherData().climate?.name || Climates.temperate;
     html.find(climateSelection).val(climateName);
   }
 
   private listenToClimateChange(html: JQuery) {
-    const climateSelection = '#calendar-weather-climate';
+    const climateSelection = '#climate-selection';
 
     html.find(climateSelection).on('change', (event) => {
       const target = event.originalEvent.target as HTMLSelectElement;
@@ -187,8 +187,8 @@ export class WeatherApplication extends Application {
   }
 
   private initializeWindowInteractions(html: JQuery) {
-    const calendarMoveHandle = html.find('#calendar--move-handle');
-    const window = calendarMoveHandle.parents('#calendar-time-container').get(0);
+    const calendarMoveHandle = html.find('#window-move-handle');
+    const window = calendarMoveHandle.parents('#weather-control-container').get(0);
     const windowPosition = this.settings.getWindowPosition();
 
     window.style.top = windowPosition.top + 'px';

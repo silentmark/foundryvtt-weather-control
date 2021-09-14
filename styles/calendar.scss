@@ -1,4 +1,4 @@
-#calendar-time-container {
+#weather-control-container {
   height: auto;
   border-radius: 5px;
   background: rgba(34, 34, 34, 1);
@@ -16,12 +16,12 @@
 }
 
 /* CALENDER DISPLAY */
-#calendar-time-container #calendar {
+#weather-control-container #calendar {
   flex: 1 0 255px;
   min-width: 255px;
 }
 
-.calendar--header {
+.calendar-header {
   background: rgba(68, 68, 68, 1);
   display: flex;
   height: 20px;
@@ -30,14 +30,14 @@
   cursor: move;
 }
 
-.calendar--header .header-navigation {
+.calendar-header .header-navigation {
   display: flex;
   padding: 3px 4px;
   cursor: default;
   flex: 0 0 44px;
 }
 
-.calendar-btn,
+.icon-btn,
 #season-indicator {
   color: rgba(255, 255, 255, .45);
   transition: color .3s ease;
@@ -47,7 +47,7 @@
   align-items: center;
 }
 
-.calendar-btn svg {
+.icon-btn svg {
   height: 14px;
   vertical-align: middle;
 }
@@ -57,11 +57,11 @@
   cursor: default;
 }
 
-.calendar-btn:last-child {
+.icon-btn:last-child {
   margin-right: 0;
 }
 
-.calendar-btn:hover {
+.icon-btn:hover {
   color: rgba(255, 255, 255, 1);
 }
 
@@ -69,7 +69,7 @@
   color: transparent;
 }
 
-#calendar--move-handle {
+#window-move-handle {
   font-size: 13px;
   line-height: 1;
   text-align: center;
@@ -79,11 +79,11 @@
   flex: 1;
 }
 
-.calendar--content {
+.content {
   padding: 0 1px;
 }
 
-#calendar--date-display {
+#date-display {
   border-bottom: 1px solid rgba(255, 255, 255, .4);
 
   h2 {
@@ -95,44 +95,44 @@
     font-weight: 400;
   }
 
-  #calendar-date-num {
+  #date-num {
     display: none;
   }
 
   &.altFormat {
-    #calendar-date-num {
+    #date-num {
       display: inline;
     }
 
-    #calendar-date {
+    #date {
       display: none;
     }
   }
 }
 
-#calendar--moon,
-#calendar--moon-list {
+#moon,
+#moon-list {
   display: none;
 }
 
-#calendar--moon.hasMoon {
+#moon.hasMoon {
   display: inline-block;
 }
 
-#calendar--moon-list.hasMoon {
+#moon-list.hasMoon {
   border-bottom: 1px solid rgba(255, 255, 255, .4);
   display: flex;
 }
 
-#calendar--moon-list {
+#moon-list {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   padding: 4px;
 }
 
-#calendar--moon img,
-#calendar--moon-list img {
+#moon img,
+#moon-list img {
   margin-left: 4px;
   flex: 0 0 14px;
   width: 14px;
@@ -141,11 +141,11 @@
   vertical-align: middle;
 }
 
-#calendar--moon-list img:first-child {
+#moon-list img:first-child {
   margin: 0;
 }
 
-#calendar--moon img {
+#moon img {
   position: relative;
   top: -2px;
 }
@@ -154,21 +154,21 @@
   cursor: pointer;
 }
 
-.calendar--clock {
+.clock {
   padding: 4px;
 }
 
-#calendar-time-running .fa-stop,
-#calendar-time-running.isRunning .fa-play {
+#time-running .fa-stop,
+#time-running.isRunning .fa-play {
   display: none;
 }
 
-#calendar-time-running.isRunning .fa-stop {
+#time-running.isRunning .fa-stop {
   display: inline;
 }
 
-.calendar--clock,
-.clock--time-display,
+.clock,
+.time-display,
 .day-time-cues {
   display: flex;
   justify-content: space-between;
@@ -229,25 +229,25 @@
   top: 0;
 }
 
-.clock--time-display {
+.time-display {
   margin: 0 auto;
 }
 
-.clock--time-display .time {
+.time-display .time {
   margin: 0 4px;
   font-size: 16px;
   line-height: 1;
   text-transform: uppercase;
 }
 
-.clock--time-display .start-stop {
+.time-display .start-stop {
   display: flex;
   align-items: center;
   font-size: 10px;
   height: 10px;
 }
 
-.clock--time-display .start-stop i {
+.time-display .start-stop i {
   font-size: 10px;
   line-height: 1;
 }
@@ -258,7 +258,7 @@
   }
 }
 
-.calendar--time-controls ul {
+.time-controls ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -269,7 +269,7 @@
   /*overflow: hidden; */
 }
 
-.calendar--time-controls li {
+.time-controls li {
   flex: 1;
   background: rgba(255, 255, 255, .65);
   margin-right: 1px;
@@ -283,54 +283,54 @@
   transition: background .3s ease;
 }
 
-.calendar--time-controls li[data-display="disabled"] {
+.time-controls li[data-display="disabled"] {
   display: none;
 }
 
-.calendar--time-controls li::before {
+.time-controls li::before {
   content: attr(data-increment)' 'attr(data-unit-label);
 }
 
-.calendar--time-controls li.disabled {
+.time-controls li.disabled {
   cursor: default;
   background: rgba(255, 255, 255, .2);
   color: rgba(0, 0, 0, .4);
 }
 
-.calendar--time-controls li:hover:not(.disabled) {
+.time-controls li:hover:not(.disabled) {
   background: rgba(255, 255, 255, 1);
 }
 
-.calendar--time-controls li:last-child {
+.time-controls li:last-child {
   margin-right: 0;
 }
 
 /* WEATHER DISPLAY */
 
-#calendar-time-container #weather {
+#weather-control-container #weather {
   width: 0;
   overflow: hidden;
   transition: width .3s ease;
 }
 
-#calendar-time-container.showWeather #weather {
+#weather-control-container.showWeather #weather {
   width: 250px;
 }
 
-#calendar-weather--container {
+#weather-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   /*border-left: 1px solid rgba(0,0,0,.6);*/
 }
 
-#calendar-weather--container header {
+#weather-container header {
   flex: 0 0 20px;
   display: flex;
   background: #444;
 }
 
-#calendar-weather--container header #calendar-weather--temp {
+#weather-container header #current-temperature {
   font-size: 13px;
   padding: 0 8px 0 4px;
   border-right: 1px solid rgba(255, 255, 255, .4);
@@ -340,7 +340,7 @@
   white-space: nowrap;
 }
 
-#calendar-weather--container header select {
+#weather-container header select {
   background: none;
   border: none;
   border-radius: 0;
@@ -355,21 +355,21 @@
   transition: background .3s ease;
 }
 
-#calendar-weather--container header select option {
+#weather-container header select option {
   background: #444;
   color: #fff;
 }
 
-#calendar-weather--container header select:hover {
+#weather-container header select:hover {
   background: rgba(255, 255, 255, .2);
 }
 
-#calendar-weather--container header select:active,
-#calendar-weather--container header select:focus {
+#weather-container header select:active,
+#weather-container header select:focus {
   box-shadow: none;
 }
 
-#calendar-weather--container .calendar-weather--refresh {
+#weather-container .weather-refresh {
   display: flex;
   align-items: center;
   padding: 4px;
@@ -380,12 +380,12 @@
   border-left: 1px solid rgba(255, 255, 255, .4);
 }
 
-#calendar-weather--container .calendar-weather--refresh i {
+#weather-container .weather-refresh i {
   position: relative;
   top: 1px;
 }
 
-.calendar-weather--content {
+.weather-content {
   flex: 1;
   display: flex;
   align-items: center;
@@ -404,14 +404,14 @@
   font-size: 14px;
 }
 
-.calendar-weather--description {
+.weather-description {
   padding: 4px 10px;
   font-size: 15px;
   line-height: 17px;
   margin: auto;
 }
 
-#calendar-weather-precip {
+#precipitation {
   margin: 0;
   width: 230px;
   text-align: center;
@@ -420,7 +420,7 @@
 /* Player View */
 
 .calendar-weather-ltd .header-navigation,
-.calendar-weather-ltd .calendar--time-controls,
+.calendar-weather-ltd .time-controls,
 .calendar-weather-ltd .day-time-cues,
 .calendar-weather-ltd .start-stop,
 .calendar-weather-ltd #weather {
@@ -433,24 +433,24 @@
 
 /* Loading */
 
-#calendar-time-container.loading .calendar--header .header-navigation,
-#calendar-time-container.loading .calendar--content,
-#calendar-time-container.loading .calendar--time-controls,
-#calendar-time-container.loading #calendar-weather--container header *,
-#calendar-time-container.loading .calendar-weather--content,
-#calendar-time-container.loading:hover .calendar--header .header-navigation,
-#calendar-time-container.loading:hover .calendar--content,
-#calendar-time-container.loading:hover .calendar--time-controls,
-#calendar-time-container.loading:hover #calendar-weather--container header *,
-#calendar-time-container.loading:hover .calendar-weather--content {
+#weather-control-container.loading .calendar-header .header-navigation,
+#weather-control-container.loading .content,
+#weather-control-container.loading .time-controls,
+#weather-control-container.loading #weather-container header *,
+#weather-control-container.loading .weather-content,
+#weather-control-container.loading:hover .calendar-header .header-navigation,
+#weather-control-container.loading:hover .content,
+#weather-control-container.loading:hover .time-controls,
+#weather-control-container.loading:hover #weather-container header *,
+#weather-control-container.loading:hover .weather-content {
   opacity: 0;
 }
 
-#calendar-time-container #loader {
+#weather-control-container #loader {
   display: none;
 }
 
-#calendar-time-container.loading #loader {
+#weather-control-container.loading #loader {
   position: absolute;
   top: 20px;
   left: 1px;
@@ -462,7 +462,7 @@
   border-radius: 0 0 4px 4px;
 }
 
-#calendar-time-container.loading #loader .spinner {
+#weather-control-container.loading #loader .spinner {
   width: 21px;
   height: 21px;
   border-radius: 50%;
@@ -473,7 +473,7 @@
   animation: spinner 2s linear infinite;
 }
 
-#calendar-time-container.loading #loader .spinner i {
+#weather-control-container.loading #loader .spinner i {
   font-size: 20px;
   line-height: 1;
 }
@@ -487,20 +487,20 @@
 /* Hide controls until hover */
 
 
-#calendar-time-container .calendar--header .header-navigation,
-#calendar-time-container .day-time-cues,
-#calendar-time-container .calendar--time-controls {
+#weather-control-container .calendar-header .header-navigation,
+#weather-control-container .day-time-cues,
+#weather-control-container .time-controls {
   opacity: 0;
   transition: opacity .3s ease;
 }
 
-#calendar-time-container .calendar--time-controls {
+#weather-control-container .time-controls {
   opacity: .3;
 }
 
-#calendar-time-container:hover .calendar--header .header-navigation,
-#calendar-time-container:hover .day-time-cues,
-#calendar-time-container:hover .calendar--time-controls {
+#weather-control-container:hover .calendar-header .header-navigation,
+#weather-control-container:hover .day-time-cues,
+#weather-control-container:hover .time-controls {
   opacity: 1;
 }
 
