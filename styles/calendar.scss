@@ -11,10 +11,6 @@
   display: flex;
 }
 
-.test {
-  background-color: pink;
-}
-
 /* CALENDER DISPLAY */
 #weather-control-container #calendar {
   flex: 1 0 255px;
@@ -45,11 +41,6 @@
   cursor: pointer;
   display: flex;
   align-items: center;
-}
-
-.icon-btn svg {
-  height: 14px;
-  vertical-align: middle;
 }
 
 #season-indicator {
@@ -394,16 +385,6 @@
   overflow: hidden;
 }
 
-.calendar-weather--temp-display {
-  flex: 0 0 1px;
-  white-space: nowrap;
-  padding: 4px 8px;
-  display: flex;
-  align-items: center;
-  border-left: 1px solid rgba(255, 255, 255, .4);
-  font-size: 14px;
-}
-
 .weather-description {
   padding: 4px 10px;
   font-size: 15px;
@@ -417,75 +398,11 @@
   text-align: center;
 }
 
-/* Player View */
-
-.calendar-weather-ltd .header-navigation,
-.calendar-weather-ltd .time-controls,
-.calendar-weather-ltd .day-time-cues,
-.calendar-weather-ltd .start-stop,
-.calendar-weather-ltd #weather {
-  display: none;
-}
-
-.calendar-weather-ltd #start-stop-clock {
-  cursor: default;
-}
-
-/* Loading */
-
-#weather-control-container.loading .calendar-header .header-navigation,
-#weather-control-container.loading .content,
-#weather-control-container.loading .time-controls,
-#weather-control-container.loading #weather-container header *,
-#weather-control-container.loading .weather-content,
-#weather-control-container.loading:hover .calendar-header .header-navigation,
-#weather-control-container.loading:hover .content,
-#weather-control-container.loading:hover .time-controls,
-#weather-control-container.loading:hover #weather-container header *,
-#weather-control-container.loading:hover .weather-content {
-  opacity: 0;
-}
-
 #weather-control-container #loader {
   display: none;
 }
 
-#weather-control-container.loading #loader {
-  position: absolute;
-  top: 20px;
-  left: 1px;
-  right: 1px;
-  bottom: 1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 0 0 4px 4px;
-}
-
-#weather-control-container.loading #loader .spinner {
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  animation: spinner 2s linear infinite;
-}
-
-#weather-control-container.loading #loader .spinner i {
-  font-size: 20px;
-  line-height: 1;
-}
-
-@keyframes spinner {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* Hide controls until hover */
-
 
 #weather-control-container .calendar-header .header-navigation,
 #weather-control-container .day-time-cues,
@@ -502,47 +419,6 @@
 #weather-control-container:hover .day-time-cues,
 #weather-control-container:hover .time-controls {
   opacity: 1;
-}
-
-/* CHAT OUTPUT */
-
-.calendar-weather-chat {
-  display: flex;
-  align-items: center;
-}
-
-.calendar-weather-chat:first-child {
-  padding-top: 12px;
-}
-
-.calendar-weather-chat+.calendar-weather-chat {
-  margin-top: 12px;
-  border-top: 1px solid rgba(0, 0, 0, .1);
-  padding-top: 12px;
-}
-
-.calendar-weather-chat img {
-  flex: 0 0 50px;
-  width: 50px;
-  height: 50px;
-  vertical-align: middle;
-  border: none;
-  margin-right: 8px;
-}
-
-.calendar-weather-chat .calendar-weather-chat--description {
-  flex: 1;
-}
-
-.calendar-weather-chat h4 {
-  font-weight: 600;
-  padding: 0 0 2px 0;
-  margin: 0 0 4px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, .3);
-}
-
-.calendar-weather-chat p {
-  margin: 0;
 }
 
 .calendar-form-export-import {
