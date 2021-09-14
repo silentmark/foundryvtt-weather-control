@@ -24,32 +24,8 @@ export class Weather {
   }
 
   public onReady() {
-    const weatherData = this.settings.getWeatherData();
-
-    if (this.isWeatherDataValid(weatherData)) {
-      this.logger.info('Using saved weather data');
-      this.weatherTracker.loadWeatherData(weatherData);
-    } else {
-      this.logger.info('No saved weather data - Generating weather');
-
-      const baseWeatherData = new WeatherData();
-      baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
-
-      this.weatherTracker.loadWeatherData(baseWeatherData);
-      this.weatherTracker.generate(Climates.temperate);
-    }
-
-    if (this.gameRef.user.isGM || this.settings.getCalendarDisplay()) {
-      this.weatherApplication = new WeatherApplication(
-        this.gameRef,
-        this.settings,
-        this.weatherTracker,
-        this.logger,
-        () => {
-          this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
-          this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
-        });
-    }
+    this.initializeWeatherData();
+    this.initializeWeatherApplication();
   }
 
   public onDateTimeChange(dateTime: DateTime) {
@@ -71,6 +47,37 @@ export class Weather {
 
   public resetWindowPosition() {
     this.weatherApplication.resetPosition();
+  }
+
+  private initializeWeatherData() {
+    const weatherData = this.settings.getWeatherData();
+
+    if (this.isWeatherDataValid(weatherData)) {
+      this.logger.info('Using saved weather data');
+      this.weatherTracker.loadWeatherData(weatherData);
+    } else {
+      this.logger.info('No saved weather data - Generating weather');
+
+      const baseWeatherData = new WeatherData();
+      baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
+
+      this.weatherTracker.loadWeatherData(baseWeatherData);
+      this.weatherTracker.generate(Climates.temperate);
+    }
+  }
+
+  private initializeWeatherApplication() {
+    if (this.gameRef.user.isGM || this.settings.getCalendarDisplay()) {
+      this.weatherApplication = new WeatherApplication(
+        this.gameRef,
+        this.settings,
+        this.weatherTracker,
+        this.logger,
+        () => {
+          this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
+          this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+        });
+    }
   }
 
   private mergePreviousDateTimeWithNewOne(dateTime: DateTime): WeatherData {
