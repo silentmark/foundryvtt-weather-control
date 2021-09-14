@@ -1,45 +1,45 @@
-<div id="calendar-time-container">
+<div id="weather-control-container">
 	<section id="calendar">
 
 		<!-- header -->
-		<header id="calendar-header" class="calendar--header">
+		<header class="calendar-header">
 			<div class="header-navigation">
 			</div>
 
 			<!-- day name -->
-			<h1 id="calendar--move-handle">
-				<span id="calendar-weekday">Weather Control</span>
+			<h1 id="window-move-handle">
+				<span id="weekday">Weather Control</span>
 			</h1>
 
 			<div class="header-navigation">
-				<div class="calendar--season-indicator" id="season-indicator">
+				<div id="season-indicator">
 					<i class="fas fa-circle" title="{{localize 'Season'}}"></i>
 				</div>
-				<div class="calendar--weather-toggle calendar-btn">
-					<i id=calendar-weather class="fas fa-cloud-sun" title="{{localize 'wctrl.calendar.Weather'}}"></i>
+				<div class="weather-toggle icon-btn">
+					<i class="fas fa-cloud-sun" title="{{localize 'wctrl.calendar.Weather'}}"></i>
 				</div>
 			</div>
 		</header>
 
 		<!-- content -->
-		<div class="calendar--content">
+		<div class="content">
 
 			<!-- date display -->
-			<section id="calendar--date-display" title="{{localize 'wctrl.calendar.ClickToToggle'}}">
+			<section id="date-display" title="{{localize 'wctrl.calendar.ClickToToggle'}}">
 				<h2>
-					<span id="calendar-date-num"></span>
-					<span id="calendar-date"></span>
-					<span id="calendar--moon"></span>
+					<span id="date-num"></span>
+					<span id="date"></span>
+					<span id="moon"></span>
 				</h2>
 			</section>
 
 			<!-- multiple moon display -->
-			<section id="calendar--moon-list">
+			<section id="moon-list">
 			</section>
 
 			<!-- clock display -->
-			<section class="calendar--clock">
-				<div id="start-stop-clock" class="clock--time-display"  title="{{localize 'wctrl.time.StartStopPseudo'}}">
+			<section class="clock">
+				<div id="start-stop-clock" class="time-display"  title="{{localize 'wctrl.time.StartStopPseudo'}}">
 					<div id="clock-run-indicator" title="{{localize 'ClockRunning'}}">
 						<ul>
 							<li>
@@ -59,7 +59,7 @@
 					<div class="time">
 						<span class="calendar-time-disp" id="calendar-time">00:00:00</span>
 					</div>
-					<div id='calendar-time-running' class="start-stop">
+					<div id='time-running' class="start-stop">
 						<i class="fas fa-play"></i>
 						<i class="fas fa-stop"></i>
 					</div>
@@ -68,10 +68,10 @@
 		</div>
 
 		<!-- footer -->
-		<footer class="calendar--time-controls">
+		<footer class="time-controls">
 			<ul>
-				<li id="calendar-btn-advance_01" class="advance-btn disabled" title="{{localize 'wctrl.time.Advance1second'}}" data-display="enabled" data-increment="1" data-unit-label="s" data-unit="second"></li>
-				<li id="calendar-btn-advance_02" class="advance-btn disabled" title="{{localize 'wctrl.time.Advance30seconds'}}" data-display="enabled" data-increment="30" data-unit-label="s" data-unit="second"></li>
+				<li id="btn-advance_01" class="advance-btn disabled" title="{{localize 'wctrl.time.Advance1second'}}" data-display="enabled" data-increment="1" data-unit-label="s" data-unit="second"></li>
+				<li id="btn-advance_02" class="advance-btn disabled" title="{{localize 'wctrl.time.Advance30seconds'}}" data-display="enabled" data-increment="30" data-unit-label="s" data-unit="second"></li>
 				<li class="advance-btn" title="{{localize 'wctrl.time.Advance1minute'}}" data-display="enabled" data-increment="1" data-unit-label="min" data-unit="minute"></li>
 				<li class="advance-btn" title="{{localize 'wctrl.time.Advance5minutes'}}" data-display="enabled" data-increment="5" data-unit-label="min" data-unit="minute"></li>
 				<li class="advance-btn" title="{{localize 'wctrl.time.Advance15minutes'}}" data-display="enabled" data-increment="15" data-unit-label="min" data-unit="minute"></li>
@@ -88,10 +88,10 @@
 	</section>
 
 	<section id="weather">
-		<div id="calendar-weather--container">
+		<div id="weather-container">
 			<header>
-				<span id="calendar-weather--temp">24.5°C</span>
-		    <select id="calendar-weather-climate" title="{{localize 'wctrl.weather.SelectClimate'}}">
+				<span id="current-temperature">24.5°C</span>
+		    <select id="climate-selection" title="{{localize 'wctrl.weather.SelectClimate'}}">
 		      <option title="{{localize 'wctrl.weather.climate.description.Temperate'}}" value="temperate">{{localize 'wctrl.weather.climate.Temperate'}}</option>
 		      <option title="{{localize 'wctrl.weather.climate.description.TemperateMountain'}}" value="temperateMountain">{{localize 'wctrl.weather.climate.TemperateMountain'}}</option>
 		      <option title="{{localize 'wctrl.weather.climate.description.Desert'}}" value="desert">{{localize 'wctrl.weather.climate.Desert'}}</option>
@@ -101,13 +101,13 @@
 		      <option title="{{localize 'wctrl.weather.climate.description.Volcanic'}}" value="volcanic">{{localize 'wctrl.weather.climate.Volcanic'}}</option>
 		      <option title="{{localize 'wctrl.weather.climate.description.Polar'}}" value="polar">{{localize 'wctrl.weather.climate.Polar'}}</option>
 		    </select>
-		    <div class="calendar-weather--refresh calendar-btn" id="calendar-weather-regenerate" title="{{localize 'wctrl.weather.RegenerateWeather'}}">
+		    <div class="weather-refresh calendar-btn" id="weather-regenerate" title="{{localize 'wctrl.weather.RegenerateWeather'}}">
 					<i class="fas fa-redo"></i>
 				</div>
 			</header>
-			<div class="calendar-weather--content">
-				<div class="calendar-weather--description">
-					<p id="calendar-weather-precip">Placeholder Text</p>
+			<div class="weather-content">
+				<div class="weather-description">
+					<p id="precipitation">Placeholder Text</p>
 				</div>
 			</div>
 		</div>
