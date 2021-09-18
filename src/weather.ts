@@ -4,6 +4,7 @@ import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
 import { Climates, WeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
+import { Notices } from './notices/notices';
 import { ChatProxy } from './proxies/chatProxy';
 import { WeatherTracker } from './weather/weatherTracker';
 
@@ -15,6 +16,7 @@ export class Weather {
   private weatherTracker: WeatherTracker;
   private settings: ModuleSettings;
   private weatherApplication: WeatherApplication;
+  private notices: Notices;
 
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
     this.settings = new ModuleSettings(this.gameRef);
@@ -24,32 +26,10 @@ export class Weather {
   }
 
   public onReady() {
-    const weatherData = this.settings.getWeatherData();
 
-    if (this.isWeatherDataValid(weatherData)) {
-      this.logger.info('Using saved weather data');
-      this.weatherTracker.loadWeatherData(weatherData);
-    } else {
-      this.logger.info('No saved weather data - Generating weather');
-
-      const baseWeatherData = new WeatherData();
-      baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
-
-      this.weatherTracker.loadWeatherData(baseWeatherData);
-      this.weatherTracker.generate(Climates.temperate);
-    }
-
-    if (this.gameRef.user.isGM || this.settings.getCalendarDisplay()) {
-      this.weatherApplication = new WeatherApplication(
-        this.gameRef,
-        this.settings,
-        this.weatherTracker,
-        this.logger,
-        () => {
-          this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
-          this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
-        });
-    }
+    this.initializeNotices();
+    this.initializeWeatherData();
+    this.initializeWeatherApplication();
   }
 
   public onDateTimeChange(dateTime: DateTime) {
@@ -71,6 +51,44 @@ export class Weather {
 
   public resetWindowPosition() {
     this.weatherApplication.resetPosition();
+  }
+
+  private initializeNotices() {
+    if (this.gameRef.user.isGM) {
+      this.notices = new Notices(this.gameRef, this.settings);
+      this.notices.checkForNotices();
+    }
+  }
+
+  private initializeWeatherData() {
+    const weatherData = this.settings.getWeatherData();
+
+    if (this.isWeatherDataValid(weatherData)) {
+      this.logger.info('Using saved weather data');
+      this.weatherTracker.loadWeatherData(weatherData);
+    } else {
+      this.logger.info('No saved weather data - Generating weather');
+
+      const baseWeatherData = new WeatherData();
+      baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
+
+      this.weatherTracker.loadWeatherData(baseWeatherData);
+      this.weatherTracker.generate(Climates.temperate);
+    }
+  }
+
+  private initializeWeatherApplication() {
+    if (this.gameRef.user.isGM || this.settings.getCalendarDisplay()) {
+      this.weatherApplication = new WeatherApplication(
+        this.gameRef,
+        this.settings,
+        this.weatherTracker,
+        this.logger,
+        () => {
+          this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
+          this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+        });
+    }
   }
 
   private mergePreviousDateTimeWithNewOne(dateTime: DateTime): WeatherData {

@@ -6,6 +6,7 @@
   "version": "4.0.0",
   "minimumCoreVersion": "0.7.0",
   "compatibleCoreVersion": "0.8.9",
+  "versionsWithNotices": ["4.0.0"],
   "author": "The Bird",
   "authors": [
     {

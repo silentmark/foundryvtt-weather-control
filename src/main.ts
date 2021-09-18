@@ -1,4 +1,5 @@
-import '../styles/calendar.scss';
+import '../styles/notices.scss';
+import '../styles/weather-control.scss';
 
 import { DevMode } from './libraries/devMode/devMode';
 import { DevModeApi } from './libraries/devMode/devModeApi';
