@@ -80,13 +80,13 @@ export class Notices {
 
   private noticeExists(version: string): boolean {
     try {
-      return Foundry.srcExists(`modules/${this.moduleSettings.getModuleName}/templates/notices/${version}.html`);
+      return Foundry.srcExists(`modules/${this.moduleSettings.getModuleName()}/templates/notices/${version}.html`);
     } catch {
       return false;
     }
   }
 
   private getPathOfNotice(version: string): string {
-    return `modules/${this.moduleSettings.getModuleName}/templates/notices/${version}.html`;
+    return `modules/${this.moduleSettings.getModuleName()}/templates/notices/${version}.html`;
   }
 }

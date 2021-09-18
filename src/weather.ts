@@ -54,8 +54,10 @@ export class Weather {
   }
 
   private initializeNotices() {
-    this.notices = new Notices(this.gameRef, this.settings);
-    this.notices.checkForNotices();
+    if (this.gameRef.user.isGM) {
+      this.notices = new Notices(this.gameRef, this.settings);
+      this.notices.checkForNotices();
+    }
   }
 
   private initializeWeatherData() {
