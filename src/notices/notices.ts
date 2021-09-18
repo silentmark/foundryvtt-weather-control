@@ -70,7 +70,7 @@ export class Notices {
           }
         },
         default: 'yes',
-      }).render(true);
+      }, { width: 600, height: 700, classes: ['wctrlDialog'] }).render(true);
     });
   }
 

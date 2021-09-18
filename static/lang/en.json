@@ -116,5 +116,7 @@
   "wctrl.weather.tracker.normal.Scattered": "Scattered clouds, but mostly clear today.",
   "wctrl.weather.tracker.normal.SunAsh": "The sun is completely obscured by ash, possible ashfall today",
   "wctrl.weather.tracker.normal.TorrentialRain": "Torrential rains today.",
-  "wctrl.weather.tracker.Today": "Today's Weather:"
+  "wctrl.weather.tracker.Today": "Today's Weather:",
+
+  "wctrl.notice.Acknowledge": "Got it! Don't show this again."
 }
