@@ -2,9 +2,9 @@
   "name": "calendar-weather",
   "title": "Calendar/Weather",
   "description": "Adds a customizable calendar with events and weather.",
-  "version": "3.1.8",
+  "version": "3.1.9",
   "minimumCoreVersion": "0.7.0",
-  "compatibleCoreVersion": "0.8.8",
+  "compatibleCoreVersion": "0.8.9",
   "author": "The Bird",
   "authors": [
     {
@@ -22,8 +22,8 @@
     }
   ],
   "url": "https://gitlab.com/jstebenne/foundryvtt-weather-control",
-  "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/master/module.json",
-  "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v3.1.8/raw/calendar-weather.zip?job=pack",
+  "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/v3.1.9/module.json",
+  "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v3.1.9/raw/calendar-weather.zip?job=pack",
   "esmodules": [
     "init.mjs",
     "modules/registerSettings.mjs",
@@ -81,12 +81,8 @@
   ],
   "dependencies": [
     {
-      "name": "about-time",
-      "manifest": "https://gitlab.com/tposney/about-time/-/raw/master/package/module.json"
-    },
-    {
-      "name": "foundryvtt-simple-calendar",
-      "manifest": "https://github.com/vigoren/foundryvtt-simple-calendar/releases/latest/download/module.json"
+      "name": "weather-control",
+      "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/master/module.json"
     }
   ]
 }
