@@ -17,7 +17,7 @@ Reading and following these guidelines will help us make the contribution proces
 
 ## Code of Conduct
 
-We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/blob/master/CODE-OF-CONDUCT.md).
+We take our open source community seriously and hold ourselves and other contributors to high standards of communication. By participating and contributing to this project, you agree to uphold our [Code of Conduct](https://gitlab.com/jstebenne/foundryvtt-weather-control/-/blob/master/CODE-OF-CONDUCT.md).
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ Issues should be used to report problems with the library, request a new feature
 
 If you find an Issue that addresses the problem you're having, please add your reproduction information to the existing issue rather than creating a new one. Adding a [reaction](https://docs.gitlab.com/ee/user/award_emojis.html) can also help be indicating to our maintainers that a particular problem is affecting more than just the reporter.
 
-If you are starting work on an issue, please assign it to yourself and move it to the "In Progress" column on the [board](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/boards) or add the "In Progress" label manually. This is to avoid two people working on the same issue at the same time without knowing. This should be done even for a small task.
+If you are starting work on an issue, please assign it to yourself and move it to the "In Progress" column on the [board](https://gitlab.com/jstebenne/foundryvtt-weather-control/-/boards) or add the "In Progress" label manually. This is to avoid two people working on the same issue at the same time without knowing. This should be done even for a small task.
 
 ### Commits
 
@@ -73,6 +73,6 @@ In general, we follow the ["fork-and-pull" Git workflow](https://github.com/susa
 
 This project is maintained by professionals, but being one is not required to contribute code, issues or feedback. However, strict code quality guidelines are enforced to keep it easy to contribute code and maintain it.
 
-We will keep our guidelines update to date with our best effort in the [project's wiki](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/wikis/Code-Quality-Guidelines).
+We will keep our guidelines update to date with our best effort in the [project's wiki](https://gitlab.com/jstebenne/foundryvtt-weather-control/-/wikis/Code-Quality-Guidelines).
 
 Writing good quality code isn't easy, but it should not block anyone from contributing. When we review your code, do not take it personally. We are reviewing the code and not your ability to write it.

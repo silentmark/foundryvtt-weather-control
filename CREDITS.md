@@ -31,4 +31,4 @@ This module would not exist without the work of [DasSauerkraut](https://github.c
 
 ## And many others
 
-You can get a full list of contributors by going to the project's [Contributors](https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/graphs/master) page.
+You can get a full list of contributors by going to the project's [Contributors](https://gitlab.com/jstebenne/foundryvtt-weather-control/-/graphs/master) page.

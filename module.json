@@ -2,7 +2,7 @@
   "name": "calendar-weather",
   "title": "Calendar/Weather",
   "description": "Adds a customizable calendar with events and weather.",
-  "version": "3.1.7",
+  "version": "3.1.8",
   "minimumCoreVersion": "0.7.0",
   "compatibleCoreVersion": "0.8.8",
   "author": "The Bird",
@@ -21,9 +21,9 @@
       "discord": "DasSauerkraut#3215"
     }
   ],
-  "url": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather",
-  "manifest": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json",
-  "download": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/jobs/artifacts/v3.1.7/raw/calendar-weather.zip?job=pack",
+  "url": "https://gitlab.com/jstebenne/foundryvtt-weather-control",
+  "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/master/module.json",
+  "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v3.1.8/raw/calendar-weather.zip?job=pack",
   "esmodules": [
     "init.mjs",
     "modules/registerSettings.mjs",
