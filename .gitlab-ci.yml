@@ -59,7 +59,9 @@ pack:
   image: debian:stable-slim
   stage: pack
   script:
-    - zip -r weather-control.zip ./* -x './package/*' -x './releases/*'
+    - cd dist
+    - zip -r weather-control.zip *
+    - mv weather-control.zip ../weather-control.zip
   artifacts:
     name: weather-control
     when: on_success
