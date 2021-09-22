@@ -25,15 +25,7 @@
   "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/v3.1.9/module.json",
   "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v3.1.9/raw/calendar-weather.zip?job=pack",
   "esmodules": [
-    "init.mjs",
-    "modules/registerSettings.mjs",
-    "modules/dateTime.mjs",
-    "modules/month.mjs",
-    "modules/weatherTracker.mjs",
-    "modules/calendarEvents.mjs",
-    "modules/calendar.mjs",
-    "modules/calendarForm.mjs",
-    "modules/warningSystem.mjs"
+    "init.mjs"
   ],
   "styles": [ "./css/calendar.css" ],
   "packs": [],
