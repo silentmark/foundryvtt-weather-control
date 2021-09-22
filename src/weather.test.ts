@@ -1,11 +1,34 @@
 import { WeatherApplication } from './applications/weatherApplication';
 import { Date, DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
+import { defaultWeatherData } from './models/weatherData';
 import { ModuleSettings } from './module-settings';
 import { ChatProxy } from './proxies/chatProxy';
 import { gameMock, mockClass } from './testUtils';
 import { Weather } from './weather';
 import { WeatherTracker } from './weather/weatherTracker';
+
+
+const WEATHER_DATA = defaultWeatherData;
+WEATHER_DATA.dateTime = {
+  date: {
+    currentSeason: null,
+    day: 1,
+    dayOfTheWeek: 1,
+    dayOffset: 0,
+    display: null,
+    hour: 0,
+    isLeapYear: false,
+    minute: 0,
+    month: 0,
+    second: 0,
+    showWeekdayHeadings: false,
+    weekdays: [],
+    year: 0,
+    yearZero: 0,
+  },
+  moons: null
+};
 
 describe('Weather', () => {
   let weather: Weather;
@@ -24,7 +47,7 @@ describe('Weather', () => {
     givenAWeatherApplicationMock();
     givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
-    weatherTracker.generate = jest.fn();
+    weatherTracker.generate = jest.fn().mockReturnValue(WEATHER_DATA);
 
     weather.onDateTimeChange(givenADifferentDateTime());
 
@@ -61,7 +84,7 @@ describe('Weather', () => {
     delete invalidDateObject.date.day;
     givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
-    weatherTracker.generate = jest.fn();
+    weatherTracker.generate = jest.fn().mockReturnValue(WEATHER_DATA);
 
     weather.onDateTimeChange(givenADifferentDateTime());
 
