@@ -59,17 +59,17 @@ pack:
   image: debian:stable-slim
   stage: pack
   script:
-    - zip -r calendar-weather.zip ./* -x './package/*' -x './releases/*'
+    - cd dist
+    - zip -r weather-control.zip *
+    - mv weather-control.zip ../weather-control.zip
   artifacts:
-    name: calendar-weather
+    name: weather-control
     when: on_success
     expire_in: never
     paths:
-      - calendar-weather.zip
+      - weather-control.zip
   dependencies:
     - build
   needs:
     - build
   when: on_success
-  only:
-    - tags
