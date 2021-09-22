@@ -23,9 +23,9 @@
       "discord": "DasSauerkraut#3215"
     }
   ],
-  "url": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather",
-  "manifest": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/raw/master/module.json",
-  "download": "https://gitlab.com/jstebenne/foundryvtt-calendar-weather/-/jobs/artifacts/v4.0.0/raw/calendar-weather.zip?job=pack",
+  "url": "https://gitlab.com/jstebenne/foundryvtt-weather-control",
+  "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/master/module.json",
+  "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v4.0.0/raw/weather-control.zip?job=pack",
 	"esmodules": ["weather-control.js"],
 	"styles": "weather-control.css",
   "packs": [],
