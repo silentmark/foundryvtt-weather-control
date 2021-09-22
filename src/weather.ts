@@ -38,6 +38,9 @@ export class Weather {
 
     if (this.hasDateChanged(dateTime)) {
       weather = this.weatherTracker.generate();
+      weather.dateTime.date.day = dateTime.date.day;
+      weather.dateTime.date.month = dateTime.date.month;
+      weather.dateTime.date.year = dateTime.date.year;
       this.logger.info('Generated new weather');
     }
 
@@ -112,12 +115,16 @@ export class Weather {
 
   private isDateTimeValid(dateTime: DateTime): boolean {
     const date = dateTime.date;
-    if (date.second && date.minute && date.minute &&
-        date.day && date.month && date.year) {
+    if (this.isDefined(date.second) && this.isDefined(date.minute) && this.isDefined(date.day) &&
+    this.isDefined(date.month) && this.isDefined(date.year)) {
       return true;
     }
 
     return false;
+  }
+
+  private isDefined(value: unknown) {
+    return value !== undefined && value !== null;
   }
 
   private isWeatherDataValid(weatherData: WeatherData | ''): boolean {
