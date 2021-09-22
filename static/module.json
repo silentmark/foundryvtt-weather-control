@@ -24,7 +24,7 @@
     }
   ],
   "url": "https://gitlab.com/jstebenne/foundryvtt-weather-control",
-  "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/master/module.json",
+  "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/master/static/module.json",
   "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v4.0.0/raw/weather-control.zip?job=pack",
 	"esmodules": ["weather-control.js"],
 	"styles": "weather-control.css",
