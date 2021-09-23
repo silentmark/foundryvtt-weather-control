@@ -21,8 +21,9 @@
     "test": "jest",
     "test:pipeline": "jest --ci --collect-coverage --reporters=default --reporters=jest-junit",
     "test:watch": "jest --watch",
-    "build-docker": "docker build -t foundryvtt-dev -f ./Dockerfile .",
-    "start-docker": "docker run -v ${npm_config_foundrydir}:/foundry -v $(pwd)/dist:/foundry/data/Data/modules/weather-control -p ${npm_config_foundryport}:30000 foundryvtt-dev"
+    "docker": "npm run docker:start",
+    "docker:start": "docker run -v ${npm_config_foundrydir}:/foundry -v $(pwd)/dist:/foundry/data/Data/modules/weather-control -p ${npm_config_foundryport}:30000 foundryvtt-dev",
+    "docker:build": "docker build -t foundryvtt-dev -f ./Dockerfile ."
   },
   "devDependencies": {
     "@league-of-foundry-developers/foundry-vtt-types": "^0.8.8-9",
