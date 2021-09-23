@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-// const { Command } = require('commander');
-// // console.log(JSON.stringify(commander, null, 2));
-// const program = new Command();
 
-
-// // commander.program.version('0.0.1');
 const fs = require('fs');
 const readline = require('readline');
 const process = require('process');
@@ -22,6 +17,8 @@ const previousVersion = fvttModule.version;
 rl.question('Which version to increment? 1: Major - 2: Minor - 3: Patch\n', function(answer) {
   const version = incrementVersion(answer);
   updateDownloadLink(version);
+  console.log('\nThe version will become ', version);
+  console.log('==============================\n');
 
   rl.question('Does this new version contain a notice? yes/no\n', function (answer) {
     switch(answer) {
@@ -31,8 +28,11 @@ rl.question('Which version to increment? 1: Major - 2: Minor - 3: Patch\n', func
       break;
     }
 
-    writeToFile();
-    rl.close();
+    console.log('==============================');
+    rl.question('\nDone! Press any key to write to disk or CTRL+C to cancel.', function() {
+      writeToFile();
+      rl.close();
+    });
   });
 });
 
@@ -40,7 +40,6 @@ function incrementVersion(answer) {
   let major = 0;
   let minor = 0;
   let patch = 0;
-  const mask = [major,minor,patch];
 
   switch(answer) {
   case '1':
@@ -55,19 +54,34 @@ function incrementVersion(answer) {
     patch = 1;
     break;
   }
+  const mask = [major,minor,patch];
 
-  const newVersion = bumpVersion(mask, fvttModule.version);
-  package.version = newVersion;
-  fvttModule.version = newVersion;
+  if (isMaskValid(mask)) {
+    const newVersion = bumpVersion(mask, fvttModule.version);
+    package.version = newVersion;
+    fvttModule.version = newVersion;
 
-  return newVersion;
+    return newVersion;
+  } else {
+    return fvttModule.version;
+  }
+}
+
+function isMaskValid(mask) {
+  let zeroCount = 0;
+  for (var i = 0; i < mask.length; i++) {
+    if (mask[i] === 0) {
+      zeroCount++;
+    }
+  }
+
+  return zeroCount !== 3;
 }
 
 function updateDownloadLink(newVersion) {
   let link = fvttModule.download;
   link = link.replace(previousVersion, newVersion);
   fvttModule.download = link;
-  console.log(link, link.includes(previousVersion))
 }
 
 function addVersionToNoticesList(newVersion) {
