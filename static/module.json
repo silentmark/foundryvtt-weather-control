@@ -6,7 +6,9 @@
   "version": "4.0.2",
   "minimumCoreVersion": "0.7.0",
   "compatibleCoreVersion": "0.8.9",
-  "versionsWithNotices": ["4.0.1"],
+  "versionsWithNotices": [
+    "4.0.1"
+  ],
   "author": "The Bird",
   "authors": [
     {
@@ -26,8 +28,12 @@
   "url": "https://gitlab.com/jstebenne/foundryvtt-weather-control",
   "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/master/static/module.json",
   "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v4.0.2/raw/weather-control.zip?job=pack",
-	"esmodules": ["weather-control.js"],
-	"styles": ["weather-control.css"],
+  "esmodules": [
+    "weather-control.js"
+  ],
+  "styles": [
+    "weather-control.css"
+  ],
   "packs": [],
   "languages": [
     {
