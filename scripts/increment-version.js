@@ -21,11 +21,8 @@ rl.question('Which version to increment? 1: Major - 2: Minor - 3: Patch\n', func
   console.log('==============================\n');
 
   rl.question('Does this new version contain a notice? yes/no\n', function (answer) {
-    switch(answer) {
-    case 'yes':
-    case 'y':
+    if (answer === 'yes' || answer === 'y') {
       addVersionToNoticesList(version);
-      break;
     }
 
     console.log('==============================');
