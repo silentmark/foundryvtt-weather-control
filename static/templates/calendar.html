@@ -40,6 +40,7 @@
 			<!-- clock display -->
 			<section class="clock">
 				<div id="start-stop-clock" class="time-display"  title="{{localize 'wctrl.time.StartStopPseudo'}}">
+					{{#if isGM}}
 					<div id="clock-run-indicator" title="{{localize 'ClockRunning'}}">
 						<ul>
 							<li>
@@ -56,18 +57,22 @@
 							</li>
 						</ul>
 					</div>
+					{{/if}}
 					<div class="time">
 						<span class="calendar-time-disp" id="calendar-time">00:00:00</span>
 					</div>
+					{{#if isGM}}
 					<div id='time-running' class="start-stop">
 						<i class="fas fa-play"></i>
 						<i class="fas fa-stop"></i>
 					</div>
+					{{/if}}
 				</div>
 			</section>
 		</div>
 
 		<!-- footer -->
+		{{#if isGM}}
 		<footer class="time-controls">
 			<ul>
 				<li id="btn-advance_01" class="advance-btn disabled" title="{{localize 'wctrl.time.Advance1second'}}" data-display="enabled" data-increment="1" data-unit-label="s" data-unit="second"></li>
@@ -78,12 +83,7 @@
 				<li class="advance-btn" title="{{localize 'wctrl.time.Advance1hour'}}" data-display="enabled" data-increment="1" data-unit-label="h" data-unit="hour"></li>
 			</ul>
 		</footer>
-
-		<div id="loader">
-			<div class="spinner">
-				<i class="fas fa-spinner"></i>
-			</div>
-		</div>
+		{{/if}}
 
 	</section>
 
