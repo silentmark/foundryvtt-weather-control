@@ -32,7 +32,7 @@ export class Weather {
   }
 
   public onDateTimeChange(dateTime: DateTime) {
-    this.logger.debug('DateTime has changed', dateTime);
+    this.logger.info('DateTime has changed', dateTime);
     let weather = this.mergePreviousDateTimeWithNewOne(dateTime);
 
     if (this.hasDateChanged(dateTime) && this.gameRef.user.isGM) {
@@ -48,6 +48,7 @@ export class Weather {
     }
 
     if (this.isWeatherApplicationAvailable()) {
+      this.logger.debug('Update weather display');
       this.updateWeatherDisplay(dateTime);
     }
   }

@@ -25,11 +25,11 @@ function getGame(): Game {
 * No need to spam the console more than it already is, we hide them between a flag.
 */
 Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag }: DevModeApi) => {
-  registerPackageDebugFlag('weather', 'level');
+  registerPackageDebugFlag('weather-control', 'level');
   const devModeModule: DevMode = getGame().modules.get('_dev-mode') as unknown as DevMode;
 
   try {
-    logger.registerLevelCheckCallback(() => devModeModule?.api?.getPackageDebugValue('weather', 'level'));
+    logger.registerLevelCheckCallback(() => devModeModule?.api?.getPackageDebugValue('weather-control', 'level'));
   // eslint-disable-next-line no-empty
   } catch (e) {}
 });
