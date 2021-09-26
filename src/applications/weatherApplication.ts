@@ -31,6 +31,12 @@ export class WeatherApplication extends Application {
     return options;
   }
 
+  public getData(): any {
+    return {
+      isGM: this.isTimeManipulationEnabled(),
+    };
+  }
+
   public activateListeners(html: JQuery) {
     this.renderCompleteCallback();
 
@@ -51,7 +57,10 @@ export class WeatherApplication extends Application {
     this.listenToWeatherRefreshClick(html);
     this.setClimate(html);
     this.listenToClimateChange(html);
-    this.listenToTimeSkipButtons(html);
+
+    if (this.isTimeManipulationEnabled()) {
+      this.listenToTimeSkipButtons(html);
+    }
 
     global[moduleJson.class] = {};
     global[moduleJson.class].resetPosition = () => this.resetPosition();
@@ -68,16 +77,18 @@ export class WeatherApplication extends Application {
     // }
   }
   public updateClockStatus() {
-    if (SimpleCalendarApi.clockStatus().started) {
-      this.getElementById('btn-advance_01').classList.add('disabled');
-      this.getElementById('btn-advance_02').classList.add('disabled');
-      this.getElementById('time-running').classList.add('isRunning');
-      this.getElementById('clock-run-indicator').classList.add('isRunning');
-    } else {
-      this.getElementById('btn-advance_01').classList.remove('disabled');
-      this.getElementById('btn-advance_02').classList.remove('disabled');
-      this.getElementById('time-running').classList.remove('isRunning');
-      this.getElementById('clock-run-indicator').classList.remove('isRunning');
+    if (this.isTimeManipulationEnabled()) {
+      if (SimpleCalendarApi.clockStatus().started) {
+        this.getElementById('btn-advance_01').classList.add('disabled');
+        this.getElementById('btn-advance_02').classList.add('disabled');
+        this.getElementById('time-running').classList.add('isRunning');
+        this.getElementById('clock-run-indicator').classList.add('isRunning');
+      } else {
+        this.getElementById('btn-advance_01').classList.remove('disabled');
+        this.getElementById('btn-advance_02').classList.remove('disabled');
+        this.getElementById('time-running').classList.remove('isRunning');
+        this.getElementById('clock-run-indicator').classList.remove('isRunning');
+      }
     }
   }
 
@@ -210,5 +221,9 @@ export class WeatherApplication extends Application {
 
       SimpleCalendarApi.changeDate({ [unit]: Number(increment) });
     });
+  }
+
+  private isTimeManipulationEnabled(): boolean {
+    return this.gameRef.user.isGM;
   }
 }
