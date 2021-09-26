@@ -8,6 +8,9 @@ export function gameMock(): Game {
     },
     i18n: {
       localize: jest.fn(),
+    },
+    user: {
+      isGM: true,
     }
   } as any;
 }
