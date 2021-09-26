@@ -26,7 +26,6 @@ export class Weather {
   }
 
   public onReady() {
-
     this.initializeNotices();
     this.initializeWeatherData();
     this.initializeWeatherApplication();
@@ -36,7 +35,7 @@ export class Weather {
     this.logger.debug('DateTime has changed', dateTime);
     let weather = this.mergePreviousDateTimeWithNewOne(dateTime);
 
-    if (this.hasDateChanged(dateTime)) {
+    if (this.hasDateChanged(dateTime) && this.gameRef.user.isGM) {
       weather = this.weatherTracker.generate();
       weather.dateTime.date.day = dateTime.date.day;
       weather.dateTime.date.month = dateTime.date.month;
@@ -44,16 +43,29 @@ export class Weather {
       this.logger.info('Generated new weather');
     }
 
-    this.settings.setWeatherData(weather);
-    this.updateWeatherDisplay(dateTime);
+    if (this.gameRef.user.isGM) {
+      this.settings.setWeatherData(weather);
+    }
+
+    if (this.isWeatherApplicationAvailable()) {
+      this.updateWeatherDisplay(dateTime);
+    }
   }
 
   public onClockStartStop() {
-    this.weatherApplication.updateClockStatus();
+    if (this.isWeatherApplicationAvailable()) {
+      this.weatherApplication.updateClockStatus();
+    }
   }
 
   public resetWindowPosition() {
-    this.weatherApplication.resetPosition();
+    if (this.isWeatherApplicationAvailable()) {
+      this.weatherApplication.resetPosition();
+    }
+  }
+
+  private isWeatherApplicationAvailable(): boolean {
+    return this.settings.getCalendarDisplay() || this.gameRef.user.isGM;
   }
 
   private initializeNotices() {
@@ -81,7 +93,7 @@ export class Weather {
   }
 
   private initializeWeatherApplication() {
-    if (this.gameRef.user.isGM || this.settings.getCalendarDisplay()) {
+    if (this.isWeatherApplicationAvailable()) {
       this.weatherApplication = new WeatherApplication(
         this.gameRef,
         this.settings,

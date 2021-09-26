@@ -44,6 +44,7 @@ describe('Weather', () => {
   });
 
   it('SHOULD call the weatherTracker when weather need to be generated', () => {
+    game.user = { isGM: true };
     givenAWeatherApplicationMock();
     givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
@@ -55,6 +56,7 @@ describe('Weather', () => {
   });
 
   it('SHOULD NOT call weatherTracker when the date does not change', () => {
+    game.user = { isGM: true };
     givenAWeatherApplicationMock();
     givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
@@ -66,6 +68,7 @@ describe('Weather', () => {
   });
 
   it('SHOULD NOT call weatherTracker when the new date object is partially undefined', () => {
+    game.user = { isGM: true };
     givenAWeatherApplicationMock();
     givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
@@ -79,6 +82,7 @@ describe('Weather', () => {
   });
 
   it('SHOULD call weatherTracker when the previous date object is partially undefined', () => {
+    game.user = { isGM: true };
     givenAWeatherApplicationMock();
     const invalidDateObject = givenADateTime();
     delete invalidDateObject.date.day;
@@ -98,7 +102,7 @@ describe('Weather', () => {
 
       weather.onReady();
 
-      expect(weather['weatherApplication']).toBeDefined();
+      expect(getWeatherApplication()).toBeDefined();
     });
 
     it('SHOULD be instantiated if the setting is turned on AND the user is not a GM', () => {
@@ -108,7 +112,7 @@ describe('Weather', () => {
 
       weather.onReady();
 
-      expect(weather['weatherApplication']).toBeDefined();
+      expect(getWeatherApplication()).toBeDefined();
     });
 
     it('SHOULD NOT be intantiated if the setting is turned off and the user is a player', () => {
@@ -118,15 +122,58 @@ describe('Weather', () => {
 
       weather.onReady();
 
-      expect(weather['weatherApplication']).toBeUndefined();
+      expect(getWeatherApplication()).toBeUndefined();
     });
   });
 
+  describe('onClockStartStop', () => {
+    it('SHOULD call weather application WHEN user is a GM', () => {
+      game.user = { isGM: true };
+      weather = new Weather(game, chatProxy, log);
+      const weatherApplication = givenAWeatherApplicationMock();
+
+      weather.onClockStartStop();
+
+      expect(weatherApplication.updateClockStatus).toHaveBeenCalled();
+    });
+
+    it('SHOULD call weather application WHEN user is allowed to see the window', () => {
+      game.user = { isGM: false };
+      weather = new Weather(game, chatProxy, log);
+      givenCalendarDisplaySetting(true);
+      const weatherApplication = givenAWeatherApplicationMock();
+
+      weather.onClockStartStop();
+
+      expect(weatherApplication.updateClockStatus).toHaveBeenCalled();
+    });
+
+    it('SHOULD NOT call weather application WHEN user is not allowed to see the window', () => {
+      game.user = { isGM: false };
+      weather = new Weather(game, chatProxy, log);
+      givenCalendarDisplaySetting(false);
+      const weatherApplication = givenAWeatherApplicationMock();
+
+      weather.onClockStartStop();
+
+      expect(weatherApplication.updateClockStatus).not.toHaveBeenCalled();
+    });
+  });
+
+  function getModuleSettings(): ModuleSettings {
+    return weather['settings'];
+  }
+
   function givenModuleSettingsWithDateTime(): ModuleSettings {
-    const settings = weather['settings'];
+    const settings = getModuleSettings();
     settings.getWeatherData = jest.fn().mockReturnValue({ dateTime: givenADateTime() });
 
     return settings;
+  }
+
+  function givenCalendarDisplaySetting(allowed: boolean) {
+    const settings = getModuleSettings();
+    settings.getCalendarDisplay = jest.fn().mockReturnValue(allowed);
   }
 
   function getWeatherTracker(): WeatherTracker {
@@ -135,6 +182,11 @@ describe('Weather', () => {
 
   function givenAWeatherApplicationMock() {
     weather['weatherApplication'] = mockClass(WeatherApplication);
+    return getWeatherApplication();
+  }
+
+  function getWeatherApplication(): WeatherApplication {
+    return weather['weatherApplication'];
   }
 
   function givenADateTime(): DateTime {
