@@ -37,12 +37,12 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag
 Hooks.on('ready', () => {
   weather = new Weather(getGame(), chatProxy, logger);
   weather.onReady();
-});
 
-Hooks.on(SimpleCalendarHooks.DateTimeChange, ({...data}: DateTime) => {
-  weather.onDateTimeChange(data);
-});
+  Hooks.on(SimpleCalendarHooks.DateTimeChange, ({...data}: DateTime) => {
+    weather.onDateTimeChange(data);
+  });
 
-Hooks.on(SimpleCalendarHooks.ClockStartStop, () => {
-  weather.onClockStartStop();
+  Hooks.on(SimpleCalendarHooks.ClockStartStop, () => {
+    weather.onClockStartStop();
+  });
 });
