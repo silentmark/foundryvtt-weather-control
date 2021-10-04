@@ -7,6 +7,6 @@ chmod +x /foundry/
 # Run.
 echo "INFO ! Starting FoundryVTT Server"
 echo " "
-# exec node /foundry/fvtt/resources/app/main.js --dataPath=/foundry/data
+
 su foundry -c 'node /foundry/fvtt/resources/app/main.js --dataPath=/foundry/data'
 exit
