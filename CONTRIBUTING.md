@@ -29,14 +29,15 @@ Contributions are made to this repo via Issues and Merge Requests (MRs). A few g
 ### Building
 
 In order to build weather-control, you'll need to
-1. fork the repo
-2. install npm, node, jest, and webpack (Help is available for this step, but it's out of scope for this document.)
-3. look in the `package.json` file and see what scripts are available. Try `npm run build` or `npm run build:production`
+1. Fork the repo.
+2. Install npm, then run `npm install`. (Help is available for this step, but it's out of scope for this document.)
+3. Look in the `package.json` file and see what scripts are available. Try `npm run build` or `npm run build:production`.
 
-To have a "clean" installation to test your work, you can follow the following instructions (on Linux).
-1. unzip the foundryvtt.zip folder at $HOME/foundryvtt/fvtt
-2. run `npm run docker:build` and `npm run docker start`
-3. FoundryVTT will start without a window, but will be accessible via http://127.0.0.1:30000 (or http://localhost:30000)
+To use a fully automated development environment with a hot-reload of files in FoundryVTT, you can follow the following instructions (on Linux).
+1. Download the "Linux/NodeJS" version of FoundryVTT from [foundryvtt.com](https://foundryvtt.com).
+1. Unzip the foundryvtt.zip folder at $HOME/foundryvtt/fvtt.
+2. Run `npm run docker:build` and `npm run docker start`.
+3. FoundryVTT will start without a window, but will be accessible via http://127.0.0.1:30000 (or http://localhost:30000).
 4. You will need to enter your license key. Weather Control will be automatically installed, but you will need to install a game system before testing.
 
 ### Issues
