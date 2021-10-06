@@ -38,7 +38,7 @@ To use a fully automated development environment with a hot-reload of files in F
 1. Unzip the foundryvtt.zip folder at $HOME/foundryvtt/fvtt.
 2. Run `npm run docker:build` and `npm run docker start`.
 3. FoundryVTT will start without a window, but will be accessible via http://127.0.0.1:30000 (or http://localhost:30000).
-4. You will need to enter your license key. Weather Control will be automatically installed, but you will need to install a game system before testing.
+4. You will need to enter your license key. Weather Control will be automatically installed, but you will need to install a game system and the Simple Calendar plugin before testing.
 
 ### Issues
 
