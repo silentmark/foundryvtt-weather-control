@@ -26,6 +26,20 @@ Contributions are made to this repo via Issues and Merge Requests (MRs). A few g
 - Search for existing Issues and PRs before creating your own.
 - We work hard to make sure issues are handled promptly but, depending on the impact, it could take a while to investigate the root cause. A friendly ping in the comment thread to the submitter or a contributor can help draw attention if your issue is blocking.
 
+### Building
+
+In order to build weather-control, you'll need to
+1. Fork the repo.
+2. Install npm, then run `npm install`. (Help is available for this step, but it's out of scope for this document.)
+3. Look in the `package.json` file and see what scripts are available. Try `npm run build` or `npm run build:production`.
+
+To use a fully automated development environment with a hot-reload of files in FoundryVTT, you can follow the following instructions (on Linux).
+1. Download the "Linux/NodeJS" version of FoundryVTT from [foundryvtt.com](https://foundryvtt.com).
+1. Unzip the foundryvtt.zip folder at $HOME/foundryvtt/fvtt.
+2. Run `npm run docker:build` and `npm run docker start`.
+3. FoundryVTT will start without a window, but will be accessible via http://127.0.0.1:30000 (or http://localhost:30000).
+4. You will need to enter your license key. Weather Control will be automatically installed, but you will need to install a game system and the Simple Calendar plugin before testing.
+
 ### Issues
 
 Issues should be used to report problems with the library, request a new feature, or discuss potential changes before a PR is created. When you create a new Issue, a template will be loaded that will instruct you to select the appropriate template and guide you to fill out the required information.
