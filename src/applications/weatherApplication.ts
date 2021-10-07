@@ -53,14 +53,14 @@ export class WeatherApplication extends Application {
       this.startStopClock(event);
     });
 
-    this.listenToWindowMove(html);
+    this.listenToWindowExpand(html);
     this.listenToWeatherRefreshClick(html);
     this.setClimate(html);
     this.listenToClimateChange(html);
 
     if (this.isTimeManipulationEnabled()) {
       this.listenToTimeSkipButtons(html);
-    }
+  }
 
     global[moduleJson.class] = {};
     global[moduleJson.class].resetPosition = () => this.resetPosition();
@@ -112,8 +112,8 @@ export class WeatherApplication extends Application {
     }
   }
 
-  private listenToWindowMove(html: JQuery) {
-    const weather = '.weather-toggle';
+  private listenToWindowExpand(html: JQuery) {
+    const weather = '#weather-toggle';
 
     if (!this.gameRef.user.isGM && !this.settings.getPlayerSeeWeather()) {
       document.getElementById('weather-toggle').style.display = 'none';
