@@ -60,7 +60,7 @@ export class WeatherApplication extends Application {
 
     if (this.isTimeManipulationEnabled()) {
       this.listenToTimeSkipButtons(html);
-  }
+    }
 
     global[moduleJson.class] = {};
     global[moduleJson.class].resetPosition = () => this.resetPosition();
