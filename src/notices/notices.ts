@@ -1,4 +1,4 @@
-import { ModuleSettings } from 'src/module-settings';
+import { ModuleSettings } from 'src/settings/module-settings';
 
 import { Foundry } from '../libraries/foundry/foundry';
 

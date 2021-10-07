@@ -5,7 +5,7 @@ import { DateTime } from '../libraries/simple-calendar/dateTime';
 import { Log } from '../logger/logger';
 import { Climates, WeatherData } from '../models/weatherData';
 import { WindowPosition } from '../models/windowPosition';
-import { ModuleSettings } from '../module-settings';
+import { ModuleSettings } from '../settings/module-settings';
 import { WeatherTracker } from '../weather/weatherTracker';
 import { WindowDrag } from './windowDrag';
 

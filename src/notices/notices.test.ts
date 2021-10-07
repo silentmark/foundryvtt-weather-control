@@ -1,5 +1,5 @@
 import { Foundry } from '../libraries/foundry/foundry';
-import { ModuleSettings } from '../module-settings';
+import { ModuleSettings } from '../settings/module-settings';
 import { gameMock, mockClass } from '../testUtils';
 import { Notices } from './notices';
 

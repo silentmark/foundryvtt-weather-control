@@ -1,6 +1,6 @@
 import { defaultWeatherData } from '../models/weatherData';
-import { ModuleSettings } from '../module-settings';
 import { ChatProxy } from '../proxies/chatProxy';
+import { ModuleSettings } from '../settings/module-settings';
 import { gameMock, mockClass } from '../testUtils';
 import { WeatherTracker } from './weatherTracker';
 
