@@ -67,14 +67,12 @@ export class WeatherApplication extends Application {
   }
 
   public updateWeather(weatherData: WeatherData) {
-    document.getElementById('current-temperature').innerHTML = weatherData.cTemp + ' °C';
+    if (this.settings.getUseCelcius()) {
+      document.getElementById('current-temperature').innerHTML = weatherData.cTemp + ' °C';
+    } else {
+      document.getElementById('current-temperature').innerHTML = weatherData.temp + ' °F';
+    }
     document.getElementById('precipitation').innerHTML = weatherData.precipitation;
-
-    // if (game.settings.get( 'calendar-weather', 'useCelcius')) {
-    //   temp.innerHTML = cwdtData.dt.getWeatherObj().cTemp + ' °C';
-    // } else {
-    //   temp.innerHTML = cwdtData.dt.getWeatherObj().temp + ' °F';
-    // }
   }
   public updateClockStatus() {
     if (this.isTimeManipulationEnabled()) {
