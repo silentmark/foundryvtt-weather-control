@@ -80,11 +80,11 @@ export class WeatherTracker {
 
   private output() {
     let tempOut = '';
-    // if (this.settings.getUseCelcius()) {
-    tempOut = this.weatherData.cTemp + ' °C';
-    // } else {
-    //   tempOut = this.weatherData.temp + ' °F';
-    // }
+    if (this.settings.getUseCelcius()) {
+      tempOut = this.weatherData.cTemp + ' °C';
+    } else {
+      tempOut = this.weatherData.temp + ' °F';
+    }
 
     let messageRecipients = null;
     if (!this.settings.getOutputWeatherToChat()) {

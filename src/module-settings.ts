@@ -65,9 +65,9 @@ export class ModuleSettings {
   //   return this.get(SettingKeys.noGlobal);
   // }
 
-  // public getUseCelcius(): boolean {
-  //   return this.get(SettingKeys.useCelcius);
-  // }
+  public getUseCelcius(): boolean {
+    return this.get(SettingKeys.useCelcius);
+  }
 
   public getPlayerSeeWeather(): boolean {
     return this.get(SettingKeys.playerSeeWeatherInfo);
@@ -148,15 +148,14 @@ export class ModuleSettings {
     //   type: Boolean,
     // });
 
-    // TODO: "Use Celcius"
-    // this.register(SettingKeys.useCelcius, {
-    //   name: this.gameRef.i18n.localize('wctrl.settings.useCelcius'),
-    //   hint: this.gameRef.i18n.localize('wctrl.settings.useCelciusHelp'),
-    //   scope: 'world',
-    //   config: true,
-    //   default: false,
-    //   type: Boolean,
-    // });
+    this.register(SettingKeys.useCelcius, {
+      name: this.gameRef.i18n.localize('wctrl.settings.useCelcius'),
+      hint: this.gameRef.i18n.localize('wctrl.settings.useCelciusHelp'),
+      scope: 'world',
+      config: true,
+      default: false,
+      type: Boolean,
+    });
 
     this.register(SettingKeys.playerSeeWeatherInfo, {
       name: this.gameRef.i18n.localize('wctrl.settings.playerSeeWeather'),
