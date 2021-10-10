@@ -68,11 +68,11 @@ export class WeatherApplication extends Application {
 
   public updateWeather(weatherData: WeatherData) {
     if (this.settings.getUseCelcius()) {
-      document.getElementById('current-temperature').innerHTML = weatherData.cTemp + ' °C';
+      this.getElementById('current-temperature').innerHTML = weatherData.cTemp + ' °C';
     } else {
-      document.getElementById('current-temperature').innerHTML = weatherData.temp + ' °F';
+      this.getElementById('current-temperature').innerHTML = weatherData.temp + ' °F';
     }
-    document.getElementById('precipitation').innerHTML = weatherData.precipitation;
+    this.getElementById('precipitation').innerHTML = weatherData.precipitation;
   }
   public updateClockStatus() {
     if (this.isTimeManipulationEnabled()) {
