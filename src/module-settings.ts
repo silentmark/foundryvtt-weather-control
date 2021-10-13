@@ -3,17 +3,14 @@ import moduleJson from '@module';
 import { WeatherData } from './models/weatherData';
 import { WindowPosition } from './models/windowPosition';
 
-enum SettingKeys {
+export enum SettingKeys {
   calendarDisplay = 'calendarDisplay',
-  windowPosition = 'windowPosition',
-  legacyDateTime = 'legacyDateTime',
-  dateTime = 'dateTime',
-  noGlobal = 'noGlobal',
+  noticeVersion = 'noticeVersion',
   outputWeatherToChat = 'outputWeatherChat',
   playerSeeWeatherInfo = 'playerSeeWeatherInfo',
   useCelcius = 'useCelcius',
   weatherData = 'weatherData',
-  noticeVersion = 'noticeVersion',
+  windowPosition = 'windowPosition',
 }
 
 export class ModuleSettings {
