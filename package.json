@@ -41,6 +41,7 @@
     "eslint-webpack-plugin": "^2.5.3",
     "glob": "^7.1.6",
     "jest": "^27.0.6",
+    "jest-extended": "^1.0.0",
     "jest-junit": "^12.2.0",
     "marked": "^2.0.3",
     "mini-css-extract-plugin": "^2.2.0",
