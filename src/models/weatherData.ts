@@ -13,6 +13,7 @@ export enum Climates {
 }
 
 export class WeatherData {
+  public version: number;
   public dateTime: DateTime = new DateTime(); // DateTime provided by Simple Calendar
 
   public cTemp: number; // Temperature in celcius
@@ -23,14 +24,3 @@ export class WeatherData {
   public temp: number; // Current temperature in farenheit
   public tempRange: { min: number, max: number }; // Temperature range of the current season - TODO: Confirm if this is true
 }
-
-export const defaultWeatherData: WeatherData = {
-  dateTime: null,
-  cTemp:  null,
-  climate: null,
-  isVolcanic: false,
-  lastTemp: 50,
-  precipitation: null,
-  temp: 50,
-  tempRange: { min: 30, max: 90 },
-};

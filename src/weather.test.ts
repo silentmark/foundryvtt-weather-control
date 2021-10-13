@@ -1,33 +1,41 @@
 import { WeatherApplication } from './applications/weatherApplication';
 import { Date, DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
-import { defaultWeatherData } from './models/weatherData';
+import { WeatherData } from './models/weatherData';
 import { ChatProxy } from './proxies/chatProxy';
 import { ModuleSettings } from './settings/module-settings';
 import { gameMock, mockClass } from './testUtils';
 import { Weather } from './weather';
 import { WeatherTracker } from './weather/weatherTracker';
 
-
-const WEATHER_DATA = defaultWeatherData;
-WEATHER_DATA.dateTime = {
-  date: {
-    currentSeason: null,
-    day: 1,
-    dayOfTheWeek: 1,
-    dayOffset: 0,
-    display: null,
-    hour: 0,
-    isLeapYear: false,
-    minute: 0,
-    month: 0,
-    second: 0,
-    showWeekdayHeadings: false,
-    weekdays: [],
-    year: 0,
-    yearZero: 0,
+const WEATHER_DATA: WeatherData = {
+  version: 1,
+  dateTime: {
+    date: {
+      currentSeason: null,
+      day: 1,
+      dayOfTheWeek: 1,
+      dayOffset: 0,
+      display: null,
+      hour: 0,
+      isLeapYear: false,
+      minute: 0,
+      month: 0,
+      second: 0,
+      showWeekdayHeadings: false,
+      weekdays: [],
+      year: 0,
+      yearZero: 0,
+    },
+    moons: null
   },
-  moons: null
+  cTemp:  null,
+  climate: null,
+  isVolcanic: false,
+  lastTemp: 50,
+  precipitation: null,
+  temp: 50,
+  tempRange: { min: 30, max: 90 },
 };
 
 describe('Weather', () => {
