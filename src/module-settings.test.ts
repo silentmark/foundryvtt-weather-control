@@ -1,4 +1,4 @@
-import { ModuleSettings } from './module-settings';
+import { ModuleSettings, SettingKeys } from './module-settings';
 import { gameMock } from './testUtils';
 
 describe('Settings', () => {
@@ -8,10 +8,15 @@ describe('Settings', () => {
   beforeEach(() => {
     game = gameMock();
     settings = new ModuleSettings(game);
-    settings; // This is just so the linter does not think it is unused
   });
 
-  it('SHOULD register all settings on construction', () => {
-    expect(game.settings.register).toHaveBeenCalledTimes(6);
+  it('SHOULD register all required settings', () => {
+    expect(game.settings.register).toHaveBeenCalledWith(settings.getModuleName(), SettingKeys.calendarDisplay, expect.any(Object));
+    expect(game.settings.register).toHaveBeenCalledWith(settings.getModuleName(), SettingKeys.noticeVersion, expect.any(Object));
+    expect(game.settings.register).toHaveBeenCalledWith(settings.getModuleName(), SettingKeys.outputWeatherToChat, expect.any(Object));
+    expect(game.settings.register).toHaveBeenCalledWith(settings.getModuleName(), SettingKeys.playerSeeWeatherInfo, expect.any(Object));
+    expect(game.settings.register).toHaveBeenCalledWith(settings.getModuleName(), SettingKeys.useCelcius, expect.any(Object));
+    expect(game.settings.register).toHaveBeenCalledWith(settings.getModuleName(), SettingKeys.weatherData, expect.any(Object));
+    expect(game.settings.register).toHaveBeenCalledWith(settings.getModuleName(), SettingKeys.windowPosition, expect.any(Object));
   });
 });
