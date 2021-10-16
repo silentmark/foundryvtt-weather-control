@@ -43,16 +43,18 @@ module.exports = (env) => {
         },
         devServer: {
             hot: true,
-            writeToDisk: true,
             proxy: [
                 {
                     context: (pathname) => {
                         return !pathname.match("^/sockjs");
                     },
                     target: "http://localhost:${npm_config_foundryport}",
-                    ws: true,
+                    ws: false,
                 },
             ],
+            devMiddleware: {
+                writeToDisk: true,
+            }
         },
         module: {
             rules: [
