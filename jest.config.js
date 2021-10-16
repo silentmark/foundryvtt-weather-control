@@ -21,5 +21,8 @@ module.exports = {
   setupFilesAfterEnv: [
     'jest-extended/all'
   ],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths , { prefix: '<rootDir>/' } )
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+    ...pathsToModuleNameMapper(compilerOptions.paths , { prefix: '<rootDir>/' } ),
+  }
 };

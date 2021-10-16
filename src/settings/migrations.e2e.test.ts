@@ -1,5 +1,5 @@
-import { Log } from '@src/logger/logger';
-import { mockClass } from '@src/testUtils';
+import { Log } from 'src/logger/logger';
+import { mockClass } from 'src/testUtils';
 
 import { Migrations } from './migrations';
 import { Migration1 } from './migrations/migration-1';
