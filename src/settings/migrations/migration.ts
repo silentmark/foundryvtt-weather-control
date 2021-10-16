@@ -2,9 +2,9 @@
 export abstract class Migration {
   public readonly version: number;
 
-  constructor(version: number) {
+  protected constructor(version: number) {
     this.version = version;
   }
 
-  public abstract migrate(): void;
+  public abstract migrate(previous: unknown): unknown;
 }
