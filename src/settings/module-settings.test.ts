@@ -1,5 +1,5 @@
+import { gameMock } from '../testUtils';
 import { ModuleSettings, SettingKeys } from './module-settings';
-import { gameMock } from './testUtils';
 
 describe('Settings', () => {
   let game;

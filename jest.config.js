@@ -16,7 +16,13 @@ module.exports = {
     '^.+\\.(ts|tsx)$': 'ts-jest'
   },
   setupFiles: [
-    './tests-setup/foundryClasses.js'
+    './tests-setup/foundryClasses.js',
   ],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths , { prefix: '<rootDir>/' } )
+  setupFilesAfterEnv: [
+    'jest-extended/all'
+  ],
+  moduleNameMapper: {
+    '^src/(.*)$': '<rootDir>/src/$1',
+    ...pathsToModuleNameMapper(compilerOptions.paths , { prefix: '<rootDir>/' } ),
+  }
 };

@@ -1,7 +1,7 @@
 import moduleJson from '@module';
 
-import { WeatherData } from './models/weatherData';
-import { WindowPosition } from './models/windowPosition';
+import { WeatherData } from '../models/weatherData';
+import { WindowPosition } from '../models/windowPosition';
 
 export enum SettingKeys {
   calendarDisplay = 'calendarDisplay',

@@ -5,7 +5,7 @@ import { DateTime } from '../libraries/simple-calendar/dateTime';
 import { Log } from '../logger/logger';
 import { Climates, WeatherData } from '../models/weatherData';
 import { WindowPosition } from '../models/windowPosition';
-import { ModuleSettings } from '../module-settings';
+import { ModuleSettings } from '../settings/module-settings';
 import { WeatherTracker } from '../weather/weatherTracker';
 import { WindowDrag } from './windowDrag';
 
@@ -53,7 +53,7 @@ export class WeatherApplication extends Application {
       this.startStopClock(event);
     });
 
-    this.listenToWindowMove(html);
+    this.listenToWindowExpand(html);
     this.listenToWeatherRefreshClick(html);
     this.setClimate(html);
     this.listenToClimateChange(html);
@@ -112,8 +112,8 @@ export class WeatherApplication extends Application {
     }
   }
 
-  private listenToWindowMove(html: JQuery) {
-    const weather = '.weather-toggle';
+  private listenToWindowExpand(html: JQuery) {
+    const weather = '#weather-toggle';
 
     if (!this.gameRef.user.isGM && !this.settings.getPlayerSeeWeather()) {
       document.getElementById('weather-toggle').style.display = 'none';

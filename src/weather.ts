@@ -3,9 +3,9 @@ import { SimpleCalendarApi } from './libraries/simple-calendar/api';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
 import { Climates, WeatherData } from './models/weatherData';
-import { ModuleSettings } from './module-settings';
 import { Notices } from './notices/notices';
 import { ChatProxy } from './proxies/chatProxy';
+import { ModuleSettings } from './settings/module-settings';
 import { WeatherTracker } from './weather/weatherTracker';
 
 /**

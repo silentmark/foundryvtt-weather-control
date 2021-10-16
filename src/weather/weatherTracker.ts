@@ -1,7 +1,7 @@
 import { Climate } from '../models/climate';
 import { Climates, WeatherData } from '../models/weatherData';
-import { ModuleSettings } from '../module-settings';
 import { ChatProxy } from '../proxies/chatProxy';
+import { ModuleSettings } from '../settings/module-settings';
 import { PrecipitationsGenerator } from './precipitationsGenerator';
 
 /**
