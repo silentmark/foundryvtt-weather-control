@@ -4,7 +4,7 @@ export class WindowDrag {
   private parent: HTMLElement;
   private mouseMoveCallback = (moveEvent: Event) => {
     this.mouseMove(moveEvent);
-  }
+  };
 
   public start(parent: HTMLElement, mouseUpCallback: (windowPos: WindowPosition) => void) {
     this.parent = parent;

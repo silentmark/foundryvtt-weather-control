@@ -29,7 +29,6 @@ const WEATHER_DATA: WeatherData = {
     },
     moons: null
   },
-  cTemp:  null,
   climate: null,
   isVolcanic: false,
   lastTemp: 50,

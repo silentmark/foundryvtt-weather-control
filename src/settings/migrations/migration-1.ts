@@ -23,6 +23,7 @@ interface TargetWeatherData {
   lastTemp: number,
   precipitation: string,
   temp: number,
+  tempRange: { min: number, max: number },
 }
 
 export class Migration1 extends Migration {
@@ -41,6 +42,7 @@ export class Migration1 extends Migration {
       lastTemp: previous.lastTemp,
       precipitation: previous.precipitation,
       temp: previous.temp,
+      tempRange: previous.tempRange,
     };
     return data;
   }
