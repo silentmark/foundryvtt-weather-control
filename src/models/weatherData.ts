@@ -16,7 +16,6 @@ export class WeatherData {
   public version: number;
   public dateTime: DateTime = new DateTime(); // DateTime provided by Simple Calendar
 
-  public cTemp: number; // Temperature in celcius
   public climate: Climate; // Current climate - TODO: Should be an enum
   public isVolcanic: boolean; // TODO: TBD
   public lastTemp: number; // Last temperature in farenheit

@@ -6,6 +6,7 @@ import { Log } from '../logger/logger';
 import { Climates, WeatherData } from '../models/weatherData';
 import { WindowPosition } from '../models/windowPosition';
 import { ModuleSettings } from '../settings/module-settings';
+import { farenheitToCelcius } from '../temperatureUtils';
 import { WeatherTracker } from '../weather/weatherTracker';
 import { WindowDrag } from './windowDrag';
 
@@ -67,13 +68,18 @@ export class WeatherApplication extends Application {
   }
 
   public updateWeather(weatherData: WeatherData) {
-    if (this.settings.getUseCelcius()) {
-      this.getElementById('current-temperature').innerHTML = weatherData.cTemp + ' °C';
-    } else {
-      this.getElementById('current-temperature').innerHTML = weatherData.temp + ' °F';
-    }
+    this.getElementById('current-temperature').innerHTML = this.getTemperature(weatherData);
     this.getElementById('precipitation').innerHTML = weatherData.precipitation;
   }
+
+  private getTemperature(weatherData: WeatherData): string {
+    if (this.settings.getUseCelcius()) {
+      return farenheitToCelcius(weatherData.temp) + ' °C';
+    } else {
+      return weatherData.temp + ' °F';
+    }
+  }
+
   public updateClockStatus() {
     if (this.isTimeManipulationEnabled()) {
       if (SimpleCalendarApi.clockStatus().started) {

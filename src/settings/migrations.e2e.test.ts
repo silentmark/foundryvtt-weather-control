@@ -10,6 +10,7 @@ const EXPECTED_VOLCANIC = 'some-volcanic-state';
 const EXPECTED_LAST_TEMP = 'some-last-temp';
 const EXPECTED_PRECIPITATION = 'some-precipitation';
 const EXPECTED_TEMP = 'some-temperature';
+const EXPECTED_TEMP_RANGE = { min: 1, max: 2 };
 
 const STARTING_DATA = {
   version: 1,
@@ -20,7 +21,7 @@ const STARTING_DATA = {
   lastTemp: EXPECTED_LAST_TEMP,
   precipitation: EXPECTED_PRECIPITATION,
   temp: EXPECTED_TEMP,
-  tempRange: { min: 1, max: 2 },
+  tempRange: EXPECTED_TEMP_RANGE,
 };
 
 const EXPECTED_DATA = {
@@ -31,6 +32,7 @@ const EXPECTED_DATA = {
   lastTemp: EXPECTED_LAST_TEMP,
   precipitation: EXPECTED_PRECIPITATION,
   temp: EXPECTED_TEMP,
+  tempRange: EXPECTED_TEMP_RANGE,
 };
 
 

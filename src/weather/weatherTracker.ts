@@ -2,6 +2,7 @@ import { Climate } from '../models/climate';
 import { Climates, WeatherData } from '../models/weatherData';
 import { ChatProxy } from '../proxies/chatProxy';
 import { ModuleSettings } from '../settings/module-settings';
+import { farenheitToCelcius } from '../temperatureUtils';
 import { PrecipitationsGenerator } from './precipitationsGenerator';
 
 /**
@@ -51,9 +52,6 @@ export class WeatherTracker {
     // Save the last temperature
     this.weatherData.lastTemp = this.weatherData.temp;
 
-    // Convert temperature to ⁰C
-    this.weatherData.cTemp = Number(((this.weatherData.temp - 32) * 5 / 9).toFixed(1));
-
     this.weatherData.precipitation = this.precipitations.generate(this.rand(1, 20), this.weatherData);
 
     // Output to chat if enabled
@@ -78,20 +76,21 @@ export class WeatherTracker {
     }
   }
 
-  private output() {
-    let tempOut = '';
+  private getTemperature(): string {
     if (this.settings.getUseCelcius()) {
-      tempOut = this.weatherData.cTemp + ' °C';
+      return farenheitToCelcius(this.weatherData.temp) + ' °C';
     } else {
-      tempOut = this.weatherData.temp + ' °F';
+      return this.weatherData.temp + ' °F';
     }
+  }
 
+  private output() {
     let messageRecipients = null;
     if (!this.settings.getOutputWeatherToChat()) {
       messageRecipients = this.chatProxy.getWhisperRecipients('GM')[0].id;
     }
 
-    const chatOut = '<b>' + tempOut + '</b> - ' + this.weatherData.precipitation;
+    const chatOut = '<b>' + this.getTemperature() + '</b> - ' + this.weatherData.precipitation;
 
     this.chatProxy.create({
       speaker: {
