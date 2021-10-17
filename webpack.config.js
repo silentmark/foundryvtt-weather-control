@@ -31,6 +31,7 @@ module.exports = (env) => {
     mode: environment.mode,
     resolve: {
       alias: {
+        "src": path.resolve(__dirname, './src'),
         "@package": path.resolve(__dirname, './package.json'),
         "@module": path.resolve(__dirname, './static/module.json'),
       },
@@ -71,7 +72,6 @@ module.exports = (env) => {
           test: /\.ts$/,
           use: [
             "ts-loader?configFile=tsconfig.webpack.json",
-            "webpack-import-glob-loader",
             "source-map-loader",
             {
               loader: "string-replace-loader",

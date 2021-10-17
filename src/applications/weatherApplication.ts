@@ -6,7 +6,7 @@ import { Log } from '../logger/logger';
 import { Climates, WeatherData } from '../models/weatherData';
 import { WindowPosition } from '../models/windowPosition';
 import { ModuleSettings } from '../settings/module-settings';
-import { farenheitToCelcius } from '../temperatureUtils';
+import { farenheitToCelcius } from '../utils/temperatureUtils';
 import { WeatherTracker } from '../weather/weatherTracker';
 import { WindowDrag } from './windowDrag';
 

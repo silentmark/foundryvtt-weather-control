@@ -1,6 +1,6 @@
 import { Foundry } from '../libraries/foundry/foundry';
 import { ModuleSettings } from '../settings/module-settings';
-import { gameMock, mockClass } from '../testUtils';
+import { gameMock, mockClass } from '../utils/testUtils';
 import { Notices } from './notices';
 
 const A_VERSION = '1.2.3';

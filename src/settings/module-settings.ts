@@ -134,17 +134,6 @@ export class ModuleSettings {
       type: Boolean,
     });
 
-    // TODO: Currently is "Disable Global Illumination at Night". We might want to continue modifying world light level.
-    // Simple Calendar or Small Time probably already does this, we could hook on it.
-    // this.register(SettingKeys.noGlobal, {
-    //   name: this.gameRef.i18n.localize('wctrl.settings.NoGlobal'),
-    //   hint: this.gameRef.i18n.localize('wctrl.settings.NoGlobalHelp'),
-    //   scope: 'world',
-    //   config: true,
-    //   default: true,
-    //   type: Boolean,
-    // });
-
     this.register(SettingKeys.useCelcius, {
       name: this.gameRef.i18n.localize('wctrl.settings.useCelcius'),
       hint: this.gameRef.i18n.localize('wctrl.settings.useCelciusHelp'),

@@ -1,4 +1,4 @@
-import { gameMock } from '../testUtils';
+import { gameMock } from '../utils/testUtils';
 import { ModuleSettings, SettingKeys } from './module-settings';
 
 describe('Settings', () => {
