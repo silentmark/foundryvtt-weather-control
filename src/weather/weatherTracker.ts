@@ -2,7 +2,7 @@ import { Climate } from '../models/climate';
 import { Climates, WeatherData } from '../models/weatherData';
 import { ChatProxy } from '../proxies/chatProxy';
 import { ModuleSettings } from '../settings/module-settings';
-import { farenheitToCelcius } from '../temperatureUtils';
+import { farenheitToCelcius } from '../utils/temperatureUtils';
 import { PrecipitationsGenerator } from './precipitationsGenerator';
 
 /**

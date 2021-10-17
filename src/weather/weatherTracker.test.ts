@@ -1,7 +1,7 @@
 import { WeatherData } from '../models/weatherData';
 import { ChatProxy } from '../proxies/chatProxy';
 import { ModuleSettings } from '../settings/module-settings';
-import { gameMock, mockClass } from '../testUtils';
+import { gameMock, mockClass } from '../utils/testUtils';
 import { WeatherTracker } from './weatherTracker';
 
 const game = gameMock();

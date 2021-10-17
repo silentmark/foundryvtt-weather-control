@@ -30,11 +30,11 @@
 		"skipLibCheck": true,
 		"resolveJsonModule": true,
 
-		"baseUrl": ".",
+		"baseUrl": "./",
 		"paths": {
 			"@package": ["./package.json"],
 			"@module": ["./static/module.json"]
 		}
 	},
-  "exclude": [ "node_modules", "webpack.config.js", "foundry.js", "dist", "src-legacy" ]
+  "exclude": [ "node_modules", "webpack.config.js", "foundry.js", "dist" ]
 }
