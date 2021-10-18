@@ -1,10 +1,6 @@
 export class RawDate {
   public year: number;
-  public yearName: string;
-  public yearPostfix: string;
-  public yearPrefix: string;
   public month: number;
-  public monthName: string;
   public weekdays: string[];
   public currentWeekdayIndex: number;
   public day: number;

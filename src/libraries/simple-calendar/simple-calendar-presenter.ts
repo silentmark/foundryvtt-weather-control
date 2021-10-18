@@ -10,11 +10,7 @@ export abstract class SimpleCalendarPresenter {
     const date: CurrentDate = new CurrentDate();
     date.raw = {
       year: scDate.year,
-      yearName: scDate.yearName,
-      yearPostfix: scDate.yearPostfix,
-      yearPrefix: scDate.yearPrefix,
       month: scDate.month,
-      monthName: scDate.monthName,
       weekdays: scDate.weekdays,
       currentWeekdayIndex: scDate.dayOfTheWeek,
       day: scDate.day,
@@ -27,7 +23,6 @@ export abstract class SimpleCalendarPresenter {
       time: scDate.display.time
     };
 
-    console.log('date', date);
     return date;
   }
 

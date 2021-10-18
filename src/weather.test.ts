@@ -20,10 +20,6 @@ const WEATHER_DATA: WeatherData = {
       second: 0,
       weekdays: [],
       year: 0,
-      yearName: 'yearName',
-      yearPostfix: 'yearPostfix',
-      yearPrefix: 'yearPrefix',
-      monthName: 'monthName',
     },
     display: {
       fullDate: 'the full date',
