@@ -5,6 +5,7 @@ import { DevMode } from './libraries/devMode/devMode';
 import { DevModeApi } from './libraries/devMode/devModeApi';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { SimpleCalendarHooks } from './libraries/simple-calendar/hooks';
+import { SimpleCalendarPresenter } from './libraries/simple-calendar/simple-calendar-presenter';
 import { Log } from './logger/logger';
 import { ChatProxy } from './proxies/chatProxy';
 import { Weather } from './weather';
@@ -39,7 +40,7 @@ Hooks.on('ready', () => {
   weather.onReady();
 
   Hooks.on(SimpleCalendarHooks.DateTimeChange, ({...data}: DateTime) => {
-    weather.onDateTimeChange(data);
+    weather.onDateTimeChange(SimpleCalendarPresenter.createDateObject(data));
   });
 
   Hooks.on(SimpleCalendarHooks.ClockStartStop, () => {

@@ -1,5 +1,5 @@
-import { DateTime } from '../libraries/simple-calendar/dateTime';
 import { Climate } from './climate';
+import { CurrentDate } from './currentDate';
 
 export enum Climates {
   temperate = 'temperate',
@@ -14,7 +14,8 @@ export enum Climates {
 
 export class WeatherData {
   public version: number;
-  public dateTime: DateTime = new DateTime(); // DateTime provided by Simple Calendar
+
+  public currentDate: CurrentDate = new CurrentDate();
 
   public climate: Climate; // Current climate
   public isVolcanic: boolean; // TODO: Should be moved into Climate/Biome data

@@ -1,6 +1,6 @@
 import { WeatherApplication } from './applications/weatherApplication';
-import { Date, DateTime } from './libraries/simple-calendar/dateTime';
 import { Log } from './logger/logger';
+import { CurrentDate, RawDate } from './models/currentDate';
 import { WeatherData } from './models/weatherData';
 import { ChatProxy } from './proxies/chatProxy';
 import { ModuleSettings } from './settings/module-settings';
@@ -10,24 +10,25 @@ import { WeatherTracker } from './weather/weatherTracker';
 
 const WEATHER_DATA: WeatherData = {
   version: 1,
-  dateTime: {
-    date: {
-      currentSeason: null,
+  currentDate: {
+    raw: {
       day: 1,
-      dayOfTheWeek: 1,
-      dayOffset: 0,
-      display: null,
+      currentWeekdayIndex: 1,
       hour: 0,
-      isLeapYear: false,
       minute: 0,
       month: 0,
       second: 0,
-      showWeekdayHeadings: false,
       weekdays: [],
       year: 0,
-      yearZero: 0,
+      yearName: 'yearName',
+      yearPostfix: 'yearPostfix',
+      yearPrefix: 'yearPrefix',
+      monthName: 'monthName',
     },
-    moons: null
+    display: {
+      fullDate: 'the full date',
+      time: 'the full time',
+    }
   },
   climate: null,
   isVolcanic: false,
@@ -81,7 +82,7 @@ describe('Weather', () => {
     const weatherTracker = getWeatherTracker();
     weatherTracker.generate = jest.fn();
     const invalidDateObject = givenADifferentDateTime();
-    delete invalidDateObject.date.day;
+    delete invalidDateObject.raw.day;
 
     weather.onDateTimeChange(invalidDateObject);
 
@@ -91,8 +92,8 @@ describe('Weather', () => {
   it('SHOULD call weatherTracker when the previous date object is partially undefined', () => {
     game.user = { isGM: true };
     givenAWeatherApplicationMock();
-    const invalidDateObject = givenADateTime();
-    delete invalidDateObject.date.day;
+    const invalidDateObject = givenACurrentDate();
+    delete invalidDateObject.raw.day;
     givenModuleSettingsWithDateTime();
     const weatherTracker = getWeatherTracker();
     weatherTracker.generate = jest.fn().mockReturnValue(WEATHER_DATA);
@@ -173,7 +174,7 @@ describe('Weather', () => {
 
   function givenModuleSettingsWithDateTime(): ModuleSettings {
     const settings = getModuleSettings();
-    settings.getWeatherData = jest.fn().mockReturnValue({ dateTime: givenADateTime() });
+    settings.getWeatherData = jest.fn().mockReturnValue({ currentDate: givenACurrentDate() });
 
     return settings;
   }
@@ -196,38 +197,42 @@ describe('Weather', () => {
     return weather['weatherApplication'];
   }
 
-  function givenADateTime(): DateTime {
-    const dateTime = new DateTime();
-    dateTime.date = new Date();
-    dateTime.date.day = 1;
-    dateTime.date.month = 2;
-    dateTime.date.year = 3;
-    dateTime.date.second = 4;
-    dateTime.date.minute = 5;
-    dateTime.date.hour = 6;
+  function givenACurrentDate(): CurrentDate {
+    const dateTime = new CurrentDate();
+    const raw = new RawDate();
+    raw.day = 1;
+    raw.month = 2;
+    raw.year = 3;
+    raw.second = 4;
+    raw.minute = 5;
+    raw.hour = 6;
 
+    dateTime.raw = raw;
     return dateTime;
   }
 
-  function givenADifferentTime(): DateTime {
-    const dateTime = givenADateTime();
-    dateTime.date.second = 22;
-    dateTime.date.minute = 23;
-    dateTime.date.hour = 24;
+  function givenADifferentTime(): CurrentDate {
+    const dateTime = givenACurrentDate();
+    const raw = new RawDate();
+    raw.second = 22;
+    raw.minute = 23;
+    raw.hour = 24;
 
+    dateTime.raw = raw;
     return dateTime;
   }
 
-  function givenADifferentDateTime(): DateTime {
-    const dateTime = new DateTime();
-    dateTime.date = new Date();
-    dateTime.date.day = 11;
-    dateTime.date.month = 12;
-    dateTime.date.year = 13;
-    dateTime.date.second = 14;
-    dateTime.date.minute = 15;
-    dateTime.date.hour = 16;
+  function givenADifferentDateTime(): CurrentDate {
+    const dateTime = new CurrentDate();
+    const raw = new RawDate();
+    raw.day = 11;
+    raw.month = 12;
+    raw.year = 13;
+    raw.second = 14;
+    raw.minute = 15;
+    raw.hour = 16;
 
+    dateTime.raw = raw;
     return dateTime;
   }
 });

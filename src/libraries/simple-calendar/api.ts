@@ -1,4 +1,4 @@
-import { Date } from './dateTime';
+import { DateTime } from './dateTime';
 
 declare global {
   interface Window { SimpleCalendar: any; }
@@ -38,7 +38,7 @@ export class SimpleCalendarApi {
     return this.SimpleCalendar.timestamp();
   }
 
-  static timestampToDate(timestamp: number): Date {
+  static timestampToDate(timestamp: number): DateTime {
     return this.SimpleCalendar.timestampToDate(timestamp);
   }
 

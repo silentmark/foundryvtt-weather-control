@@ -164,6 +164,8 @@ interface DateDisplay {
    * The prefix value for the year
    */
   yearPrefix: string,
+
+  date: string,
 }
 
 export class Date {
@@ -212,6 +214,8 @@ export class Date {
   */
   public month: number;
 
+  public monthName: string;
+
   /**
    * The seconds represented in the timestamp.
    */
@@ -231,6 +235,12 @@ export class Date {
    * The year represented in the timestamp.
    */
   public year: number;
+
+  public yearName: string;
+
+  public yearPostfix: string;
+
+  public yearPrefix: string;
 
   /**
    * What is considered as year zero when doing timestamp calculations.
