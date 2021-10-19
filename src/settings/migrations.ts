@@ -13,16 +13,22 @@ export class Migrations {
     this.migrations.add(migration);
   }
 
-  public run(currentVersion: number, currentData: unknown): WeatherData {
-    const sortedMigration = this.buildListOfMigrations(currentVersion);
-    let data = currentData;
+  public run(currentVersion = 0, currentData: unknown): WeatherData | false {
+    const sortedMigrations = this.buildListOfMigrations(currentVersion);
 
-    sortedMigration.forEach((migration: Migration) => {
-      data = migration.migrate(data);
-      this.logger.info('Migration to ' + migration.version + ' applied');
-    });
+    if (sortedMigrations.length > 0) {
+      let data = currentData;
 
-    return data as WeatherData;
+      sortedMigrations.forEach((migration: Migration) => {
+        data = migration.migrate(data);
+        this.logger.info('Migration to version ' + migration.version + ' applied');
+      });
+
+      return data as WeatherData;
+    } else {
+      this.logger.info('No migration needed');
+      return false;
+    }
   }
 
   private buildListOfMigrations(currentVersion: number): Migration[] {

@@ -38,8 +38,8 @@ export class ModuleSettings {
     return this.get(SettingKeys.weatherData);
   }
 
-  public setWeatherData(value: WeatherData) {
-    this.set(SettingKeys.weatherData, value);
+  public async setWeatherData(value: WeatherData) {
+    await this.set(SettingKeys.weatherData, value);
   }
 
   public getWindowPosition(): WindowPosition {
@@ -57,10 +57,6 @@ export class ModuleSettings {
   public getOutputWeatherToChat(): boolean {
     return this.get(SettingKeys.outputWeatherToChat);
   }
-
-  // public getNoGlobal(): boolean {
-  //   return this.get(SettingKeys.noGlobal);
-  // }
 
   public getUseCelcius(): boolean {
     return this.get(SettingKeys.useCelcius);
@@ -89,8 +85,8 @@ export class ModuleSettings {
     return this.gameRef.settings.get(this.getModuleName(), settingKey);
   }
 
-  private set(settingKey: SettingKeys, value: any) {
-    this.gameRef.settings.set(this.getModuleName(), settingKey, value);
+  private set(settingKey: SettingKeys, value: any): Promise<any> {
+    return this.gameRef.settings.set(this.getModuleName(), settingKey, value);
   }
 
   private registerSettings(): void {

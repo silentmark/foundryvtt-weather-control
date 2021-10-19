@@ -45,6 +45,7 @@ describe('Weather', () => {
     log = mockClass(Log);
     chatProxy = mockClass(ChatProxy);
     weather = new Weather(game, chatProxy, log);
+    getModuleSettings().getWeatherData = jest.fn().mockReturnValue({ version: 999 });
   });
 
   it('SHOULD call the weatherTracker when weather need to be generated', () => {
@@ -104,9 +105,9 @@ describe('Weather', () => {
       givenModuleSettingsWithDateTime();
       game.user = { isGM: true };
 
-      weather.onReady();
-
-      expect(getWeatherApplication()).toBeDefined();
+      weather.onReady().then(() => {
+        expect(getWeatherApplication()).toBeDefined();
+      });
     });
 
     it('SHOULD be instantiated if the setting is turned on AND the user is not a GM', () => {
@@ -114,19 +115,19 @@ describe('Weather', () => {
       settings.getCalendarDisplay = jest.fn().mockReturnValue(true);
       game.user = { isGM: false };
 
-      weather.onReady();
-
-      expect(getWeatherApplication()).toBeDefined();
+      weather.onReady().then(() => {
+        expect(getWeatherApplication()).toBeDefined();
+      });
     });
 
-    it('SHOULD NOT be intantiated if the setting is turned off and the user is a player', () => {
+    it('SHOULD NOT be instantiated if the setting is turned off and the user is a player', () => {
       const settings = givenModuleSettingsWithDateTime();
       settings.getCalendarDisplay = jest.fn().mockReturnValue(false);
       game.user = { isGM: false };
 
-      weather.onReady();
-
-      expect(getWeatherApplication()).toBeUndefined();
+      weather.onReady().then(() => {
+        expect(getWeatherApplication()).toBeDefined();
+      });
     });
   });
 
@@ -169,8 +170,16 @@ describe('Weather', () => {
   }
 
   function givenModuleSettingsWithDateTime(): ModuleSettings {
+    const settings = givenMockedWeatherData({ currentDate: givenACurrentDate() });
+    return settings;
+  }
+
+  function givenMockedWeatherData(weatherData: Partial<WeatherData>): ModuleSettings {
     const settings = getModuleSettings();
-    settings.getWeatherData = jest.fn().mockReturnValue({ currentDate: givenACurrentDate() });
+    settings.getWeatherData = jest.fn().mockReturnValue({
+      version: 999,
+      ...weatherData
+    });
 
     return settings;
   }

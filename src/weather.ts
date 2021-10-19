@@ -6,6 +6,8 @@ import { CurrentDate, RawDate } from './models/currentDate';
 import { Climates, WeatherData } from './models/weatherData';
 import { Notices } from './notices/notices';
 import { ChatProxy } from './proxies/chatProxy';
+import { Migrations } from './settings/migrations';
+import { Migration1 } from './settings/migrations/migration-1';
 import { ModuleSettings } from './settings/module-settings';
 import { WeatherTracker } from './weather/weatherTracker';
 
@@ -26,10 +28,30 @@ export class Weather {
     this.logger.info('Init completed');
   }
 
-  public onReady() {
-    this.initializeNotices();
-    this.initializeWeatherData();
-    this.initializeWeatherApplication();
+  public async onReady() {
+    await this.applyMigrations().then(() => {
+      this.initializeNotices();
+      this.initializeWeatherData();
+      this.initializeWeatherApplication();
+    });
+  }
+
+  private applyMigrations(): Promise<void> {
+    return new Promise((resolve) => {
+      const migrations = new Migrations(this.logger);
+      migrations.register(new Migration1());
+
+      const weatherData = this.settings.getWeatherData();
+      const migratedData = migrations.run(weatherData.version, weatherData);
+
+      if (migratedData) {
+        this.settings.setWeatherData(migratedData).then(() => {
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
   }
 
   public onDateTimeChange(currentDate: CurrentDate) {
@@ -102,8 +124,8 @@ export class Weather {
         this.weatherTracker,
         this.logger,
         () => {
-          this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().currentDate);
-          this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+          this.weatherApplication.updateDateTime(this.settings.getWeatherData().currentDate);
+          this.weatherApplication.updateWeather(this.settings.getWeatherData());
         });
     }
   }
@@ -146,6 +168,6 @@ export class Weather {
 
   private updateWeatherDisplay(dateTime: CurrentDate) {
     this.weatherApplication.updateDateTime(dateTime);
-    this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+    this.weatherApplication.updateWeather(this.settings.getWeatherData());
   }
 }
