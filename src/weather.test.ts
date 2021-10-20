@@ -105,7 +105,7 @@ describe('Weather', () => {
       givenModuleSettingsWithDateTime();
       game.user = { isGM: true };
 
-      weather.onReady().then(() => {
+      return weather.onReady().then(() => {
         expect(getWeatherApplication()).toBeDefined();
       });
     });
@@ -115,9 +115,10 @@ describe('Weather', () => {
       settings.getCalendarDisplay = jest.fn().mockReturnValue(true);
       game.user = { isGM: false };
 
-      weather.onReady().then(() => {
+      return weather.onReady().then(() => {
         expect(getWeatherApplication()).toBeDefined();
       });
+
     });
 
     it('SHOULD NOT be instantiated if the setting is turned off and the user is a player', () => {
@@ -125,9 +126,10 @@ describe('Weather', () => {
       settings.getCalendarDisplay = jest.fn().mockReturnValue(false);
       game.user = { isGM: false };
 
-      weather.onReady().then(() => {
-        expect(getWeatherApplication()).toBeDefined();
+      return weather.onReady().then(() => {
+        expect(getWeatherApplication()).toBeUndefined();
       });
+
     });
   });
 
