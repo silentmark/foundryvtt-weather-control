@@ -165,6 +165,9 @@ interface DateDisplay {
    */
   yearPrefix: string,
 
+  /**
+   * The formatted date string based on the format set in the configuration for the date.
+   */
   date: string,
 }
 
@@ -210,10 +213,13 @@ export class Date {
   public minute: number;
 
   /**
-  The index of the month represented in the timestamp.
-  */
+   * The index of the month represented in the timestamp.
+   */
   public month: number;
 
+  /**
+   * The name of the month.
+   */
   public monthName: string;
 
   /**
@@ -236,10 +242,19 @@ export class Date {
    */
   public year: number;
 
+  /**
+   * The name of the year, if year names have been set up.
+   */
   public yearName: string;
 
+  /**
+   * The postfix value for the year.
+   */
   public yearPostfix: string;
 
+  /**
+   * The prefix value for the year.
+   */
   public yearPrefix: string;
 
   /**

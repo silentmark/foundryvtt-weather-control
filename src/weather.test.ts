@@ -129,7 +129,6 @@ describe('Weather', () => {
       return weather.onReady().then(() => {
         expect(getWeatherApplication()).toBeUndefined();
       });
-
     });
   });
 
