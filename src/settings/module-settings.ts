@@ -38,8 +38,8 @@ export class ModuleSettings {
     return this.get(SettingKeys.weatherData);
   }
 
-  public async setWeatherData(value: WeatherData) {
-    await this.set(SettingKeys.weatherData, value);
+  public setWeatherData(value: WeatherData): Promise<void> {
+    return this.set(SettingKeys.weatherData, value);
   }
 
   public getWindowPosition(): WindowPosition {
@@ -99,6 +99,13 @@ export class ModuleSettings {
 
     this.register(SettingKeys.weatherData, {
       name: 'Weather Data',
+      scope: 'world',
+      config: false,
+      type: Object,
+    });
+
+    this.register(SettingKeys.weatherData + 'Backup', {
+      name: 'Weather Data Backup',
       scope: 'world',
       config: false,
       type: Object,

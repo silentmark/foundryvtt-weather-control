@@ -39,13 +39,16 @@ describe('Weather', () => {
   let log;
   let game;
   let chatProxy;
+  let moduleSettings;
 
   beforeEach(() => {
     game = gameMock();
     log = mockClass(Log);
     chatProxy = mockClass(ChatProxy);
-    weather = new Weather(game, chatProxy, log);
-    getModuleSettings().getWeatherData = jest.fn().mockReturnValue({ version: 999 });
+    moduleSettings = mockClass(ModuleSettings);
+    moduleSettings.getWeatherData = jest.fn().mockReturnValue({ version: 999 });
+    moduleSettings.setWeatherData = jest.fn().mockReturnValue(new Promise<void>(resolve => resolve()));
+    weather = new Weather(game, chatProxy, log, moduleSettings);
   });
 
   it('SHOULD call the weatherTracker when weather need to be generated', () => {
@@ -101,7 +104,7 @@ describe('Weather', () => {
   });
 
   describe('weather application', () => {
-    it('SHOULD be instantiated if the user is the GM', () => {
+    it('SHOULD be instantiated if the user is the GM', async() => {
       givenModuleSettingsWithDateTime();
       game.user = { isGM: true };
 
@@ -110,7 +113,7 @@ describe('Weather', () => {
       });
     });
 
-    it('SHOULD be instantiated if the setting is turned on AND the user is not a GM', () => {
+    it('SHOULD be instantiated if the setting is turned on AND the user is not a GM', async() => {
       const settings = givenModuleSettingsWithDateTime();
       settings.getCalendarDisplay = jest.fn().mockReturnValue(true);
       game.user = { isGM: false };
@@ -121,7 +124,7 @@ describe('Weather', () => {
 
     });
 
-    it('SHOULD NOT be instantiated if the setting is turned off and the user is a player', () => {
+    it('SHOULD NOT be instantiated if the setting is turned off and the user is a player', async() => {
       const settings = givenModuleSettingsWithDateTime();
       settings.getCalendarDisplay = jest.fn().mockReturnValue(false);
       game.user = { isGM: false };
@@ -135,7 +138,7 @@ describe('Weather', () => {
   describe('onClockStartStop', () => {
     it('SHOULD call weather application WHEN user is a GM', () => {
       game.user = { isGM: true };
-      weather = new Weather(game, chatProxy, log);
+      weather = new Weather(game, chatProxy, log, moduleSettings);
       const weatherApplication = givenAWeatherApplicationMock();
 
       weather.onClockStartStop();
@@ -145,7 +148,7 @@ describe('Weather', () => {
 
     it('SHOULD call weather application WHEN user is allowed to see the window', () => {
       game.user = { isGM: false };
-      weather = new Weather(game, chatProxy, log);
+      weather = new Weather(game, chatProxy, log, moduleSettings);
       givenCalendarDisplaySetting(true);
       const weatherApplication = givenAWeatherApplicationMock();
 
@@ -156,7 +159,7 @@ describe('Weather', () => {
 
     it('SHOULD NOT call weather application WHEN user is not allowed to see the window', () => {
       game.user = { isGM: false };
-      weather = new Weather(game, chatProxy, log);
+      weather = new Weather(game, chatProxy, log, moduleSettings);
       givenCalendarDisplaySetting(false);
       const weatherApplication = givenAWeatherApplicationMock();
 

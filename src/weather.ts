@@ -6,53 +6,36 @@ import { CurrentDate, RawDate } from './models/currentDate';
 import { Climates, WeatherData } from './models/weatherData';
 import { Notices } from './notices/notices';
 import { ChatProxy } from './proxies/chatProxy';
-import { Migrations } from './settings/migrations';
-import { Migration1 } from './settings/migrations/migration-1';
 import { ModuleSettings } from './settings/module-settings';
 import { WeatherTracker } from './weather/weatherTracker';
 
 /**
  * The base class of the module.
- * Every FoundryVTT features must be injected in this so we can mcok them in tests.
+ * Every FoundryVTT features must be injected in this so we can mock them in tests.
  */
 export class Weather {
   private weatherTracker: WeatherTracker;
-  private settings: ModuleSettings;
   private weatherApplication: WeatherApplication;
   private notices: Notices;
 
-  constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
-    this.settings = new ModuleSettings(this.gameRef);
+  constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log, private settings: ModuleSettings) {
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
-
     this.logger.info('Init completed');
   }
 
-  public async onReady() {
-    await this.applyMigrations().then(() => {
-      this.initializeNotices();
-      this.initializeWeatherData();
-      this.initializeWeatherApplication();
-    });
-  }
-
-  private applyMigrations(): Promise<void> {
-    return new Promise((resolve) => {
-      const migrations = new Migrations(this.logger);
-      migrations.register(new Migration1());
-
-      const weatherData = this.settings.getWeatherData();
-      const migratedData = migrations.run(weatherData.version, weatherData);
-
-      if (migratedData) {
-        this.settings.setWeatherData(migratedData).then(() => {
+  public onReady() {
+    return new Promise<void>((resolve, reject) => {
+      this.initializeWeatherData().then(() => {
+        try {
+          this.initializeWeatherApplication();
           resolve();
-        });
-      } else {
-        resolve();
-      }
+        } catch {
+          reject();
+        }
+      });
     });
   }
+
 
   public onDateTimeChange(currentDate: CurrentDate) {
     this.logger.info('DateTime has changed', currentDate);
@@ -92,15 +75,8 @@ export class Weather {
     return this.settings.getCalendarDisplay() || this.gameRef.user.isGM;
   }
 
-  private initializeNotices() {
-    if (this.gameRef.user.isGM) {
-      this.notices = new Notices(this.gameRef, this.settings);
-      this.notices.checkForNotices();
-    }
-  }
-
-  private initializeWeatherData() {
-    const weatherData = this.settings.getWeatherData();
+  private initializeWeatherData(): Promise<void> {
+    let weatherData = this.settings.getWeatherData();
 
     if (this.isWeatherDataValid(weatherData)) {
       this.logger.info('Using saved weather data');
@@ -108,12 +84,14 @@ export class Weather {
     } else {
       this.logger.info('No saved weather data - Generating weather');
 
-      const baseWeatherData = new WeatherData();
-      baseWeatherData.currentDate = SimpleCalendarPresenter.timestampToDate(SimpleCalendarApi.timestamp());
-
-      this.weatherTracker.loadWeatherData(baseWeatherData);
-      this.weatherTracker.generate(Climates.temperate);
+      weatherData = new WeatherData();
+      weatherData.currentDate = SimpleCalendarPresenter.timestampToDate(SimpleCalendarApi.timestamp());
     }
+
+    return this.settings.setWeatherData(weatherData).then(() => {
+      this.weatherTracker.loadWeatherData(weatherData);
+      this.weatherTracker.generate(Climates.temperate);
+    });
   }
 
   private initializeWeatherApplication() {
@@ -124,8 +102,10 @@ export class Weather {
         this.weatherTracker,
         this.logger,
         () => {
-          this.weatherApplication.updateDateTime(this.settings.getWeatherData().currentDate);
-          this.weatherApplication.updateWeather(this.settings.getWeatherData());
+          const weatherData = this.settings.getWeatherData();
+          console.log('weatherData during render callback', weatherData);
+          this.weatherApplication.updateDateTime(weatherData.currentDate);
+          this.weatherApplication.updateWeather(weatherData);
         });
     }
   }
