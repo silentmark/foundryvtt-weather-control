@@ -6,23 +6,27 @@ export class Notices {
   constructor(private gameRef: Game, private moduleSettings: ModuleSettings) {}
 
   public async checkForNotices() {
-    if (await this.noticeExistsForCurrentVersion() && !this.noticeForCurrentVersionWasRead()) {
+    if (this.noticeForCurrentVersionIsDeclared() && !this.noticeForCurrentVersionWasRead() && await this.noticeFileExistsForCurrentVersion() ) {
       this.spawnNotice(this.moduleSettings.getVersion());
     } else if (await this.previousNoticeExists() && !this.noticeForPreviousVersionWasRead() && !this.noticeForCurrentVersionWasRead()) {
       this.spawnNotice(this.getPreviousVersion());
     }
   }
 
-  private noticeExistsForCurrentVersion(): boolean {
-    return this.noticeExists(this.moduleSettings.getVersion());
+  private noticeFileExistsForCurrentVersion(): boolean {
+    return this.noticeFileExists(this.moduleSettings.getVersion());
   }
 
   private noticeForCurrentVersionWasRead(): boolean {
     return this.moduleSettings.getListOfReadNoticesVersions().includes(this.moduleSettings.getVersion());
   }
 
+  private noticeForCurrentVersionIsDeclared(): boolean {
+    return this.moduleSettings.getVersionsWithNotices().includes(this.moduleSettings.getVersion());
+  }
+
   private previousNoticeExists(): boolean {
-    return !!this.getPreviousVersion() && this.noticeExists(this.getPreviousVersion());
+    return !!this.getPreviousVersion() && this.noticeFileExists(this.getPreviousVersion());
   }
 
   private noticeForPreviousVersionWasRead() {
@@ -56,7 +60,7 @@ export class Notices {
     this.moduleSettings.addVersionToReadNotices(this.moduleSettings.getVersion());
   }
 
-  private noticeExists(version: string): boolean {
+  private noticeFileExists(version: string): boolean {
     try {
       return Foundry.srcExists(`modules/${this.moduleSettings.getModuleName()}/templates/notices/${version}.html`);
     } catch {
