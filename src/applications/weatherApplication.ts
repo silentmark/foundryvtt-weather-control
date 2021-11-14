@@ -1,7 +1,7 @@
 import moduleJson from '@module';
+import { CurrentDate } from 'src/models/currentDate';
 
 import { SimpleCalendarApi } from '../libraries/simple-calendar/api';
-import { DateTime } from '../libraries/simple-calendar/dateTime';
 import { Log } from '../logger/logger';
 import { Climates, WeatherData } from '../models/weatherData';
 import { WindowPosition } from '../models/windowPosition';
@@ -96,12 +96,12 @@ export class WeatherApplication extends Application {
     }
   }
 
-  public updateDateTime(dateTime: DateTime) {
-    document.getElementById('weekday').innerHTML = dateTime.date.display.weekday;
+  public updateDateTime(currentDate: CurrentDate) {
+    document.getElementById('weekday').innerHTML = currentDate.raw.weekdays[currentDate.raw.currentWeekdayIndex];
 
-    document.getElementById('date').innerHTML = this.getDateWordy(dateTime);
-    document.getElementById('date-num').innerHTML = dateTime.date.day + '/' + dateTime.date.month + '/' + dateTime.date.year;
-    document.getElementById('calendar-time').innerHTML = this.buildTimeString(dateTime);
+    document.getElementById('date').innerHTML = currentDate.display.fullDate;
+    document.getElementById('date-num').innerHTML = currentDate.raw.day + '/' + currentDate.raw.month + '/' + currentDate.raw.year;
+    document.getElementById('calendar-time').innerHTML = currentDate.display.time;
 
     this.updateClockStatus();
   }
@@ -156,24 +156,6 @@ export class WeatherApplication extends Application {
       const weatherData = this.weatherTracker.generate(target.value as Climates);
       this.updateWeather(weatherData);
     });
-  }
-
-  private buildTimeString(dateTime: DateTime): string {
-    const date = dateTime.date;
-    const hours = String(date.hour).padStart(2, '0');
-    const minutes = String(date.minute).padStart(2, '0');
-    const seconds = String(date.second).padStart(2, '0');
-
-    return `${hours}:${minutes}:${seconds}`;
-  }
-
-  private getDateWordy(dateTime: DateTime): string {
-    const display = dateTime.date.display;
-    const day = `${display.day}${display.daySuffix}`;
-    const month = `${display.monthName}`;
-    const year = `${display.yearPrefix} ${display.year} ${display.yearPostfix}`;
-
-    return `${day} of ${month}, ${year}`;
   }
 
   private getElementById(id: string): HTMLElement {

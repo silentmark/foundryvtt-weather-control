@@ -8,24 +8,21 @@ const game = gameMock();
 
 const WEATHER_DATA: WeatherData = {
   version: 1,
-  dateTime: {
-    date: {
-      currentSeason: null,
+  currentDate: {
+    raw: {
       day: 1,
-      dayOfTheWeek: 1,
-      dayOffset: 0,
-      display: null,
+      currentWeekdayIndex: 1,
       hour: 0,
-      isLeapYear: false,
       minute: 0,
       month: 0,
       second: 0,
-      showWeekdayHeadings: false,
       weekdays: [],
       year: 0,
-      yearZero: 0,
     },
-    moons: null
+    display: {
+      fullDate: 'the full date',
+      time: 'the full time',
+    }
   },
   climate: null,
   isVolcanic: false,
@@ -64,14 +61,5 @@ describe('WeatherTracker', () => {
     weatherTracker.loadWeatherData(WEATHER_DATA);
     weatherTracker.generate();
     expect(settings.setWeatherData).toHaveBeenCalled();
-  });
-
-  it('SHOULD return the current weather information', () => {
-    weatherTracker.loadWeatherData(WEATHER_DATA);
-    weatherTracker.generate();
-
-    const currentWeather = weatherTracker.getCurrentWeather();
-
-    expect(currentWeather).toBeTruthy();
   });
 });

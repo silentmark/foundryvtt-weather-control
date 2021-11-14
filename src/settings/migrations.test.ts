@@ -4,7 +4,7 @@ import { mockClass } from 'src/utils/testUtils';
 import { Migrations } from './migrations';
 import { Migration } from './migrations/migration';
 
-const EMPTY_DATA = {};
+const EMPTY_DATA = { version: -1 };
 const loggerMock = mockClass(Log);
 class TestableMigration extends Migration {
   constructor(version: number, private migrationSpy: () => void) {
@@ -46,6 +46,12 @@ describe('Migrations', () => {
     migrations.run(1, EMPTY_DATA);
 
     expect(migrationSpy1).not.toHaveBeenCalled();
+    expect(migrationSpy2).toHaveBeenCalled();
     expect(migrationSpy2).toHaveBeenCalledBefore(migrationSpy3);
+  });
+
+  it('SHOULD return false WHEN currentData is invalid', () => {
+    const migrations = new Migrations(loggerMock);
+    expect(migrations.run(1, String(''))).toBeFalsy();
   });
 });

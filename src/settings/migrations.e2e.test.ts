@@ -4,7 +4,46 @@ import { mockClass } from 'src/utils/testUtils';
 import { Migrations } from './migrations';
 import { Migration1 } from './migrations/migration-1';
 
-const EXPECTED_DATETIME = 'some-datetime';
+const STARTING_DATE = {
+  year: 816,
+  month: 4,
+  day: 18,
+  dayOfTheWeek: 4,
+  hour: 15,
+  minute: 56,
+  second: 45,
+  weekdays: [
+    'Miresen',
+    'Grissen',
+    'Whelsen',
+    'Conthsen',
+    'Folsen',
+    'Yulisen',
+    'Da\'leysen'
+  ],
+  display: {
+    date: 'Unndilar 19, 816',
+    time: '15:56:45'
+  }
+};
+
+const EXPECTED_CURRENT_DATE = {
+  raw: {
+    year: STARTING_DATE.year,
+    month: STARTING_DATE.month,
+    weekdays: STARTING_DATE.weekdays,
+    currentWeekdayIndex: STARTING_DATE.dayOfTheWeek,
+    day: STARTING_DATE.day,
+    hour: STARTING_DATE.hour,
+    minute: STARTING_DATE.minute,
+    second: STARTING_DATE.second,
+  },
+  display: {
+    fullDate: STARTING_DATE.display.date,
+    time: STARTING_DATE.display.time,
+  }
+};
+
 const EXPECTED_CLIMATE = 'some-climate';
 const EXPECTED_VOLCANIC = 'some-volcanic-state';
 const EXPECTED_LAST_TEMP = 'some-last-temp';
@@ -14,7 +53,7 @@ const EXPECTED_TEMP_RANGE = { min: 1, max: 2 };
 
 const STARTING_DATA = {
   version: 1,
-  dateTime: EXPECTED_DATETIME,
+  dateTime: { date: STARTING_DATE },
   cTemp: 0,
   climate: EXPECTED_CLIMATE,
   isVolcanic: EXPECTED_VOLCANIC,
@@ -26,7 +65,7 @@ const STARTING_DATA = {
 
 const EXPECTED_DATA = {
   version: 1,
-  dateTime: EXPECTED_DATETIME,
+  currentDate: EXPECTED_CURRENT_DATE,
   climate: EXPECTED_CLIMATE,
   isVolcanic: EXPECTED_VOLCANIC,
   lastTemp: EXPECTED_LAST_TEMP,

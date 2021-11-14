@@ -5,8 +5,13 @@ import { DevMode } from './libraries/devMode/devMode';
 import { DevModeApi } from './libraries/devMode/devModeApi';
 import { DateTime } from './libraries/simple-calendar/dateTime';
 import { SimpleCalendarHooks } from './libraries/simple-calendar/hooks';
+import { SimpleCalendarPresenter } from './libraries/simple-calendar/simple-calendar-presenter';
 import { Log } from './logger/logger';
+import { Notices } from './notices/notices';
 import { ChatProxy } from './proxies/chatProxy';
+import { Migrations } from './settings/migrations';
+import { Migration1 } from './settings/migrations/migration-1';
+import { ModuleSettings } from './settings/module-settings';
 import { Weather } from './weather';
 
 const logger = new Log();
@@ -34,15 +39,49 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag
   } catch (e) {}
 });
 
-Hooks.on('ready', () => {
-  weather = new Weather(getGame(), chatProxy, logger);
-  weather.onReady();
-
-  Hooks.on(SimpleCalendarHooks.DateTimeChange, ({...data}: DateTime) => {
-    weather.onDateTimeChange(data);
-  });
-
-  Hooks.on(SimpleCalendarHooks.ClockStartStop, () => {
-    weather.onClockStartStop();
-  });
+Hooks.on('simple-calendar-ready', () => {
+  initializeModule();
 });
+
+function initializeModule() {
+  const moduleSettings = new ModuleSettings(getGame());
+  initializeNotices(moduleSettings);
+  applyMigrations(moduleSettings).then(() => {
+    weather = new Weather(getGame(), chatProxy, logger, moduleSettings);
+
+    Hooks.on(SimpleCalendarHooks.DateTimeChange, ({...data}: DateTime) => {
+      weather.onDateTimeChange(SimpleCalendarPresenter.createDateObject(data.date));
+    });
+
+    Hooks.on(SimpleCalendarHooks.ClockStartStop, () => {
+      weather.onClockStartStop();
+    });
+
+    weather.onReady();
+  });
+}
+
+function applyMigrations(settings: ModuleSettings): Promise<void> {
+  return new Promise((resolve) => {
+    const migrations = new Migrations(logger);
+    migrations.register(new Migration1());
+
+    const weatherData = settings.getWeatherData();
+    const migratedData = migrations.run(weatherData.version, weatherData);
+
+    if (migratedData) {
+      settings.setWeatherData(migratedData).then(() => {
+        resolve();
+      });
+    } else {
+      resolve();
+    }
+  });
+}
+
+function initializeNotices(settings: ModuleSettings) {
+  if (getGame().user.isGM) {
+    this.notices = new Notices(getGame(), settings);
+    this.notices.checkForNotices();
+  }
+}

@@ -1,7 +1,8 @@
 import { WeatherApplication } from './applications/weatherApplication';
 import { SimpleCalendarApi } from './libraries/simple-calendar/api';
-import { DateTime } from './libraries/simple-calendar/dateTime';
+import { SimpleCalendarPresenter } from './libraries/simple-calendar/simple-calendar-presenter';
 import { Log } from './logger/logger';
+import { CurrentDate, RawDate } from './models/currentDate';
 import { Climates, WeatherData } from './models/weatherData';
 import { Notices } from './notices/notices';
 import { ChatProxy } from './proxies/chatProxy';
@@ -10,36 +11,41 @@ import { WeatherTracker } from './weather/weatherTracker';
 
 /**
  * The base class of the module.
- * Every FoundryVTT features must be injected in this so we can mcok them in tests.
+ * Every FoundryVTT features must be injected in this so we can mock them in tests.
  */
 export class Weather {
   private weatherTracker: WeatherTracker;
-  private settings: ModuleSettings;
   private weatherApplication: WeatherApplication;
   private notices: Notices;
 
-  constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log) {
-    this.settings = new ModuleSettings(this.gameRef);
+  constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log, private settings: ModuleSettings) {
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
-
     this.logger.info('Init completed');
   }
 
   public onReady() {
-    this.initializeNotices();
-    this.initializeWeatherData();
-    this.initializeWeatherApplication();
+    return new Promise<void>((resolve, reject) => {
+      this.initializeWeatherData().then(() => {
+        try {
+          this.initializeWeatherApplication();
+          resolve();
+        } catch {
+          reject();
+        }
+      });
+    });
   }
 
-  public onDateTimeChange(dateTime: DateTime) {
-    this.logger.info('DateTime has changed', dateTime);
-    let weather = this.mergePreviousDateTimeWithNewOne(dateTime);
 
-    if (this.hasDateChanged(dateTime) && this.gameRef.user.isGM) {
+  public onDateTimeChange(currentDate: CurrentDate) {
+    this.logger.info('DateTime has changed', currentDate);
+    let weather = this.mergePreviousDateTimeWithNewOne(currentDate);
+
+    if (this.hasDateChanged(currentDate) && this.gameRef.user.isGM) {
       weather = this.weatherTracker.generate();
-      weather.dateTime.date.day = dateTime.date.day;
-      weather.dateTime.date.month = dateTime.date.month;
-      weather.dateTime.date.year = dateTime.date.year;
+      weather.currentDate.raw.day = currentDate.raw.day;
+      weather.currentDate.raw.month = currentDate.raw.month;
+      weather.currentDate.raw.year = currentDate.raw.year;
       this.logger.info('Generated new weather');
     }
 
@@ -49,7 +55,7 @@ export class Weather {
 
     if (this.isWeatherApplicationAvailable()) {
       this.logger.debug('Update weather display');
-      this.updateWeatherDisplay(dateTime);
+      this.updateWeatherDisplay(currentDate);
     }
   }
 
@@ -69,15 +75,8 @@ export class Weather {
     return this.settings.getCalendarDisplay() || this.gameRef.user.isGM;
   }
 
-  private initializeNotices() {
-    if (this.gameRef.user.isGM) {
-      this.notices = new Notices(this.gameRef, this.settings);
-      this.notices.checkForNotices();
-    }
-  }
-
-  private initializeWeatherData() {
-    const weatherData = this.settings.getWeatherData();
+  private initializeWeatherData(): Promise<void> {
+    let weatherData = this.settings.getWeatherData();
 
     if (this.isWeatherDataValid(weatherData)) {
       this.logger.info('Using saved weather data');
@@ -85,12 +84,14 @@ export class Weather {
     } else {
       this.logger.info('No saved weather data - Generating weather');
 
-      const baseWeatherData = new WeatherData();
-      baseWeatherData.dateTime.date = SimpleCalendarApi.timestampToDate(SimpleCalendarApi.timestamp());
-
-      this.weatherTracker.loadWeatherData(baseWeatherData);
-      this.weatherTracker.generate(Climates.temperate);
+      weatherData = new WeatherData();
+      weatherData.currentDate = SimpleCalendarPresenter.timestampToDate(SimpleCalendarApi.timestamp());
     }
+
+    return this.settings.setWeatherData(weatherData).then(() => {
+      this.weatherTracker.loadWeatherData(weatherData);
+      this.weatherTracker.generate(Climates.temperate);
+    });
   }
 
   private initializeWeatherApplication() {
@@ -101,21 +102,23 @@ export class Weather {
         this.weatherTracker,
         this.logger,
         () => {
-          this.weatherApplication.updateDateTime(this.weatherTracker.getCurrentWeather().dateTime);
-          this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+          const weatherData = this.settings.getWeatherData();
+          console.log('weatherData during render callback', weatherData);
+          this.weatherApplication.updateDateTime(weatherData.currentDate);
+          this.weatherApplication.updateWeather(weatherData);
         });
     }
   }
 
-  private mergePreviousDateTimeWithNewOne(dateTime: DateTime): WeatherData {
-    return Object.assign({}, this.settings.getWeatherData(), {dateTime});
+  private mergePreviousDateTimeWithNewOne(currentDate: CurrentDate): WeatherData {
+    return Object.assign({}, this.settings.getWeatherData(), {currentDate});
   }
 
-  private hasDateChanged(dateTime: DateTime): boolean {
-    const previous = this.settings.getWeatherData().dateTime?.date;
-    const date = dateTime.date;
+  private hasDateChanged(currentDate: CurrentDate): boolean {
+    const previous = this.settings.getWeatherData().currentDate?.raw;
+    const date = currentDate.raw;
 
-    if (this.isDateTimeValid(dateTime)) {
+    if (this.isDateTimeValid(currentDate.raw)) {
       if (date.day !== previous.day
         || date.month !== previous.month
         || date.year !== previous.year) {
@@ -126,10 +129,9 @@ export class Weather {
     return false;
   }
 
-  private isDateTimeValid(dateTime: DateTime): boolean {
-    const date = dateTime.date;
-    if (this.isDefined(date.second) && this.isDefined(date.minute) && this.isDefined(date.day) &&
-    this.isDefined(date.month) && this.isDefined(date.year)) {
+  private isDateTimeValid(rawDate: RawDate): boolean {
+    if (this.isDefined(rawDate.second) && this.isDefined(rawDate.minute) && this.isDefined(rawDate.day) &&
+    this.isDefined(rawDate.month) && this.isDefined(rawDate.year)) {
       return true;
     }
 
@@ -144,8 +146,8 @@ export class Weather {
     return !this.settings.isSettingValueEmpty(weatherData);
   }
 
-  private updateWeatherDisplay(dateTime: DateTime) {
+  private updateWeatherDisplay(dateTime: CurrentDate) {
     this.weatherApplication.updateDateTime(dateTime);
-    this.weatherApplication.updateWeather(this.weatherTracker.getCurrentWeather());
+    this.weatherApplication.updateWeather(this.settings.getWeatherData());
   }
 }
