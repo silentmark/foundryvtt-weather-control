@@ -4,6 +4,7 @@ import { gameMock, mockClass } from '../utils/testUtils';
 import { Notices } from './notices';
 
 const A_VERSION = '1.2.3';
+const ANOTHER_VERSION = '1.2.4';
 const AN_OLDER_VERSION = '1.1.0';
 
 describe('Notices', () => {
@@ -76,6 +77,18 @@ describe('Notices', () => {
     await notices.checkForNotices();
 
     expect(spawnNoticeSpy()).not.toHaveBeenCalled();
+  });
+
+  it('SHOULD not check for the notice file WHEN the current version does not have a declared notice', async () => {
+    const srcExistsSpy = jest.fn();
+    Foundry.srcExists = srcExistsSpy;
+    settings.getVersion.mockReturnValue(ANOTHER_VERSION);
+    settings.getVersionsWithNotices.mockReturnValue([A_VERSION]);
+    settings.getListOfReadNoticesVersions.mockReturnValue([A_VERSION]);
+
+    await notices.checkForNotices();
+
+    expect(srcExistsSpy).not.toHaveBeenCalledWith(expect.stringContaining(ANOTHER_VERSION));
   });
 
   function givenAMockOfSrcExists(existingVersions: Array<string>) {

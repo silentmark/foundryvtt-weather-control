@@ -81,7 +81,7 @@ function applyMigrations(settings: ModuleSettings): Promise<void> {
 
 function initializeNotices(settings: ModuleSettings) {
   if (getGame().user.isGM) {
-    this.notices = new Notices(getGame(), settings);
-    this.notices.checkForNotices();
+    const notices = new Notices(getGame(), settings);
+    notices.checkForNotices();
   }
 }
