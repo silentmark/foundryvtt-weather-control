@@ -4,7 +4,7 @@ import { LogLevel } from './logLevel';
 
 export class Log {
   private messagePrefix = moduleJson.title + ' | ';
-  private checkLevel: () => boolean | LogLevel = () => LogLevel.NONE;
+  private checkLevel: () => boolean | LogLevel = () => LogLevel.ERROR;
 
   public registerLevelCheckCallback(callback: () => boolean | LogLevel) {
     this.checkLevel = callback;

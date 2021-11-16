@@ -3,8 +3,6 @@ import { WeatherData } from 'src/models/weatherData';
 
 import { Migration } from './migrations/migration';
 
-const EMPTY_DATA = String('');
-
 export class Migrations {
   private migrations: Set<Migration> = new Set();
 
@@ -21,7 +19,8 @@ export class Migrations {
    * @returns Returns the migrated weather data or false if no changes have been made
    */
   public run(currentVersion = 0, currentData: unknown): WeatherData | false {
-    if (currentData == EMPTY_DATA || !this.hasVersionProperty(currentData)) {
+    if (Object.keys(currentData).length === 0) {
+      this.logger.info('Cannot migrate empty data');
       return false;
     } else {
       this.logger.info('Applying migrations');
@@ -50,9 +49,5 @@ export class Migrations {
   private buildListOfMigrations(currentVersion: number): Migration[] {
     const filteredMigrations = [...this.migrations].filter(migration => migration.version > currentVersion);
     return filteredMigrations.sort((a, b) => { return a.version - b.version; });
-  }
-
-  private hasVersionProperty(weatherData: unknown): boolean {
-    return !!(weatherData as WeatherData).version;
   }
 }

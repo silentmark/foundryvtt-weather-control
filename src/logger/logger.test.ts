@@ -39,16 +39,6 @@ describe('Logger', () => {
     console.log = originalLog;
   });
 
-  it('SHOULD log no messages when the level check function is not registered', () => {
-    callAllLoggingMethodsWithMessage(MESSAGE);
-
-    expect(console.info).not.toHaveBeenCalled();
-    expect(console.error).not.toHaveBeenCalled();
-    expect(console.debug).not.toHaveBeenCalled();
-    expect(console.warn).not.toHaveBeenCalled();
-    expect(console.log).not.toHaveBeenCalled();
-  });
-
   it('SHOULD no logs in console when LogLevel is set to none', () => {
     givenAConfiguredLogLevelOf(LogLevel.NONE);
 
