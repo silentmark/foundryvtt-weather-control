@@ -70,6 +70,7 @@ function applyMigrations(settings: ModuleSettings): Promise<void> {
     const migratedData = migrations.run(weatherData.version, weatherData);
 
     if (migratedData) {
+      logger.info('Saving migrated data');
       settings.setWeatherData(migratedData).then(() => {
         resolve();
       });

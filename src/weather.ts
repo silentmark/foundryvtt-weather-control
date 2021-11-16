@@ -103,7 +103,6 @@ export class Weather {
         this.logger,
         () => {
           const weatherData = this.settings.getWeatherData();
-          console.log('weatherData during render callback', weatherData);
           this.weatherApplication.updateDateTime(weatherData.currentDate);
           this.weatherApplication.updateWeather(weatherData);
         });
