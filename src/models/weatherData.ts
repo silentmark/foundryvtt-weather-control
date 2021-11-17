@@ -13,7 +13,7 @@ export enum Climates {
 }
 
 export class WeatherData {
-  public version: number;
+  public version = 1;
 
   public currentDate: CurrentDate = new CurrentDate();
 
