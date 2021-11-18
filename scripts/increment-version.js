@@ -17,7 +17,6 @@ const previousVersion = fvttModule.version;
 rl.question('Which version to increment? 1: Major - 2: Minor - 3: Patch\n', function(answer) {
   const version = incrementVersion(answer);
   updateDownloadLink(version);
-  updateManifestLink(version);
   console.log('\nThe version will become ', version);
   console.log('==============================\n');
 
@@ -80,12 +79,6 @@ function updateDownloadLink(newVersion) {
   let link = fvttModule.download;
   link = link.replace(previousVersion, newVersion);
   fvttModule.download = link;
-}
-
-function updateManifestLink(newVersion) {
-  let manifestLink = fvttModule.manifest;
-  manifestLink = manifestLink.replace(previousVersion, newVersion);
-  fvttModule.manifest = manifestLink;
 }
 
 function addVersionToNoticesList(newVersion) {
