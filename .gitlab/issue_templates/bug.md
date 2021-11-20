@@ -2,8 +2,8 @@
 
 
 - Weather Control Version:
-- FoundryVTT Version:
 - Simple Calendar Version:
+- FoundryVTT Version:
 
 ### Steps to reproduce the issue
 
