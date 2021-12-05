@@ -12,6 +12,7 @@ import { ChatProxy } from './proxies/chatProxy';
 import { Migrations } from './settings/migrations';
 import { Migration1 } from './settings/migrations/migration-1';
 import { ModuleSettings } from './settings/module-settings';
+import { VersionUtils } from './utils/versionUtils';
 import { Weather } from './weather';
 
 const logger = new Log();
@@ -39,8 +40,16 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag
   } catch (e) {}
 });
 
-Hooks.on('simple-calendar-ready', () => {
-  initializeModule();
+Hooks.once('ready', () => {
+  if (isSimpleCalendarCompatible()) {
+    Hooks.once('simple-calendar-ready', () => {
+      initializeModule();
+    });
+  } else {
+    const errorMessage = 'Weather Control initialization failed! - Simple Calendar must be at least v1.3.73';
+    logger.error(errorMessage);
+    ui.notifications.error(errorMessage);
+  }
 });
 
 function initializeModule() {
@@ -85,4 +94,10 @@ function initializeNotices(settings: ModuleSettings) {
     const notices = new Notices(getGame(), settings);
     notices.checkForNotices();
   }
+}
+
+function isSimpleCalendarCompatible(): boolean {
+  const minimumVersion = 'v1.3.73';
+  const scVersion = getGame().modules.get('foundryvtt-simple-calendar').data.version;
+  return VersionUtils.isMoreRecent(scVersion, minimumVersion) || scVersion === minimumVersion;
 }
