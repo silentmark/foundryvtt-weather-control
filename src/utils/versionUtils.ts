@@ -4,6 +4,11 @@ export abstract class VersionUtils {
     return versionList.sort(this.compareSemver);
   }
 
+  public static isMoreRecent(current, other): boolean {
+    const sortedVersions = this.sortSemver([current, other]);
+    return sortedVersions.indexOf(current) === 0;
+  }
+
   private static compareSemver(a, b) {
     let i, diff;
     const regExStrip0 = /(\.0+)+$/;

@@ -39,7 +39,7 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag
   } catch (e) {}
 });
 
-Hooks.on('simple-calendar-ready', () => {
+Hooks.once('simple-calendar-ready', () => {
   initializeModule();
 });
 
