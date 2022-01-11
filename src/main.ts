@@ -93,7 +93,7 @@ function initializeNotices(settings: ModuleSettings) {
 }
 
 function checkDependencies() {
-  if(isSimpleCalendarCompatible()) {
+  if (!isSimpleCalendarCompatible()) {
     const errorMessage = 'Weather Control cannot initialize and requires Simple Calendar v1.3.73. Make sure the latest version of Simple Calendar is installed.';
     console.error(errorMessage);
     ui.notifications.error(errorMessage);
