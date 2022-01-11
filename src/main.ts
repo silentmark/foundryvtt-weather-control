@@ -12,6 +12,7 @@ import { ChatProxy } from './proxies/chatProxy';
 import { Migrations } from './settings/migrations';
 import { Migration1 } from './settings/migrations/migration-1';
 import { ModuleSettings } from './settings/module-settings';
+import { VersionUtils } from './utils/versionUtils';
 import { Weather } from './weather';
 
 const logger = new Log();
@@ -37,6 +38,10 @@ Hooks.once('devModeReady', ({ registerPackageDebugFlag: registerPackageDebugFlag
     logger.registerLevelCheckCallback(() => devModeModule?.api?.getPackageDebugValue('weather-control', 'level'));
   // eslint-disable-next-line no-empty
   } catch (e) {}
+});
+
+Hooks.once('ready', () => {
+  checkDependencies();
 });
 
 Hooks.once('simple-calendar-ready', () => {
@@ -85,4 +90,18 @@ function initializeNotices(settings: ModuleSettings) {
     const notices = new Notices(getGame(), settings);
     notices.checkForNotices();
   }
+}
+
+function checkDependencies() {
+  if(isSimpleCalendarCompatible()) {
+    const errorMessage = 'Weather Control cannot initialize and requires Simple Calendar v1.3.73. Make sure the latest version of Simple Calendar is installed.';
+    console.error(errorMessage);
+    ui.notifications.error(errorMessage);
+  }
+}
+
+function isSimpleCalendarCompatible(): boolean {
+  const minimumVersion = 'v1.3.73';
+  const scVersion = getGame().modules.get('foundryvtt-simple-calendar').data.version;
+  return VersionUtils.isMoreRecent(scVersion, minimumVersion) || scVersion === minimumVersion;
 }
