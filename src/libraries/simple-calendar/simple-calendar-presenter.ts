@@ -6,13 +6,14 @@ import { Date } from './dateTime';
 export abstract class SimpleCalendarPresenter {
 
   public static createDateObject(rawDate: Date): CurrentDate {
+    console.log('rawDate', rawDate)
     const date: CurrentDate = new CurrentDate();
     date.raw = {
       year: rawDate.year,
-      month: rawDate.month,
+      month: Number(rawDate.display.month),
       weekdays: rawDate.weekdays,
       currentWeekdayIndex: rawDate.dayOfTheWeek,
-      day: rawDate.day,
+      day: Number(rawDate.display.day),
       hour: rawDate.hour,
       minute: rawDate.minute,
       second: rawDate.second,
