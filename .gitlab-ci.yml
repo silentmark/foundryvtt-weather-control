@@ -11,7 +11,7 @@ stages:
   - pack
 
 install:
-  image: node:16.4.1
+  image: node:17.5.0
   stage: install
   script:
     - npm ci
@@ -40,7 +40,7 @@ test:
         junit: junit.xml
 
 build:
-  image: node:16.4.1
+  image: node:17.5.0
   stage: build
   script:
     - npm run build:production
