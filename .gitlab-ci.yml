@@ -75,3 +75,22 @@ pack:
   when: on_success
   only:
     - tags
+
+pack-mr:
+  image: debian:stable-slim
+  stage: pack
+  script:
+    - cd dist
+    - zip -r weather-control.zip *
+    - mv weather-control.zip ../weather-control.zip
+  artifacts:
+    name: weather-control
+    when: on_success
+    expire_in: never
+    paths:
+      - weather-control.zip
+  needs:
+    - build
+  when: manual
+  only:
+    - branches
