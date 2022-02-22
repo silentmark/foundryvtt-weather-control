@@ -23,19 +23,10 @@ export class Weather {
     this.logger.info('Init completed');
   }
 
-  public onReady() {
-    return new Promise<void>((resolve, reject) => {
-      this.initializeWeatherData().then(() => {
-        try {
-          this.initializeWeatherApplication();
-          resolve();
-        } catch {
-          reject();
-        }
-      });
-    });
+  public async onReady() {
+    await this.initializeWeatherData();
+    this.initializeWeatherApplication();
   }
-
 
   public onDateTimeChange(currentDate: CurrentDate) {
     this.logger.info('DateTime has changed', currentDate);
@@ -75,7 +66,7 @@ export class Weather {
     return this.settings.getCalendarDisplay() || this.gameRef.user.isGM;
   }
 
-  private initializeWeatherData(): Promise<void> {
+  private async initializeWeatherData() {
     let weatherData = this.settings.getWeatherData();
 
     if (this.isWeatherDataValid(weatherData)) {
@@ -86,12 +77,11 @@ export class Weather {
 
       weatherData = new WeatherData();
       weatherData.currentDate = SimpleCalendarPresenter.timestampToDate(SimpleCalendarApi.timestamp());
-    }
-
-    return this.settings.setWeatherData(weatherData).then(() => {
       this.weatherTracker.loadWeatherData(weatherData);
-      this.weatherTracker.generate(Climates.temperate);
-    });
+      weatherData = this.weatherTracker.generate(Climates.temperate);
+      this.logger.debug('weatherData', weatherData);
+      await this.settings.setWeatherData(weatherData);
+    }
   }
 
   private initializeWeatherApplication() {
