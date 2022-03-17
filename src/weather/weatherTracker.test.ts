@@ -49,7 +49,7 @@ describe('WeatherTracker', () => {
 
   it('SHOULD output to chat when the setting is enabled', () => {
     (chatProxy.getWhisperRecipients as jest.Mock).mockReturnValue([{_id: '0'}]);
-    weatherTracker.loadWeatherData(WEATHER_DATA);
+    weatherTracker.setWeatherData(WEATHER_DATA);
     settings.getOutputWeatherToChat.mockReturnValue(true);
 
     weatherTracker.generate();
@@ -58,7 +58,7 @@ describe('WeatherTracker', () => {
   });
 
   it('SHOULD save weather data after generating', () => {
-    weatherTracker.loadWeatherData(WEATHER_DATA);
+    weatherTracker.setWeatherData(WEATHER_DATA);
     weatherTracker.generate();
     expect(settings.setWeatherData).toHaveBeenCalled();
   });
