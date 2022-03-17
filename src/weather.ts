@@ -4,7 +4,6 @@ import { SimpleCalendarPresenter } from './libraries/simple-calendar/simple-cale
 import { Log } from './logger/logger';
 import { CurrentDate, RawDate } from './models/currentDate';
 import { Climates, WeatherData } from './models/weatherData';
-import { Notices } from './notices/notices';
 import { ChatProxy } from './proxies/chatProxy';
 import { ModuleSettings } from './settings/module-settings';
 import { WeatherTracker } from './weather/weatherTracker';
@@ -16,26 +15,16 @@ import { WeatherTracker } from './weather/weatherTracker';
 export class Weather {
   private weatherTracker: WeatherTracker;
   private weatherApplication: WeatherApplication;
-  private notices: Notices;
 
   constructor(private gameRef: Game, private chatProxy: ChatProxy, private logger: Log, private settings: ModuleSettings) {
     this.weatherTracker = new WeatherTracker(this.gameRef, this.chatProxy, this.settings);
     this.logger.info('Init completed');
   }
 
-  public onReady() {
-    return new Promise<void>((resolve, reject) => {
-      this.initializeWeatherData().then(() => {
-        try {
-          this.initializeWeatherApplication();
-          resolve();
-        } catch {
-          reject();
-        }
-      });
-    });
+  public async onReady() {
+    await this.initializeWeatherData();
+    this.initializeWeatherApplication();
   }
-
 
   public onDateTimeChange(currentDate: CurrentDate) {
     this.logger.info('DateTime has changed', currentDate);
@@ -75,23 +64,21 @@ export class Weather {
     return this.settings.getCalendarDisplay() || this.gameRef.user.isGM;
   }
 
-  private initializeWeatherData(): Promise<void> {
+  private async initializeWeatherData() {
     let weatherData = this.settings.getWeatherData();
 
     if (this.isWeatherDataValid(weatherData)) {
       this.logger.info('Using saved weather data');
-      this.weatherTracker.loadWeatherData(weatherData);
+      this.weatherTracker.setWeatherData(weatherData);
     } else {
       this.logger.info('No saved weather data - Generating weather');
 
       weatherData = new WeatherData();
       weatherData.currentDate = SimpleCalendarPresenter.timestampToDate(SimpleCalendarApi.timestamp());
+      this.weatherTracker.setWeatherData(weatherData);
+      weatherData = this.weatherTracker.generate(Climates.temperate);
+      await this.settings.setWeatherData(weatherData);
     }
-
-    return this.settings.setWeatherData(weatherData).then(() => {
-      this.weatherTracker.loadWeatherData(weatherData);
-      this.weatherTracker.generate(Climates.temperate);
-    });
   }
 
   private initializeWeatherApplication() {

@@ -16,7 +16,7 @@ export class WeatherTracker {
     this.precipitations = new PrecipitationsGenerator(this.gameRef);
   }
 
-  public loadWeatherData(weatherData: WeatherData) {
+  public setWeatherData(weatherData: WeatherData) {
     this.weatherData = weatherData;
   }
 
