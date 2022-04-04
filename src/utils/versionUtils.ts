@@ -11,7 +11,7 @@ export abstract class VersionUtils {
 
   private static compareSemver(a, b) {
     let i, diff;
-    const regExStrip0 = /(\.0+)+$/;
+    const regExStrip0 = /^[vV]|(\.0+)+$/;
     const segmentsA = a.replace(regExStrip0, '').split('.');
     const segmentsB = b.replace(regExStrip0, '').split('.');
     const l = Math.min(segmentsA.length, segmentsB.length);

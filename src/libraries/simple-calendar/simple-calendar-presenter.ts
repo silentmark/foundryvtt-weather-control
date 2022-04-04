@@ -6,7 +6,6 @@ import { Date } from './dateTime';
 export abstract class SimpleCalendarPresenter {
 
   public static createDateObject(rawDate: Date): CurrentDate {
-    console.log('rawDate', rawDate)
     const date: CurrentDate = new CurrentDate();
     date.raw = {
       year: rawDate.year,
