@@ -91,6 +91,7 @@
 		<div id="weather-container">
 			<header>
 				<span id="current-temperature">24.5°C</span>
+				{{#if isGM}}
 				<select id="climate-selection" title="{{localize 'wctrl.weather.SelectClimate'}}">
 				<option title="{{localize 'wctrl.weather.climate.description.Temperate'}}" value="temperate">{{localize 'wctrl.weather.climate.Temperate'}}</option>
 				<option title="{{localize 'wctrl.weather.climate.description.TemperateMountain'}}" value="temperateMountain">{{localize 'wctrl.weather.climate.TemperateMountain'}}</option>
@@ -101,7 +102,6 @@
 				<option title="{{localize 'wctrl.weather.climate.description.Volcanic'}}" value="volcanic">{{localize 'wctrl.weather.climate.Volcanic'}}</option>
 				<option title="{{localize 'wctrl.weather.climate.description.Polar'}}" value="polar">{{localize 'wctrl.weather.climate.Polar'}}</option>
 				</select>
-				{{#if isGM}}
 				<div class="weather-refresh calendar-btn" id="weather-regenerate" title="{{localize 'wctrl.weather.RegenerateWeather'}}">
 					<i class="fas fa-redo"></i>
 				</div>
