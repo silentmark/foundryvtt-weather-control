@@ -144,7 +144,7 @@ export class WeatherApplication extends Application {
 
   private setClimate(html: JQuery) {
     const climateSelection = '#climate-selection';
-    const climateName = this.settings.getWeatherData().climate?.name || Climates.temperate;
+    const climateName = this.weatherTracker.getWeatherData().climate?.name || Climates.temperate;
     html.find(climateSelection).val(climateName);
   }
 

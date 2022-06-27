@@ -49,6 +49,7 @@ describe('Weather', () => {
     moduleSettings.getWeatherData = jest.fn().mockReturnValue({ version: 999 });
     moduleSettings.setWeatherData = jest.fn().mockReturnValue(new Promise<void>(resolve => resolve()));
     weather = new Weather(game, chatProxy, log, moduleSettings);
+    getWeatherTracker().setWeatherData(WEATHER_DATA);
   });
 
   it('SHOULD call the weatherTracker when weather need to be generated', () => {
@@ -101,6 +102,21 @@ describe('Weather', () => {
     weather.onDateTimeChange(givenADifferentDateTime());
 
     expect(weatherTracker.generate).toHaveBeenCalled();
+  });  
+  
+  it('SHOULD NOT call generate new weather multiple times when onDateTimeChange is called multiple times', () => {
+    game.user = { isGM: true };
+    givenAWeatherApplicationMock();
+    givenModuleSettingsWithDateTime();
+    const weatherTracker = getWeatherTracker();
+    const newDateTime = givenADifferentDateTime();
+    weatherTracker.generate = jest.fn().mockReturnValue({currentDate: newDateTime});
+
+    for (let i = 0; i < 3; ++i) {
+      weather.onDateTimeChange(newDateTime);
+    }
+
+    expect(weatherTracker.generate).toBeCalledTimes(1);
   });
 
   describe('weather application', () => {

@@ -21,25 +21,30 @@ export class Weather {
     this.logger.info('Init completed');
   }
 
+  private isUserGM(): boolean {
+    return this.gameRef.user.isGM;
+  }
+
   public async onReady() {
     await this.initializeWeatherData();
     this.initializeWeatherApplication();
   }
 
   public onDateTimeChange(currentDate: CurrentDate) {
-    this.logger.info('DateTime has changed', currentDate);
-    let weather = this.mergePreviousDateTimeWithNewOne(currentDate);
+    let newWeatherData = this.mergePreviousDateTimeWithNewOne(currentDate);
 
-    if (this.hasDateChanged(currentDate) && this.gameRef.user.isGM) {
-      weather = this.weatherTracker.generate();
-      weather.currentDate.raw.day = currentDate.raw.day;
-      weather.currentDate.raw.month = currentDate.raw.month;
-      weather.currentDate.raw.year = currentDate.raw.year;
-      this.logger.info('Generated new weather');
+    if (this.hasDateChanged(currentDate)) {
+      this.logger.info('DateTime has changed');
+      this.weatherTracker.setWeatherData(newWeatherData);
+
+      if (this.isUserGM()) {
+        newWeatherData = this.weatherTracker.generate();
+        this.logger.info('Generated new weather');
+      }
     }
 
-    if (this.gameRef.user.isGM) {
-      this.settings.setWeatherData(weather);
+    if (this.isUserGM()) {
+      this.weatherTracker.setWeatherData(newWeatherData);
     }
 
     if (this.isWeatherApplicationAvailable()) {
@@ -61,7 +66,7 @@ export class Weather {
   }
 
   private isWeatherApplicationAvailable(): boolean {
-    return this.settings.getCalendarDisplay() || this.gameRef.user.isGM;
+    return this.settings.getCalendarDisplay() || this.isUserGM();
   }
 
   private async initializeWeatherData() {
@@ -97,11 +102,11 @@ export class Weather {
   }
 
   private mergePreviousDateTimeWithNewOne(currentDate: CurrentDate): WeatherData {
-    return Object.assign({}, this.settings.getWeatherData(), {currentDate});
+    return Object.assign({}, this.weatherTracker.getWeatherData(), {currentDate});
   }
 
   private hasDateChanged(currentDate: CurrentDate): boolean {
-    const previous = this.settings.getWeatherData().currentDate?.raw;
+    const previous = this.weatherTracker.getWeatherData().currentDate?.raw;
     const date = currentDate.raw;
 
     if (this.isDateTimeValid(currentDate.raw)) {
@@ -134,6 +139,6 @@ export class Weather {
 
   private updateWeatherDisplay(dateTime: CurrentDate) {
     this.weatherApplication.updateDateTime(dateTime);
-    this.weatherApplication.updateWeather(this.settings.getWeatherData());
+    this.weatherApplication.updateWeather(this.weatherTracker.getWeatherData());
   }
 }
