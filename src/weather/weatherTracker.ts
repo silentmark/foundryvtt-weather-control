@@ -16,8 +16,13 @@ export class WeatherTracker {
     this.precipitations = new PrecipitationsGenerator(this.gameRef);
   }
 
+  public getWeatherData(): WeatherData {
+    return this.weatherData;
+  }
+
   public setWeatherData(weatherData: WeatherData) {
     this.weatherData = weatherData;
+    this.settings.setWeatherData(weatherData);
   }
 
   public generate(newClimate?: Climates): WeatherData {
@@ -59,7 +64,7 @@ export class WeatherTracker {
       this.output();
     }
 
-    this.settings.setWeatherData(this.weatherData);
+    this.setWeatherData(this.weatherData);
     return this.weatherData;
   }
 

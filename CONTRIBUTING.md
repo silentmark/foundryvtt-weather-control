@@ -10,6 +10,7 @@ Reading and following these guidelines will help us make the contribution proces
   - [Quicklinks](#quicklinks)
   - [Code of Conduct](#code-of-conduct)
   - [Getting Started](#getting-started)
+    - [Building](#building)
     - [Issues](#issues)
     - [Commits](#commits)
     - [Pull Requests](#pull-requests)
@@ -36,7 +37,7 @@ In order to build weather-control, you'll need to
 To use a fully automated development environment with a hot-reload of files in FoundryVTT, you can follow the following instructions (on Linux).
 1. Download the "Linux/NodeJS" version of FoundryVTT from [foundryvtt.com](https://foundryvtt.com).
 1. Unzip the foundryvtt.zip folder at $HOME/foundryvtt/fvtt.
-2. Run `npm run docker:build` and `npm run docker start`.
+2. Run `npm run docker:build` and `npm run docker:start`.
 3. FoundryVTT will start without a window, but will be accessible via http://127.0.0.1:30000 (or http://localhost:30000).
 4. You will need to enter your license key. Weather Control will be automatically installed, but you will need to install a game system and the Simple Calendar plugin before testing.
 
