@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sleep 1
 # Set permissions.
 mkdir -p /foundry/fvtt /foundry/data
@@ -8,5 +10,5 @@ chmod +x /foundry/
 echo "INFO ! Starting FoundryVTT Server"
 echo " "
 
-su foundry -c 'node /foundry/fvtt/resources/app/main.js --dataPath=/foundry/data'
+su foundry -c 'node /foundry/fvtt/resources/app/main.js --dataPath=/foundry/data --ignore-gpu-blacklist'
 exit

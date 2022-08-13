@@ -1,6 +1,5 @@
 FROM alpine:3.14.2
 
-
 ENV PUID=1000
 ENV GUID=100
 
