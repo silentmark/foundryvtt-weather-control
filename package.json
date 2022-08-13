@@ -1,7 +1,7 @@
 {
   "name": "weather-control",
   "title": "Weather Control",
-  "version": "4.1.6",
+  "version": "4.1.7",
   "description": "A module for FoundryVTT that adds a calendar widget with weather, moons cycles, and a customizable calendar.",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "test:pipeline": "jest --ci --collect-coverage --reporters=default --reporters=jest-junit",
     "test:watch": "jest --watch",
     "docker": "npm run docker:start",
-    "docker:start": "docker run -ti -v ${npm_config_foundrydir}:/foundry -p ${npm_config_foundryport}:30000 foundryvtt-dev",
+    "docker:start": "docker run -ti -v ${npm_config_foundrydir}:/foundry -v $(pwd)/dist:/foundry/data/Data/modules/weather-control -p ${npm_config_foundryport}:30000 foundryvtt-dev",
     "docker:build": "docker build -t foundryvtt-dev -f ./Dockerfile .",
     "version": "node ./scripts/increment-version.js"
   },
