@@ -29,7 +29,7 @@
   "wctrl.seasons.SeasonDayStart": "这个季节从哪一天开始？",
   "wctrl.seasons.SeasonHourBright": "输入日出时间",
   "wctrl.seasons.SeasonHourDark": "输入日落时间",
-  "wctrl.seasons.SeasonIntro": "输入每个季节的开始日期和气候调整。颜色下拉菜单会改变天气图标的颜色，以便直观地显示季节。在 "Table "中输入@RollTable[]将禁用高级天气生成，取而代之的，天气将通过该表生成。注意这将禁用FXMaster的集成。",
+  "wctrl.seasons.SeasonIntro": "输入每个季节的开始日期和气候调整。颜色下拉菜单会改变天气图标的颜色，以便直观地显示季节。在表中输入@RollTable[]将禁用高级天气生成，取而代之的，天气将通过该表生成。注意这将禁用FXMaster的集成。",
   "wctrl.seasons.SeasonMonthStart": "这个季节从哪一个月开始？",
   "wctrl.seasons.SeasonName": "输入季节的名字：",
   "wctrl.seasons.SeasonRolltable" : "可选：输入@RollTable[]将禁用高级天气生成，取而代之的，天气将通过该随机表生成。",
