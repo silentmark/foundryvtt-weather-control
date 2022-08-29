@@ -1,15 +1,22 @@
 {
+  "id": "weather-control",
+  "## comment:name": "deprecated, remove after v13 release",
   "name": "weather-control",
   "class": "WeatherControl",
   "title": "Weather Control",
   "description": "Add dynamic weather to your FoundryVTT world.",
   "version": "4.1.7",
-  "minimumCoreVersion": "0.7.0",
-  "compatibleCoreVersion": "9",
+  "## comment:minimumCoreVersion": "deprecated, remove after v13 release",
+  "minimumCoreVersion": "0.8.0",
+  "## comment:compatibleCoreVersion": "deprecated, remove after v13 release",
+  "compatibleCoreVersion": "10",
+  "compatibility": {
+    "minimum": "0.8.0",
+    "verified": "10"
+  },
   "versionsWithNotices": [
     "4.0.1"
   ],
-  "author": "The Bird",
   "authors": [
     {
       "name": "Julien Stébennne",
@@ -74,10 +81,21 @@
       "path": "lang/zh-cn.json"
     }
   ],
+  "## comment:dependencies": "deprecated, remove after v13 release",
   "dependencies": [
     {
       "name": "foundryvtt-simple-calendar",
       "manifest": "https://github.com/vigoren/foundryvtt-simple-calendar/releases/latest/download/module.json"
     }
-  ]
+  ],
+  "relationships": {
+    "requires": [{
+      "id": "foundryvtt-simple-calendar",
+      "type": "module",
+      "manifest": "https://github.com/vigoren/foundryvtt-simple-calendar/releases/latest/download/module.json",
+      "compatiblity": {
+        "verified": "2.0.30"
+      }
+    }]
+  }
 }
