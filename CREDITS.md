@@ -2,7 +2,7 @@
 
 ## Current maintainers
 
-### Julien Stébenne
+### Julien Stébenne (AKA The Bird)
 
 The current owner of the module.
 
@@ -15,19 +15,28 @@ The current owner of the module.
 - GitLab: [GitLab.com/geekswordman](https://gitlab.com/geekswordsman)
 - Discord: Geekswordsman#3085
 
+## Translators
+
+The module is available in multiple languages thanks to these contributors.
+
+| Language                  | Translator(s)                                                   |
+|---------------------------|-----------------------------------------------------------------|
+| French (fr)               | [Julien Stébenne (The Bird#8334)](https://gitlab.com/jstebenne) |
+| German (de)               | Arne                                                            |
+| Korean (ko)               |                                                                 |
+| Japanese (ja)             |                                                                 |
+| Portuguese Brasil (pt-BR) | Renato Innocenti                                                |
+| Spanish (es)              | Jose Lozano                                                     |
+| Polski (pl)               | Marek Kembrowski                                                |
+| Traditional Chinese (zh)  | [Kuroni Kobayakawa](https://gitlab.com/kobayakawakuroni)        |
+
 ## Used modules
 
-### About time
-
-We heavily rely on [About-Time](https://gitlab.com/tposney/about-time) by [Tim Posney](https://gitlab.com/tposney) to keep track of time.
-
-### FXMaster
-
-To add weather effects we use [FXMaster](https://gitlab.com/mesfoliesludiques/foundryvtt-fxmaster) by U~[man](https://gitlab.com/mesfoliesludiques).
+### Simple Calender
 
 ## Original Author
 
-This module would not exist without the work of [DasSauerkraut](https://github.com/DasSauerkraut). Everything thing done in version 3.1.1 and ealier was made by him and other [contributors](https://github.com/DasSauerkraut/calendar-weather/graphs/contributors).
+This module would not exist without the work of [DasSauerkraut](https://github.com/DasSauerkraut). Everything done in version 3.1.1 and earlier was made by him and other [contributors](https://github.com/DasSauerkraut/calendar-weather/graphs/contributors).
 
 ## And many others
 
