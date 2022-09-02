@@ -38,8 +38,8 @@ export class Weather {
       this.weatherTracker.setWeatherData(newWeatherData);
 
       if (this.isUserGM()) {
+        this.logger.info('Generate new weather');
         newWeatherData = this.weatherTracker.generate();
-        this.logger.info('Generated new weather');
       }
     }
 
@@ -75,7 +75,7 @@ export class Weather {
     if (this.isWeatherDataValid(weatherData)) {
       this.logger.info('Using saved weather data');
       this.weatherTracker.setWeatherData(weatherData);
-    } else {
+    } else if (this.isUserGM()) {
       this.logger.info('No saved weather data - Generating weather');
 
       weatherData = new WeatherData();

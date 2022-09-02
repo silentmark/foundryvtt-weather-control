@@ -19,7 +19,7 @@ export class ModuleSettings {
   }
 
   public isSettingValueEmpty(setting: any): boolean {
-    return Object.keys(setting).length === 0;
+    return Object.keys(setting).length === 0 || setting === null || setting === undefined;
   }
 
   public getModuleName(): string {
@@ -77,7 +77,7 @@ export class ModuleSettings {
     this.set(SettingKeys.noticeVersion, list);
   }
 
-  private register(settingKey: string, settingConfig: ClientSettings.PartialSetting) {
+  private register(settingKey: string, settingConfig: ClientSettings.PartialSettingConfig) {
     this.gameRef.settings.register(this.getModuleName(), settingKey, settingConfig);
   }
 
@@ -95,6 +95,7 @@ export class ModuleSettings {
       scope: 'client',
       config: false,
       type: Object,
+      default: { top: 100, lefT: 100 }
     });
 
     this.register(SettingKeys.weatherData, {
@@ -102,6 +103,7 @@ export class ModuleSettings {
       scope: 'world',
       config: false,
       type: Object,
+      default: new WeatherData()
     });
 
     this.register(SettingKeys.weatherData + 'Backup', {
@@ -109,6 +111,7 @@ export class ModuleSettings {
       scope: 'world',
       config: false,
       type: Object,
+      default: null
     });
 
     this.register(SettingKeys.noticeVersion, {
