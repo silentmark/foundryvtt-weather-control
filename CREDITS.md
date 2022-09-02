@@ -32,7 +32,11 @@ The module is available in multiple languages thanks to these contributors.
 
 ## Used modules
 
-### Simple Calender
+### Simple Calendar
+
+Weather Control heavily relies on [Simple Calendar](https://github.com/vigoren/foundryvtt-simple-calendar) by [Vigoren](https://github.com/vigoren). Without his incredible work handling date and time (which is known to be very hard to do in the programming world) and providing an API for it all, this module would be much harder to develop and maintain.
+
+Please buy him a [coffee](https://ko-fi.com/vigorator) or join his [Patreon](https://www.patreon.com/vigorator)!
 
 ## Original Author
 
