@@ -2,7 +2,7 @@
 
 ## Current maintainers
 
-### Julien Stébenne
+### Julien Stébenne (AKA The Bird)
 
 The current owner of the module.
 
@@ -15,19 +15,32 @@ The current owner of the module.
 - GitLab: [GitLab.com/geekswordman](https://gitlab.com/geekswordsman)
 - Discord: Geekswordsman#3085
 
+## Translators
+
+The module is available in multiple languages thanks to these contributors.
+
+| Language                  | Translator(s)                                                               |
+|---------------------------|-----------------------------------------------------------------------------|
+| French (fr)               | [Julien Stébenne (The Bird#8334)](https://gitlab.com/jstebenne)             |
+| German (de)               | Arne                                                                        |
+| Korean (ko)               |                                                                             |
+| Japanese (ja)             |                                                                             |
+| Portuguese Brasil (pt-BR) | Renato Innocenti                                                            |
+| Spanish (es)              | Jose Lozano                                                                 |
+| Polski (pl)               | Marek Kembrowski                                                            |
+| Simplified Chinese (zh)   | [Kuroni Kobayakawa(Kuroni#5674)](https://gitlab.com/kobayakawakuroni)       |
+
 ## Used modules
 
-### About time
+### Simple Calendar
 
-We heavily rely on [About-Time](https://gitlab.com/tposney/about-time) by [Tim Posney](https://gitlab.com/tposney) to keep track of time.
+Weather Control heavily relies on [Simple Calendar](https://github.com/vigoren/foundryvtt-simple-calendar) by [Vigoren](https://github.com/vigoren). Without his incredible work handling date and time (which is known to be very hard to do in the programming world) and providing an API for it all, this module would be much harder to develop and maintain.
 
-### FXMaster
-
-To add weather effects we use [FXMaster](https://gitlab.com/mesfoliesludiques/foundryvtt-fxmaster) by U~[man](https://gitlab.com/mesfoliesludiques).
+Please buy him a [coffee](https://ko-fi.com/vigorator) or join his [Patreon](https://www.patreon.com/vigorator)!
 
 ## Original Author
 
-This module would not exist without the work of [DasSauerkraut](https://github.com/DasSauerkraut). Everything thing done in version 3.1.1 and ealier was made by him and other [contributors](https://github.com/DasSauerkraut/calendar-weather/graphs/contributors).
+This module would not exist without the work of [DasSauerkraut](https://github.com/DasSauerkraut). Everything done in version 3.1.1 and earlier was made by him and other [contributors](https://github.com/DasSauerkraut/calendar-weather/graphs/contributors).
 
 ## And many others
 
