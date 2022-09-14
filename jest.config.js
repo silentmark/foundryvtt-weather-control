@@ -24,5 +24,6 @@ module.exports = {
   moduleNameMapper: {
     '^src/(.*)$': '<rootDir>/src/$1',
     ...pathsToModuleNameMapper(compilerOptions.paths , { prefix: '<rootDir>/' } ),
-  }
+  },
+  testEnvironment: 'jsdom'
 };

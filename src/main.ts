@@ -51,6 +51,7 @@ Hooks.once('simple-calendar-ready', () => {
 function initializeModule() {
   const moduleSettings = new ModuleSettings(getGame());
   initializeNotices(moduleSettings);
+
   applyMigrations(moduleSettings).then(() => {
     weather = new Weather(getGame(), chatProxy, logger, moduleSettings);
 
