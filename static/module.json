@@ -76,9 +76,9 @@
       "path": "lang/pl.json"
     },
     {
-      "lang": "zh-CN",
+      "lang": "cn",
       "name": "简体中文",
-      "path": "lang/zh-cn.json"
+      "path": "lang/cn.json"
     }
   ],
   "## comment:dependencies": "deprecated, remove after v13 release",

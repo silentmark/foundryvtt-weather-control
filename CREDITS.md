@@ -19,16 +19,16 @@ The current owner of the module.
 
 The module is available in multiple languages thanks to these contributors.
 
-| Language                  | Translator(s)                                                   |
-|---------------------------|-----------------------------------------------------------------|
-| French (fr)               | [Julien Stébenne (The Bird#8334)](https://gitlab.com/jstebenne) |
-| German (de)               | Arne                                                            |
-| Korean (ko)               |                                                                 |
-| Japanese (ja)             |                                                                 |
-| Portuguese Brasil (pt-BR) | Renato Innocenti                                                |
-| Spanish (es)              | Jose Lozano                                                     |
-| Polski (pl)               | Marek Kembrowski                                                |
-| Traditional Chinese (zh)  | [Kuroni Kobayakawa](https://gitlab.com/kobayakawakuroni)        |
+| Language                  | Translator(s)                                                               |
+|---------------------------|-----------------------------------------------------------------------------|
+| French (fr)               | [Julien Stébenne (The Bird#8334)](https://gitlab.com/jstebenne)             |
+| German (de)               | Arne                                                                        |
+| Korean (ko)               |                                                                             |
+| Japanese (ja)             |                                                                             |
+| Portuguese Brasil (pt-BR) | Renato Innocenti                                                            |
+| Spanish (es)              | Jose Lozano                                                                 |
+| Polski (pl)               | Marek Kembrowski                                                            |
+| Simplified Chinese (zh)   | [Kuroni Kobayakawa(Kuroni#5674)](https://gitlab.com/kobayakawakuroni)       |
 
 ## Used modules
 
