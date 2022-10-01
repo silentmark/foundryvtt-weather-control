@@ -1,9 +1,5 @@
 image: debian:stable-slim
 
-before_script:
-  - apt-get update -y
-  - apt-get install -y zip
-
 stages:
   - install
   - test
@@ -59,11 +55,15 @@ build:
 pack:
   image: debian:stable-slim
   stage: pack
+  before_script:
+    - apt-get update -y
+    - apt-get install -y zip
+    - echo $CI_JOB_ID
+    - echo PACK_JOB_ID=$CI_JOB_ID >> pack.env
   script:
     - cd dist
     - zip -r weather-control.zip *
     - mv weather-control.zip ../weather-control.zip
-    - echo PACK_JOB_ID=$CI_JOB_ID >> pack.env
   artifacts:
     name: weather-control
     when: on_success
@@ -84,6 +84,8 @@ pack-mr:
   image: debian:stable-slim
   stage: pack
   script:
+    - apt-get update -y
+    - apt-get install -y zip
     - cd dist
     - zip -r weather-control.zip *
     - mv weather-control.zip ../weather-control.zip
@@ -100,7 +102,7 @@ pack-mr:
     - branches
 
 create-release:
-  image: registry.gitlab.com/gitlab-org/release-cli:v0.13.0
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
   stage: release
   only:
     - tags
