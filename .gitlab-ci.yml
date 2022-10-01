@@ -63,7 +63,7 @@ pack:
     - cd dist
     - zip -r weather-control.zip *
     - mv weather-control.zip ../weather-control.zip
-    - echo PACK_JOB_ID=$CI_JOB_ID >> generate_executables.env
+    - echo PACK_JOB_ID=$CI_JOB_ID >> pack.env
   artifacts:
     name: weather-control
     when: on_success
@@ -100,7 +100,7 @@ pack-mr:
     - branches
 
 create-release:
-  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  image: registry.gitlab.com/gitlab-org/release-cli:v0.13.0
   stage: release
   only:
     - tags
