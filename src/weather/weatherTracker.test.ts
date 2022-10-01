@@ -1,3 +1,5 @@
+import { Climate } from 'src/models/climate';
+
 import { WeatherData } from '../models/weatherData';
 import { ChatProxy } from '../proxies/chatProxy';
 import { ModuleSettings } from '../settings/module-settings';
@@ -6,7 +8,7 @@ import { WeatherTracker } from './weatherTracker';
 
 const game = gameMock();
 
-const WEATHER_DATA: WeatherData = {
+const WEATHER_DATA: WeatherData = new WeatherData({
   version: 1,
   currentDate: {
     raw: {
@@ -24,13 +26,13 @@ const WEATHER_DATA: WeatherData = {
       time: 'the full time',
     }
   },
-  climate: null,
+  climate: new Climate(),
   isVolcanic: false,
   lastTemp: 50,
   precipitation: null,
   temp: 50,
   tempRange: { min: 30, max: 90 },
-};
+});
 
 describe('WeatherTracker', () => {
   let weatherTracker: WeatherTracker;

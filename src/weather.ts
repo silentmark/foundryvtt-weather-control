@@ -73,12 +73,11 @@ export class Weather {
     let weatherData = this.settings.getWeatherData();
 
     if (this.isWeatherDataValid(weatherData)) {
-      this.logger.info('Using saved weather data');
+      this.logger.info('Using saved weather data', weatherData);
       this.weatherTracker.setWeatherData(weatherData);
     } else if (this.isUserGM()) {
       this.logger.info('No saved weather data - Generating weather');
 
-      weatherData = new WeatherData();
       weatherData.currentDate = SimpleCalendarPresenter.timestampToDate(SimpleCalendarApi.timestamp());
       this.weatherTracker.setWeatherData(weatherData);
       weatherData = this.weatherTracker.generate(Climates.temperate);
@@ -133,8 +132,8 @@ export class Weather {
     return value !== undefined && value !== null;
   }
 
-  private isWeatherDataValid(weatherData: WeatherData | ''): boolean {
-    return !this.settings.isSettingValueEmpty(weatherData);
+  private isWeatherDataValid(weatherData: WeatherData): boolean {
+    return !!weatherData.temp;
   }
 
   private updateWeatherDisplay(dateTime: CurrentDate) {

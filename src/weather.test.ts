@@ -1,5 +1,6 @@
 import { WeatherApplication } from './applications/weatherApplication';
 import { Log } from './logger/logger';
+import { Climate } from './models/climate';
 import { CurrentDate, RawDate } from './models/currentDate';
 import { WeatherData } from './models/weatherData';
 import { ChatProxy } from './proxies/chatProxy';
@@ -8,7 +9,7 @@ import { gameMock, mockClass } from './utils/testUtils';
 import { Weather } from './weather';
 import { WeatherTracker } from './weather/weatherTracker';
 
-const WEATHER_DATA: WeatherData = {
+const WEATHER_DATA: WeatherData = new WeatherData({
   version: 1,
   currentDate: {
     raw: {
@@ -26,12 +27,18 @@ const WEATHER_DATA: WeatherData = {
       time: 'the full time',
     }
   },
-  climate: null,
+  climate: new Climate(),
   isVolcanic: false,
   lastTemp: 50,
   precipitation: null,
   temp: 50,
   tempRange: { min: 30, max: 90 },
+});
+
+const fakeDateObject = {
+  display: {
+    month: 1
+  }
 };
 
 describe('Weather', () => {
@@ -40,6 +47,15 @@ describe('Weather', () => {
   let game;
   let chatProxy;
   let moduleSettings;
+
+  beforeAll(() => {
+    window.SimpleCalendar = {
+      api: {
+        timestamp: jest.fn(),
+        timestampToDate: jest.fn().mockReturnValue(fakeDateObject),
+      }
+    };
+  });
 
   beforeEach(() => {
     game = gameMock();
@@ -102,8 +118,8 @@ describe('Weather', () => {
     weather.onDateTimeChange(givenADifferentDateTime());
 
     expect(weatherTracker.generate).toHaveBeenCalled();
-  });  
-  
+  });
+
   it('SHOULD NOT call generate new weather multiple times when onDateTimeChange is called multiple times', () => {
     game.user = { isGM: true };
     givenAWeatherApplicationMock();

@@ -1,9 +1,24 @@
 import { gameMock } from '../utils/testUtils';
 import { ModuleSettings, SettingKeys } from './module-settings';
 
+const fakeDateObject = {
+  display: {
+    month: 1
+  }
+};
+
 describe('Settings', () => {
   let game;
   let settings: ModuleSettings;
+
+  beforeAll(() => {
+    window.SimpleCalendar = {
+      api: {
+        timestamp: jest.fn(),
+        timestampToDate: jest.fn().mockReturnValue(fakeDateObject),
+      }
+    };
+  });
 
   beforeEach(() => {
     game = gameMock();

@@ -5,7 +5,7 @@
   "class": "WeatherControl",
   "title": "Weather Control",
   "description": "Add dynamic weather to your FoundryVTT world.",
-  "version": "4.1.8",
+  "version": "4.1.9",
   "## comment:minimumCoreVersion": "deprecated, remove after v13 release",
   "minimumCoreVersion": "0.8.0",
   "## comment:compatibleCoreVersion": "deprecated, remove after v13 release",
@@ -26,7 +26,7 @@
   ],
   "url": "https://gitlab.com/jstebenne/foundryvtt-weather-control",
   "manifest": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/raw/master/static/module.json",
-  "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v4.1.8/raw/weather-control.zip?job=pack",
+  "download": "https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/artifacts/v4.1.9/raw/weather-control.zip?job=pack",
   "esmodules": [
     "weather-control.js"
   ],

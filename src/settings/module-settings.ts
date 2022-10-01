@@ -1,4 +1,7 @@
 import moduleJson from '@module';
+import { SimpleCalendarApi } from 'src/libraries/simple-calendar/api';
+import { SimpleCalendarPresenter } from 'src/libraries/simple-calendar/simple-calendar-presenter';
+import { Climate } from 'src/models/climate';
 
 import { WeatherData } from '../models/weatherData';
 import { WindowPosition } from '../models/windowPosition';
@@ -35,7 +38,7 @@ export class ModuleSettings {
   }
 
   public getWeatherData(): WeatherData {
-    return this.get(SettingKeys.weatherData);
+    return new WeatherData(this.get(SettingKeys.weatherData));
   }
 
   public setWeatherData(value: WeatherData): Promise<void> {
@@ -43,7 +46,7 @@ export class ModuleSettings {
   }
 
   public getWindowPosition(): WindowPosition {
-    return this.get(SettingKeys.windowPosition);
+    return this.get(SettingKeys.windowPosition) as any;
   }
 
   public setWindowPosition(position: WindowPosition) {
@@ -51,23 +54,23 @@ export class ModuleSettings {
   }
 
   public getCalendarDisplay(): boolean {
-    return this.get(SettingKeys.calendarDisplay);
+    return this.get(SettingKeys.calendarDisplay) as any;
   }
 
   public getOutputWeatherToChat(): boolean {
-    return this.get(SettingKeys.outputWeatherToChat);
+    return this.get(SettingKeys.outputWeatherToChat) as any;
   }
 
   public getUseCelcius(): boolean {
-    return this.get(SettingKeys.useCelcius);
+    return this.get(SettingKeys.useCelcius) as any;
   }
 
   public getPlayerSeeWeather(): boolean {
-    return this.get(SettingKeys.playerSeeWeatherInfo);
+    return this.get(SettingKeys.playerSeeWeatherInfo) as any;
   }
 
   public getListOfReadNoticesVersions(): Array<string> {
-    return this.get(SettingKeys.noticeVersion);
+    return this.get(SettingKeys.noticeVersion) as any;
   }
 
   public addVersionToReadNotices(version: string) {
@@ -81,7 +84,7 @@ export class ModuleSettings {
     this.gameRef.settings.register(this.getModuleName(), settingKey, settingConfig);
   }
 
-  private get(settingKey: SettingKeys): any {
+  private get(settingKey: SettingKeys): unknown {
     return this.gameRef.settings.get(this.getModuleName(), settingKey);
   }
 
@@ -103,7 +106,7 @@ export class ModuleSettings {
       scope: 'world',
       config: false,
       type: Object,
-      default: new WeatherData()
+      default: this.createDefaultWeatherData()
     });
 
     this.register(SettingKeys.weatherData + 'Backup', {
@@ -156,6 +159,20 @@ export class ModuleSettings {
       config: true,
       default: false,
       type: Boolean,
+    });
+  }
+
+  private createDefaultWeatherData(): WeatherData {
+    const currentDate = SimpleCalendarPresenter.timestampToDate(SimpleCalendarApi.timestamp());
+
+    return new WeatherData({
+      climate: new Climate(),
+      currentDate,
+      lastTemp: null,
+      precipitation: null,
+      temp: null,
+      tempRange: null,
+      version: 1
     });
   }
 }
