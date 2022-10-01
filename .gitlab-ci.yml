@@ -9,6 +9,7 @@ stages:
   - test
   - build
   - pack
+  - release
 
 install:
   image: node:17.5.0
@@ -62,12 +63,15 @@ pack:
     - cd dist
     - zip -r weather-control.zip *
     - mv weather-control.zip ../weather-control.zip
+    - echo PACK_JOB_ID=$CI_JOB_ID >> generate_executables.env
   artifacts:
     name: weather-control
     when: on_success
     expire_in: never
     paths:
       - weather-control.zip
+    reports:
+      dotenv: pack.env
   dependencies:
     - build
   needs:
@@ -94,3 +98,24 @@ pack-mr:
   when: manual
   only:
     - branches
+
+create-release:
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  stage: release
+  only:
+    - tags
+  needs:
+  - job: pack
+    artifacts: true
+  script:
+  - echo 'running release_job'
+  - echo 'Previous Job ID is printed below'
+  - echo $PACK_JOB_ID
+  release:
+    tag_name: '$CI_COMMIT_TAG'
+    description: 'Changelog TBD'
+    assets:
+      links:
+        - name: 'Module Download'
+          url: 'https://gitlab.com/jstebenne/foundryvtt-weather-control/-/jobs/${PACK_JOB_ID}/artifacts/raw/weather-control.zip'
+          link_type: other
