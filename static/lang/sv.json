@@ -7,12 +7,15 @@
 	"wctrl.calendar.Tuesday": "Tisdag",
 	"wctrl.calendar.Weather": "Väder",
 	"wctrl.calendar.Wednesday": "Onsdag",
+
 	"wctrl.misc.AboutTimeGitlab": "Öppna Gitlab-sidan nu",
 	"wctrl.misc.AboutTimeMissing": "About Time hittades inte",
 	"wctrl.misc.AboutTimeMissingHelp": "Calendar/Weather-modulen kräver AboutTime av Tim Posney för att fungera korrekt.",
 	"wctrl.misc.Disregard": "Ignorera detta meddelande",
 	"wctrl.misc.toggleControl": "Växla kalendern",
+
 	"wctrl.notice.Acknowledge": "Jag förstår. Visa inte detta igen.",
+
 	"wctrl.seasons.AddSeason": "Lägg till en årstid",
 	"wctrl.seasons.Delete": "Ta bort årstid",
 	"wctrl.seasons.DrierOrWetter": "Är årstiden torrare eller blötare än genomsnittet?",
@@ -33,6 +36,7 @@
 	"wctrl.seasons.color.red": "Röd",
 	"wctrl.seasons.color.white": "Vit",
 	"wctrl.seasons.color.yellow": "Gul",
+
 	"wctrl.settings.DisplayWindowNonGM": "Kalendervisning för icke-GM",
 	"wctrl.settings.DisplayWindowNonGMHelp": "Om aktiverad, kommer klienter utan behörigheter på GM-nivå att kunna se kalendern som visas",
 	"wctrl.settings.NightCycleLabel": "Scen Natt cykel",
@@ -47,6 +51,7 @@
 	"wctrl.settings.playerSeeWeatherHelp": "Om aktiverad, kan spelare växla sidopanelen för att visa väderinformation",
 	"wctrl.settings.useCelcius": "Använd Celcius",
 	"wctrl.settings.useCelciusHelp": "Använd Celcius för att visa temperaturen",
+
 	"wctrl.time.AM": "AM",
 	"wctrl.time.Advance15minutes": "Avancera 15 minuter",
 	"wctrl.time.Advance1hour": "Avancera 1 timme",
@@ -64,6 +69,7 @@
 	"wctrl.time.Second": ":a",
 	"wctrl.time.StartStopPseudo": "Stoppa/starta pseudo-realtid klocka.",
 	"wctrl.time.Third": ":e",
+
 	"wctrl.weather.RegenerateWeather": "Återskapa väder",
 	"wctrl.weather.SelectClimate": "Välj ett klimat",
 	"wctrl.weather.SwitchUnit": "Växla mellan °F and °C",
