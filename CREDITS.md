@@ -28,6 +28,7 @@ The module is available in multiple languages thanks to these contributors.
 | Portuguese Brasil (pt-BR) | Renato Innocenti                                                            |
 | Spanish (es)              | Jose Lozano                                                                 |
 | Polski (pl)               | Marek Kembrowski                                                            |
+| Svenska (sv)              | Marcus Nilsson (SwedishRabbit)                                              |
 | Simplified Chinese (zh)   | [Kuroni Kobayakawa(Kuroni#5674)](https://gitlab.com/kobayakawakuroni)       |
 
 ## Used modules
